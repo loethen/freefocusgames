@@ -383,7 +383,6 @@
       "tracking": "Track them carefully!",
       "selection": "Select the fish that glowed!",
       "success": "All glowing fish selected successfully!",
-      "fail": "Game Over! Score: ",
       "scorePrefix": "Score:",
       "startBtn": "START",
       "confirmSelection": "Confirm Selection",

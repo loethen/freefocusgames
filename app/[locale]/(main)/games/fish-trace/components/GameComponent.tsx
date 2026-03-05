@@ -143,10 +143,10 @@ export default function GameComponent() {
         const missedTargets = fishes.filter(f => f.isTarget && !f.isSelected).length;
 
         if (wrongSelections === 0 && missedTargets === 0) {
-            setMessage(t('success') || "成功选出所有发光小鱼！");
+            setMessage('');
             setScore(s => s + 100);
         } else {
-            setMessage(t('fail') || `游戏结束！得分：${score}`);
+            setMessage('');
             setScore(0);
         }
     };
@@ -155,138 +155,140 @@ export default function GameComponent() {
     const fishes = Object.values(fishesRef.current);
 
     return (
-        <div className="w-full h-full relative overflow-hidden bg-white dark:bg-zinc-950 border-2 border-zinc-200 dark:border-zinc-800 bg-[url('/games/assets/sea/sea_bg.png')] bg-cover bg-center" ref={containerRef}>
+        <div className="w-full h-full flex flex-col font-mono bg-white dark:bg-zinc-950 rounded-xl overflow-hidden">
 
-            {/* Settings Button - Top Right */}
-            {phase === 'idle' && (
-                <div className="absolute top-4 right-4 z-40">
-                    <GameSettingsDialog
-                        settings={settings}
-                        onSave={saveSettings}
-                        isOpen={isSettingsOpen}
-                        onOpenChange={setIsSettingsOpen}
-                    />
+            {/* Top HUD */}
+            <div className="flex justify-between items-center px-6 py-4 bg-transparent shrink-0 z-20">
+                <div className="font-bold text-xl tracking-wide uppercase text-zinc-800 dark:text-zinc-200">
+                    {phase === 'idle' ? (t('title') || '发光小鱼') : (
+                        phase === 'completed' ? (
+                            score > 0 ? t('success') : `${t('scorePrefix') || 'Score:'} ${score}`
+                        ) : message
+                    )}
                 </div>
-            )}
-
-            {/* Play Area */}
-            <div className="absolute inset-0 z-10 w-full h-full overflow-hidden">
-                {phase !== 'idle' && fishes.map(fish => {
-                    // When tracking, hiding the glowing effect
-                    const isGlowing = phase === 'watching' && fish.isTarget;
-
-                    const flipX = fish.vx < 0 ? -1 : 1;
-
-                    return (
-                        <div
-                            key={fish.id}
-                            ref={el => { fishNodeRefs.current[fish.id] = el; }}
-                            onClick={() => handleFishClick(fish.id)}
-                            className="absolute top-0 left-0 cursor-pointer"
-                            style={{
-                                transform: phase === 'selecting' || phase === 'completed'
-                                    ? `translate(${fish.x - 30}px, ${fish.y - 30}px) scaleX(${flipX})`
-                                    : undefined,
-                                transition: phase === 'selecting' || phase === 'completed' ? 'transform 0.5s ease' : 'none',
-                                willChange: 'transform'
-                            }}
-                        >
-                            <SunfishSVG
-                                isGlowing={isGlowing}
-                                isSelected={fish.isSelected}
-                                isTarget={fish.isTarget}
-                                isChecking={fish.isChecking}
-                                isWrongSelection={fish.isWrongSelection}
-                            />
-                        </div>
-                    );
-                })}
-            </div>
-
-            {/* UI Overlay */}
-            <AnimatePresence>
-                {/* Header HUD */}
-                {phase !== 'idle' && (
-                    <motion.div
-                        initial={{ y: -50, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="absolute top-6 left-0 right-0 z-20 flex justify-between px-8 pointer-events-none font-mono"
-                    >
-                        <div className="bg-background text-foreground px-6 py-2 rounded-full shadow-sm border font-bold text-lg tracking-wide uppercase">
-                            {message}
-                        </div>
-                        <div className="bg-background text-foreground px-5 py-2 rounded-full shadow-sm border uppercase text-sm tracking-widest font-bold">
+                <div className="flex gap-4 items-center">
+                    {phase !== 'idle' && (
+                        <div className="bg-transparent text-foreground px-4 py-1.5 rounded-full uppercase text-sm tracking-widest font-bold">
                             {t('scorePrefix') || 'Score:'} {score}
                         </div>
-                    </motion.div>
-                )}
+                    )}
+                    {phase === 'idle' && (
+                        <GameSettingsDialog
+                            settings={settings}
+                            onSave={saveSettings}
+                            isOpen={isSettingsOpen}
+                            onOpenChange={setIsSettingsOpen}
+                        />
+                    )}
+                </div>
+            </div>
 
-                {/* Idle Menu */}
-                {phase === 'idle' && (
-                    <motion.div
-                        key="idle-menu"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-white/50 dark:bg-zinc-950/50 backdrop-blur-sm"
-                    >
-                        <h1 className="text-6xl font-black text-black dark:text-white mb-12 uppercase tracking-tight drop-shadow-md">
-                            {t('title') || '发光小鱼'}
-                        </h1>
-                        <Button
-                            size="lg"
-                            onClick={() => startGame()}
-                            className="w-48 h-14 text-2xl font-bold uppercase tracking-widest font-mono rounded-xl"
-                        >
-                            {t('startBtn') || 'START'}
-                        </Button>
-                    </motion.div>
-                )}
+            {/* Play Area Container */}
+            <div
+                className="relative flex-1 w-full min-h-0 overflow-hidden bg-[url('/games/assets/sea/sea_bg.png')] bg-cover bg-center"
+                ref={containerRef}
+            >
+                {/* Play Area (Fishes) */}
+                <div className="absolute inset-0 z-10 w-full h-full overflow-hidden">
+                    {phase !== 'idle' && fishes.map(fish => {
+                        const isGlowing = phase === 'watching' && fish.isTarget;
+                        const flipX = fish.vx < 0 ? -1 : 1;
 
-                {/* Selection Confirm Button */}
-                {phase === 'selecting' && (
-                    <motion.div
-                        key="confirm-btn"
-                        initial={{ y: 50, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        className="absolute bottom-10 left-0 right-0 z-30 flex justify-center"
-                    >
-                        <Button
-                            size="lg"
-                            onClick={confirmSelection}
-                            className="font-bold py-6 px-12 text-lg uppercase tracking-widest font-mono rounded-xl"
-                        >
-                            {t('confirmSelection') || '确定选择'}
-                        </Button>
-                    </motion.div>
-                )}
+                        return (
+                            <div
+                                key={fish.id}
+                                ref={el => { fishNodeRefs.current[fish.id] = el; }}
+                                onClick={() => handleFishClick(fish.id)}
+                                className="absolute top-0 left-0 cursor-pointer"
+                                style={{
+                                    transform: phase === 'selecting' || phase === 'completed'
+                                        ? `translate(${fish.x - 30}px, ${fish.y - 30}px) scaleX(${flipX})`
+                                        : undefined,
+                                    transition: phase === 'selecting' || phase === 'completed' ? 'transform 0.5s ease' : 'none',
+                                    willChange: 'transform'
+                                }}
+                            >
+                                <SunfishSVG
+                                    isGlowing={isGlowing}
+                                    isSelected={fish.isSelected}
+                                    isTarget={fish.isTarget}
+                                    isChecking={fish.isChecking}
+                                    isWrongSelection={fish.isWrongSelection}
+                                />
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
 
-                {/* Completed Result Menu */}
-                {phase === 'completed' && (
-                    <motion.div
-                        key="result-menu"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="absolute bottom-12 left-0 right-0 z-30 flex justify-center space-x-6"
-                    >
-                        <Button
-                            size="lg"
-                            onClick={() => startGame()}
-                            className="font-bold py-6 px-12 text-lg uppercase tracking-widest font-mono rounded-xl hover:scale-105 transition-transform"
+            {/* Bottom Controls */}
+            <div className="h-28 shrink-0 flex items-center justify-center bg-transparent relative z-20">
+                <AnimatePresence mode="popLayout">
+                    {phase === 'idle' && (
+                        <motion.div
+                            key="idle-menu"
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            className="flex items-center justify-center"
                         >
-                            {t('tryAgain') || '再试一次'}
-                        </Button>
-                        <Button
-                            variant="secondary"
-                            size="lg"
-                            onClick={() => setPhase('idle')}
-                            className="font-bold py-6 px-8 text-lg uppercase tracking-widest font-mono rounded-xl shadow-md border"
+                            <Button
+                                size="lg"
+                                onClick={() => startGame()}
+                                className="w-56 h-14 text-2xl font-bold uppercase tracking-widest rounded-xl shadow-md"
+                            >
+                                {t('startBtn') || 'START'}
+                            </Button>
+                        </motion.div>
+                    )}
+
+                    {phase === 'selecting' && (
+                        <motion.div
+                            key="confirm-btn"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0 }}
+                            className="flex items-center justify-center"
                         >
-                            {t('home') || '返回主页'}
-                        </Button>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                            <Button
+                                size="lg"
+                                onClick={confirmSelection}
+                                className="font-bold py-6 px-12 text-lg uppercase tracking-widest rounded-xl shadow-md"
+                            >
+                                {t('confirmSelection') || '确定选择'}
+                            </Button>
+                        </motion.div>
+                    )}
+
+                    {phase === 'completed' && (
+                        <motion.div
+                            key="result-menu"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex justify-center"
+                        >
+                            <Button
+                                size="lg"
+                                onClick={() => startGame()}
+                                className="font-bold py-6 px-12 text-lg uppercase tracking-widest rounded-xl shadow-md hover:scale-105 transition-transform"
+                            >
+                                {t('tryAgain') || '再试一次'}
+                            </Button>
+                        </motion.div>
+                    )}
+
+                    {phase !== 'idle' && phase !== 'selecting' && phase !== 'completed' && (
+                        <motion.div
+                            key="placeholder"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-zinc-500 dark:text-zinc-400 font-medium tracking-wide text-lg"
+                        >
+                            {message}
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </div>
         </div>
     );
 }
