@@ -1,9 +1,8 @@
 'use client';
 
-import dynamic from 'next/dynamic'
-import { useTranslations } from 'next-intl'
+import dynamic from 'next/dynamic';
+import { useTranslations } from 'next-intl';
 
-// 在React组件中使用hook
 function Loading() {
     const t = useTranslations('games.frogMemoryLeap.gameUI');
     return (
@@ -15,7 +14,7 @@ function Loading() {
 
 const GameComponent = dynamic(() => import('./GameComponent'), {
     ssr: false,
-    loading: Loading
+    loading: Loading,
 });
 
 export default function Game() {
@@ -24,4 +23,4 @@ export default function Game() {
             <GameComponent />
         </div>
     );
-} 
+}
