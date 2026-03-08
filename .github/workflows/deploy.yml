@@ -30,6 +30,7 @@ jobs:
           NEXT_PUBLIC_SITE_URL: "https://freefocusgames.com"
 
           NEXT_PUBLIC_GOOGLE_ADSENSE_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ADSENSE_ID }}
+          NEXT_PUBLIC_LEADERBOARD_BASE_URL: ${{ secrets.NEXT_PUBLIC_LEADERBOARD_BASE_URL }}
           # Cloudflare bindings are handled by wrangler deploy, but build vars need to be here if used at build time
 
       - name: Deploy to Cloudflare Workers
