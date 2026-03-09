@@ -15,7 +15,7 @@ const {
 type LinkProps = ComponentProps<typeof BaseLink>;
 
 export function Link(props: LinkProps) {
-    return <BaseLink prefetch={false} {...props} />;
+    return <BaseLink {...props} />;
 }
 
 export { redirect, usePathname, useRouter, getPathname };

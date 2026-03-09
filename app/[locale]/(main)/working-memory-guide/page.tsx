@@ -748,7 +748,7 @@ function ClusterArticlesSection({ t }: { t: TWorkingMemoryT }) {
 
             <div className="grid md:grid-cols-1 gap-6">
                 {articles.map((article, index) => (
-                    <Link key={article.slug} href={`/blog/${article.slug}`} prefetch={false}>
+                    <Link key={article.slug} href={`/blog/${article.slug}`}>
                         <article className="group bg-card border rounded-lg p-6 hover:shadow-md transition-all duration-300 hover:-translate-y-1">
                             <div className="flex items-start gap-4">
                                 <div className="flex-shrink-0">

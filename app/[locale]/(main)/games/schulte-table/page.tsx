@@ -120,7 +120,7 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
             }
             howToPlay={
                 <>
-                    <Link href="/working-memory-guide" prefetch={false} className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
+                    <Link href="/working-memory-guide" className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
                         <div className="flex items-center gap-3">
                             <BookOpen className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                             <span className="text-sm font-medium text-primary">

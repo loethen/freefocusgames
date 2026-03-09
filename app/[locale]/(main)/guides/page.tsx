@@ -104,7 +104,7 @@ export default function GuidesPage({ params }: { params: Promise<{ locale: strin
                       </span>
                     </div>
 
-                    <Link href={guide.href} prefetch={false}>
+                    <Link href={guide.href}>
                       <Button size="lg" className="bg-gradient-to-r from-primary to-primary/80 group">
                         {common('readGuide')}
                         <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />

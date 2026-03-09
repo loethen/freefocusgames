@@ -17,7 +17,7 @@ export function Breadcrumb({ items, homeLabel, locale }: BreadcrumbProps) {
     <nav className="flex items-center text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
       <ol className="flex items-center space-x-1">
         <li>
-          <Link href={`/${locale}`} prefetch={false} className="flex items-center hover:text-foreground">
+          <Link href={`/${locale}`} className="flex items-center hover:text-foreground">
             <Home className="h-4 w-4 mr-1" />
             <span>{homeLabel}</span>
           </Link>
@@ -27,7 +27,7 @@ export function Breadcrumb({ items, homeLabel, locale }: BreadcrumbProps) {
           <li key={index} className="flex items-center">
             <ChevronRight className="h-4 w-4 mx-1" />
             {item.href ? (
-              <Link href={item.href} prefetch={false} className="hover:text-foreground">
+              <Link href={item.href} className="hover:text-foreground">
                 {item.label}
               </Link>
             ) : (

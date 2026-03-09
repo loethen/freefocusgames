@@ -22,7 +22,6 @@ export function PostNavigation({ previousPost, nextPost, locale, labels }: PostN
       {previousPost ? (
         <Link 
           href={`/${locale}/blog/${previousPost.slug}`}
-          prefetch={false}
           className="flex flex-col p-4 rounded-md hover:bg-muted transition-colors group"
         >
           <span className="flex items-center text-sm text-muted-foreground mb-2">
@@ -38,7 +37,6 @@ export function PostNavigation({ previousPost, nextPost, locale, labels }: PostN
       {nextPost ? (
         <Link 
           href={`/${locale}/blog/${nextPost.slug}`}
-          prefetch={false}
           className="flex flex-col p-4 rounded-md hover:bg-muted transition-colors group text-right"
         >
           <span className="flex items-center text-sm text-muted-foreground mb-2 justify-end">

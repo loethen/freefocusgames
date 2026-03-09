@@ -56,7 +56,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           <div className="grid gap-8">
             {posts.map((post) => (
                 <article key={post.slug} className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow">
-                  <Link href={`/${locale}/blog/${post.slug}`} prefetch={false}>
+                  <Link href={`/${locale}/blog/${post.slug}`}>
                     <div className="grid md:grid-cols-[1fr_2fr]">
                       {post.coverImage && (
                         <div className="relative h-48 md:h-full">

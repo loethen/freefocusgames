@@ -236,7 +236,6 @@ export default function AdhdAssessmentFlow() {
           </p>
           <Link
             href="/blog/vanderbilt-adhd-rating-scale-comprehensive-guide"
-            prefetch={false}
             className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
           >
             {t('learnMore.linkText')}
@@ -455,7 +454,7 @@ export default function AdhdAssessmentFlow() {
           </p>
           <div className="space-y-3">
             {results.recommendations.map((gameSlug) => (
-              <Link key={gameSlug} href={`/games/${gameSlug}`} prefetch={false}>
+              <Link key={gameSlug} href={`/games/${gameSlug}`}>
                 <button
                   className="w-full text-left p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors group"
                   onClick={() => {
@@ -495,7 +494,7 @@ export default function AdhdAssessmentFlow() {
           >
             {tResults('retakeAssessment')}
           </button>
-          <Link href="/games" prefetch={false}>
+          <Link href="/games">
             <button className="px-6 py-3 bg-gray-900 hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 text-white dark:text-gray-900 font-semibold rounded-lg transition-colors">
               {tResults('exploreAllGames')}
             </button>

@@ -544,7 +544,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                                 </ShimmerButton>
                                 
                                 <div className="text-center">
-                                    <Link href="/get-started" prefetch={false} target="_blank">
+                                    <Link href="/get-started" target="_blank">
                                         <Button
                                             variant="ghost" 
                                             className="text-sm text-muted-foreground"
