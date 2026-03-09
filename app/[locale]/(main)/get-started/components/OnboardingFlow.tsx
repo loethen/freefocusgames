@@ -447,7 +447,7 @@ export default function OnboardingFlow() {
 
           {/* 开始训练按钮 */}
           <div className="text-center">
-            <Link href={`/games/${recommendation.gameSlug}`}>
+            <Link href={`/games/${recommendation.gameSlug}`} prefetch={false}>
               <button 
                 className="inline-flex items-center gap-2 px-8 py-4 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl transition-all shadow-lg hover:shadow-xl"
                 onClick={() => {

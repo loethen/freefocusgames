@@ -20,6 +20,43 @@ type LeaderboardRecord = {
     createdAt: string;
 };
 
+type LeaderboardApiResponse = {
+    top20?: LeaderboardRecord[];
+    averageScore?: number;
+    totalPlayers?: number;
+    entries?: Array<{
+        playerName: string;
+        score: number;
+        createdAt: string;
+    }>;
+    scoreSum?: number;
+};
+
+function normalizeLeaderboardResponse(data: LeaderboardApiResponse) {
+    const top20 = Array.isArray(data.top20)
+        ? data.top20
+        : Array.isArray(data.entries)
+            ? data.entries.map((entry) => ({
+                playerName: entry.playerName,
+                score: entry.score,
+                createdAt: entry.createdAt,
+            }))
+            : [];
+
+    const totalPlayers = typeof data.totalPlayers === "number" ? data.totalPlayers : top20.length;
+    const averageScore = typeof data.averageScore === "number"
+        ? data.averageScore
+        : typeof data.scoreSum === "number" && totalPlayers > 0
+            ? data.scoreSum / totalPlayers
+            : 0;
+
+    return {
+        top20,
+        averageScore,
+        totalPlayers,
+    };
+}
+
 export function LeaderboardDisplay({
     gameId,
     formatterType = 'default',
@@ -76,7 +113,7 @@ export function LeaderboardDisplay({
             }
 
             if (res.ok) {
-                const data = (await res.json()) as { top20: LeaderboardRecord[]; averageScore: number; totalPlayers: number };
+                const data = normalizeLeaderboardResponse((await res.json()) as LeaderboardApiResponse);
                 setTop20(data.top20);
                 setAverageScore(data.averageScore);
                 setTotalPlayers(data.totalPlayers);

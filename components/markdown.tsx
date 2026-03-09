@@ -80,7 +80,7 @@ const components: Components = {
     
     // 内部链接
     return href ? (
-      <Link href={href} className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 hover:underline">
+      <Link href={href} prefetch={false} className="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 hover:underline">
         {children}
       </Link>
     ) : null;

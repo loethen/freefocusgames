@@ -420,7 +420,7 @@ export default function AdultAdhdAssessmentFlow() {
           </p>
           <div className="space-y-3">
             {recommendedGames.map((gameSlug) => (
-              <Link key={gameSlug} href={`/games/${gameSlug}`}>
+              <Link key={gameSlug} href={`/games/${gameSlug}`} prefetch={false}>
                 <button 
                   className="w-full text-left p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:border-green-500 hover:bg-green-50 dark:hover:bg-green-900/20 transition-colors group"
                   onClick={() => {
@@ -460,7 +460,7 @@ export default function AdultAdhdAssessmentFlow() {
           >
             {tResults('retakeAssessment')}
           </button>
-          <Link href="/games">
+          <Link href="/games" prefetch={false}>
             <button className="px-6 py-3 bg-gray-900 hover:bg-gray-800 dark:bg-white dark:hover:bg-gray-100 text-white dark:text-gray-900 font-semibold rounded-lg transition-colors">
               {tResults('exploreAllGames')}
             </button>
