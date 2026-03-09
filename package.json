@@ -7,12 +7,13 @@
   },
   "scripts": {
     "dev": "next dev --turbopack -p 3003",
+    "generate-i18n": "node scripts/build-i18n-compiled.js",
     "generate-blog": "npx tsx build-scripts/generate-blog-data.ts",
-    "build": "npm run generate-blog && next build",
+    "build": "npm run generate-i18n && npm run generate-blog && next build",
     "start": "next start",
     "lint": "next lint",
-    "preview": "npm run generate-blog && opennextjs-cloudflare build && opennextjs-cloudflare preview",
-    "deploy": "npm run generate-blog && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "preview": "npm run generate-i18n && npm run generate-blog && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "npm run generate-i18n && npm run generate-blog && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "translate-blogs": "node scripts/translate-blog-posts.js",
     "translate-blogs:force": "node scripts/translate-blog-posts.js --force"

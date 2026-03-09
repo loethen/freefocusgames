@@ -77,14 +77,14 @@
                     "cheetah": "🐆 Cheetah (Fast)",
                     "eagle": "🦅 Eagle (Pro potential)",
                     "godlike": "⚡️ Godlike (Inhuman)"
-                },
-                "statistics": {
-                    "worldRecord": "World Record (1s)",
-                    "average": "Average",
-                    "proGamer": "Pro Gamer",
-                    "modes": "Modes",
-                    "types": "6 Types"
                 }
+            },
+            "statistics": {
+                "worldRecord": "World Record (1s)",
+                "average": "Average",
+                "proGamer": "Pro Gamer",
+                "modes": "Modes",
+                "types": "6 Types"
             }
         }
     }
