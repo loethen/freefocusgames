@@ -13,6 +13,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { getTranslations, getMessages, setRequestLocale } from 'next-intl/server';
 
+export const dynamic = "force-static";
 export const revalidate = 86400;
 
 // Generate static params for all locales

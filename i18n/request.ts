@@ -2,7 +2,6 @@ import { getRequestConfig } from "next-intl/server";
 import { hasLocale } from "next-intl";
 import { routing } from "./routing";
 
-// List of all i18n modules (matching the split file names)
 const I18N_MODULES = [
     'common',
     'metadata',
@@ -20,51 +19,46 @@ const I18N_MODULES = [
     'legal',
     'tests',
     'guides',
-    'cpsTest',
-    '10Seconds',
-    'ResonanceBreathing',
-    'BoxBreathing',
-    'Breathing478',
 ] as const;
 
-function deepMerge(target: any, source: any) {
-    if (typeof target !== 'object' || target === null || typeof source !== 'object' || source === null) {
-        return;
+const messageCache = new Map<string, Record<string, unknown>>();
+
+async function loadMessages(locale: string) {
+    const cachedMessages = messageCache.get(locale);
+    if (cachedMessages) {
+        return cachedMessages;
     }
 
-    for (const key in source) {
-        if (source.hasOwnProperty(key)) {
-            if (source[key] instanceof Object && key in target) {
-                Object.assign(source[key], deepMerge(target[key], source[key]));
+    const modules = await Promise.all(
+        I18N_MODULES.map(async (module) => {
+            try {
+                return (await import(`../messages/${locale}/${module}.json`)).default as Record<string, unknown>;
+            } catch {
+                console.warn(`i18n module not found: ${locale}/${module}.json`);
+                return null;
             }
+        })
+    );
+
+    const messages = modules.reduce<Record<string, unknown>>((accumulator, moduleMessages) => {
+        if (moduleMessages) {
+            Object.assign(accumulator, moduleMessages);
         }
-    }
-    Object.assign(target || {}, source);
-    return target;
+        return accumulator;
+    }, {});
+
+    messageCache.set(locale, messages);
+    return messages;
 }
 
 export default getRequestConfig(async ({ requestLocale }) => {
-    // Typically corresponds to the `[locale]` segment
     const requested = await requestLocale;
     const locale = hasLocale(routing.locales, requested)
         ? requested
         : routing.defaultLocale;
 
-    // Load and merge all module files
-    const messages: Record<string, unknown> = {};
-
-    for (const module of I18N_MODULES) {
-        try {
-            const moduleMessages = (await import(`../messages/${locale}/${module}.json`)).default;
-            deepMerge(messages, moduleMessages);
-        } catch {
-            // If module file doesn't exist, try loading from the main file as fallback
-            console.warn(`i18n module not found: ${locale}/${module}.json`);
-        }
-    }
-
     return {
         locale,
-        messages,
+        messages: await loadMessages(locale),
     };
 });
