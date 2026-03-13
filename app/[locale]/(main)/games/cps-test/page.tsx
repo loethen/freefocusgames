@@ -33,7 +33,72 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function CPSTestPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://freefocusgames.com";
     const t = useTranslations('games.cpsTest');
+    const faq = [
+        {
+            question: t('faq.focus.question'),
+            answer: t('faq.focus.answer'),
+        },
+        {
+            question: t('faq.warmup.question'),
+            answer: t('faq.warmup.answer'),
+        },
+        {
+            question: t('faq.improve.question'),
+            answer: t('faq.improve.answer'),
+        },
+        {
+            question: t('faq.health.question'),
+            answer: t('faq.health.answer'),
+        },
+        {
+            question: t('faq.cpsMeaning.question'),
+            answer: t('faq.cpsMeaning.answer'),
+        },
+        {
+            question: t('faq.bestMode.question'),
+            answer: t('faq.bestMode.answer'),
+        },
+    ];
+    const structuredData = [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": t('title'),
+            "description": t('metadata.description'),
+            "url": `${baseUrl}/games/cps-test`,
+            "applicationCategory": "GameApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "featureList": [
+                "1 second CPS test mode",
+                "3 second CPS test mode",
+                "5 second CPS test mode",
+                "10 second click speed mode",
+                "5 second CPS leaderboard"
+            ],
+            "educationalUse": "Reaction Speed Training",
+            "learningResourceType": "Interactive Game",
+            "interactivityType": "active"
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faq.map((item) => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                }
+            }))
+        }
+    ];
 
     return (
         <GamePageTemplate
@@ -79,26 +144,21 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
                     description: t('benefits.flow.description'),
                 },
             ]}
-            faq={[
-                {
-                    question: t('faq.focus.question'),
-                    answer: t('faq.focus.answer'),
-                },
-                {
-                    question: t('faq.warmup.question'),
-                    answer: t('faq.warmup.answer'),
-                },
-                {
-                    question: t('faq.improve.question'),
-                    answer: t('faq.improve.answer'),
-                },
-                {
-                    question: t('faq.health.question'),
-                    answer: t('faq.health.answer'),
-                },
-            ]}
+            science={{
+                title: t('science.title'),
+                description: t('science.description'),
+                blogArticleUrl: locale === 'zh'
+                    ? "/zh/blog/what-is-a-good-cps-test-score"
+                    : "/blog/what-is-a-good-cps-test-score",
+                blogArticleTitle: t('science.blogArticleTitle'),
+            }}
+            faq={faq}
+            relatedGames={["reaction-time", "focus-reaction-test", "larger-number"]}
             hasLeaderboard={true}
             leaderboardFormatterType="cps"
+            leaderboardMode="5s"
+            leaderboardIntro={<p>{t('leaderboardNote')}</p>}
+            structuredData={structuredData}
         />
     );
 }

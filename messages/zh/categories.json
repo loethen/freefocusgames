@@ -4,7 +4,7 @@
     "heading": "游戏分类",
     "description": "按认知技能类别浏览我们的脑力训练游戏。每个类别专注于心理表现的不同方面。",
     "metaTitle": "游戏分类 | 脑力训练",
-    "metaDescription": "按认知技能类别浏览我们的脑力训练游戏集合。找到针对记忆力、注意力、反应时间和空间技能的专门训练游戏。",
+    "metaDescription": "按工作记忆、专注力、注意力、反应时间、视觉追踪和放松减压等类别浏览免费脑力训练游戏。快速找到适合儿童、成人和 ADHD 用户的专项训练。",
     "metaKeywords": "脑力训练分类, 认知技能, 记忆力游戏, 专注力游戏, 注意力游戏, 反应时间游戏, 认知灵活性",
     "ogTitle": "脑力训练游戏分类",
     "ogDescription": "探索我们分类的脑力游戏集合，旨在增强特定认知能力。",
@@ -171,7 +171,7 @@
     "categoryNotFound": "未找到分类",
     "categoryNotFoundDesc": "无法找到请求的分类。",
     "categoryMetaTitle": "{categoryName}游戏 - 脑力训练与认知能力提升",
-    "categoryMetaDescription": "探索我们专注于{categoryName}的脑力训练游戏集合。{categoryDescription}",
+    "categoryMetaDescription": "浏览我们的{categoryName}训练游戏集合，涵盖专注力、记忆力、反应速度与认知表现提升。{categoryDescription} 适合想进行免费在线脑力训练、ADHD 练习或日常认知提升的用户。",
     "categoryOgTitle": "{categoryName}训练游戏 - 提升你的认知能力",
     "categoryOgDescription": "通过我们专业的脑力训练游戏增强你的{categoryName}。免费、有效且基于科学的练习。",
     "categoryGamesHeading": "{categoryName}游戏"

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 
 type GameState = 'IDLE' | 'READY' | 'RUNNING' | 'FINISHED';
-type TimeMode = '1s' | '3s' | '5s' | '10s' | '30s' | '60s';
+type TimeMode = '1s' | '3s' | '5s' | '10s';
 
 
 export default function CPSTestGame() {
@@ -40,7 +40,13 @@ export default function CPSTestGame() {
 
     useEffect(() => {
         if (gameState === 'FINISHED') {
-            submitScoreToLeaderboard("cps-test", parseFloat((clicks / getDuration(mode)).toFixed(2)));
+            if (mode === '5s') {
+                submitScoreToLeaderboard(
+                    "cps-test",
+                    parseFloat((clicks / getDuration(mode)).toFixed(2)),
+                    { mode: '5s' }
+                );
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameState]);
@@ -142,7 +148,7 @@ export default function CPSTestGame() {
         <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-8">
             {/* Mode Selection */}
             <div className="flex flex-wrap gap-2 justify-center">
-                {(['1s', '3s', '5s', '10s', '30s', '60s'] as TimeMode[]).map((m) => (
+                {(['1s', '3s', '5s', '10s'] as TimeMode[]).map((m) => (
                     <Button
                         key={m}
                         variant={mode === m ? "default" : "outline"}
@@ -262,7 +268,7 @@ export default function CPSTestGame() {
             <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 opacity-60">
                 <div className="text-center p-3">
                     <p className="text-xs text-gray-500 dark:text-gray-400">{tStats('worldRecord')}</p>
-                    <p className="font-bold">22 CPS</p>
+                    <p className="font-bold">14.1 CPS</p>
                 </div>
                 <div className="text-center p-3">
                     <p className="text-xs text-gray-500 dark:text-gray-400">{tStats('average')}</p>

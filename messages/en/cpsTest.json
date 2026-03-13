@@ -2,14 +2,14 @@
     "games": {
         "cpsTest": {
             "title": "CPS Test (Click Speed Test)",
-            "subtitle": "Test Your Clicking Speed (CPS)",
-            "description": "Curious how fast you can click? Use this online CPS test to challenge your clicking speed in 1s, 5s, or 10s modes.",
+            "subtitle": "Free Online 1s, 5s, and 10s Mouse Click Speed Test",
+            "description": "Curious how fast you can click? Use this free online CPS test to measure your click speed, mouse clicking rhythm, and burst clicking power across 1s, 3s, 5s, and 10s modes.",
             "metadata": {
-                "title": "CPS Test: Click Speed Test (1s, 5s, 10s) Online",
-                "description": "Curious how fast you can click? Use our free CPS Test (Clicks Per Second) to challenge your mouse clicking speed. Try jitter clicking in 1s, 5s, and 10s modes to check your gamer rank.",
-                "keywords": "cps test online, click speed test free, clicks per second test, mouse speed clicking test, jitter click test 10s, kohi click test alternative, gamer reflexes test",
-                "ogTitle": "CPS Test: Click Speed Test (1s, 5s, 10s) Online",
-                "ogDescription": "Curious how fast you can click? Use our free CPS Test (Clicks Per Second) to challenge your mouse clicking speed. Try jitter clicking in 1s, 5s, and 10s modes to check your gamer rank."
+                "title": "CPS Test Online: Mouse Click Speed Test Website",
+                "description": "Use this free CPS test website to measure mouse click speed, clicks per second, and burst clicking performance. Try 1s, 3s, 5s, and 10s modes for a full click speed test.",
+                "keywords": "cps test, cps test website, click speed test, mouse click speed test, clicks per second test, mouse clicking test, jitter click test, click speed test free, gamer clicking test",
+                "ogTitle": "CPS Test Online: Mouse Click Speed Test Website",
+                "ogDescription": "Use this free CPS test website to measure mouse click speed, clicks per second, and burst clicking performance across 1s, 3s, 5s, and 10s modes."
             },
             "howToPlay": {
                 "description": "CPS Test measures how fast you can click in a given time. It's simple:",
@@ -21,15 +21,13 @@
                     "1s": "1s (Burst)",
                     "3s": "3s (Regular)",
                     "5s": "5s (Standard)",
-                    "10s": "10s (Endurance)",
-                    "30s": "30s (Marathon)",
-                    "60s": "60s (Hardcore)"
+                    "10s": "10s (Endurance)"
                 }
             },
             "benefits": {
                 "focus": {
                     "title": "Sustained Attention",
-                    "description": "Maintaining a high click rate requires extreme mental concentration. Maintaining consistency for 10s or 30s is an excellent workout for sustained attention."
+                    "description": "Maintaining a high click rate requires extreme mental concentration. Staying consistent through the 10-second mode is an excellent workout for sustained attention."
                 },
                 "neural": {
                     "title": "Neural-Motor Connection",
@@ -40,6 +38,12 @@
                     "description": "Rhythmic high-speed clicking can help induce a 'flow state', clearing the mind of clutter. It acts as a unique stress reliever and brain reset."
                 }
             },
+            "science": {
+                "title": "What a CPS Test Actually Measures",
+                "description": "A CPS test is more than a hand-speed challenge. It reflects burst motor output, neural-motor coordination, rhythmic control, and short-window concentration. For gamers and users training click speed, it works well as a repeatable benchmark across different time modes.",
+                "blogArticleTitle": "Read: What Is a Good CPS Score?"
+            },
+            "leaderboardNote": "Leaderboard records 5-second mode scores only.",
             "faq": {
                 "focus": {
                     "question": "Is this just about hand speed?",
@@ -55,7 +59,15 @@
                 },
                 "health": {
                     "question": "Can high-speed clicking cause injury?",
-                    "answer": "Yes, prolonged repetition can cause fatigue. Please practice moderately (we recommend sets under 30s) and stop immediately if you feel pain. This is designed for burst training, not endurance marathons."
+                    "answer": "Yes, prolonged repetition can cause fatigue. Please practice moderately in short sets and stop immediately if you feel pain. This is designed for burst training, not endurance marathons."
+                },
+                "cpsMeaning": {
+                    "question": "What does CPS mean?",
+                    "answer": "CPS stands for Clicks Per Second. A CPS test measures how many mouse clicks you can produce in a fixed amount of time, which is why it is also called a click speed test or mouse clicking test."
+                },
+                "bestMode": {
+                    "question": "Which mode is best: 1s, 5s, or 10s?",
+                    "answer": "The 1-second mode measures burst speed, the 5-second mode is the most common standard, and the 10-second mode tests consistency. If you want a realistic benchmark, 5s and 10s are usually the most useful."
                 }
             },
             "gameUI": {
@@ -80,11 +92,11 @@
                 }
             },
             "statistics": {
-                "worldRecord": "World Record (1s)",
+                "worldRecord": "World Record",
                 "average": "Average",
                 "proGamer": "Pro Gamer",
                 "modes": "Modes",
-                "types": "6 Types"
+                "types": "4 Types"
             }
         }
     }

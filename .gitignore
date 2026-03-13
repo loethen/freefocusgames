@@ -47,6 +47,7 @@ next-env.d.ts
 scripts/
 *.py
 GA4_ANALYTICS_GUIDE.md
+SEO_GROWTH_PLAN.md
 /reports/seo/
 
 # OpenNext
