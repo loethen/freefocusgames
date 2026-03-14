@@ -21,22 +21,27 @@ export default function CPSTestGame() {
     // State
     const [gameState, setGameState] = useState<GameState>('IDLE');
     const [mode, setMode] = useState<TimeMode>('5s');
-    const [startTime, setStartTime] = useState<number>(0);
     const [timeLeft, setTimeLeft] = useState<number>(5);
     const [clicks, setClicks] = useState<number>(0);
     const [ripples, setRipples] = useState<{ id: number, x: number, y: number }[]>([]);
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
     const [pageUrl, setPageUrl] = useState('');
 
-    const timerRef = useRef<NodeJS.Timeout | null>(null);
+    const timerRef = useRef<number | null>(null);
     const clickAreaRef = useRef<HTMLDivElement>(null);
+    const deadlineRef = useRef(0);
+    const gameStateRef = useRef<GameState>('IDLE');
 
     useEffect(() => {
         setPageUrl(window.location.href);
         return () => {
-            if (timerRef.current) clearInterval(timerRef.current);
+            if (timerRef.current !== null) cancelAnimationFrame(timerRef.current);
         };
     }, []);
+
+    useEffect(() => {
+        gameStateRef.current = gameState;
+    }, [gameState]);
 
     useEffect(() => {
         if (gameState === 'FINISHED') {
@@ -54,62 +59,66 @@ export default function CPSTestGame() {
     const getDuration = (m: TimeMode) => parseInt(m.replace('s', ''));
 
     const handleModeChange = (newMode: TimeMode) => {
+        if (timerRef.current !== null) {
+            cancelAnimationFrame(timerRef.current);
+            timerRef.current = null;
+        }
+        gameStateRef.current = 'READY';
         setMode(newMode);
         setGameState('READY');
         setClicks(0);
         setTimeLeft(getDuration(newMode));
-        if (timerRef.current) clearInterval(timerRef.current);
     };
 
     const endGame = useCallback(() => {
-        if (timerRef.current) clearInterval(timerRef.current);
+        if (timerRef.current !== null) {
+            cancelAnimationFrame(timerRef.current);
+            timerRef.current = null;
+        }
+        setTimeLeft(0);
+        gameStateRef.current = 'FINISHED';
         setGameState('FINISHED');
     }, []);
 
+    const updateTimer = useCallback(() => {
+        const remainingMs = Math.max(0, deadlineRef.current - performance.now());
+        setTimeLeft(remainingMs / 1000);
+
+        if (remainingMs <= 0) {
+            endGame();
+            return;
+        }
+
+        timerRef.current = requestAnimationFrame(updateTimer);
+    }, [endGame]);
+
     const startGame = () => {
+        const now = performance.now();
+        gameStateRef.current = 'RUNNING';
         setGameState('RUNNING');
-        setStartTime(Date.now());
         const duration = getDuration(mode);
+        deadlineRef.current = now + duration * 1000;
+        setTimeLeft(duration);
         setClicks(1); // Count first click
-
-        timerRef.current = setInterval(() => {
-            setStartTime(prevStart => {
-                const now = Date.now();
-                const elapsed = (now - prevStart) / 1000;
-                const remaining = Math.max(0, duration - elapsed);
-
-                setTimeLeft(remaining);
-
-                if (remaining <= 0) {
-                    endGame();
-                    return prevStart;
-                }
-
-                // Record stat for chart
-                // We can't access current clicks easily in interval without ref or functional update
-                // Simplified: stats are added on click or we use a separate effect.
-                // Let's just track elapsed time for now.
-                return prevStart;
-            });
-        }, 100);
+        timerRef.current = requestAnimationFrame(updateTimer);
     };
 
-    const handleClick = (e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
-        // Determine coordinates
-        let clientX, clientY;
-        if ('touches' in e) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
-        } else {
-            clientX = (e as React.MouseEvent).clientX;
-            clientY = (e as React.MouseEvent).clientY;
+    const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+        if (!e.isPrimary) {
+            return;
         }
+
+        if (e.pointerType === 'mouse' && e.button !== 0) {
+            return;
+        }
+
+        e.preventDefault();
 
         // Add ripple
         const rect = clickAreaRef.current?.getBoundingClientRect();
         if (rect) {
-            const x = clientX - rect.left;
-            const y = clientY - rect.top;
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
             const id = Date.now();
             setRipples(prev => [...prev, { id, x, y }]);
             setTimeout(() => {
@@ -117,20 +126,18 @@ export default function CPSTestGame() {
             }, 600);
         }
 
-        if (gameState === 'FINISHED') return;
+        if (gameStateRef.current === 'FINISHED') return;
 
-        if (gameState === 'IDLE' || gameState === 'READY') {
+        if (gameStateRef.current === 'IDLE' || gameStateRef.current === 'READY') {
             startGame();
-        } else if (gameState === 'RUNNING') {
+        } else if (gameStateRef.current === 'RUNNING') {
+            if (performance.now() >= deadlineRef.current) {
+                endGame();
+                return;
+            }
+
             setClicks(prev => {
-                const newClicks = prev + 1;
-                // Update history rarely to avoid chart lag, or use Time as X axis
-                const now = Date.now();
-                const elapsed = (now - startTime) / 1000;
-                if (elapsed > 0) {
-                    // We could record data points here
-                }
-                return newClicks;
+                return prev + 1;
             });
         }
     };
@@ -169,8 +176,7 @@ export default function CPSTestGame() {
           transition-colors duration-200 touch-manipulation
           ${gameState === 'RUNNING' ? 'bg-blue-600 active:bg-blue-700' : 'bg-gray-800 hover:bg-gray-700'}
         `}
-                onMouseDown={handleClick}
-                onTouchStart={handleClick}
+                onPointerDown={handlePointerDown}
             >
                 {/* Ripples */}
                 <AnimatePresence>
@@ -265,11 +271,7 @@ export default function CPSTestGame() {
             )}
 
             {/* Social Proof / Stats */}
-            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 opacity-60">
-                <div className="text-center p-3">
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{tStats('worldRecord')}</p>
-                    <p className="font-bold">14.1 CPS</p>
-                </div>
+            <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 opacity-60">
                 <div className="text-center p-3">
                     <p className="text-xs text-gray-500 dark:text-gray-400">{tStats('average')}</p>
                     <p className="font-bold">6.5 CPS</p>

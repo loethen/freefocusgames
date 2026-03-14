@@ -13,7 +13,6 @@ import {
 
 const ADJECTIVES = ["Focus", "Speedy", "Clever", "Brave", "Swift", "Ninja", "Pro", "Epic", "Turbo", "Cool", "Zen", "Mind"];
 const NOUNS = ["Fox", "Owl", "Cat", "Wolf", "Brain", "Hero", "Master", "Star", "Eagle", "Panda", "Tiger", "Bear"];
-
 type D1PreparedStatement = {
     bind: (...values: unknown[]) => {
         all: () => Promise<{ results: Record<string, unknown>[] }>;
