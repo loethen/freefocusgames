@@ -97,7 +97,44 @@ const components: Components = {
     return <code className="bg-muted text-muted-foreground rounded px-1 py-0.5">{children}</code>;
   },
   // 优化水平分割线
-  hr: () => <hr className="my-10 border-t border-muted-foreground/20" />
+  hr: () => <hr className="my-10 border-t border-muted-foreground/20" />,
+  table: ({ children }) => (
+    <div className="my-8 overflow-x-auto rounded-xl border border-border bg-background shadow-sm">
+      <table className="w-full min-w-[640px] border-collapse text-left text-base">
+        {children}
+      </table>
+    </div>
+  ),
+  thead: ({ children }) => (
+    <thead className="bg-muted/70">
+      {children}
+    </thead>
+  ),
+  tbody: ({ children }) => (
+    <tbody className="divide-y divide-border">
+      {children}
+    </tbody>
+  ),
+  tr: ({ children }) => (
+    <tr className="border-b border-border/80 last:border-b-0 even:bg-muted/30">
+      {children}
+    </tr>
+  ),
+  th: ({ children }) => (
+    <th className="px-4 py-3 text-sm font-semibold tracking-normal text-foreground align-top">
+      {children}
+    </th>
+  ),
+  td: ({ children }) => (
+    <td className="px-4 py-3 text-sm leading-6 text-foreground/85 align-top">
+      {children}
+    </td>
+  ),
+  caption: ({ children }) => (
+    <caption className="px-4 py-3 text-sm text-muted-foreground caption-bottom">
+      {children}
+    </caption>
+  )
 };
 
 export default function Markdown({ content }: MarkdownProps) {
@@ -122,8 +159,8 @@ export default function Markdown({ content }: MarkdownProps) {
   };
 
   return (
-    <div className="prose-lg max-w-none">
+    <div className="max-w-none">
       {renderContent()}
     </div>
   );
-} 
+}

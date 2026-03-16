@@ -2,7 +2,7 @@
 title: "What Is a Good CPS Test Score? Click Speed Benchmarks and Tips (2026)"
 date: "2026-03-13"
 excerpt: "What counts as a good CPS test score? Learn normal, fast, and advanced click speed benchmarks for 1s, 5s, and 10s modes, plus practical tips to improve your mouse click speed safely."
-coverImage: "https://images.unsplash.com/photo-1527443154391-507e9dc6c5cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxnYW1pbmclMjBtb3VzZXxlbnwwfHx8fDE3NDE4NTYwMDB8MA&ixlib=rb-4.0.3&q=80&w=1080"
+coverImage: "/games/cps-test.png"
 keywords: "good cps test score, cps test, click speed test, mouse click speed test, clicks per second, what is a good cps, 5 second cps test, improve click speed, mouse clicking test, cps benchmark"
 author:
   name: "FreeFocusGames Team"
