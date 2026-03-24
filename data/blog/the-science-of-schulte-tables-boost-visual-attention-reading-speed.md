@@ -1,9 +1,9 @@
 ---
-title: "Schulte Table Benefits: How This Exercise Improves Visual Attention and Reading Speed"
+title: "Schulte Table Benefits: 7 Science-Backed Gains for Visual Attention and Reading Speed"
 date: "2025-07-07"
-excerpt: "Explore the main Schulte Table benefits for visual attention, processing speed, reading fluency, and executive function, plus the research behind this classic peripheral vision exercise."
+excerpt: "Discover the top Schulte Table benefits for visual attention, peripheral vision, reading speed, and processing speed, plus the science behind this classic training exercise."
 coverImage: "/schulte-table-science-cover.jpg"
-keywords: "schulte table benefits, benefits of schulte table, schulte tables, visual attention training, peripheral vision exercise, reading speed improvement, cognitive assessment, neuropsychological tool, visual processing speed, attention span training, concentration exercises, speed reading techniques, visual scanning skills, executive function training"
+keywords: "schulte table benefits, benefits of schulte table, schulte table online, schulte tables, visual attention training, peripheral vision exercise, reading speed improvement, cognitive assessment, neuropsychological tool, visual processing speed, attention span training, concentration exercises, speed reading techniques, visual scanning skills, executive function training"
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"

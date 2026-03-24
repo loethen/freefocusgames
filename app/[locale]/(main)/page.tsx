@@ -5,8 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from "next";
-import { getBlogPosts, type BlogPost } from "@/lib/blog";
-import { formatDate } from "@/lib/utils";
+import { getBlogPosts } from "@/lib/blog";
 import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
 import Image from "next/image";
@@ -46,7 +45,35 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     setRequestLocale(locale);
     const t = await getTranslations({ locale });
     const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
+    const guidesT = await getTranslations({ locale, namespace: 'guides' });
     const posts = await getBlogPosts(locale);
+    const postsBySlug = new Map(posts.map((post) => [post.slug, post]));
+    const featuredResources = [
+        {
+            id: "workingMemoryGuide",
+            href: "/working-memory-guide",
+            label: t("home.featuredResources.items.workingMemoryGuide.label"),
+            title: guidesT("workingMemory.title"),
+            description: t("home.featuredResources.items.workingMemoryGuide.description"),
+            cta: t("common.readGuide")
+        },
+        {
+            id: "schulteBenefits",
+            href: "/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed",
+            label: t("home.featuredResources.items.schulteBenefits.label"),
+            title: postsBySlug.get("the-science-of-schulte-tables-boost-visual-attention-reading-speed")?.title || "",
+            description: postsBySlug.get("the-science-of-schulte-tables-boost-visual-attention-reading-speed")?.excerpt || "",
+            cta: t("blog.readMore")
+        },
+        {
+            id: "adultAdhdAsrs",
+            href: "/blog/adult-adhd-asrs-comprehensive-guide",
+            label: t("home.featuredResources.items.adultAdhdAsrs.label"),
+            title: postsBySlug.get("adult-adhd-asrs-comprehensive-guide")?.title || "",
+            description: postsBySlug.get("adult-adhd-asrs-comprehensive-guide")?.excerpt || "",
+            cta: t("blog.readMore")
+        }
+    ];
 
     // Schema Markup for SEO
     const jsonLd = {
@@ -130,6 +157,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         },
     ];
 
+    const quickStartLinks = [
+        { id: "focusGames", href: "/games" },
+        { id: "adhdGames", href: "/categories/adhd-games" },
+        { id: "schulteTable", href: "/games/schulte-table" },
+        { id: "adultAdhdAssessment", href: "/adult-adhd-assessment" },
+        { id: "workingMemoryGuide", href: "/working-memory-guide" }
+    ];
+
     return (
         <>
             <script
@@ -185,6 +220,39 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 {/* Games Section - Featured Bento Grid */}
                 <section className="mb-24 max-w-[1600px] mx-auto px-6">
                     <FeaturedBentoGrid />
+                </section>
+
+                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                    <div className="mb-8 max-w-2xl">
+                        <h2 className="text-3xl font-bold mb-3">
+                            {t("home.searchPaths.title")}
+                        </h2>
+                        <p className="text-lg text-muted-foreground">
+                            {t("home.searchPaths.subtitle")}
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4">
+                        {quickStartLinks.map((item) => (
+                            <Link
+                                key={item.id}
+                                href={item.href}
+                                className="group rounded-2xl border bg-card p-5 transition-all hover:-translate-y-1 hover:shadow-md"
+                            >
+                                <div className="flex items-start justify-between gap-3 mb-4">
+                                    <span className="text-sm font-medium text-primary">
+                                        {t(`home.searchPaths.items.${item.id}.eyebrow`)}
+                                    </span>
+                                    <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
+                                </div>
+                                <h3 className="text-lg font-semibold mb-2">
+                                    {t(`home.searchPaths.items.${item.id}.title`)}
+                                </h3>
+                                <p className="text-sm text-muted-foreground">
+                                    {t(`home.searchPaths.items.${item.id}.description`)}
+                                </p>
+                            </Link>
+                        ))}
+                    </div>
                 </section>
 
                 {/* Breathing Zone - Bento Layout */}
@@ -306,63 +374,67 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
-                            { id: 'nback', icon: '🧠', color: 'bg-indigo-50 text-indigo-700' },
-                            { id: 'schulte', icon: '⚡', color: 'bg-amber-50 text-amber-700' },
-                            { id: 'stroop', icon: '🛑', color: 'bg-red-50 text-red-700' },
-                            { id: 'memory', icon: '🧩', color: 'bg-emerald-50 text-emerald-700' }
+                            { id: 'nback', icon: '🧠', color: 'bg-indigo-50 text-indigo-700', href: '/games/dual-n-back' },
+                            { id: 'schulte', icon: '⚡', color: 'bg-amber-50 text-amber-700', href: '/games/schulte-table' },
+                            { id: 'stroop', icon: '🛑', color: 'bg-red-50 text-red-700', href: '/games/stroop-effect-test' },
+                            { id: 'memory', icon: '🧩', color: 'bg-emerald-50 text-emerald-700', href: '/categories/working-memory' }
                         ].map(type => (
-                            <div key={type.id} className="p-6 rounded-2xl border bg-card hover:shadow-lg transition-all hover:-translate-y-1">
-                                <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4", type.color)}>
-                                    {type.icon}
+                            <Link key={type.id} href={type.href} className="group block">
+                                <div className="p-6 rounded-2xl border bg-card hover:shadow-lg transition-all hover:-translate-y-1 h-full">
+                                    <div className="flex items-start justify-between gap-3 mb-4">
+                                        <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-2xl", type.color)}>
+                                            {type.icon}
+                                        </div>
+                                        <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-2">{t(`typesOfGames.${type.id}.title`)}</h3>
+                                    <p className="text-muted-foreground">{t(`typesOfGames.${type.id}.description`)}</p>
                                 </div>
-                                <h3 className="text-xl font-bold mb-2">{t(`typesOfGames.${type.id}.title`)}</h3>
-                                <p className="text-muted-foreground">{t(`typesOfGames.${type.id}.description`)}</p>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </section>
 
-                {/* Latest Blog Posts */}
+                {/* Featured Guides */}
                 <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
-                    <div className="flex justify-between items-center mb-8">
-                        <h2 className="text-3xl font-bold">
-                            {t("home.latestPosts")}
-                        </h2>
-                        <Link href="/blog">
-                            <Button variant="ghost">
-                                {t("buttons.viewAll")} →
-                            </Button>
+                    <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <h2 className="text-3xl font-bold mb-3">
+                                {t("home.featuredResources.title")}
+                            </h2>
+                            <p className="text-lg text-muted-foreground max-w-3xl">
+                                {t("home.featuredResources.subtitle")}
+                            </p>
+                        </div>
+                        <Link
+                            href="/blog"
+                            className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+                        >
+                            {t("home.featuredResources.viewAll")}
+                            <ArrowRight className="h-4 w-4" />
                         </Link>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {posts.slice(0, 2).map((post: BlogPost) => (
-                            <article
-                                key={post.slug}
-                                className="border rounded-lg overflow-hidden shadow-xs hover:shadow-md transition-shadow"
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {featuredResources.map((resource) => (
+                            <Link
+                                key={resource.id}
+                                href={resource.href}
+                                className="group border rounded-2xl p-6 shadow-xs hover:shadow-md transition-all hover:-translate-y-1 bg-card"
                             >
-                                <Link href={`/blog/${post.slug}`}>
-                                    <div className="flex flex-col md:grid md:grid-cols-[1fr_1.5fr] md:h-48">
-                                        {post.coverImage && (
-                                            <div
-                                                className="h-48 md:h-full bg-cover bg-center bg-no-repeat"
-                                                style={{
-                                                    backgroundImage: `url(${post.coverImage})`,
-                                                }}
-                                                role="img"
-                                                aria-label={post.title}
-                                            />
-                                        )}
-                                        <div className="p-6 flex flex-col justify-center">
-                                            <h3 className="text-xl font-semibold mb-3">
-                                                {post.title}
-                                            </h3>
-                                            <div className="text-sm text-muted-foreground">
-                                                {formatDate(post.date, locale)}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Link>
-                            </article>
+                                <div className="text-xs font-medium uppercase tracking-wide text-primary mb-3">
+                                    {resource.label}
+                                </div>
+                                <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                                    {resource.title}
+                                </h3>
+                                <p className="text-muted-foreground mb-5 line-clamp-4">
+                                    {resource.description}
+                                </p>
+                                <div className="inline-flex items-center gap-2 text-sm font-medium text-primary">
+                                    {resource.cta}
+                                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                </div>
+                            </Link>
                         ))}
                     </div>
                 </section>

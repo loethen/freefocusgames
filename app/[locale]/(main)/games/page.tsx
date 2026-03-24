@@ -38,6 +38,14 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
     const games = getGames();
     const t = await getTranslations({ locale, namespace: 'games' });
     const categoryT = await getTranslations({ locale, namespace: 'categories.categoryNames' });
+    const quickLinks = [
+        { id: 'adhdGames', href: '/categories/adhd-games' },
+        { id: 'workingMemory', href: '/categories/working-memory' },
+        { id: 'reactionTime', href: '/games/reaction-time' },
+        { id: 'schulteTable', href: '/games/schulte-table' },
+        { id: 'adultAdhdAssessment', href: '/adult-adhd-assessment' },
+        { id: 'workingMemoryGuide', href: '/working-memory-guide' },
+    ];
 
     return (
         <div className="mx-auto">
@@ -49,6 +57,38 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
             <p className="text-muted-foreground mb-12 max-w-2xl mx-auto text-center">
                 {t('description')}
             </p>
+
+            <section className="mb-10 max-w-5xl mx-auto">
+                <div className="rounded-2xl border bg-card p-6 md:p-8">
+                    <h2 className="text-2xl font-semibold mb-3 text-center">
+                        {t('quickLinks.title')}
+                    </h2>
+                    <p className="text-muted-foreground text-center mb-6 max-w-3xl mx-auto">
+                        {t('quickLinks.subtitle')}
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                        {quickLinks.map((item) => (
+                            <Link
+                                key={item.id}
+                                href={item.href}
+                                className="group rounded-xl border p-4 transition-all hover:-translate-y-1 hover:shadow-sm"
+                            >
+                                <div className="flex items-start justify-between gap-3 mb-2">
+                                    <h3 className="font-semibold">
+                                        {t(`quickLinks.items.${item.id}.title`)}
+                                    </h3>
+                                    <span className="text-muted-foreground transition-transform group-hover:translate-x-1">
+                                        →
+                                    </span>
+                                </div>
+                                <p className="text-sm text-muted-foreground">
+                                    {t(`quickLinks.items.${item.id}.description`)}
+                                </p>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
 
             {/* 类别筛选 */}
             <div className="mb-8 flex flex-wrap items-center justify-center gap-3">

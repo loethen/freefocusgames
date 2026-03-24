@@ -1,94 +1,142 @@
 {
   "home": {
-    "title": "免费脑力训练与专注力游戏：用好玩的方式每天提升注意力",
-    "subtitle": "适合儿童与成人ADHD的科学认知训练，每天只要5分钟，轻松提升记忆力和大脑表现。",
+    "title": "免费在线专注力游戏：适合成人、儿童与 ADHD",
+    "subtitle": "免费体验科学专注力训练游戏，用 5 分钟练习注意力、工作记忆、反应速度与专注表现。",
     "heroImageAlt": "免费专注力游戏平台 - 通过脑力训练提升注意力和记忆力",
     "heroFeatures": [
       "✓ 无需下载安装",
-      "✓ 100% 完全免费",
-      "✓ 适合成人与儿童 ADHD"
+      "✓ 免费开始练习",
+      "✓ 适合成人、儿童与 ADHD 用户"
     ],
-    "ctaButton": "从2分钟测试开始",
+    "ctaButton": "从快速测验开始",
     "popularGames": "热门游戏",
-    "featuredGames": "热门训练",
-    "latestGames": "最新加入",
+    "featuredGames": "热门游戏",
+    "latestGames": "最近加入的游戏",
     "springFestivalSpecial": "春节专区",
-    "breathingZone": "呼吸与放松",
-    "forFun": "趣味专区",
+    "breathingZone": "呼吸练习与放松",
+    "forFun": "轻松玩一玩",
     "latestPosts": "最新文章",
-    "benefitsTitle": "专注力：你的秘密超能力",
-    "benefitsIntro": "想象一下：你的孩子无需不断提醒就能专心完成任务，你轻松掌握会议重点，最终沉浸在那本你一直想读的书中。这就是训练专注力的力量。",
-    "familyLifeTitle": "家庭生活",
-    "familyLifeDesc": "帮助孩子更快完成作业，减少分心。在家庭时光中保持全神贯注，不受心理杂念干扰。",
-    "workPerformanceTitle": "工作表现",
-    "workPerformanceDesc": "告别会议中的走神。更快进入心流状态，以清晰的思维处理复杂任务。",
-    "personalGrowthTitle": "个人成长",
-    "personalGrowthDesc": "无论是学习新技能还是追求爱好，强大的专注力都能帮助你以两倍的速度取得进步。",
-    "dailyPractice": "每天只需10分钟 - 就像为你的大脑进行力量训练。",
-    "benefitsConclusion": "更敏锐的专注力，更美好的生活。",
-    "testimonialsTitle": "真实用户，真实效果",
-    "testimonials": {
-      "sarah": {
-        "name": "莎拉",
-        "username": "@sarah_writes",
-        "body": "经过3年的拖延，终于完成了我的小说初稿！"
-      },
-      "mike": {
-        "name": "迈克",
-        "username": "@chef_mike",
-        "body": "现在可以不分心地按照复杂的烘焙食谱操作了"
-      },
-      "emma": {
-        "name": "艾玛",
-        "username": "@nature_em",
-        "body": "记住我们山间徒步的每一个转弯 - 再也不会迷路了！"
-      },
-      "sophia": {
-        "name": "索菲亚",
-        "username": "@math_mom",
-        "body": "我儿子的数学成绩在3个月内提高了2个等级！"
-      },
-      "liam": {
-        "name": "利亚姆",
-        "username": "@adhd_dad",
-        "body": "每天15分钟帮助我女儿能够安静地完成家庭作业"
-      },
-      "tom": {
-        "name": "汤姆",
-        "username": "@movie_tom",
-        "body": "现在能够捕捉电影中的情节转折 - 不再感到困惑！"
-      },
-      "lisa": {
-        "name": "丽莎",
-        "username": "@organized_lisa",
-        "body": "在杂乱的房间里立即找到钥匙 - 救星！"
-      },
-      "david": {
-        "name": "大卫",
-        "username": "@dad_athlete",
-        "body": "再也不会错过孩子的足球进球了"
-      },
-      "olivia": {
-        "name": "奥利维亚",
-        "username": "@homeschool_olivia",
-        "body": "通过专注练习，学习时间减少了40%"
-      },
-      "ethan": {
-        "name": "伊森",
-        "username": "@gaming_dad",
-        "body": "现在可以轻松平衡游戏时间和学习时间"
+    "featuredResources": {
+      "title": "实用指南与文章",
+      "subtitle": "从我们最实用的工作记忆指南、舒尔特表格训练文章和成人 ADHD 自测说明开始。",
+      "viewAll": "查看全部文章",
+      "items": {
+        "workingMemoryGuide": {
+          "label": "指南",
+          "description": "从我们的核心工作记忆指南开始，了解训练原理，以及哪些游戏最适合提升专注力和整体认知表现。"
+        },
+        "schulteBenefits": {
+          "label": "文章"
+        },
+        "adultAdhdAsrs": {
+          "label": "文章"
+        }
       }
     },
-    "metaTitle": "免费记忆力和专注力训练游戏",
-    "metaDescription": "免费在线专注力、记忆力与注意力训练游戏，适合儿童、成人与 ADHD 用户。无需下载，直接开始脑力训练、反应测试和工作记忆练习，系统提升认知表现。",
-    "metaKeywords": "记忆力游戏, 专注力游戏, 注意力游戏, 脑力训练, 免费在线游戏",
-    "ogTitle": "免费脑力训练游戏 - 提升专注力和记忆力",
-    "ogDescription": "通过我们免费的科学脑力游戏提升您的记忆力和专注力。适合所有年龄段！",
+    "searchPaths": {
+      "title": "快速找到合适的入口",
+      "subtitle": "通过这些快速入口，直接进入更适合的页面，无论你想找专注力游戏、ADHD 友好练习，还是某个具体训练工具。",
+      "items": {
+        "focusGames": {
+          "eyebrow": "热门搜索",
+          "title": "在线专注力游戏",
+          "description": "浏览完整的免费专注力游戏、注意力训练和集中力练习。"
+        },
+        "adhdGames": {
+          "eyebrow": "分类",
+          "title": "成人 ADHD 游戏",
+          "description": "查看适合 ADHD 用户的脑力训练游戏，覆盖注意控制、工作记忆和专注练习。"
+        },
+        "schulteTable": {
+          "eyebrow": "训练工具",
+          "title": "在线舒尔特表格",
+          "description": "使用免费的在线舒尔特表格训练视觉注意力、周边视觉和阅读速度。"
+        },
+        "adultAdhdAssessment": {
+          "eyebrow": "评估",
+          "title": "成人 ADHD 自测",
+          "description": "使用基于 WHO ASRS 框架的免费成人 ADHD 自评工具。"
+        },
+        "workingMemoryGuide": {
+          "eyebrow": "指南",
+          "title": "工作记忆指南",
+          "description": "了解工作记忆的原理，以及适合入门的训练游戏和练习。"
+        }
+      }
+    },
+    "benefitsTitle": "这些游戏能帮你练什么",
+    "benefitsIntro": "这些游戏不是立刻解决问题的捷径，但它们能提供短而可重复的练习方式，帮助你在日常情境中训练注意力、工作记忆和心智控制。",
+    "familyLifeTitle": "作业与日常节奏",
+    "familyLifeDesc": "用短时间练习来训练回到任务本身、跟随指令和减少分心后的重新进入能力。",
+    "workPerformanceTitle": "工作与学习前的热身",
+    "workPerformanceDesc": "在写作、学习、规划和其他需要稳定注意力的任务前，用短练习帮助自己更快进入状态。",
+    "personalGrowthTitle": "阅读、学习与兴趣训练",
+    "personalGrowthDesc": "在保持单次练习足够短的同时，训练阅读流畅度、视觉扫描、记忆力和反应速度等能力。",
+    "dailyPractice": "每周做几次短练习，就足以帮助你发现自己最想提升的是哪一类能力。",
+    "benefitsConclusion": "从小处开始，稳定练习。",
+    "testimonialsTitle": "人们通常怎么用这些游戏",
+    "testimonials": {
+      "sarah": {
+        "name": "写作者",
+        "username": "进入深度专注",
+        "body": "有些人会在写作前先做一个短练习，帮助自己更快坐下来并把注意力留在草稿上。"
+      },
+      "mike": {
+        "name": "学生",
+        "username": "作业前热身",
+        "body": "快速玩一局，可以当作写作业、复习或开始需要持续专注任务前的过渡。"
+      },
+      "emma": {
+        "name": "阅读练习者",
+        "username": "视觉注意力",
+        "body": "视觉搜索和舒尔特表格练习，常被用来配合阅读流畅度和注意力持续训练。"
+      },
+      "sophia": {
+        "name": "家长",
+        "username": "短时结构化练习",
+        "body": "有些家长会把这些游戏放在作业前或安静学习前，作为简短而可预期的训练活动。"
+      },
+      "liam": {
+        "name": "ADHD 成人用户",
+        "username": "注意力重置",
+        "body": "短练习常被当作开始工作、学习或进入容易拖延任务前的注意力重置方式。"
+      },
+      "tom": {
+        "name": "玩家",
+        "username": "反应速度",
+        "body": "反应和节奏类游戏能提供一种轻量方式，用来练视觉速度和反应控制。"
+      },
+      "lisa": {
+        "name": "忙碌的大人",
+        "username": "日常短练习",
+        "body": "单次时间足够短，适合安排在会议之间、放学后或任何想做专注重置的时候。"
+      },
+      "david": {
+        "name": "运动与兴趣爱好者",
+        "username": "视觉速度训练",
+        "body": "有些人会把视觉注意力和反应训练，作为运动、音乐或其他技能型兴趣的补充练习。"
+      },
+      "olivia": {
+        "name": "家庭学习计划",
+        "username": "固定训练节奏",
+        "body": "如果你喜欢短而稳定的训练块，这些游戏很容易插入每周的学习或练习安排里。"
+      },
+      "ethan": {
+        "name": "刚入门的人",
+        "username": "从简单开始",
+        "body": "很多人是因为想先用一种轻松、无压力的方式接触专注力和记忆训练而来到这里。"
+      }
+    },
+    "metaTitle": "免费在线专注力游戏：适合成人、儿童与 ADHD",
+    "metaDescription": "免费在线专注力游戏，训练注意力、专注力、反应速度与工作记忆。适合成人、儿童与 ADHD 用户，无需下载即可开始脑力训练。",
+    "metaKeywords": "专注力游戏, 免费专注力游戏, 在线专注力游戏, adhd 游戏, 注意力游戏, 记忆力游戏, 脑力训练, 反应速度游戏",
+    "ogTitle": "免费在线专注力游戏：适合成人、儿童与 ADHD",
+    "ogDescription": "免费体验科学专注力训练游戏，训练注意力、工作记忆、反应速度与 ADHD 友好型脑力练习。",
     "scienceBehind": {
-      "title": "趣味背后的科学",
-      "subtitle": "我们的游戏基于前沿神经科学研究。",
-      "description": "探索针对性认知训练如何增强神经可塑性、工作记忆和注意力持续时间。",
-      "cta": "阅读工作记忆权威指南",
+      "title": "这些游戏为什么有效",
+      "subtitle": "我们的游戏基于认知科学里经典的注意力、记忆与反应速度任务。",
+      "description": "了解工作记忆、视觉注意力，以及短时间重复练习为什么能帮助你建立更稳定的专注训练习惯。",
+      "cta": "阅读工作记忆指南",
       "tag": "神经科学"
     }
   }

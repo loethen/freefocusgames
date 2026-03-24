@@ -2,11 +2,41 @@
   "games": {
     "title": "Games",
     "play": "Play",
-    "heading": "Free Focus Games Online",
-    "description": "Explore free focus games online for attention, concentration, working memory, and ADHD-friendly brain training.",
+    "heading": "All Brain Training Games for Focus, Memory, and Reaction Time",
+    "description": "Browse our full library of brain training games by skill, including attention, working memory, reaction time, visual tracking, and ADHD-friendly practice.",
     "filters": {
       "all": "All Games",
       "more": "More Categories..."
+    },
+    "quickLinks": {
+      "title": "Popular Ways to Explore the Library",
+      "subtitle": "These entry points help users and search engines understand which page best matches each training goal.",
+      "items": {
+        "adhdGames": {
+          "title": "ADHD Games for Adults",
+          "description": "See our ADHD-friendly training collection for attention control, working memory, and focus."
+        },
+        "workingMemory": {
+          "title": "Working Memory Games",
+          "description": "Browse working memory exercises and games designed for recall, updating, and mental control."
+        },
+        "reactionTime": {
+          "title": "Reaction Time Test",
+          "description": "Measure and train visual response speed with our free online reaction time test."
+        },
+        "schulteTable": {
+          "title": "Schulte Table Online",
+          "description": "Practice visual scanning, peripheral vision, and reading speed with our Schulte Table online."
+        },
+        "adultAdhdAssessment": {
+          "title": "Adult ADHD Self-Assessment",
+          "description": "Take our adult ADHD assessment to understand your attention patterns and get recommended next steps."
+        },
+        "workingMemoryGuide": {
+          "title": "Working Memory Guide",
+          "description": "Read our in-depth guide to working memory, training benefits, and recommended games."
+        }
+      }
     },
     "template": {
       "howToPlay": "How to Play",
@@ -50,15 +80,15 @@
         "item3": "Schulte Table (5 min)"
       }
     },
-    "metaTitle": "Free Focus Games Online | Attention & Memory Training",
-    "metaDescription": "Play free focus games online to train attention, concentration, working memory, and processing speed. Science-based brain training games for kids, adults, and ADHD.",
-    "metaKeywords": "focus games online, free focus games, online focus games, attention games, memory games, concentration games, brain training games, adhd games, free brain games, mental exercises",
-    "ogTitle": "Free Focus Games Online | Attention and Memory Training",
-    "ogDescription": "Play science-based focus games online for free. Train attention, working memory, concentration, and processing speed in one place.",
+    "metaTitle": "Brain Training Games Library | Focus, Memory & Reaction Time",
+    "metaDescription": "Browse all brain training games by goal: focus, memory, reaction time, visual attention, and ADHD-friendly practice. Find the right game for each cognitive skill.",
+    "metaKeywords": "brain training games, memory games, reaction time games, visual attention games, working memory games, adhd brain training, cognitive training games, focus exercises",
+    "ogTitle": "Brain Training Games Library | Focus, Memory & Reaction Time",
+    "ogDescription": "Browse brain training games for focus, memory, reaction time, visual attention, and ADHD-friendly practice in one organized library.",
     "schulteTable": {
       "title": "Schulte Table",
-      "subtitle": "Supercharge Your Reading Speed and Visual Focus",
-      "description": "Transform your reading and attention abilities with this classic cognitive exercise. Find numbers in sequence while training your peripheral vision and processing speed. Used by speed readers and professionals worldwide to enhance visual performance and concentration.",
+      "subtitle": "Free Online Visual Attention and Speed Reading Training",
+      "description": "Practice with our free Schulte Table online to train visual attention, peripheral vision, reading speed, and concentration. Find numbers in sequence and improve scanning speed in minutes.",
       "howToPlay": "Find and click numbers in ascending order (1-25) as quickly as possible. Try to use your peripheral vision instead of scanning each number!",
       "speedStandards": {
         "title": "Speed Standards",
@@ -79,15 +109,15 @@
       },
       "watchDemo": "Watch Demo",
       "demo": "Demo",
-      "metaTitle": "Schulte Table Online: Speed Reading & Peripheral Vision Test",
-      "metaDescription": "Boost your reading speed and attention span with the free Schulte Table (Schulte Grid) test. A powerful peripheral vision training exercise used by speed readers, athletes, and those seeking ADHD focus improvement.",
-      "metaKeywords": "schulte table online, schulte grid test free, speed reading training games, peripheral vision test, adhd attention span exercises, expand visual field, cognitive speed test, fast reading practice",
-      "ogTitle": "Schulte Table Online: Speed Reading & Peripheral Vision Test",
-      "ogDescription": "Boost your reading speed and attention span with the free Schulte Table (Schulte Grid) test. A powerful peripheral vision training exercise used by speed readers, athletes, and those seeking ADHD focus improvement.",
+      "metaTitle": "Free Schulte Table Online: Visual Attention & Reading Speed",
+      "metaDescription": "Use this free Schulte Table online to train visual attention, peripheral vision, and reading speed. A simple Schulte grid exercise for focus practice, speed reading, and ADHD-friendly attention training.",
+      "metaKeywords": "schulte table online, free schulte table, schulte grid, visual attention training, peripheral vision exercise, reading speed practice, focus exercise, adhd attention training",
+      "ogTitle": "Free Schulte Table Online: Visual Attention & Reading Speed",
+      "ogDescription": "Use this free Schulte Table online to train visual attention, peripheral vision, and reading speed with a simple Schulte grid exercise.",
       "science": {
         "title": "Visual Attention and Processing Speed Enhancement",
         "description": "The Schulte Table is a well-established neuropsychological tool used to assess and train visual attention, processing speed, and executive function. Research shows that regular practice strengthens neural networks responsible for visual scanning, selective attention, and information processing speed - skills crucial for reading, driving, and academic performance.",
-        "blogArticleTitle": "The Science of Schulte Tables: How This Simple Exercise Boosts Visual Attention and Reading Speed",
+        "blogArticleTitle": "Schulte Table Benefits: 7 Science-Backed Gains for Visual Attention and Reading Speed",
         "authorityLinks": {
           "neuropsychology": "Schulte Tables in neuropsychological assessment and rehabilitation",
           "attention": "Visual attention and selective attention research overview",

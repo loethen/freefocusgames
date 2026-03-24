@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@/i18n/navigation';
 import { GameHeader } from '@/components/GameHeader';
 import GameCategories from '@/components/game-categories';
 import {
@@ -217,14 +218,19 @@ export function GamePageTemplate({
                             {science.blogArticleUrl &&
                                 science.blogArticleTitle && (
                                     <div className="mb-6">
-                                        <a
+                                        <Link
                                             href={science.blogArticleUrl}
-                                            className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                                            className="group block rounded-xl border border-primary/15 bg-primary/5 p-4 hover:border-primary/40 hover:bg-primary/10 transition-colors"
                                             title={science.blogArticleTitle}
                                         >
-                                            <BookOpen className="w-4 h-4" />
-                                            {gameT("readDetailedArticle")}
-                                        </a>
+                                            <div className="flex items-center gap-2 text-sm font-medium text-primary mb-2">
+                                                <BookOpen className="w-4 h-4" />
+                                                {gameT("readDetailedArticle")}
+                                            </div>
+                                            <div className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                                                {science.blogArticleTitle}
+                                            </div>
+                                        </Link>
                                     </div>
                                 )}
 

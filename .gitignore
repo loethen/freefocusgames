@@ -48,7 +48,9 @@ scripts/
 *.py
 GA4_ANALYTICS_GUIDE.md
 SEO_GROWTH_PLAN.md
-/reports/seo/
+/reports/
+build-scripts/google-ads-keywords.mjs
+build-scripts/seo-opportunities.mjs
 
 # OpenNext
 .open-next/
