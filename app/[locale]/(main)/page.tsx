@@ -256,6 +256,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </section>
 
+                {/* Latest Games */}
+                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                    <LatestGames />
+                </section>
+
                 {/* Breathing Zone - Bento Layout */}
                 <section className="mb-24 max-w-[1600px] mx-auto px-6">
                     <div className="flex items-center gap-2 mb-8">
@@ -334,11 +339,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             </div>
                         );
                     })()}
-                </section>
-
-                {/* Latest Games */}
-                <section className="mb-24 max-w-[1600px] mx-auto px-6">
-                    <LatestGames />
                 </section>
 
                 {/* For Fun */}

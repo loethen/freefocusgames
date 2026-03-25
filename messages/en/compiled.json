@@ -1539,6 +1539,113 @@
       "twitterTitle": "Baby Animal Matching Game | Train Your Memory",
       "twitterDescription": "Test your memory skills by matching cute baby animal pairs in this free online game."
     },
+    "memoryMatchingGame": {
+      "title": "Memory Matching Game Online",
+      "subtitle": "Play a free online memory matching game with clean themes, timed rounds, and quick replayable practice",
+      "description": "Play this free memory matching game online with shapes, letters, or numbers. Match pairs, train visual recall, and improve concentration with quick repeatable rounds.",
+      "metadata": {
+        "title": "Memory Matching Game Online: Free Matching Pairs and Concentration Practice",
+        "description": "Play a free memory matching game online with shapes, letters, or numbers. Match pairs, improve visual memory, and enjoy quick concentration practice in your browser.",
+        "keywords": "memory matching game online, matching games online, free online matching games, concentration game online, pair matching game, visual memory game, memory card game online",
+        "ogTitle": "Memory Matching Game Online: Free Matching Pairs and Concentration Practice",
+        "ogDescription": "Play a free memory matching game online with shapes, letters, or numbers. Match pairs and sharpen visual recall with quick browser-based rounds."
+      },
+      "leaderboardNote": "The public leaderboard tracks the default setup only: Shapes on the 4×4 board.",
+      "preview": {
+        "eyebrow": "Memory Match",
+        "title": "Flip and match",
+        "statusIdle": "Preview",
+        "statusFlipping": "Flipping",
+        "statusMatched": "Pair found"
+      },
+      "howToPlay": {
+        "description": "This memory matching game is built for quick repeatable rounds, whether you want a light brain warm-up or a focused recall challenge. It works especially well when you stay with one theme for a few rounds and compare your recall, speed, and consistency over time.",
+        "step1": "Pick a theme: shapes, letters, or numbers",
+        "step2": "Choose a board size from 4×4, 5×4, or 6×4",
+        "step3": "Flip two cards at a time and remember where each symbol appears",
+        "step4": "Clear the board in as few moves and as little time as possible"
+      },
+      "benefits": {
+        "memory": {
+          "title": "Visual Memory",
+          "description": "Practice holding card locations in mind and recalling them under light time pressure."
+        },
+        "visual": {
+          "title": "Pattern Recognition",
+          "description": "Repeated rounds help you notice symbol differences quickly and match them with more confidence."
+        },
+        "focus": {
+          "title": "Short Focus Blocks",
+          "description": "A single round is brief enough to repeat, making it useful as a warm-up before study, work, or other games."
+        }
+      },
+      "science": {
+        "title": "Why Matching Games Help Visual Recall",
+        "description": "Matching games combine short-term storage, visual scanning, and repeated recall. That mix makes them a simple way to practice working memory and attention without a long setup or complicated rules.",
+        "guideTitle": "Working Memory Guide: What It Is, Why It Matters, and How to Improve It"
+      },
+      "faq": {
+        "what": {
+          "question": "What kind of memory does this game train?",
+          "answer": "This game mainly practices visual working memory and short-term recall. You briefly hold card positions in mind, compare new information against what you saw before, and update your memory as the board clears."
+        },
+        "difficulty": {
+          "question": "How do the board sizes change the challenge?",
+          "answer": "Larger boards increase the number of pairs you need to track at once. A 4×4 board is a faster warm-up, while 5×4 and 6×4 push you to remember more locations and stay organized for longer."
+        },
+        "skills": {
+          "question": "Is this only for kids, or useful for adults too?",
+          "answer": "Adults can absolutely use it. A clean matching game is useful for anyone who wants a short memory warm-up, a visual attention drill, or a quick reset between heavier tasks."
+        },
+        "practice": {
+          "question": "How should I practice to improve?",
+          "answer": "Start with one theme and repeat it for a few rounds so you can compare your moves and time. Once that feels easier, move up a board size or switch themes to keep the recall challenge fresh."
+        }
+      },
+      "gameUI": {
+        "instructions": "Flip two cards at a time and clear the board as efficiently as you can.",
+        "progress": "Progress",
+        "controls": {
+          "theme": "Theme",
+          "difficulty": "Board",
+          "reset": "Reset",
+          "settings": "Settings",
+          "start": "Start Game"
+        },
+        "settings": {
+          "title": "Game Settings",
+          "description": "Choose the symbol set and board size before you start a new round."
+        },
+        "themes": {
+          "shapes": "Shapes",
+          "letters": "Letters",
+          "numbers": "Numbers"
+        },
+        "difficulties": {
+          "easy": "4×4",
+          "medium": "5×4",
+          "hard": "6×4"
+        },
+        "stats": {
+          "moves": "Moves",
+          "time": "Time",
+          "best": "Best",
+          "pairs": "Pairs"
+        },
+        "startTitle": "Ready to Start?",
+        "startDescription": "Pick your theme and board size in Settings, then start when you're ready. The timer begins only after you press Start.",
+        "revealCard": "Reveal card {symbol}",
+        "completeTitle": "Board Complete!",
+        "completeDescription": "You matched all {pairs} pairs and cleared the board in {moves} moves.",
+        "newBest": "New best time",
+        "playAgain": "Play Again",
+        "leaderboardEligible": "This result counts for the public leaderboard.",
+        "leaderboardDefaultOnly": "Only Shapes on the 4×4 board count toward the public leaderboard.",
+        "shareResults": "Share Result",
+        "shareTitle": "My Memory Matching Result",
+        "shareText": "I cleared the {difficulty} {theme} memory matching board in {moves} moves and {time}."
+      }
+    },
     "freeShortTermMemoryTest": {
       "title": "Free Short Term Memory Test",
       "subtitle": "Assess your short-term memory capacity with household item recall",

@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { DEFAULT_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
 import { getPublicLeaderboardUrl } from "@/lib/leaderboard-public";
 
-export type FormatterType = 'ms' | 'cps' | 'pts' | 'levels' | 'schulte' | 'default';
+export type FormatterType = 'ms' | 'sec3' | 'cps' | 'pts' | 'levels' | 'schulte' | 'default';
 
 export interface LeaderboardDisplayProps {
     gameId: string;
@@ -75,6 +75,7 @@ export function LeaderboardDisplay({
         const rounded = Math.round(s);
         switch (formatterType) {
             case 'ms': return `${rounded} ${t('unitMs')}`;
+            case 'sec3': return `${(s / 1000).toFixed(3)} ${t('unitSec')}`;
             case 'cps': return `${Number(s.toFixed(1))} ${t('unitCps')}`;
             case 'pts': return `${rounded} ${t('unitPts')}`;
             case 'levels': return t('unitLevel', { score: rounded.toString() });

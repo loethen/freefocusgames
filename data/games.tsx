@@ -1,6 +1,7 @@
 import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/block-memory-challenge/components/GamePreview";
 import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
 import { CountingBoxesGamePreview } from "@/app/[locale]/(main)/games/counting-boxes/components/GamePreview";
+import { GamePreview as MemoryMatchingPreview } from "@/app/[locale]/(main)/games/memory-matching-game/components/GamePreview";
 import { GamePreview as ResonanceBreathingPreview } from "@/app/[locale]/(main)/games/resonance-breathing/GamePreview";
 import { GamePreview as FishTraceGamePreview } from "@/app/[locale]/(main)/games/fish-trace/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
@@ -73,6 +74,13 @@ export const games: Game[] = [
       <ImagePreview src="https://images.unsplash.com/photo-1583524505974-6facd53f4597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw2fHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" />
     ),
     categories: ["working-memory", "visual-tracking", "brain-games-for-kids"],
+  },
+  {
+    id: "memory-matching-game",
+    title: "Memory Matching Game",
+    slug: "memory-matching-game",
+    preview: <MemoryMatchingPreview />,
+    categories: ["working-memory", "visual-tracking", "sustained-attention", "adhd-games"],
   },
   {
     id: "dual-n-back",
@@ -218,6 +226,7 @@ export function getFeaturedGames(): Game[] {
     'dual-n-back',
     'schulte-table',
     'block-memory-challenge',
+    'memory-matching-game',
     'larger-number',
     'reaction-time',
     'mahjong-dual-n-back',
@@ -237,6 +246,7 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
+    'memory-matching-game', // Memory Matching Game - Newest
     'cps-test',          // CPS Test - Newest
     'fish-trace',        // Fish Trace
     'pomodoro-timer',    // Pomodoro Timer

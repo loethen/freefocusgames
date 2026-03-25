@@ -8,8 +8,7 @@ import { Button } from "@/components/ui/button";
 
 
 // Select specific games for the bento grid
-const FEATURED_GAME_ID = 'fish-trace';
-// Added more games: 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'
+const FEATURED_GAME_ID = 'memory-matching-game';
 const SECONDARY_GAME_IDS = ['schulte-table', 'dual-n-back', 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'];
 
 // Helper icons - mapped by ID for specific ones, default for others
