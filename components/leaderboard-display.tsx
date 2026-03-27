@@ -5,6 +5,7 @@ import { Trophy, Users, TrendingUp, Sparkles } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { DEFAULT_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
 import { getPublicLeaderboardUrl } from "@/lib/leaderboard-public";
+import { isHigherScoreBetter } from "@/lib/leaderboard-snapshots";
 
 export type FormatterType = 'ms' | 'sec3' | 'cps' | 'pts' | 'levels' | 'schulte' | 'default';
 
@@ -57,6 +58,24 @@ function normalizeLeaderboardResponse(data: LeaderboardApiResponse) {
     };
 }
 
+function isLeaderboardDataConsistent(
+    gameId: string,
+    data: ReturnType<typeof normalizeLeaderboardResponse>
+) {
+    if (data.totalPlayers === 0 || data.top20.length === 0) {
+        return true;
+    }
+
+    const bestScore = data.top20[0]?.score;
+    if (typeof bestScore !== "number") {
+        return true;
+    }
+
+    return isHigherScoreBetter(gameId)
+        ? data.averageScore <= bestScore
+        : data.averageScore >= bestScore;
+}
+
 export function LeaderboardDisplay({
     gameId,
     formatterType = 'default',
@@ -104,14 +123,23 @@ export function LeaderboardDisplay({
             if (publicRequestUrl) {
                 try {
                     res = await fetch(publicRequestUrl, requestInit);
+                    if (res.ok) {
+                        const publicData = normalizeLeaderboardResponse((await res.json()) as LeaderboardApiResponse);
+                        if (isLeaderboardDataConsistent(gameId, publicData)) {
+                            setTop20(publicData.top20);
+                            setAverageScore(publicData.averageScore);
+                            setTotalPlayers(publicData.totalPlayers);
+                            return;
+                        }
+                    }
                 } catch {
                     res = null;
                 }
             }
 
-            if (!res || !res.ok) {
-                res = await fetch(`/api/leaderboard?${params.toString()}`, requestInit);
-            }
+            res = await fetch(`/api/leaderboard?${params.toString()}`, {
+                cache: "no-store",
+            });
 
             if (res.ok) {
                 const data = normalizeLeaderboardResponse((await res.json()) as LeaderboardApiResponse);
