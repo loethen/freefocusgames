@@ -192,6 +192,8 @@ The scale has received significant professional recognition:
 
 ## Scoring and Interpretation
 
+If your main goal is **scoring the Vanderbilt ADHD Rating Scale** rather than reading a broad overview, we now have a dedicated step-by-step guide that breaks down **parent form scoring, teacher form scoring, performance impairment, and follow-up interpretation**. Start with [Scoring the Vanderbilt ADHD Rating Scale](/blog/scoring-the-vanderbilt-adhd-rating-scale) and then come back here for the larger clinical context.
+
 ### Scoring Methodology
 
 The Vanderbilt scale uses a 4-point Likert scale:

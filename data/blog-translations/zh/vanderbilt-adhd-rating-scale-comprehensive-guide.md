@@ -192,6 +192,8 @@ keywords: ["儿童adhd评估", "范德比尔特adhd评定量表", "儿童adhd诊
 
 ## 评分和解释
 
+如果你现在最关心的是 **Vanderbilt 量表怎么打分**，而不是先看整套量表的总览，我们另外写了一篇更聚焦的步骤文章，专门拆解 **家长版评分、教师版评分、功能受损判断，以及随访表怎么解释**。可以先读 [如何给 Vanderbilt ADHD 评定量表打分](/blog/scoring-the-vanderbilt-adhd-rating-scale)，再回来结合这里的整体背景理解。
+
 ### 评分方法
 
 范德比尔特量表使用4点Likert量表：

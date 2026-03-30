@@ -5,6 +5,8 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from "@/i18n/routing";
+import { generateAlternates } from "@/lib/utils";
+import { Link } from "@/i18n/navigation";
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
@@ -62,19 +64,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       categoryName: categoryName
     }),
     description: t('categoryMetaDescription', {
-      categoryName: categoryName.toLowerCase(),
+      categoryName: categoryName,
       categoryDescription: categoryDescription
     }),
-    keywords: translatedKeywords,
+    keywords: translatedKeywords.split(",").map((keyword) => keyword.trim()).filter(Boolean),
     openGraph: {
       title: t('categoryOgTitle', {
         categoryName: categoryName
       }),
       description: t('categoryOgDescription', {
-        categoryName: categoryName.toLowerCase()
+        categoryName: categoryName
       }),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
+    alternates: generateAlternates(locale, `categories/${slug}`),
   };
 }
 
@@ -95,6 +98,7 @@ export default async function CategoryPage({ params }: Props) {
   const categoryDescription = t(`categoryDescriptions.${category.id}`, { defaultMessage: category.description });
   const categoryGamesHeading = t('categoryGamesHeading', { categoryName: categoryName });
   const categoriesTitle = t('title');
+  const categoryIntro = t('categoryIntro', { categoryName });
 
   return (
     <div className="max-w-7xl mx-auto py-8">
@@ -105,10 +109,16 @@ export default async function CategoryPage({ params }: Props) {
         ]}
       />
 
-      <h1 className="text-3xl font-bold mt-12 mb-8 text-center">
+      <h1 className="text-3xl md:text-4xl font-bold mt-12 mb-6 text-center">
         {categoryGamesHeading}
       </h1>
-      <p className="text-semibold mb-12 max-w-4xl mx-auto text-center leading-8">{categoryDescription}</p>
+      <p className="mb-4 max-w-4xl mx-auto text-center leading-8 text-foreground/90">{categoryDescription}</p>
+      <p className="mb-8 max-w-3xl mx-auto text-center text-sm text-muted-foreground leading-7">{categoryIntro}</p>
+      <div className="mb-12 text-center">
+        <Link href="/categories" className="text-sm text-primary hover:underline">
+          {t('backToAll')}
+        </Link>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {games.map((game) => (

@@ -1,13 +1,19 @@
 {
   "categories": {
     "title": "Categories",
-    "heading": "Game Categories",
-    "description": "Browse our collection of brain training games by cognitive skill category. Each category focuses on a different aspect of mental performance.",
-    "metaTitle": "Game Categories | Brain Training",
-    "metaDescription": "Browse our brain training games organized by cognitive skill category. Find games targeting memory, attention, reaction time, and spatial skills.",
-    "metaKeywords": "brain training categories, cognitive skills, memory games, focus games, attention games, reaction time games, cognitive flexibility",
-    "ogTitle": "Brain Training Game Categories",
-    "ogDescription": "Explore our categorized collection of brain games designed to enhance specific cognitive abilities.",
+    "heading": "Browse Brain Training Game Categories",
+    "description": "Explore free brain training games by skill area, including working memory, reaction time, focus, ADHD-friendly practice, and relaxation. Use categories to find the kind of training you actually want to do.",
+    "metaTitle": "Brain Game Categories: Memory, Focus, Reaction Time & ADHD",
+    "metaDescription": "Browse free brain game categories for working memory, attention, reaction time, ADHD-friendly training, visual tracking, and relaxation. Find the right games faster.",
+    "metaKeywords": "brain game categories, brain training games, memory games, focus games, attention games, reaction time games, adhd games for adults, working memory games, relaxation exercises",
+    "ogTitle": "Brain Game Categories for Memory, Focus, Reaction Time & ADHD",
+    "ogDescription": "Explore free brain training game categories and quickly find working memory, attention, reaction time, ADHD-friendly, and relaxation exercises.",
+    "popularTitle": "Popular Categories",
+    "popularDescription": "Start with the categories people are most likely to look for first, then browse the full list below.",
+    "allCategoriesTitle": "All Categories",
+    "allCategoriesDescription": "Each category groups together games that train a related skill, so it is easier to compare options and pick a practice style that fits your goal.",
+    "gameCount": "{count} games",
+    "browseCategory": "Browse category",
     "categoryNames": {
       "working-memory": "Working Memory",
       "visual-tracking": "Visual Tracking",
@@ -170,10 +176,12 @@
     },
     "categoryNotFound": "Category Not Found",
     "categoryNotFoundDesc": "The requested category could not be found.",
-    "categoryMetaTitle": "{categoryName} Games - Brain Training & Cognitive Enhancement",
-    "categoryMetaDescription": "Explore our collection of brain training games that focus on {categoryName}. {categoryDescription}",
-    "categoryOgTitle": "{categoryName} Training Games - Improve Your Cognitive Skills",
-    "categoryOgDescription": "Enhance your {categoryName} with our specialized brain training games. Free, effective, and scientifically-informed exercises.",
-    "categoryGamesHeading": "{categoryName} Games"
+    "categoryMetaTitle": "Free {categoryName} Games Online | Brain Training Categories",
+    "categoryMetaDescription": "Explore free {categoryName} games online. {categoryDescription}",
+    "categoryOgTitle": "{categoryName} Games Online",
+    "categoryOgDescription": "Browse free {categoryName} games and brain training exercises designed to strengthen this skill with repeatable practice.",
+    "categoryGamesHeading": "{categoryName} Games Online",
+    "categoryIntro": "This category groups together games that mainly train {categoryName}. Use it when you want a more focused practice path instead of browsing the entire library.",
+    "backToAll": "See all categories"
   }
 }

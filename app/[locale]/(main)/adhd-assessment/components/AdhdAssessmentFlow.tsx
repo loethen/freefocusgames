@@ -234,13 +234,22 @@ export default function AdhdAssessmentFlow() {
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
             {t('learnMore.text')}
           </p>
-          <Link
-            href="/blog/vanderbilt-adhd-rating-scale-comprehensive-guide"
-            className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
-          >
-            {t('learnMore.linkText')}
-            <ArrowRight size={14} />
-          </Link>
+          <div className="flex flex-col items-start gap-2">
+            <Link
+              href="/blog/scoring-the-vanderbilt-adhd-rating-scale"
+              className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+            >
+              {t('learnMore.scoringLinkText')}
+              <ArrowRight size={14} />
+            </Link>
+            <Link
+              href="/blog/vanderbilt-adhd-rating-scale-comprehensive-guide"
+              className="inline-flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+            >
+              {t('learnMore.linkText')}
+              <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
       </div>
 

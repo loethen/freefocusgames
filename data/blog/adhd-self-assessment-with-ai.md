@@ -20,6 +20,8 @@ This article will explain how you can use an LLM to walk through the parent vers
 
 The **Vanderbilt ADHD Diagnostic Rating Scale** is a widely used assessment tool for ADHD. The parent version is filled out by parents based on their child's daily behaviors. It covers multiple dimensions, including inattention, hyperactivity, and impulsivity, offering a comprehensive overview of the subject's behavior. Understanding how to approach **scoring the Vanderbilt ADHD Rating Scale** can provide valuable insights, but a professional's interpretation is crucial.
 
+If your main goal is to understand the actual scoring logic before using AI to organize answers, read our dedicated guide on [scoring the Vanderbilt ADHD Rating Scale](/blog/scoring-the-vanderbilt-adhd-rating-scale). It explains how symptom counts, impairment items, parent forms, and teacher forms are interpreted.
+
 ### The Prompt for the AI Model
 
 You can copy and paste the following prompt into an AI chat interface like ChatGPT, Gemini, or Claude. The model will then guide you through the questionnaire.

@@ -1142,14 +1142,14 @@
     },
     "memoryMatchingGame": {
       "title": "Memory Matching Game Online",
-      "subtitle": "Play a free online memory matching game with clean themes, timed rounds, and quick replayable practice",
-      "description": "Play this free memory matching game online with shapes, letters, or numbers. Match pairs, train visual recall, and improve concentration with quick repeatable rounds.",
+      "subtitle": "Play a free online memory game for adults with clean themes, timed rounds, and quick replayable practice",
+      "description": "Play this free memory matching game online with shapes, letters, or numbers. Match pairs, train visual recall, and enjoy a clean concentration game built for adults and older teens.",
       "metadata": {
-        "title": "Memory Matching Game Online: Free Matching Pairs and Concentration Practice",
-        "description": "Play a free memory matching game online with shapes, letters, or numbers. Match pairs, improve visual memory, and enjoy quick concentration practice in your browser.",
-        "keywords": "memory matching game online, matching games online, free online matching games, concentration game online, pair matching game, visual memory game, memory card game online",
-        "ogTitle": "Memory Matching Game Online: Free Matching Pairs and Concentration Practice",
-        "ogDescription": "Play a free memory matching game online with shapes, letters, or numbers. Match pairs and sharpen visual recall with quick browser-based rounds."
+        "title": "Memory Matching Game Online for Adults: Free Matching Pairs Practice",
+        "description": "Play a free memory matching game online for adults with shapes, letters, or numbers. Match pairs, improve visual memory, and enjoy quick concentration practice in your browser.",
+        "keywords": "memory matching game online, matching games online, free online matching games, concentration game online, pair matching game, visual memory game, memory card game online, memory game for adults, free matching games for adults, memory games for adults online, adult memory game online",
+        "ogTitle": "Memory Matching Game Online for Adults: Free Matching Pairs Practice",
+        "ogDescription": "Play a free online memory game for adults with shapes, letters, or numbers. Match pairs and sharpen visual recall with quick browser-based rounds."
       },
       "leaderboardNote": "The public leaderboard tracks the default setup only: Shapes on the 4×4 board.",
       "preview": {
@@ -1160,7 +1160,7 @@
         "statusMatched": "Pair found"
       },
       "howToPlay": {
-        "description": "This memory matching game is built for quick repeatable rounds, whether you want a light brain warm-up or a focused recall challenge. It works especially well when you stay with one theme for a few rounds and compare your recall, speed, and consistency over time.",
+        "description": "This memory matching game is built for quick repeatable rounds, whether you want a light brain warm-up or a focused recall challenge. It works especially well for adults who want a short visual memory drill between work sessions, study blocks, or heavier games.",
         "step1": "Pick a theme: shapes, letters, or numbers",
         "step2": "Choose a board size from 4×4, 5×4, or 6×4",
         "step3": "Flip two cards at a time and remember where each symbol appears",
@@ -1196,7 +1196,7 @@
         },
         "skills": {
           "question": "Is this only for kids, or useful for adults too?",
-          "answer": "Adults can absolutely use it. A clean matching game is useful for anyone who wants a short memory warm-up, a visual attention drill, or a quick reset between heavier tasks."
+          "answer": "Adults can absolutely use it. This page is especially designed to feel clean and replayable for adults who want a short memory warm-up, a visual attention drill, or a quick reset between heavier tasks."
         },
         "practice": {
           "question": "How should I practice to improve?",

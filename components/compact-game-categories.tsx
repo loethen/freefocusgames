@@ -2,6 +2,7 @@ import { Link } from "@/i18n/navigation";
 import { getGameCategories } from "@/data/games";
 import {
     Brain,
+    BrainCircuit,
     Focus,
     Zap,
     Puzzle,
@@ -10,6 +11,8 @@ import {
     Split,
     Shuffle,
     Map,
+    Gamepad2,
+    Wind,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getCategory, type Category } from "@/data/categories";
@@ -17,6 +20,7 @@ import { useTranslations } from "next-intl";
 
 const iconMap: Record<string, React.ReactNode> = {
     Brain: <Brain className="h-3 w-3" />,
+    BrainCircuit: <BrainCircuit className="h-3 w-3" />,
     Focus: <Focus className="h-3 w-3" />,
     Zap: <Zap className="h-3 w-3" />,
     PuzzlePiece: <Puzzle className="h-3 w-3" />,
@@ -25,6 +29,8 @@ const iconMap: Record<string, React.ReactNode> = {
     Split: <Split className="h-3 w-3" />,
     Shuffle: <Shuffle className="h-3 w-3" />,
     Map: <Map className="h-3 w-3" />,
+    Gamepad2: <Gamepad2 className="h-3 w-3" />,
+    Wind: <Wind className="h-3 w-3" />,
 };
 
 interface CompactGameCategoriesProps {
