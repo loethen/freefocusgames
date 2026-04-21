@@ -9,6 +9,7 @@
     "dev": "next dev --turbopack -p 3003",
     "generate-i18n": "node scripts/build-i18n-compiled.js",
     "generate-blog": "node build-scripts/generate-blog-data.js",
+    "verify:sudoku": "node build-scripts/verify-sudoku-unique.js all 10",
     "seo:gsc": "node build-scripts/gsc-keywords.js",
     "build": "npm run generate-i18n && npm run generate-blog && next build",
     "start": "next start",

@@ -19,12 +19,14 @@ interface Cell {
   isCorrect: boolean
 }
 
+type GameState = 'idle' | 'playing' | 'complete' | 'stopped'
+
 const BEST_TIME_KEY = 'schulteGridBestTime'
 const MISTAKE_PENALTY_MS = 2000
 
 export function SchulteGame() {
   const t = useTranslations('games.schulteTable.gameUI')
-  const [gameState, setGameState] = useState<'idle' | 'playing' | 'complete' | 'stopped'>('idle')
+  const [gameState, setGameState] = useState<GameState>('idle')
   const [grid, setGrid] = useState<Cell[]>([])
   const [currentNumber, setCurrentNumber] = useState(1)
   const [bestTime, setBestTime] = useState(0)
@@ -39,6 +41,19 @@ export function SchulteGame() {
   const [cellToAnimate, setCellToAnimate] = useState<number | null>(null)
   const [animateError, setAnimateError] = useState<number | null>(null)
   const gameGridRef = useRef<HTMLDivElement>(null)
+  // Keep refs in sync so very fast taps still read the latest target number immediately.
+  const gameStateRef = useRef<GameState>('idle')
+  const currentNumberRef = useRef(1)
+
+  const updateGameState = useCallback((nextGameState: GameState) => {
+    gameStateRef.current = nextGameState
+    setGameState(nextGameState)
+  }, [])
+
+  const updateCurrentNumber = useCallback((nextNumber: number) => {
+    currentNumberRef.current = nextNumber
+    setCurrentNumber(nextNumber)
+  }, [])
 
   useEffect(() => {
     const savedBestTime = localStorage.getItem(BEST_TIME_KEY)
@@ -64,7 +79,7 @@ export function SchulteGame() {
 
     setIsLoading(false)
     setStartTime(Date.now())
-    setGameState('playing')
+    updateGameState('playing')
     initializeGrid()
     setStartInitiated(false)
   }, startInitiated ? 1000 : null)
@@ -75,13 +90,6 @@ export function SchulteGame() {
     }
 
     setGrid((currentGrid) => currentGrid.map((cell) => ({ ...cell, isCorrect: false })))
-
-    if (currentNumber >= 25) {
-      void handleSuccess()
-    } else {
-      setCurrentNumber((prev) => prev + 1)
-    }
-
     setCellToAnimate(null)
   }, cellToAnimate !== null ? 150 : null)
 
@@ -112,27 +120,27 @@ export function SchulteGame() {
     }
 
     setIsLoading(true)
-    setGameState('idle')
+    updateGameState('idle')
     setShowResults(false)
     setMistakes(0)
     setCurrentTime(0)
     setGameTime(0)
     setStartInitiated(true)
-  }, [])
+  }, [updateGameState])
 
   const resumeGame = useCallback(() => {
     const now = Date.now()
     const adjustedStartTime = now - gameTime * 1000
     setStartTime(adjustedStartTime)
-    setGameState('playing')
-  }, [gameTime])
+    updateGameState('playing')
+  }, [gameTime, updateGameState])
 
   const stopGame = useCallback(() => {
-    setGameState('stopped')
+    updateGameState('stopped')
     const endTime = Date.now()
     const timeElapsed = (endTime - startTime) / 1000
     setGameTime(timeElapsed)
-  }, [startTime])
+  }, [startTime, updateGameState])
 
   const initializeGrid = () => {
     const numbers = Array.from({ length: 25 }, (_, i) => i + 1)
@@ -142,7 +150,7 @@ export function SchulteGame() {
       isError: false,
       isCorrect: false
     })))
-    setCurrentNumber(1)
+    updateCurrentNumber(1)
   }
 
   const triggerConfetti = () => {
@@ -163,27 +171,40 @@ export function SchulteGame() {
 
     updateBestTime(adjustedTimeSeconds)
 
-    setGameState('complete')
+    updateGameState('complete')
     setShowResults(true)
     triggerConfetti()
 
     await submitScoreToLeaderboard("schulte-table", adjustedTimeMs, {
       mode: RANKED_LEADERBOARD_MODE,
     })
-  }, [mistakes, startTime, updateBestTime])
+  }, [mistakes, startTime, updateBestTime, updateGameState])
 
   const handleCellClick = useCallback((cell: Cell) => {
-    if (gameState !== 'playing') {
+    if (gameStateRef.current !== 'playing') {
       return
     }
 
-    if (cell.number === currentNumber) {
+    const expectedNumber = currentNumberRef.current
+
+    if (cell.number < expectedNumber) {
+      return
+    }
+
+    if (cell.number === expectedNumber) {
       setGrid((currentGrid) => currentGrid.map((currentCell) =>
         currentCell.number === cell.number
           ? { ...currentCell, isCorrect: true }
           : currentCell
       ))
       setCellToAnimate(cell.number)
+
+      if (expectedNumber >= 25) {
+        void handleSuccess()
+      } else {
+        updateCurrentNumber(expectedNumber + 1)
+      }
+
       return
     }
 
@@ -194,7 +215,7 @@ export function SchulteGame() {
         : currentCell
     ))
     setAnimateError(cell.number)
-  }, [currentNumber, gameState])
+  }, [handleSuccess, updateCurrentNumber])
 
   return (
     <div className="space-y-8 max-w-lg mx-auto">
