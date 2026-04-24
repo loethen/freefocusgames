@@ -19,6 +19,7 @@ export const LEADERBOARD_GAME_CONFIG: Record<string, LeaderboardSortConfig> = {
   "fish-trace": { primary: "DESC" },
   "block-memory-challenge": { primary: "DESC" },
   "schulte-table": { primary: "ASC" },
+  "dual-n-back": { primary: "DESC" },
 };
 
 export function getLeaderboardSortConfig(gameId: string): LeaderboardSortConfig {

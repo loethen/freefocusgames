@@ -47,11 +47,13 @@ interface GamePageTemplateProps {
     subtitle: string;
     gameComponent: React.ReactNode;
     howToPlay: React.ReactNode;
+    additionalContent?: React.ReactNode;
     benefits?: BenefitItem[];
     science?: ScienceInfo;
     faq?: FaqItem[];
     relatedGames?: string[];
     hasLeaderboard?: boolean;
+    leaderboardTitle?: React.ReactNode;
     leaderboardFormatterType?: FormatterType;
     leaderboardMode?: string;
     leaderboardIntro?: React.ReactNode;
@@ -66,11 +68,13 @@ export function GamePageTemplate({
     subtitle,
     gameComponent,
     howToPlay,
+    additionalContent,
     benefits,
     science,
     faq,
     relatedGames,
     hasLeaderboard,
+    leaderboardTitle,
     leaderboardFormatterType,
     leaderboardMode,
     leaderboardIntro,
@@ -131,12 +135,18 @@ export function GamePageTemplate({
                 </div>
             </section>
 
+            {additionalContent && (
+                <section className="max-w-6xl mx-auto mb-16 space-y-8">
+                    {additionalContent}
+                </section>
+            )}
+
             {/* Leaderboard - Option */}
             {(hasLeaderboard || leaderboardComponent) && (
                 <section className="max-w-6xl mx-auto mb-16 space-y-6">
                     <div className="space-y-2">
                         <h2 className="text-3xl font-bold text-center">
-                            {gameT("leaderboard")}
+                            {leaderboardTitle ?? gameT("leaderboard")}
                         </h2>
                         {leaderboardIntro && (
                             <div className="max-w-3xl mx-auto text-center text-muted-foreground">

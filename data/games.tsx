@@ -252,8 +252,8 @@ export function getGameCategories(gameId: string): string[] {
 // 获取热门游戏（手动精选的经典游戏）
 export function getFeaturedGames(): Game[] {
   const featuredGameIds = [
-    'sbti-test',
     'dual-n-back',
+    'sbti-test',
     'schulte-table',
     'block-memory-challenge',
     'memory-matching-game',

@@ -45,7 +45,8 @@
       "unitMs": "ms",
       "unitSec": "s",
       "unitCps": "CPS",
-      "unitLevel": "Level {score}"
+      "unitLevel": "Level {score}",
+      "unitPercent": "%"
     }
   }
 }

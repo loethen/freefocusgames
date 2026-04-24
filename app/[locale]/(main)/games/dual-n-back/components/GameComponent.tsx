@@ -14,6 +14,7 @@ import { Link } from "@/i18n/navigation";
 import GameSettings, { GameSettings as GameSettingsType } from "./GameSettings";
 import GameDemo from "./GameDemo";
 import { analytics } from "@/lib/analytics";
+import { submitScoreToLeaderboard } from "@/lib/leaderboard";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -39,6 +40,76 @@ type GameSettings = {
     trialsPerRound: number;
     trialInterval: number;
 };
+
+function isCorrectTrialResult(result: TrialResult) {
+    return (
+        (result.isPositionMatch
+            ? result.isCorrectPositionResponse
+            : result.response.positionMatch !== true) &&
+        (result.isAudioMatch
+            ? result.isCorrectAudioResponse
+            : result.response.audioMatch !== true)
+    );
+}
+
+function getOverallStats(results: TrialResult[]) {
+    const correctResponses = results.filter(isCorrectTrialResult).length;
+    const overallAccuracy =
+        results.length > 0 ? Math.round((correctResponses / results.length) * 100) : 0;
+
+    return {
+        correctResponses,
+        overallAccuracy,
+    };
+}
+
+function buildTrialResult(
+    trialHistory: TrialStimuli[],
+    response: Response,
+    selectedNBack: number,
+    selectedTypes: ("position" | "audio")[]
+) {
+    if (trialHistory.length === 0) return null;
+
+    const currentStimuli = trialHistory[trialHistory.length - 1];
+    const nBackIndex = trialHistory.length - 1 - selectedNBack;
+
+    if (nBackIndex < 0) return null;
+
+    const nBackStimuli = trialHistory[nBackIndex];
+    const isPositionMatch = currentStimuli.position === nBackStimuli.position;
+    const isAudioMatch = currentStimuli.letter === nBackStimuli.letter;
+
+    return {
+        stimuli: currentStimuli,
+        response,
+        isPositionMatch,
+        isAudioMatch,
+        isCorrectPositionResponse:
+            !selectedTypes.includes("position")
+                ? true
+                : isPositionMatch
+                    ? response.positionMatch === true
+                    : response.positionMatch !== true,
+        isCorrectAudioResponse:
+            !selectedTypes.includes("audio")
+                ? true
+                : isAudioMatch
+                    ? response.audioMatch === true
+                    : response.audioMatch !== true,
+    } satisfies TrialResult;
+}
+
+function isStandardDualSetup(settings: GameSettingsType) {
+    return (
+        settings.selectedTypes.length === 2 &&
+        settings.selectedTypes.includes("position") &&
+        settings.selectedTypes.includes("audio") &&
+        settings.selectedNBack >= 1 &&
+        settings.trialsPerRound === GAME_CONFIG.trials.perRound &&
+        settings.trialInterval === GAME_CONFIG.trials.interval
+    );
+}
 
 // 添加 Props 类型定义
 type GameComponentProps = {
@@ -231,57 +302,28 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     }, []);
 
     const evaluateResponse = useCallback((response: Response) => {
-        if (trialHistory.length === 0) return; // Safety check
-        
-        const currentStimuli = trialHistory[trialHistory.length - 1];
-        const nBackIndex = trialHistory.length - 1 - settings.selectedNBack;
-        
-        // Only evaluate if we have enough history
-        if (nBackIndex < 0) return;
-        
-        const nBackStimuli = trialHistory[nBackIndex];
-        
-        const isPositionMatch = currentStimuli.position === nBackStimuli.position;
-        const isAudioMatch = currentStimuli.letter === nBackStimuli.letter;
-        
-        // Create a new result object
-        const newResult = {
-            stimuli: currentStimuli,
+        const newResult = buildTrialResult(
+            trialHistory,
             response,
-            isPositionMatch,
-            isAudioMatch,
-            // Only evaluate position response if position is a selected type
-            isCorrectPositionResponse: 
-                !settings.selectedTypes.includes("position") ? true : // Always correct if not selected
-                isPositionMatch ? 
-                    response.positionMatch === true :  // 当有匹配时，必须响应true
-                    response.positionMatch !== true,   // 当无匹配时，必须不响应true（可以是false或null）
-            
-            // Only evaluate audio response if audio is a selected type
-            isCorrectAudioResponse: 
-                !settings.selectedTypes.includes("audio") ? true : // Always correct if not selected
-                isAudioMatch ? 
-                    response.audioMatch === true : 
-                    response.audioMatch !== true
-        };
-        
+            settings.selectedNBack,
+            settings.selectedTypes
+        );
+
+        if (!newResult) return;
+
         setResults(prev => [...prev, newResult]);
     }, [trialHistory, settings.selectedNBack, settings.selectedTypes]);
     
     // 分享分数
     const shareScore = useCallback(() => {
         // 计算当前分数和准确率
-        const correctResponses = results.filter(r => 
-            (r.isPositionMatch ? r.isCorrectPositionResponse : r.response.positionMatch !== true) &&
-            (r.isAudioMatch ? r.isCorrectAudioResponse : r.response.audioMatch !== true)
-        );
-        const accuracy = results.length > 0 ? Math.round((correctResponses.length / results.length) * 100) : 0;
+        const { correctResponses, overallAccuracy } = getOverallStats(results);
         
         // 追踪分享事件
         analytics.social.share({
             game_id: 'dual-n-back',
-            score: correctResponses.length,
-            accuracy: accuracy
+            score: correctResponses,
+            accuracy: overallAccuracy
         });
         
         setShowShareModal(true);
@@ -380,33 +422,52 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
 
     // 结束游戏并计算准确率
     const endGame = useCallback(() => {
+        const pendingResult = buildTrialResult(
+            trialHistory,
+            currentResponse,
+            settings.selectedNBack,
+            settings.selectedTypes
+        );
+        const finalResults = pendingResult ? [...results, pendingResult] : results;
+
+        if (pendingResult) {
+            setResults(finalResults);
+        }
+
         setGameState("complete");
         setIntervalDelay(null);
         
         // 计算游戏统计数据
         const gameDuration = gameStartTime > 0 ? Date.now() - gameStartTime : 0;
-        const correctResponses = results.filter(r => 
-            (r.isPositionMatch ? r.isCorrectPositionResponse : r.response.positionMatch !== true) &&
-            (r.isAudioMatch ? r.isCorrectAudioResponse : r.response.audioMatch !== true)
-        );
-        const accuracy = results.length > 0 ? Math.round((correctResponses.length / results.length) * 100) : 0;
+        const clearDurationMs = Math.max(0, Math.round(gameDuration - GAME_CONFIG.trials.startDelay));
+        const { correctResponses, overallAccuracy } = getOverallStats(finalResults);
         
         // 追踪游戏完成事件
         analytics.game.complete({
             game_id: 'dual-n-back',
             mode: settings.selectedTypes.join('-'),
             level: settings.selectedNBack,
-            score: correctResponses.length,
+            score: correctResponses,
             duration_ms: gameDuration,
-            accuracy: accuracy,
+            accuracy: overallAccuracy,
             difficulty: settings.selectedNBack >= 3 ? 'hard' : settings.selectedNBack >= 2 ? 'medium' : 'easy'
         });
+
+        if (isStandardDualSetup(settings)) {
+            if (overallAccuracy >= GAME_CONFIG.difficulty.targetAccuracy && clearDurationMs > 0) {
+                void submitScoreToLeaderboard("dual-n-back", clearDurationMs, {
+                    mode: "standard-clear",
+                    details: {
+                        accuracy: overallAccuracy,
+                        durationMs: clearDurationMs,
+                        level: settings.selectedNBack,
+                    },
+                });
+            }
+        }
         
         // 触发胜利动画
-        const isPerfectScore = results.every(r => 
-            (r.isPositionMatch ? r.isCorrectPositionResponse : r.response.positionMatch !== true) &&
-            (r.isAudioMatch ? r.isCorrectAudioResponse : r.response.audioMatch !== true)
-        );
+        const isPerfectScore = finalResults.length > 0 && finalResults.every(isCorrectTrialResult);
         
         if (isPerfectScore) {
             confetti({
@@ -415,7 +476,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                 origin: { y: 0.6 }
             });
         }
-    }, [results, settings.selectedTypes, settings.selectedNBack, gameStartTime]);
+    }, [currentResponse, gameStartTime, results, settings, trialHistory]);
 
     // 修改生成随机试验刺激的函数
     const generateTrial = useCallback((): TrialStimuli => {

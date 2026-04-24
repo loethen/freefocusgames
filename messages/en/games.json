@@ -189,9 +189,9 @@
     },
     "dualNBack": {
       "title": "Dual N-Back",
-      "subtitle": "Elite Working Memory Training for Peak Cognitive Performance",
-      "description": "Master the gold standard of brain training. This scientifically-proven exercise challenges you to track both visual positions and audio letters simultaneously, building the mental muscle that powers learning, focus, and intelligent thinking.",
-      "howToPlayIntro": "Master this scientifically-proven working memory training with our exclusive 30-second interactive tutorial:",
+      "subtitle": "Play free dual n-back online to train working memory, attention control, and dual-task recall",
+      "description": "Use this free dual n-back online game to practice visual and audio recall in one browser tab. Start with a 30-second tutorial, adjust the N-back level, and build a steady working memory habit.",
+      "howToPlayIntro": "Start this free dual n-back practice with our 30-second interactive tutorial:",
       "howToPlay1": "Watch the grid and listen to the letter",
       "howToPlay2": "Press the position button when the position matches",
       "howToPlay3": "Press the sound button when the letter matches.",
@@ -199,20 +199,80 @@
       "benefits": {
         "workingMemory": {
           "title": "Working Memory",
-          "description": "Improve your ability to hold and manipulate multiple pieces of information in mind while tracking positions and sounds."
+          "description": "Practice holding and updating both positions and letters in mind, which is the core demand of dual n-back training."
         },
         "fluidIntelligence": {
           "title": "Fluid Intelligence",
-          "description": "Improve your problem-solving abilities and cognitive flexibility through the challenging dual-task nature of the mahjong n-back exercise."
+          "description": "Challenge the updating, rule maintenance, and flexible reasoning skills that researchers often study alongside working memory tasks."
         },
         "attentionControl": {
           "title": "Attention Control",
-          "description": "Enhance your focus and ability to filter out distractions while monitoring both visual and auditory mahjong stimuli simultaneously."
+          "description": "Stay engaged while monitoring visual and audio streams at once, a useful fit for deliberate daily focus practice."
+        }
+      },
+      "landing": {
+        "overview": {
+          "eyebrow": "Free Dual N-Back Online",
+          "title": "What this free dual n-back online game helps you practice",
+          "body1": "Dual n-back is a working memory game where you compare the current grid position and spoken letter with what appeared N steps earlier. This browser version lets you start quickly, keep the rules visible, and practice without downloads.",
+          "body2": "If you are new, begin at 1-back, learn the rhythm with the interactive tutorial, and focus on accuracy before chasing higher levels. If you already know the rules, use the adjustable settings to build a repeatable daily training block."
+        },
+        "links": {
+          "tutorialTitle": "Learn the rules fast",
+          "tutorialBody": "Use the step-by-step interactive tutorial if dual n-back still feels confusing.",
+          "scienceTitle": "Read the research context",
+          "scienceBody": "See what the literature says about working memory, near transfer, and the limits of broader claims.",
+          "guideTitle": "Go broader than one game",
+          "guideBody": "Use the working memory guide to pair dual n-back with complementary attention and recall practice."
+        },
+        "quickFacts": {
+          "title": "Beginner benchmarks for dual n-back practice",
+          "intro": "These are practical starting points for turning dual n-back into a consistent training habit.",
+          "items": {
+            "beginner": {
+              "title": "Start at 1-back",
+              "body": "Most new players do better starting at 1-back. Move to 2-back once the rules feel automatic."
+            },
+            "levelUp": {
+              "title": "Move up at 80-85%",
+              "body": "A simple rule of thumb is to raise the level after a few rounds around 80-85% accuracy."
+            },
+            "session": {
+              "title": "Keep sessions short",
+              "body": "Fifteen to twenty minutes is usually enough for focused practice without mental burnout."
+            },
+            "frequency": {
+              "title": "Train 4-5 days weekly",
+              "body": "Consistency matters more than marathon sessions. A steady weekly rhythm is easier to maintain."
+            }
+          }
+        },
+        "plan": {
+          "title": "A simple 4-week dual n-back training plan",
+          "intro": "Use this lightweight plan if you want structure without over-optimizing every session.",
+          "weeks": {
+            "week1": {
+              "title": "Week 1",
+              "body": "Learn the rules, stay at 1-back, and aim for clean responses rather than speed."
+            },
+            "week2": {
+              "title": "Week 2",
+              "body": "Keep short sessions, reduce distractions, and only test 2-back if 1-back feels stable."
+            },
+            "week3": {
+              "title": "Week 3",
+              "body": "Alternate between your comfortable level and one harder level so the task stays demanding but manageable."
+            },
+            "week4": {
+              "title": "Week 4",
+              "body": "Keep the level that gives you deliberate effort, solid accuracy, and a routine you can sustain next month."
+            }
+          }
         }
       },
       "science": {
         "title": "Working Memory and Fluid Intelligence Enhancement",
-        "description": "The Dual N-Back task is one of the most researched cognitive training exercises. Studies have shown that regular practice can improve working memory capacity and may enhance fluid intelligence - your ability to reason and solve novel problems. The task challenges your brain's central executive system by requiring simultaneous processing of visual and auditory information streams.",
+        "description": "Dual n-back is one of the most studied working memory tasks. Research most consistently supports improvements on working memory and task-specific performance, while broader transfer to fluid intelligence remains mixed. This page gives you a practical way to train, learn the rules, and review the underlying science.",
         "blogArticleTitle": "The Science Behind N-Back Training: How This Game Actually Boosts Your Working Memory",
         "authorityLinks": {
           "jaeggi": "Landmark study showing dual n-back training can improve fluid intelligence",
@@ -222,24 +282,52 @@
       },
       "faq": {
         "science": {
-          "question": "What is N-Back?",
-          "answer": "N-Back is a cognitive task where you must remember what happened N steps ago in a sequence. For example, in a 2-Back task, you need to remember what was shown 2 steps previously."
+          "question": "What is dual n-back?",
+          "answer": "Dual n-back is a working memory task where you compare the current visual position and current audio letter with what appeared N steps earlier in the sequence. In 2-back, you check against the stimuli from exactly two trials ago."
         },
         "practice": {
-          "question": "How often should I practice?",
-          "answer": "For optimal results, try to practice 20-30 minutes per day, 4-5 days per week. Consistency is more important than duration."
+          "question": "How often should I practice dual n-back?",
+          "answer": "A practical starting point is 15-20 minutes per session, 4-5 days per week. Consistency matters more than forcing very long sessions that leave you mentally flat."
         },
         "progress": {
-          "question": "How do I know if I'm improving?",
-          "answer": "As you improve, you'll be able to increase the N-Back level (from 1-back to 2-back, 3-back, etc.) while maintaining accuracy. Your reaction time will also improve."
+          "question": "What is a good dual n-back starting level?",
+          "answer": "Most beginners should start at 1-back. If you already understand the rules and can track both streams comfortably, you can try 2-back. A common rule of thumb is to move up after you can hold roughly 80-85% accuracy for a few rounds."
         },
         "challenging": {
-          "question": "How challenging is this game?",
-          "answer": "This game is designed to be challenging. It's a great way to improve your attention and working memory."
+          "question": "Why does dual n-back feel so hard at first?",
+          "answer": "The task asks you to update memory, inhibit wrong responses, and track visual and audio information at the same time. That combination creates overload early on, which is why slower, accuracy-first practice works better than rushing."
         },
         "improvements": {
-          "question": "How will this improve my life?",
-          "answer": "This game is a great way to improve your attention and working memory. It's a fun way to train your brain."
+          "question": "Does dual n-back actually work?",
+          "answer": "Research most reliably shows that dual n-back improves performance on working memory tasks and closely related skills. Broader transfer to IQ or far-transfer outcomes is more mixed, so it is best treated as deliberate practice for memory updating and attention control."
+        }
+      },
+      "loading": {
+        "title": "Dual n-back is loading in your browser",
+        "description": "This free working memory game runs client-side so your audio, timing, and visual recall stay responsive.",
+        "tip": "If you are new, start with the 30-second tutorial and begin at 1-back before trying harder rounds."
+      },
+      "leaderboards": {
+        "title": "Standard mode clear board",
+        "intro": "This board records recent standard dual-mode clears using the default {rounds}-trial round and {seconds}-second pace. Clears are recorded once you finish at 80% accuracy or higher.",
+        "cardTitle": "Recent standard clears",
+        "cardSubtitle": "Newest successful clears appear first.",
+        "totalClears": "Total clears",
+        "averagePassTime": "Average pass time",
+        "loadPrompt": "The clear board will load when this section comes into view.",
+        "loading": "Loading recent clears...",
+        "empty": "No standard clears recorded yet. Be the first to pass it.",
+        "submittedTitle": "Your clear was recorded as",
+        "submittedBody": "{level}-back in {duration} with {accuracy}% accuracy.",
+        "levelLabel": "{level}-back",
+        "you": "You!",
+        "columns": {
+          "order": "Latest",
+          "player": "Player",
+          "level": "Level",
+          "duration": "Pass time",
+          "accuracy": "Accuracy",
+          "clearedAt": "Cleared at"
         }
       },
       "gameUI": {
@@ -313,11 +401,11 @@
       "gameMessages": {
         "keepOneMode": "You must keep at least one mode enabled"
       },
-      "metaTitle": "Dual N-Back Training: Improve Working Memory & Fluid Intelligence",
-      "metaDescription": "Train your brain with the scientifically proven Dual N-Back task. Increase your working memory capacity, boost fluid intelligence (IQ), and enhance core cognitive performance with this free 30s interactive tutorial.",
-      "metaKeywords": "dual n-back task online, jaeggi n back training, improve fluid intelligence, working memory span test, increase iq free games, brain training scientifically proven, executive function exercises",
-      "ogTitle": "Dual N-Back Training: Improve Working Memory & Fluid Intelligence",
-      "ogDescription": "Train your brain with the scientifically proven Dual N-Back task. Increase your working memory capacity, boost fluid intelligence (IQ), and enhance core cognitive performance with this free 30s interactive tutorial."
+      "metaTitle": "Free Dual N-Back Online: Working Memory Training Game",
+      "metaDescription": "Play dual n-back online for free. Start with a 30-second interactive tutorial, train visual and audio recall, and build working memory with a beginner-friendly browser game.",
+      "metaKeywords": "dual n-back online, free dual n-back game, dual n-back training, working memory training game, n-back tutorial, dual n-back practice",
+      "ogTitle": "Free Dual N-Back Online: Working Memory Training Game",
+      "ogDescription": "Play dual n-back online for free. Start with a 30-second interactive tutorial, train visual and audio recall, and build working memory with a beginner-friendly browser game."
     },
     "mahjongDualNBack": {
       "title": "Mahjong Dual N-Back",

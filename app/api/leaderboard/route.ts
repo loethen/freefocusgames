@@ -28,6 +28,12 @@ type D1DatabaseBinding = {
     prepare: (query: string) => D1PreparedStatement;
 };
 
+type LeaderboardSubmissionDetails = {
+    accuracy?: unknown;
+    durationMs?: unknown;
+    level?: unknown;
+};
+
 async function getCloudflareBindings() {
     const { env } = await getCloudflareContext({ async: true });
     const bindings = env as unknown as Record<string, unknown>;
@@ -133,6 +139,68 @@ function toNumber(value: unknown, fallback = 0) {
     return fallback;
 }
 
+function parseDetails(detailsText: unknown) {
+    if (typeof detailsText !== "string" || detailsText.length === 0) {
+        return null;
+    }
+
+    try {
+        const parsed = JSON.parse(detailsText) as Record<string, unknown>;
+        return parsed && typeof parsed === "object" ? parsed : null;
+    } catch {
+        return null;
+    }
+}
+
+function normalizeLeaderboardDetails(details: unknown) {
+    if (!details || typeof details !== "object" || Array.isArray(details)) {
+        return null;
+    }
+
+    const normalized: Record<string, boolean | number | string | null> = {};
+
+    for (const [key, value] of Object.entries(details)) {
+        if (
+            value === null ||
+            typeof value === "boolean" ||
+            typeof value === "number" ||
+            typeof value === "string"
+        ) {
+            normalized[key] = value;
+        }
+    }
+
+    return Object.keys(normalized).length > 0 ? normalized : null;
+}
+
+function validateDualNBackClearDetails(score: number, details: LeaderboardSubmissionDetails | null) {
+    if (!details) {
+        return "Score rejected (Missing clear details)";
+    }
+
+    const level = toNumber(details.level, NaN);
+    const accuracy = toNumber(details.accuracy, NaN);
+    const durationMs = toNumber(details.durationMs, NaN);
+
+    if (!Number.isInteger(level) || level < 1 || level > 10) {
+        return "Score rejected (Invalid clear level)";
+    }
+
+    if (!Number.isInteger(accuracy) || accuracy < 80 || accuracy > 100) {
+        return "Score rejected (Invalid clear accuracy)";
+    }
+
+    if (!Number.isInteger(durationMs) || durationMs < 1000 || durationMs > 600000) {
+        return "Score rejected (Invalid clear duration)";
+    }
+
+    if (Math.round(score) !== durationMs) {
+        return "Score rejected (Clear duration mismatch)";
+    }
+
+    return null;
+}
+
 async function rebuildSnapshotFromDatabase(
     db: D1DatabaseBinding,
     gameId: string,
@@ -228,7 +296,9 @@ async function generateStableName(playerId: string) {
 
 function validateScore(
     gameId: string,
-    score: number
+    score: number,
+    mode: string,
+    details: LeaderboardSubmissionDetails | null
 ) {
     if (!Number.isFinite(score)) {
         return "Invalid score";
@@ -259,6 +329,22 @@ function validateScore(
                 return "Score rejected (Outside expected performance range)";
             }
             return null;
+        case "dual-n-back":
+            if (mode === "standard-clear") {
+                if (!Number.isInteger(score) || score < 1000 || score > 600000) {
+                    return "Score rejected (Invalid clear duration)";
+                }
+
+                return validateDualNBackClearDetails(score, details);
+            }
+
+            if (mode === "standard-level") {
+                if (!Number.isInteger(score) || score < 1 || score > 10) {
+                    return "Score rejected (Invalid standard level)";
+                }
+                return null;
+            }
+            return "Score rejected (Unsupported dual n-back mode)";
         case "challenge10Seconds":
             if (score < 0 || score > 60000) {
                 return "Score rejected (Outside expected timing range)";
@@ -275,6 +361,7 @@ export async function GET(req: NextRequest) {
         const gameId = searchParams.get("gameId");
         const aggregate = searchParams.get("aggregate");
         const mode = searchParams.get("mode") || DEFAULT_LEADERBOARD_MODE;
+        const view = searchParams.get("view");
 
         if (!gameId) {
             return NextResponse.json({ error: "Missing or invalid parameters" }, { status: 400 });
@@ -315,6 +402,56 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: "Missing or invalid parameters" }, { status: 400 });
         }
 
+        if (gameId === "dual-n-back" && mode === "standard-clear" && view === "recent") {
+            const [recentRows, aggregateRow] = await Promise.all([
+                db.prepare(
+                    `SELECT
+                        player_name AS playerName,
+                        score AS durationMs,
+                        created_at AS createdAt,
+                        details_json AS detailsJson
+                     FROM leaderboard
+                     WHERE game_id = ?
+                       AND mode = ?
+                     ORDER BY datetime(created_at) DESC, id DESC
+                     LIMIT 20`
+                ).bind(gameId, mode).all(),
+                db.prepare(
+                    `SELECT
+                        COUNT(*) AS totalSubmissions,
+                        COALESCE(AVG(score), 0) AS averageDurationMs
+                     FROM leaderboard
+                     WHERE game_id = ?
+                       AND mode = ?`
+                ).bind(gameId, mode).first(),
+            ]);
+
+            const entries = recentRows.results.map((row) => {
+                const details = parseDetails(row.detailsJson);
+
+                return {
+                    playerName: String(row.playerName ?? "Anonymous"),
+                    durationMs: toNumber(row.durationMs),
+                    createdAt: String(row.createdAt ?? new Date().toISOString()),
+                    level: toNumber(details?.level, 0),
+                    accuracy: toNumber(details?.accuracy, 0),
+                };
+            });
+
+            return NextResponse.json(
+                {
+                    entries,
+                    totalSubmissions: toNumber(aggregateRow?.totalSubmissions),
+                    averageDurationMs: toNumber(aggregateRow?.averageDurationMs),
+                },
+                {
+                    headers: {
+                        "Cache-Control": "public, max-age=30, s-maxage=30, stale-while-revalidate=120",
+                    },
+                }
+            );
+        }
+
         let snapshot = await readSnapshot(bucket, gameId, mode);
 
         if (!snapshot) {
@@ -350,12 +487,14 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
     try {
         const body = (await req.json()) as {
+            details?: LeaderboardSubmissionDetails;
             gameId?: string;
             mode?: string;
             playerId?: string;
             score?: number;
         };
         const {
+            details,
             gameId,
             mode = DEFAULT_LEADERBOARD_MODE,
             playerId,
@@ -366,7 +505,8 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Invalid input data" }, { status: 400 });
         }
 
-        const validationError = validateScore(gameId, score);
+        const normalizedDetails = normalizeLeaderboardDetails(details);
+        const validationError = validateScore(gameId, score, mode, details ?? null);
         if (validationError) {
             return NextResponse.json({ error: validationError }, { status: 400 });
         }
@@ -433,31 +573,41 @@ export async function POST(req: NextRequest) {
                 player_id,
                 player_name,
                 mode,
-                score
-            ) VALUES (?, ?, ?, ?, ?)`
-        ).bind(gameId, playerId, playerName, mode, score).run();
+                score,
+                details_json
+            ) VALUES (?, ?, ?, ?, ?, ?)`
+        ).bind(
+            gameId,
+            playerId,
+            playerName,
+            mode,
+            score,
+            normalizedDetails ? JSON.stringify(normalizedDetails) : null
+        ).run();
 
-        try {
-            const currentSnapshot = (await readSnapshot(bucket, gameId, mode)) ?? createEmptySnapshot(gameId, mode);
-            const nextSnapshot = updateSnapshotWithScore(
-                currentSnapshot,
-                {
-                    playerId,
-                    playerName,
-                    score,
-                    createdAt: nowIso,
-                },
-                {
-                    isFirstPlayer,
-                    previousBestScore,
+        if (!(gameId === "dual-n-back" && mode === "standard-clear")) {
+            try {
+                const currentSnapshot = (await readSnapshot(bucket, gameId, mode)) ?? createEmptySnapshot(gameId, mode);
+                const nextSnapshot = updateSnapshotWithScore(
+                    currentSnapshot,
+                    {
+                        playerId,
+                        playerName,
+                        score,
+                        createdAt: nowIso,
+                    },
+                    {
+                        isFirstPlayer,
+                        previousBestScore,
+                    }
+                );
+
+                if (nextSnapshot !== currentSnapshot) {
+                    await writeSnapshot(bucket, nextSnapshot);
                 }
-            );
-
-            if (nextSnapshot !== currentSnapshot) {
-                await writeSnapshot(bucket, nextSnapshot);
+            } catch (snapshotError) {
+                console.error("Leaderboard snapshot update failed:", snapshotError);
             }
-        } catch (snapshotError) {
-            console.error("Leaderboard snapshot update failed:", snapshotError);
         }
 
         return NextResponse.json({ success: true, playerName });

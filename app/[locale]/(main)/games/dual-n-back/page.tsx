@@ -1,13 +1,16 @@
 import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { Brain, Layers, Zap, Clock, BookOpen } from 'lucide-react'
+import { Brain, Layers, Zap, Clock, BookOpen, Target, CalendarRange } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import TutorialButton from './components/TutorialButton';
+import { GAME_CONFIG } from './config';
+import DualNBackClearLeaderboard from './components/DualNBackClearLeaderboard';
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
+import { generateAlternates } from '@/lib/utils';
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -30,33 +33,7 @@ export async function generateMetadata(
       description: t('ogDescription'),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
-    other: {
-      // JSON-LD for enhanced SEO
-      'script:ld+json': JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": t('title'),
-        "description": t('metaDescription'),
-        "url": `https://freefocusgames.com/${locale}/games/dual-n-back`,
-        "applicationCategory": "EducationalApplication",
-        "operatingSystem": "Web Browser",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "featureList": [
-          "30-second Interactive Tutorial",
-          "Beginner-Friendly Design",
-          "Scientifically-Backed Training",
-          "Real-time Feedback",
-          "Progressive Difficulty"
-        ],
-        "educationalUse": "Cognitive Training",
-        "learningResourceType": "Interactive Tutorial",
-        "interactivityType": "active"
-      })
-    }
+    alternates: generateAlternates(locale, 'games/dual-n-back'),
   };
 }
 
@@ -65,6 +42,115 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
   setRequestLocale(locale);
   const t = useTranslations('games.dualNBack');
   const tCommon = useTranslations('common');
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://freefocusgames.com';
+  const localePrefix = locale === 'en' ? '' : `/${locale}`;
+  const pageUrl = `${baseUrl}${localePrefix}/games/dual-n-back`;
+
+  const faq = [
+    {
+      question: t('faq.science.question'),
+      answer: t('faq.science.answer')
+    },
+    {
+      question: t('faq.practice.question'),
+      answer: t('faq.practice.answer')
+    },
+    {
+      question: t('faq.progress.question'),
+      answer: t('faq.progress.answer')
+    },
+    {
+      question: t('faq.challenging.question'),
+      answer: t('faq.challenging.answer')
+    },
+    {
+      question: t('faq.improvements.question'),
+      answer: t('faq.improvements.answer')
+    }
+  ];
+
+  const quickFacts = [
+    {
+      icon: <Target className="h-5 w-5 text-primary" />,
+      title: t('landing.quickFacts.items.beginner.title'),
+      body: t('landing.quickFacts.items.beginner.body')
+    },
+    {
+      icon: <Layers className="h-5 w-5 text-primary" />,
+      title: t('landing.quickFacts.items.levelUp.title'),
+      body: t('landing.quickFacts.items.levelUp.body')
+    },
+    {
+      icon: <Clock className="h-5 w-5 text-primary" />,
+      title: t('landing.quickFacts.items.session.title'),
+      body: t('landing.quickFacts.items.session.body')
+    },
+    {
+      icon: <CalendarRange className="h-5 w-5 text-primary" />,
+      title: t('landing.quickFacts.items.frequency.title'),
+      body: t('landing.quickFacts.items.frequency.body')
+    }
+  ];
+
+  const trainingPlan = [
+    {
+      title: t('landing.plan.weeks.week1.title'),
+      body: t('landing.plan.weeks.week1.body')
+    },
+    {
+      title: t('landing.plan.weeks.week2.title'),
+      body: t('landing.plan.weeks.week2.body')
+    },
+    {
+      title: t('landing.plan.weeks.week3.title'),
+      body: t('landing.plan.weeks.week3.body')
+    },
+    {
+      title: t('landing.plan.weeks.week4.title'),
+      body: t('landing.plan.weeks.week4.body')
+    }
+  ];
+
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: t('title'),
+      description: t('metaDescription'),
+      url: pageUrl,
+      applicationCategory: 'EducationalApplication',
+      operatingSystem: 'Web Browser',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      featureList: [
+        'Free dual n-back online gameplay',
+        '30-second interactive tutorial',
+        'Adjustable N-back difficulty',
+        'Visual and audio recall training',
+        'Browser-based daily practice'
+      ],
+      educationalUse: 'Working Memory Training',
+      learningResourceType: 'Interactive Game',
+      interactivityType: 'active',
+      inLanguage: locale,
+      isAccessibleForFree: true,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: item.answer,
+        },
+      })),
+    },
+  ];
 
   return (
     <GamePageTemplate
@@ -105,6 +191,52 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
           </ul>
         </>
       }
+      additionalContent={
+        <>
+          <div className="rounded-3xl bg-muted/35 p-6 md:p-8">
+            <div className="mb-6 max-w-3xl">
+              <h2 className="mb-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+                {t('landing.quickFacts.title')}
+              </h2>
+              <p className="text-base leading-7 text-muted-foreground">
+                {t('landing.quickFacts.intro')}
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {quickFacts.map((fact) => (
+                <div key={fact.title} className="rounded-2xl bg-background/80 p-5 shadow-sm">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
+                    {fact.icon}
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold">{fact.title}</h3>
+                  <p className="text-sm leading-6 text-muted-foreground">{fact.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-3xl bg-muted/35 p-6 md:p-8">
+            <div className="mb-6 max-w-3xl">
+              <h2 className="mb-3 text-2xl font-semibold tracking-tight sm:text-3xl">
+                {t('landing.plan.title')}
+              </h2>
+              <p className="text-base leading-7 text-muted-foreground">
+                {t('landing.plan.intro')}
+              </p>
+            </div>
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {trainingPlan.map((item) => (
+                <div key={item.title} className="rounded-2xl bg-background/80 p-5 shadow-sm">
+                  <p className="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-primary/80">
+                    {item.title}
+                  </p>
+                  <p className="text-sm leading-6 text-muted-foreground">{item.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </>
+      }
       benefits={[
         {
           icon: <Brain className="w-10 h-10" />,
@@ -127,43 +259,20 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
         description: t('science.description'),
         blogArticleUrl: "/blog/the-science-behind-n-back-training-boost-working-memory",
         blogArticleTitle: t('science.blogArticleTitle'),
-        authorityLinks: [
-          {
-            title: "Jaeggi et al. (2008) - PNAS",
-            url: "https://www.pnas.org/content/105/19/6829",
-            description: t('science.authorityLinks.jaeggi')
-          },
-          {
-            title: "Working Memory - Wikipedia",
-            url: "https://en.wikipedia.org/wiki/Working_memory",
-            description: t('science.authorityLinks.wikipedia')
-          },
-          {
-            title: "Dual N-Back Task - Cognitive Training Data",
-            url: "https://www.cognitivetrainingdata.org/the-dual-n-back-task/",
-            description: t('science.authorityLinks.cognitiveTraining')
-          }
-        ]
       }}
-      faq={[
-        {
-          question: t('faq.science.question'),
-          answer: t('faq.science.answer')
-        },
-        {
-          question: t('faq.practice.question'),
-          answer: t('faq.practice.answer')
-        },
-        {
-          question: t('faq.challenging.question'),
-          answer: t('faq.challenging.answer')
-        },
-        {
-          question: t('faq.improvements.question'),
-          answer: t('faq.improvements.answer')
-        }
-      ]}
+      faq={faq}
       relatedGames={["mahjong-dual-n-back", "block-memory-challenge"]}
+      leaderboardTitle={t('leaderboards.title')}
+      leaderboardIntro={
+        <p>
+          {t('leaderboards.intro', {
+            rounds: GAME_CONFIG.trials.perRound,
+            seconds: GAME_CONFIG.trials.interval / 1000,
+          })}
+        </p>
+      }
+      leaderboardComponent={<DualNBackClearLeaderboard />}
+      structuredData={structuredData}
     />
   );
 } 

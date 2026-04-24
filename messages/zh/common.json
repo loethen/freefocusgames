@@ -45,7 +45,8 @@
       "unitMs": "毫秒",
       "unitSec": "秒",
       "unitCps": "CPS",
-      "unitLevel": "第{score}关"
+      "unitLevel": "第{score}关",
+      "unitPercent": "%"
     }
   }
 }
