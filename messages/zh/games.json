@@ -1312,7 +1312,7 @@
         "avgReactionTime": "平均反应时间",
         "totalTime": "总用时",
         "stroopEffect": "斯特鲁普效应",
-        "stroopEffectDescription": "不一致和一致试验之间的差异",
+        "stroopEffectDescription": "表示你在有干扰时，比无干扰时慢了多少",
         "leaderboardDescription": "排行榜按修正后的平均时间排序：平均正确反应时间，再加上每次错误的 0.250 秒惩罚。",
         "leaderboardTime": "排行榜成绩",
         "leaderboardTimeDescription": "每次答错都会额外增加 {penalty} 惩罚时间。",

@@ -1,13 +1,18 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { MouseEvent, useState, useEffect, useRef } from 'react';
 import { toast } from "sonner";
 import { Share, Award } from "lucide-react";
 import { useTranslations } from 'next-intl';
-import { ShareModal } from '@/components/ui/ShareModal';
+import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
+import {
+  getProgressInsights,
+  ProgressCardData,
+  recordProgressSnapshot,
+} from '@/lib/progress-share';
 
 const MIN_WAIT_TIME = 2000;
 const MAX_WAIT_TIME = 6000;
@@ -23,6 +28,8 @@ enum GameStates {
 
 export default function ReactionTimeGame() {
   const t = useTranslations('games.reactionTime.gameUI');
+  const pageT = useTranslations('games.reactionTime');
+  const shareT = useTranslations('common.progressShare');
 
   // State management
   const [gameState, setGameState] = useState<GameStates>(GameStates.START);
@@ -32,13 +39,14 @@ export default function ReactionTimeGame() {
   const [results, setResults] = useState<number[]>([]);
   const [round, setRound] = useState<number>(1);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [pageUrl, setPageUrl] = useState('');
+  const [progressCard, setProgressCard] = useState<ProgressCardData | null>(null);
 
   // Refs for accessibility
   const containerRef = useRef<HTMLDivElement>(null);
 
   // References for timeout management
   const timeoutRef = useRef<number | null>(null);
+  const hasRecordedProgressRef = useRef(false);
 
   // Load best time from localStorage and set page URL
   useEffect(() => {
@@ -46,9 +54,6 @@ export default function ReactionTimeGame() {
     if (savedBestTime) {
       setBestTime(parseInt(savedBestTime));
     }
-
-    // Set page URL safely after component mounts in browser
-    setPageUrl(window.location.href);
   }, []);
 
   useEffect(() => {
@@ -84,6 +89,8 @@ export default function ReactionTimeGame() {
     setGameState(GameStates.START);
     setReactionTime(null);
     setStartTime(null);
+    setProgressCard(null);
+    hasRecordedProgressRef.current = false;
     if (round > MAX_ROUNDS) {
       setResults([]);
       setRound(1);
@@ -160,8 +167,59 @@ export default function ReactionTimeGame() {
   };
 
   const shareResults = () => {
-    setIsShareModalOpen(true);
+    if (progressCard) {
+      setIsShareModalOpen(true);
+    }
   };
+
+  const stopBoardClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.stopPropagation();
+  };
+
+  useEffect(() => {
+    if (gameState !== GameStates.SUMMARY || results.length === 0 || hasRecordedProgressRef.current) {
+      return;
+    }
+
+    hasRecordedProgressRef.current = true;
+    const averageTime = Math.round(results.reduce((acc, curr) => acc + curr, 0) / results.length);
+    const bestRound = Math.min(...results);
+    const formatMs = (value: number) => `${value} ${t('milliseconds')}`;
+    const history = recordProgressSnapshot('reaction-time', averageTime);
+    const insights = getProgressInsights(history, 'lower');
+    const deltaText = insights.previous && insights.deltaFromPrevious !== null
+      ? (
+        insights.isImprovement
+          ? shareT('fasterThanLast', { value: formatMs(Math.round(insights.deltaFromPrevious)) })
+          : shareT('slowerThanLast', { value: formatMs(Math.round(insights.deltaFromPrevious)) })
+      )
+      : shareT('firstTrackedSession');
+
+    setProgressCard({
+      title: pageT('title'),
+      subtitle: t('gameComplete'),
+      primaryLabel: t('averageTime'),
+      primaryValue: formatMs(averageTime),
+      trendText: deltaText,
+      historyLabel: shareT('sessionsTracked', { count: insights.sessions }),
+      history: history.map((entry) => entry.primaryValue),
+      direction: 'lower',
+      metrics: [
+        { label: t('bestTime'), value: formatMs(bestRound) },
+        { label: t('round'), value: `${results.length}/${MAX_ROUNDS}` },
+        { label: shareT('sessions'), value: String(insights.sessions) },
+      ],
+      footer: shareT('sessionsTracked', { count: insights.sessions }),
+      theme: {
+        backgroundFrom: '#0f3f7a',
+        backgroundTo: '#062239',
+        accent: '#6fe7ff',
+        panel: 'rgba(8, 18, 35, 0.78)',
+        text: '#f7fbff',
+        mutedText: 'rgba(229, 242, 255, 0.72)',
+      },
+    });
+  }, [gameState, pageT, results, shareT, t]);
 
   // Cleanup timers on unmount
   useEffect(() => {
@@ -311,12 +369,27 @@ export default function ReactionTimeGame() {
                   </div>
 
                   <div className="flex gap-2 mt-2">
-                    <Button onClick={resetGame} size="sm" variant="secondary" className="text-xs">
+                    <Button
+                      onClick={(event) => {
+                        stopBoardClick(event);
+                        resetGame();
+                      }}
+                      size="sm"
+                      variant="secondary"
+                      className="text-xs"
+                    >
                       {t('playAgain')}
                     </Button>
-                    <Button onClick={shareResults} size="sm" className="flex items-center justify-center gap-1 text-xs">
+                    <Button
+                      onClick={(event) => {
+                        stopBoardClick(event);
+                        shareResults();
+                      }}
+                      size="sm"
+                      className="flex items-center justify-center gap-1 text-xs"
+                    >
                       <Share size={12} />
-                      {t('share')}
+                      {shareT('button')}
                     </Button>
                   </div>
                 </div>
@@ -334,12 +407,12 @@ export default function ReactionTimeGame() {
         )}
       </div>
 
-      <ShareModal
+      <ProgressShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
-        title={t('shareTitle')}
-        url={pageUrl}
+        card={progressCard}
+        fileName="reaction-time-progress.png"
       />
     </>
   );
-} 
+}

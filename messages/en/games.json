@@ -1069,7 +1069,7 @@
         "avgReactionTime": "Avg Reaction Time",
         "totalTime": "Total Time",
         "stroopEffect": "Stroop Effect",
-        "stroopEffectDescription": "Difference between incongruent and congruent trials",
+        "stroopEffectDescription": "How much slower you were when the word and color conflicted",
         "leaderboardDescription": "The leaderboard ranks your adjusted average time: your average correct reaction time plus a 0.250 s penalty for each incorrect answer.",
         "leaderboardTime": "Leaderboard Time",
         "leaderboardTimeDescription": "Includes a {penalty} penalty for each incorrect answer.",

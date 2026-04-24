@@ -7,9 +7,14 @@ import { Progress } from '@/components/ui/progress';
 import { toast } from "sonner";
 import { Share, RotateCcw, Play } from "lucide-react";
 import { useTranslations } from 'next-intl';
-import { ShareModal } from '@/components/ui/ShareModal';
+import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
 import { motion, AnimatePresence } from "framer-motion";
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
+import {
+  getProgressInsights,
+  ProgressCardData,
+  recordProgressSnapshot,
+} from '@/lib/progress-share';
 import {
   COLORS,
   GAME_CONFIG,
@@ -23,7 +28,9 @@ const LEADERBOARD_MISTAKE_PENALTY_MS = 250;
 
 export default function StroopGame() {
   const t = useTranslations('games.stroopEffectTest.gameUI');
+  const pageT = useTranslations('games.stroopEffectTest');
   const commonT = useTranslations('common.leaderboard');
+  const shareT = useTranslations('common.progressShare');
 
   // Game state
   const [gameState, setGameState] = useState<GameState>(GameState.START);
@@ -33,13 +40,14 @@ export default function StroopGame() {
   const [results, setResults] = useState<GameResult[]>([]);
   const [countdown, setCountdown] = useState<number>(3);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [pageUrl, setPageUrl] = useState('');
   const [bestTime, setBestTime] = useState<number | null>(null);
   const [totalElapsedMs, setTotalElapsedMs] = useState<number | null>(null);
+  const [progressCard, setProgressCard] = useState<ProgressCardData | null>(null);
 
   // Refs
   const gameRef = useRef<HTMLDivElement>(null);
   const hasSubmittedLeaderboardRef = useRef(false);
+  const hasRecordedProgressRef = useRef(false);
   const sessionStartedAtRef = useRef<number | null>(null);
 
   const formatDuration = useCallback((ms: number) => {
@@ -54,7 +62,6 @@ export default function StroopGame() {
     if (savedBestTime) {
       setBestTime(parseInt(savedBestTime));
     }
-    setPageUrl(window.location.href);
   }, []);
 
   // Calculate statistics
@@ -113,7 +120,9 @@ export default function StroopGame() {
     setResults([]);
     setCountdown(3);
     setTotalElapsedMs(null);
+    setProgressCard(null);
     hasSubmittedLeaderboardRef.current = false;
+    hasRecordedProgressRef.current = false;
     sessionStartedAtRef.current = null;
 
     const countdownInterval = setInterval(() => {
@@ -183,13 +192,17 @@ export default function StroopGame() {
     setResults([]);
     setCountdown(3);
     setTotalElapsedMs(null);
+    setProgressCard(null);
+    hasRecordedProgressRef.current = false;
     sessionStartedAtRef.current = null;
   }, []);
 
   // Share results
   const shareResults = useCallback(() => {
-    setIsShareModalOpen(true);
-  }, []);
+    if (progressCard) {
+      setIsShareModalOpen(true);
+    }
+  }, [progressCard]);
 
   const stats = getStats();
   const progress = ((currentRound - 1) / GAME_CONFIG.rounds) * 100;
@@ -202,6 +215,48 @@ export default function StroopGame() {
     hasSubmittedLeaderboardRef.current = true;
     void submitScoreToLeaderboard('stroop-effect-test', stats.adjustedScore);
   }, [gameState, stats]);
+
+  useEffect(() => {
+    if (gameState !== GameState.SUMMARY || !stats || hasRecordedProgressRef.current) {
+      return;
+    }
+
+    hasRecordedProgressRef.current = true;
+    const history = recordProgressSnapshot('stroop-effect-test', stats.avgReactionTime);
+    const insights = getProgressInsights(history, 'lower');
+    const deltaText = insights.previous && insights.deltaFromPrevious !== null
+      ? (
+        insights.isImprovement
+          ? shareT('fasterThanLast', { value: formatDuration(Math.round(insights.deltaFromPrevious)) })
+          : shareT('slowerThanLast', { value: formatDuration(Math.round(insights.deltaFromPrevious)) })
+      )
+      : shareT('firstTrackedSession');
+
+    setProgressCard({
+      title: pageT('title'),
+      subtitle: t('gameComplete'),
+      primaryLabel: t('avgReactionTime'),
+      primaryValue: formatDuration(stats.avgReactionTime),
+      trendText: deltaText,
+      historyLabel: shareT('sessionsTracked', { count: insights.sessions }),
+      history: history.map((entry) => entry.primaryValue),
+      direction: 'lower',
+      metrics: [
+        { label: t('accuracy'), value: `${stats.accuracy}%` },
+        { label: t('stroopEffect'), value: formatDuration(stats.stroopEffect) },
+        { label: shareT('sessionTime'), value: formatDuration(totalElapsedMs ?? results.reduce((sum, result) => sum + result.reactionTime, 0)) },
+      ],
+      footer: shareT('sessionsTracked', { count: insights.sessions }),
+      theme: {
+        backgroundFrom: '#3d1f68',
+        backgroundTo: '#120d2e',
+        accent: '#ffb24b',
+        panel: 'rgba(18, 10, 40, 0.78)',
+        text: '#fff9f0',
+        mutedText: 'rgba(255, 238, 214, 0.72)',
+      },
+    });
+  }, [formatDuration, gameState, pageT, results, shareT, stats, t, totalElapsedMs]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[500px] p-4" ref={gameRef}>
@@ -386,7 +441,7 @@ export default function StroopGame() {
             <div className="flex gap-3 justify-center">
               <Button onClick={shareResults} variant="outline" className="flex-1">
                 <Share className="w-4 h-4 mr-2" />
-                {t('share')}
+                {shareT('button')}
               </Button>
               <Button onClick={resetGame} className="flex-1">
                 <RotateCcw className="w-4 h-4 mr-2" />
@@ -397,16 +452,11 @@ export default function StroopGame() {
         )}
       </AnimatePresence>
 
-      <ShareModal
+      <ProgressShareModal
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
-        title={t('shareTitle')}
-        shareText={stats ? t('shareText', {
-          accuracy: stats.accuracy,
-          avgReactionTime: formatDuration(stats.avgReactionTime),
-          stroopEffect: formatDuration(stats.stroopEffect),
-        }) : ''}
-        url={pageUrl}
+        card={progressCard}
+        fileName="stroop-progress.png"
       />
     </div>
   );

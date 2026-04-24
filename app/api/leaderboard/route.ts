@@ -34,6 +34,19 @@ type LeaderboardSubmissionDetails = {
     level?: unknown;
 };
 
+async function hasLeaderboardDetailsColumn(db: D1DatabaseBinding) {
+    try {
+        const pragmaResult = await db.prepare(
+            `PRAGMA table_info(leaderboard)`
+        ).bind().all();
+
+        return pragmaResult.results.some((row) => String(row.name ?? "") === "details_json");
+    } catch (error) {
+        console.error("Failed to inspect leaderboard schema:", error);
+        return false;
+    }
+}
+
 async function getCloudflareBindings() {
     const { env } = await getCloudflareContext({ async: true });
     const bindings = env as unknown as Record<string, unknown>;
@@ -403,18 +416,31 @@ export async function GET(req: NextRequest) {
         }
 
         if (gameId === "dual-n-back" && mode === "standard-clear" && view === "recent") {
+            const hasDetailsColumn = await hasLeaderboardDetailsColumn(db);
+
             const [recentRows, aggregateRow] = await Promise.all([
                 db.prepare(
-                    `SELECT
-                        player_name AS playerName,
-                        score AS durationMs,
-                        created_at AS createdAt,
-                        details_json AS detailsJson
-                     FROM leaderboard
-                     WHERE game_id = ?
-                       AND mode = ?
-                     ORDER BY datetime(created_at) DESC, id DESC
-                     LIMIT 20`
+                    hasDetailsColumn
+                        ? `SELECT
+                            player_name AS playerName,
+                            score AS durationMs,
+                            created_at AS createdAt,
+                            details_json AS detailsJson
+                         FROM leaderboard
+                         WHERE game_id = ?
+                           AND mode = ?
+                         ORDER BY datetime(created_at) DESC, id DESC
+                         LIMIT 20`
+                        : `SELECT
+                            player_name AS playerName,
+                            score AS durationMs,
+                            created_at AS createdAt,
+                            NULL AS detailsJson
+                         FROM leaderboard
+                         WHERE game_id = ?
+                           AND mode = ?
+                         ORDER BY datetime(created_at) DESC, id DESC
+                         LIMIT 20`
                 ).bind(gameId, mode).all(),
                 db.prepare(
                     `SELECT
@@ -567,23 +593,43 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Duplicate submission rejected" }, { status: 409 });
         }
 
-        await db.prepare(
-            `INSERT INTO leaderboard (
-                game_id,
-                player_id,
-                player_name,
+        const hasDetailsColumn = await hasLeaderboardDetailsColumn(db);
+
+        if (hasDetailsColumn) {
+            await db.prepare(
+                `INSERT INTO leaderboard (
+                    game_id,
+                    player_id,
+                    player_name,
+                    mode,
+                    score,
+                    details_json
+                ) VALUES (?, ?, ?, ?, ?, ?)`
+            ).bind(
+                gameId,
+                playerId,
+                playerName,
                 mode,
                 score,
-                details_json
-            ) VALUES (?, ?, ?, ?, ?, ?)`
-        ).bind(
-            gameId,
-            playerId,
-            playerName,
-            mode,
-            score,
-            normalizedDetails ? JSON.stringify(normalizedDetails) : null
-        ).run();
+                normalizedDetails ? JSON.stringify(normalizedDetails) : null
+            ).run();
+        } else {
+            await db.prepare(
+                `INSERT INTO leaderboard (
+                    game_id,
+                    player_id,
+                    player_name,
+                    mode,
+                    score
+                ) VALUES (?, ?, ?, ?, ?)`
+            ).bind(
+                gameId,
+                playerId,
+                playerName,
+                mode,
+                score
+            ).run();
+        }
 
         if (!(gameId === "dual-n-back" && mode === "standard-clear")) {
             try {

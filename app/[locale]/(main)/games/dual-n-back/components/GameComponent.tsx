@@ -8,13 +8,18 @@ import { useInterval } from "@/hooks/useInterval";
 import { useTimeout } from "@/hooks/useTimeout";
 import confetti from "canvas-confetti";
 import { ShimmerButton } from "@/components/magicui/shimmer-button";
-import { ShareModal } from "@/components/ui/ShareModal";
+import { ProgressShareModal } from "@/components/ui/ProgressShareModal";
 import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import GameSettings, { GameSettings as GameSettingsType } from "./GameSettings";
 import GameDemo from "./GameDemo";
 import { analytics } from "@/lib/analytics";
 import { submitScoreToLeaderboard } from "@/lib/leaderboard";
+import {
+    getProgressInsights,
+    ProgressCardData,
+    recordProgressSnapshot,
+} from "@/lib/progress-share";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -151,6 +156,9 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     // 如果提供了 t prop，则使用它，否则使用 useTranslations 获取
     const defaultT = useTranslations('games.dualNBack.gameUI');
     const t = propT || defaultT;
+    const pageT = useTranslations('games.dualNBack');
+    const shareT = useTranslations('common.progressShare');
+    const commonT = useTranslations('common.leaderboard');
     
     const { settings, updateSettings } = useGameSettings();
     
@@ -172,6 +180,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [showShareModal, setShowShareModal] = useState(false);
     const [showTutorial, setShowTutorial] = useState(false);
+    const [progressCard, setProgressCard] = useState<ProgressCardData | null>(null);
     
     // 添加一个状态来存储当前游戏会话的字母集
     const [sessionLetters, setSessionLetters] = useState<string[]>([]);
@@ -246,6 +255,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
         setCurrentTrial(0);
         setTrialHistory([]);
         setResults([]);
+        setProgressCard(null);
         
         // 延迟滚动确保布局更新完成
         setTimeout(() => {
@@ -326,8 +336,10 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
             accuracy: overallAccuracy
         });
         
-        setShowShareModal(true);
-    }, [results]);
+        if (progressCard) {
+            setShowShareModal(true);
+        }
+    }, [progressCard, results]);
     
 
     // 添加键盘快捷键支持
@@ -476,7 +488,49 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                 origin: { y: 0.6 }
             });
         }
-    }, [currentResponse, gameStartTime, results, settings, trialHistory]);
+
+        const isStandardSession = isStandardDualSetup(settings);
+        const progressHistory = isStandardSession
+            ? recordProgressSnapshot('dual-n-back-standard', overallAccuracy)
+            : [{ recordedAt: new Date().toISOString(), primaryValue: overallAccuracy }];
+        const progressInsights = getProgressInsights(progressHistory, 'higher');
+        const trendText = isStandardSession && progressInsights.previous && progressInsights.deltaFromPrevious !== null
+            ? (
+                progressInsights.isImprovement
+                    ? shareT('higherThanLast', { value: `${Math.round(progressInsights.deltaFromPrevious)}${commonT('unitPercent')}` })
+                    : shareT('lowerThanLast', { value: `${Math.round(progressInsights.deltaFromPrevious)}${commonT('unitPercent')}` })
+            )
+            : (isStandardSession ? shareT('firstTrackedSession') : shareT('customSession'));
+
+        setProgressCard({
+            title: pageT('title'),
+            subtitle: isStandardSession ? shareT('standardMode') : shareT('customSession'),
+            primaryLabel: t('overallPerformance'),
+            primaryValue: `${overallAccuracy}${commonT('unitPercent')}`,
+            trendText,
+            historyLabel: isStandardSession
+                ? shareT('sessionsTracked', { count: progressInsights.sessions })
+                : shareT('customSession'),
+            history: progressHistory.map((entry) => entry.primaryValue),
+            direction: 'higher',
+            metrics: [
+                { label: t('level'), value: t('back', { level: settings.selectedNBack }) },
+                { label: shareT('sessionTime'), value: `${(clearDurationMs / 1000).toFixed(1)} ${commonT('unitSec')}` },
+                { label: shareT('correctResponses'), value: `${correctResponses}` },
+            ],
+            footer: isStandardSession
+                ? shareT('sessionsTracked', { count: progressInsights.sessions })
+                : shareT('customSession'),
+            theme: {
+                backgroundFrom: '#0c3a4b',
+                backgroundTo: '#081826',
+                accent: '#5de3c1',
+                panel: 'rgba(6, 22, 34, 0.80)',
+                text: '#f3fffb',
+                mutedText: 'rgba(219, 255, 244, 0.72)',
+            },
+        });
+    }, [commonT, currentResponse, gameStartTime, pageT, results, settings, shareT, t, trialHistory]);
 
     // 修改生成随机试验刺激的函数
     const generateTrial = useCallback((): TrialStimuli => {
@@ -846,7 +900,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                                         className="flex items-center gap-2"
                                     >
                                         <Share2 className="w-4 h-4" />
-                                        {t('shareResults')}
+                                        {shareT('button')}
                                     </Button>
                                     <Button
                                         onClick={startGame}
@@ -915,11 +969,11 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                 </div>
             </div>
             
-            <ShareModal
+            <ProgressShareModal
                 isOpen={showShareModal}
                 onClose={() => setShowShareModal(false)}
-                title={t('challenge')}
-                url={window.location.href}
+                card={progressCard}
+                fileName="dual-n-back-progress.png"
             />
             
             <GameDemo
