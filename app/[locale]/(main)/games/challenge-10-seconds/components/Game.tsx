@@ -8,12 +8,7 @@ export default function Game() {
     const locale = useLocale();
 
     return (
-        <NextIntlClientProvider
-            locale={locale}
-            messages={
-                messages.games.challenge10Seconds
-            }
-        >
+        <NextIntlClientProvider locale={locale} messages={messages}>
             <Challenge10Seconds />
         </NextIntlClientProvider>
     );

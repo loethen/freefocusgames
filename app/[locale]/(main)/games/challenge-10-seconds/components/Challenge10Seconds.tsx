@@ -1,34 +1,55 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, RotateCcw, Share2 } from "lucide-react";
-import { ShareModal } from '@/components/ui/ShareModal';
+import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
 import { toast } from "sonner"; // Assuming sonner is used for toasts
 import { SevenSegmentDigit, SevenSegmentDot } from './SevenSegmentDisplay';
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
+import {
+    getProgressInsights,
+    type ProgressCardData,
+    recordProgressSnapshot,
+} from '@/lib/progress-share';
 
 type GameState = 'IDLE' | 'RUNNING' | 'STOPPED';
+type RankKey = 'perfect' | 'excellent' | 'great' | 'good' | 'normal';
+
+const TARGET_SECONDS = 10;
+const PROGRESS_STORAGE_KEY = 'challenge-10-seconds-error';
+
+const formatSeconds = (seconds: number) => `${seconds.toFixed(4)}s`;
+const formatSignedError = (seconds: number) => `${seconds > 0 ? '+' : ''}${seconds.toFixed(4)}s`;
+
+const getRankKey = (difference: number): RankKey => {
+    if (difference < 0.00005) return 'perfect';
+    if (difference < 0.01) return 'excellent';
+    if (difference < 0.05) return 'great';
+    if (difference < 0.1) return 'good';
+    return 'normal';
+};
 
 export default function Challenge10Seconds() {
-    const t = useTranslations();
-    const tRank = useTranslations('gameUI.rank');
+    const locale = useLocale();
+    const t = useTranslations('games.challenge10Seconds');
+    const tRank = useTranslations('games.challenge10Seconds.gameUI.rank');
 
     const [gameState, setGameState] = useState<GameState>('IDLE');
     const [time, setTime] = useState(0);
     const [diff, setDiff] = useState(0);
     const [rank, setRank] = useState('');
     const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-    const [pageUrl, setPageUrl] = useState('');
+    const [progressCard, setProgressCard] = useState<ProgressCardData | null>(null);
 
     const startTimeRef = useRef<number>(0);
     const requestRef = useRef<number>(0);
     const hasSubmittedLeaderboardRef = useRef(false);
+    const hasRecordedProgressRef = useRef(false);
 
     useEffect(() => {
-        setPageUrl(window.location.href);
         return () => cancelAnimationFrame(requestRef.current);
     }, []);
 
@@ -61,7 +82,10 @@ export default function Challenge10Seconds() {
         setGameState('RUNNING');
         setDiff(0);
         setRank('');
+        setProgressCard(null);
+        setIsShareModalOpen(false);
         hasSubmittedLeaderboardRef.current = false;
+        hasRecordedProgressRef.current = false;
         startTimeRef.current = performance.now();
         requestRef.current = requestAnimationFrame(updateTimer);
     };
@@ -74,19 +98,51 @@ export default function Challenge10Seconds() {
         setTime(displayedTime);
         setGameState('STOPPED');
 
-        const difference = Math.abs(displayedTime - 10.0000);
+        const difference = Math.abs(displayedTime - TARGET_SECONDS);
         setDiff(difference);
 
-        // Determine Rank
-        if (difference < 0.00005) setRank('perfect');
-        else if (difference < 0.01) setRank('excellent');
-        else if (difference < 0.05) setRank('great');
-        else if (difference < 0.1) setRank('good');
-        else setRank('normal');
+        const rankKey = getRankKey(difference);
+        setRank(rankKey);
 
         if (!hasSubmittedLeaderboardRef.current) {
             hasSubmittedLeaderboardRef.current = true;
             void submitScoreToLeaderboard('challenge10Seconds', displayedTime * 1000);
+        }
+
+        if (!hasRecordedProgressRef.current) {
+            hasRecordedProgressRef.current = true;
+            const errorMs = difference * 1000;
+            const history = recordProgressSnapshot(PROGRESS_STORAGE_KEY, errorMs);
+            const insights = getProgressInsights(history, 'lower');
+
+            setProgressCard({
+                variant: 'score',
+                title: t('gameUI.cardTitle'),
+                subtitle: t('gameUI.cardSubtitle'),
+                primaryLabel: t('gameUI.stopTime'),
+                primaryValue: formatSeconds(displayedTime),
+                trendText: t('gameUI.cardTaunt', { value: formatSignedError(difference) }),
+                historyLabel: t('gameUI.cardRule'),
+                history: history.map((entry) => entry.primaryValue),
+                direction: 'lower',
+                metrics: [
+                    { label: t('gameUI.precisionError'), value: formatSignedError(difference) },
+                    { label: t('gameUI.targetTime'), value: formatSeconds(TARGET_SECONDS) },
+                    { label: t('gameUI.rankLabel'), value: tRank(rankKey) },
+                ],
+                footer: t('gameUI.cardFooter', { count: insights.sessions }),
+                siteUrl: locale === 'en'
+                    ? 'freefocusgames.com/games/challenge-10-seconds'
+                    : `freefocusgames.com/${locale}/games/challenge-10-seconds`,
+                theme: {
+                    backgroundFrom: '#faf6ef',
+                    backgroundTo: '#e7edf3',
+                    accent: '#ff7a59',
+                    panel: 'rgba(255, 255, 255, 0.76)',
+                    text: '#1f2937',
+                    mutedText: 'rgba(71, 85, 105, 0.76)',
+                },
+            });
         }
 
         // Optional: show toast for good results
@@ -100,7 +156,10 @@ export default function Challenge10Seconds() {
         setTime(0);
         setDiff(0);
         setRank('');
+        setProgressCard(null);
+        setIsShareModalOpen(false);
         hasSubmittedLeaderboardRef.current = false;
+        hasRecordedProgressRef.current = false;
     };
 
     const formatTime = (seconds: number) => {
@@ -128,6 +187,7 @@ export default function Challenge10Seconds() {
     };
 
     return (
+        <>
         <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-8 p-4">
 
             {/* Timer Display */}
@@ -188,9 +248,15 @@ export default function Challenge10Seconds() {
                             <RotateCcw className="w-5 h-5" />
                             {t('gameUI.retry')}
                         </Button>
-                        <Button onClick={() => setIsShareModalOpen(true)} variant="outline" size="lg" className="w-40 h-14 text-lg gap-2">
+                        <Button
+                            onClick={() => setIsShareModalOpen(true)}
+                            variant="outline"
+                            size="lg"
+                            className="w-40 h-14 text-lg gap-2"
+                            disabled={!progressCard}
+                        >
                             <Share2 className="w-5 h-5" />
-                            {t('gameUI.share')}
+                            {t('gameUI.shareCard')}
                         </Button>
                     </div>
                 )}
@@ -214,16 +280,14 @@ export default function Challenge10Seconds() {
                 )}
             </AnimatePresence>
 
-            <ShareModal
+        </div>
+
+            <ProgressShareModal
                 isOpen={isShareModalOpen}
                 onClose={() => setIsShareModalOpen(false)}
-                title={t('title')}
-                url={pageUrl}
-                shareText={t('gameUI.shareText', {
-                    time: time.toFixed(4),
-                    diff: diff.toFixed(4),
-                })}
+                card={progressCard}
+                fileName="10-second-challenge-card.png"
             />
-        </div>
+        </>
     );
 }

@@ -20,6 +20,7 @@ export type ProgressCardTheme = {
 };
 
 export type ProgressCardData = {
+    variant?: "progress" | "score";
     title: string;
     subtitle: string;
     primaryLabel: string;
@@ -30,6 +31,7 @@ export type ProgressCardData = {
     direction: ProgressDirection;
     metrics: ProgressCardMetric[];
     footer: string;
+    siteUrl?: string;
     theme: ProgressCardTheme;
 };
 
@@ -277,6 +279,105 @@ function drawSparkline(
     ctx.restore();
 }
 
+function drawCardFooter(ctx: CanvasRenderingContext2D, data: ProgressCardData) {
+    const footerFontSize = data.footer.length > 36 ? 22 : 28;
+    ctx.font = `600 ${footerFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
+    ctx.fillStyle = data.theme.text;
+    ctx.fillText(data.footer, 110, 1328);
+    const siteUrl = data.siteUrl ?? "freefocusgames.com";
+    const siteFontSize = siteUrl.length > 42 ? 20 : 22;
+    ctx.font = `500 ${siteFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
+    ctx.fillStyle = data.theme.mutedText;
+    ctx.fillText(siteUrl, 110, 1372);
+}
+
+function wrapCanvasText(
+    ctx: CanvasRenderingContext2D,
+    text: string,
+    maxWidth: number
+) {
+    const words = text.split(" ");
+    const lines: string[] = [];
+    let currentLine = "";
+
+    words.forEach((word) => {
+        const nextLine = currentLine ? `${currentLine} ${word}` : word;
+        if (ctx.measureText(nextLine).width <= maxWidth) {
+            currentLine = nextLine;
+            return;
+        }
+
+        if (currentLine) {
+            lines.push(currentLine);
+        }
+        currentLine = word;
+    });
+
+    if (currentLine) {
+        lines.push(currentLine);
+    }
+
+    return lines.slice(0, 3);
+}
+
+function drawScoreCard(ctx: CanvasRenderingContext2D, data: ProgressCardData) {
+    fillRoundedRect(ctx, 110, 110, 290, 54, 27, "rgba(255,255,255,0.14)");
+    ctx.fillStyle = data.theme.text;
+    ctx.font = "600 24px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillText(data.subtitle, 138, 145);
+
+    const titleFontSize = data.title.length > 26 ? 54 : 62;
+    ctx.font = `700 ${titleFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
+    ctx.fillStyle = data.theme.text;
+    ctx.fillText(data.title, 110, 255);
+
+    fillRoundedRect(ctx, 110, 320, 980, 390, 36, "rgba(255,255,255,0.11)");
+    strokeRoundedRect(ctx, 110, 320, 980, 390, 36, "rgba(255,255,255,0.14)", 2);
+
+    ctx.textAlign = "center";
+    ctx.font = "700 30px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = data.theme.mutedText;
+    ctx.fillText(data.primaryLabel, 600, 395);
+
+    const primaryFontSize = data.primaryValue.length > 10 ? 118 : 138;
+    ctx.font = `800 ${primaryFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
+    ctx.fillStyle = data.theme.text;
+    ctx.fillText(data.primaryValue, 600, 555);
+
+    fillRoundedRect(ctx, 180, 610, 840, 66, 24, "rgba(255,255,255,0.12)");
+    const trendFontSize = data.trendText.length > 42 ? 24 : 28;
+    ctx.font = `700 ${trendFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
+    ctx.fillStyle = data.theme.text;
+    ctx.fillText(data.trendText, 600, 653);
+    ctx.textAlign = "start";
+
+    const metricY = 760;
+    const cardWidth = 300;
+    const gap = 30;
+    data.metrics.slice(0, 3).forEach((metric, index) => {
+        const x = 110 + index * (cardWidth + gap);
+        fillRoundedRect(ctx, x, metricY, cardWidth, 190, 28, "rgba(255,255,255,0.10)");
+        ctx.font = "600 22px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+        ctx.fillStyle = data.theme.mutedText;
+        ctx.fillText(metric.label, x + 28, metricY + 54);
+
+        const valueFontSize = metric.value.length > 16 ? 34 : 42;
+        ctx.font = `700 ${valueFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
+        ctx.fillStyle = data.theme.text;
+        ctx.fillText(metric.value, x + 28, metricY + 122);
+    });
+
+    fillRoundedRect(ctx, 110, 1010, 980, 210, 30, "rgba(10,15,28,0.18)");
+    ctx.font = "700 34px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = data.theme.text;
+    const ruleLines = wrapCanvasText(ctx, data.historyLabel, 870);
+    ruleLines.forEach((line, index) => {
+        ctx.fillText(line, 150, 1085 + index * 48);
+    });
+
+    drawCardFooter(ctx, data);
+}
+
 export async function renderProgressCardBlob(data: ProgressCardData) {
     const canvas = document.createElement("canvas");
     canvas.width = 1200;
@@ -306,6 +407,16 @@ export async function renderProgressCardBlob(data: ProgressCardData) {
 
     fillRoundedRect(ctx, 60, 60, 1080, 1380, 42, data.theme.panel);
     strokeRoundedRect(ctx, 60, 60, 1080, 1380, 42, "rgba(255,255,255,0.12)", 2);
+
+    if (data.variant === "score") {
+        drawScoreCard(ctx, data);
+        try {
+            const dataUrl = canvas.toDataURL("image/png");
+            return dataUrlToBlob(dataUrl);
+        } catch (error) {
+            throw error instanceof Error ? error : new Error("Failed to create PNG data URL");
+        }
+    }
 
     fillRoundedRect(ctx, 110, 110, 260, 54, 27, "rgba(255,255,255,0.14)");
     ctx.fillStyle = data.theme.text;
@@ -362,12 +473,7 @@ export async function renderProgressCardBlob(data: ProgressCardData) {
         ctx.fillText(metric.value, x + 28, metricY + 132);
     });
 
-    ctx.font = "600 28px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
-    ctx.fillStyle = data.theme.text;
-    ctx.fillText(data.footer, 110, 1328);
-    ctx.font = "500 22px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
-    ctx.fillStyle = data.theme.mutedText;
-    ctx.fillText("freefocusgames.com", 110, 1372);
+    drawCardFooter(ctx, data);
 
     try {
         const dataUrl = canvas.toDataURL("image/png");
