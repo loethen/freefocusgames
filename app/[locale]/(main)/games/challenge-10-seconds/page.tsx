@@ -32,7 +32,73 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function Challenge10SecondsPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://freefocusgames.com";
+    const localePrefix = locale === 'en' ? '' : `/${locale}`;
+    const pageUrl = `${baseUrl}${localePrefix}/games/challenge-10-seconds`;
     const t = useTranslations('games.challenge10Seconds');
+    const faq = [
+        {
+            question: t('faq.what.question'),
+            answer: t('faq.what.answer'),
+        },
+        {
+            question: t('faq.trick.question'),
+            answer: t('faq.trick.answer'),
+        },
+        {
+            question: t('faq.machine.question'),
+            answer: t('faq.machine.answer'),
+        },
+        {
+            question: t('faq.reaction.question'),
+            answer: t('faq.reaction.answer'),
+        },
+        {
+            question: t('faq.impossible.question'),
+            answer: t('faq.impossible.answer'),
+        },
+        {
+            question: t('faq.latency.question'),
+            answer: t('faq.latency.answer'),
+        },
+    ];
+    const structuredData = [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": t('title'),
+            "description": t('metadata.description'),
+            "url": pageUrl,
+            "applicationCategory": "GameApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "featureList": [
+                "10 second challenge online",
+                "Stop the timer at exactly 10 seconds",
+                "10 second timer challenge game",
+                "Closest to 10 seconds leaderboard",
+                "Keyboard and click controls"
+            ],
+            "learningResourceType": "Interactive Game",
+            "interactivityType": "active"
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faq.map((item) => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                }
+            }))
+        }
+    ];
 
     return (
         <GamePageTemplate
@@ -84,23 +150,12 @@ export default function Challenge10SecondsPage({ params }: { params: Promise<{ l
                 blogArticleTitle: t('science.blogArticleTitle'),
                 blogArticleUrl: "/blog/10-seconds-challenge-viral-game"
             }}
-            faq={[
-                {
-                    question: t('faq.trick.question'),
-                    answer: t('faq.trick.answer'),
-                },
-                {
-                    question: t('faq.impossible.question'),
-                    answer: t('faq.impossible.answer'),
-                },
-                {
-                    question: t('faq.latency.question'),
-                    answer: t('faq.latency.answer'),
-                },
-            ]}
+            faq={faq}
+            relatedGames={["reaction-time", "spacebar-clicker", "cps-test"]}
             hasLeaderboard={true}
             leaderboardFormatterType="sec4"
             leaderboardIntro={<p>{t('gameUI.leaderboardDescription')}</p>}
+            structuredData={structuredData}
         />
     );
 }

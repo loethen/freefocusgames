@@ -1,21 +1,21 @@
 {
     "games": {
         "challenge10Seconds": {
-            "title": "10 Seconds Challenge",
-            "subtitle": "Can you stop exactly at 10.0000s?",
-            "description": "A simple yet addictive time perception game. The goal is to stop the timer exactly at 10.0000 seconds. It requires rhythm and anticipation.",
+            "title": "10 Second Challenge Online",
+            "subtitle": "Stop the timer at exactly 10.0000 seconds",
+            "description": "Play this 10 second timer challenge game online. Start the timer, stop at exactly 10.0000 seconds, and see how close your internal clock can get.",
             "metadata": {
-                "title": "10 Seconds Challenge: Internal Clock & Time Perception Test",
-                "description": "Challenge your internal clock! Try to stop the timer at exactly 10.0000 seconds. A fun test of time perception, rhythm, and anticipatory reaction time. Can you hit the perfect 10?",
-                "keywords": "10s challenge online, 10 seconds game, perfect 10 seconds stopwatch, time perception test free, internal clock test, anticipatory reaction time game, stopwatch counting game",
-                "ogTitle": "10 Seconds Challenge: Internal Clock & Time Perception Test",
-                "ogDescription": "Challenge your internal clock! Try to stop the timer at exactly 10.0000 seconds. A fun test of time perception, rhythm, and anticipatory reaction time. Can you hit the perfect 10?"
+                "title": "10 Second Challenge Online: Stop the Timer at 10s",
+                "description": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, compare your score, and learn how to win.",
+                "keywords": "10 second challenge online, 10 second challenge, 10 seconds challenge, ten second challenge, 10 sec challenge, 10 second timer challenge game, stop the timer at exactly 10 seconds, stop at 10 seconds game, time stop challenge game, 10 second challenge timer, 10 second challenge machine, how to win 10 second challenge, 10 seconds game",
+                "ogTitle": "10 Second Challenge Online: Stop the Timer at 10s",
+                "ogDescription": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, compare your score, and learn how to win."
             },
             "howToPlay": {
-                "description": "The rules are simple, but perfection is hard:",
-                "step1": "Click 'Start' to begin the timer.",
+                "description": "The rules are simple, but perfection is hard: this is a time stop challenge game where your goal is to stop as close to 10.0000 seconds as possible.",
+                "step1": "Click 'Start Timer' to begin the 10 second challenge timer.",
                 "step2": "Watch the numbers (or close your eyes and count).",
-                "step3": "Click 'Stop' exactly when you think it's 10.0000 seconds.",
+                "step3": "Click 'STOP!' exactly when you think the timer has reached 10.0000 seconds.",
                 "step4": "Check your result. Within 0.01s is considered excellent!",
                 "win": "PERFECT! Exactly 10.0000s!",
                 "lose": "Close! Try again.",
@@ -36,14 +36,26 @@
                 }
             },
             "science": {
-                "title": "The Science of Time Perception",
-                "description": "Why is it so hard to stop exactly at 10.0000? It relates to our brain's 'Internal Clock', device latency, and anticipatory control. Read our detailed analysis to learn why you keep missing by milliseconds.",
+                "title": "Time Perception, Reaction Time, and Anticipation",
+                "description": "Why is it so hard to stop exactly at 10.0000? This 10 second reaction time challenge depends on your brain's internal clock, device latency, and anticipatory control. Read our detailed analysis to learn why you keep missing by milliseconds.",
                 "blogArticleTitle": "Read: The Science Behind 10 Seconds Challenge"
             },
             "faq": {
+                "what": {
+                    "question": "What is the 10 second challenge game?",
+                    "answer": "The 10 second challenge, sometimes searched as the 10 sec challenge, is a timer game where you start a stopwatch and try to stop it at exactly 10.0000 seconds. The closer you stop to 10 seconds, the better your score."
+                },
                 "trick": {
-                    "question": "Any tips?",
-                    "answer": "Many find that closing their eyes and counting internally is more accurate than watching the numbers, as visual flow can be distracting."
+                    "question": "How do you win the 10 second challenge?",
+                    "answer": "The best strategy is to stop relying on visual reaction alone. Close your eyes, count with a steady rhythm, and press slightly before you think the timer reaches 10 seconds to account for reaction time and input lag."
+                },
+                "machine": {
+                    "question": "Is this like the 10 second challenge machine?",
+                    "answer": "Yes. This online version recreates the same idea as the restaurant or arcade 10 second challenge machine: press once to start, press again to stop as close to exactly 10 seconds as possible."
+                },
+                "reaction": {
+                    "question": "Is the 10 second challenge a reaction time test?",
+                    "answer": "It is partly a reaction time test, but it is mostly an anticipation and time perception game. If you wait until you see 10.0000 seconds, your reaction delay usually makes you stop too late."
                 },
                 "impossible": {
                     "question": "Is 10.0000 really possible?",
@@ -61,7 +73,7 @@
                 "share": "Share Result",
                 "result": "Result",
                 "diff": "Difference",
-                "leaderboardDescription": "The leaderboard ranks the stops closest to 10.0000 seconds. The table shows each player's actual stop time.",
+                "leaderboardDescription": "The leaderboard ranks the closest stops to 10.0000 seconds in this 10 second game. The table shows each player's actual stop time.",
                 "shareText": "I stopped the timer at {time}s in the 10 Seconds Challenge and missed perfect 10.0000 by only {diff}s. Can you beat my precision?",
                 "rank": {
                     "perfect": "GODLIKE (0.000s)",
