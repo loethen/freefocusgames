@@ -6,11 +6,15 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import TutorialButton from './components/TutorialButton';
-import { GAME_CONFIG } from './config';
 import DualNBackClearLeaderboard from './components/DualNBackClearLeaderboard';
 import { Link } from '@/i18n/navigation'
 import { routing } from '@/i18n/routing'
 import { generateAlternates } from '@/lib/utils';
+import {
+  DUAL_N_BACK_CLEAR_MIN_ACCURACY,
+  DUAL_N_BACK_CLEAR_MIN_LEVEL,
+  DUAL_N_BACK_CLEAR_MIN_TRIALS,
+} from '@/lib/dual-n-back-clear-rules';
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -266,8 +270,9 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
       leaderboardIntro={
         <p>
           {t('leaderboards.intro', {
-            rounds: GAME_CONFIG.trials.perRound,
-            seconds: GAME_CONFIG.trials.interval / 1000,
+            accuracy: DUAL_N_BACK_CLEAR_MIN_ACCURACY,
+            level: DUAL_N_BACK_CLEAR_MIN_LEVEL,
+            rounds: DUAL_N_BACK_CLEAR_MIN_TRIALS,
           })}
         </p>
       }

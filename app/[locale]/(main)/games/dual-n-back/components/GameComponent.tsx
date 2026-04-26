@@ -20,6 +20,11 @@ import {
     ProgressCardData,
     recordProgressSnapshot,
 } from "@/lib/progress-share";
+import {
+    DUAL_N_BACK_CLEAR_MIN_ACCURACY,
+    DUAL_N_BACK_CLEAR_TRAINING_MODE,
+    isDualNBackClearLeaderboardEligible,
+} from "@/lib/dual-n-back-clear-rules";
 
 // 定义游戏状态类型
 // 游戏状态：空闲、进行中、已完成
@@ -465,14 +470,17 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
             difficulty: settings.selectedNBack >= 3 ? 'hard' : settings.selectedNBack >= 2 ? 'medium' : 'easy'
         });
 
-        if (isStandardDualSetup(settings)) {
-            if (overallAccuracy >= GAME_CONFIG.difficulty.targetAccuracy && clearDurationMs > 0) {
+        if (isDualNBackClearLeaderboardEligible(settings)) {
+            if (overallAccuracy >= DUAL_N_BACK_CLEAR_MIN_ACCURACY && clearDurationMs > 0) {
                 void submitScoreToLeaderboard("dual-n-back", clearDurationMs, {
                     mode: "standard-clear",
                     details: {
                         accuracy: overallAccuracy,
                         durationMs: clearDurationMs,
                         level: settings.selectedNBack,
+                        trialInterval: settings.trialInterval,
+                        trainingMode: DUAL_N_BACK_CLEAR_TRAINING_MODE,
+                        trialsPerRound: settings.trialsPerRound,
                     },
                 });
             }

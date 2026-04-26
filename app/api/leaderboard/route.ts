@@ -4,6 +4,18 @@ import {
     DEFAULT_LEADERBOARD_MODE,
 } from "@/lib/leaderboard-config";
 import {
+    DUAL_N_BACK_CLEAR_MAX_DURATION_MS,
+    DUAL_N_BACK_CLEAR_MAX_INTERVAL_MS,
+    DUAL_N_BACK_CLEAR_MAX_LEVEL,
+    DUAL_N_BACK_CLEAR_MAX_TRIALS,
+    DUAL_N_BACK_CLEAR_MIN_ACCURACY,
+    DUAL_N_BACK_CLEAR_MIN_DURATION_MS,
+    DUAL_N_BACK_CLEAR_MIN_INTERVAL_MS,
+    DUAL_N_BACK_CLEAR_MIN_LEVEL,
+    DUAL_N_BACK_CLEAR_MIN_TRIALS,
+    DUAL_N_BACK_CLEAR_TRAINING_MODE,
+} from "@/lib/dual-n-back-clear-rules";
+import {
     createEmptySnapshot,
     compareScores,
     getLeaderboardTarget,
@@ -32,6 +44,9 @@ type LeaderboardSubmissionDetails = {
     accuracy?: unknown;
     durationMs?: unknown;
     level?: unknown;
+    trialInterval?: unknown;
+    trainingMode?: unknown;
+    trialsPerRound?: unknown;
 };
 
 async function hasLeaderboardDetailsColumn(db: D1DatabaseBinding) {
@@ -194,16 +209,43 @@ function validateDualNBackClearDetails(score: number, details: LeaderboardSubmis
     const level = toNumber(details.level, NaN);
     const accuracy = toNumber(details.accuracy, NaN);
     const durationMs = toNumber(details.durationMs, NaN);
+    const trialInterval = toNumber(details.trialInterval, NaN);
+    const trainingMode = typeof details.trainingMode === "string" ? details.trainingMode : "";
+    const trialsPerRound = toNumber(details.trialsPerRound, NaN);
 
-    if (!Number.isInteger(level) || level < 1 || level > 10) {
+    if (trainingMode !== DUAL_N_BACK_CLEAR_TRAINING_MODE) {
+        return "Score rejected (Invalid clear mode)";
+    }
+
+    if (!Number.isInteger(level) || level < DUAL_N_BACK_CLEAR_MIN_LEVEL || level > DUAL_N_BACK_CLEAR_MAX_LEVEL) {
         return "Score rejected (Invalid clear level)";
     }
 
-    if (!Number.isInteger(accuracy) || accuracy < 80 || accuracy > 100) {
+    if (!Number.isInteger(accuracy) || accuracy < DUAL_N_BACK_CLEAR_MIN_ACCURACY || accuracy > 100) {
         return "Score rejected (Invalid clear accuracy)";
     }
 
-    if (!Number.isInteger(durationMs) || durationMs < 1000 || durationMs > 600000) {
+    if (
+        !Number.isInteger(trialsPerRound) ||
+        trialsPerRound < DUAL_N_BACK_CLEAR_MIN_TRIALS ||
+        trialsPerRound > DUAL_N_BACK_CLEAR_MAX_TRIALS
+    ) {
+        return "Score rejected (Invalid clear rounds)";
+    }
+
+    if (
+        !Number.isInteger(trialInterval) ||
+        trialInterval < DUAL_N_BACK_CLEAR_MIN_INTERVAL_MS ||
+        trialInterval > DUAL_N_BACK_CLEAR_MAX_INTERVAL_MS
+    ) {
+        return "Score rejected (Invalid clear pace)";
+    }
+
+    if (
+        !Number.isInteger(durationMs) ||
+        durationMs < DUAL_N_BACK_CLEAR_MIN_DURATION_MS ||
+        durationMs > DUAL_N_BACK_CLEAR_MAX_DURATION_MS
+    ) {
         return "Score rejected (Invalid clear duration)";
     }
 
@@ -417,6 +459,26 @@ export async function GET(req: NextRequest) {
 
         if (gameId === "dual-n-back" && mode === "standard-clear" && view === "recent") {
             const hasDetailsColumn = await hasLeaderboardDetailsColumn(db);
+            const eligibilityWhereClause = hasDetailsColumn
+                ? `AND CAST(json_extract(details_json, '$.level') AS INTEGER) >= ?
+                   AND CAST(json_extract(details_json, '$.accuracy') AS INTEGER) >= ?
+                   AND (
+                       json_extract(details_json, '$.trialsPerRound') IS NULL
+                       OR CAST(json_extract(details_json, '$.trialsPerRound') AS INTEGER) >= ?
+                   )
+                   AND (
+                       json_extract(details_json, '$.trainingMode') IS NULL
+                       OR json_extract(details_json, '$.trainingMode') = ?
+                   )`
+                : `AND 1 = 0`;
+            const eligibilityBindings = hasDetailsColumn
+                ? [
+                    DUAL_N_BACK_CLEAR_MIN_LEVEL,
+                    DUAL_N_BACK_CLEAR_MIN_ACCURACY,
+                    DUAL_N_BACK_CLEAR_MIN_TRIALS,
+                    DUAL_N_BACK_CLEAR_TRAINING_MODE,
+                ]
+                : [];
 
             const [recentRows, aggregateRow] = await Promise.all([
                 db.prepare(
@@ -429,6 +491,7 @@ export async function GET(req: NextRequest) {
                          FROM leaderboard
                          WHERE game_id = ?
                            AND mode = ?
+                           ${eligibilityWhereClause}
                          ORDER BY datetime(created_at) DESC, id DESC
                          LIMIT 20`
                         : `SELECT
@@ -439,17 +502,19 @@ export async function GET(req: NextRequest) {
                          FROM leaderboard
                          WHERE game_id = ?
                            AND mode = ?
+                           ${eligibilityWhereClause}
                          ORDER BY datetime(created_at) DESC, id DESC
                          LIMIT 20`
-                ).bind(gameId, mode).all(),
+                ).bind(gameId, mode, ...eligibilityBindings).all(),
                 db.prepare(
                     `SELECT
                         COUNT(*) AS totalSubmissions,
                         COALESCE(AVG(score), 0) AS averageDurationMs
                      FROM leaderboard
                      WHERE game_id = ?
-                       AND mode = ?`
-                ).bind(gameId, mode).first(),
+                       AND mode = ?
+                       ${eligibilityWhereClause}`
+                ).bind(gameId, mode, ...eligibilityBindings).first(),
             ]);
 
             const entries = recentRows.results.map((row) => {
