@@ -148,7 +148,6 @@ export function ProgressShareModal({
                 <div className="flex items-center justify-between border-b border-border/50 px-6 py-4">
                     <div>
                         <h3 className="text-lg font-semibold">{t("title")}</h3>
-                        <p className="text-sm text-muted-foreground">{t("hint")}</p>
                     </div>
                     <Button variant="ghost" size="icon" onClick={onClose}>
                         <X className="h-4 w-4" />

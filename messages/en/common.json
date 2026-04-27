@@ -50,7 +50,6 @@
     },
     "progressShare": {
       "title": "Progress Card",
-      "hint": "Share an image instead of a link.",
       "preparing": "Preparing your progress card...",
       "previewAlt": "Progress card preview",
       "shareImage": "Share Image",

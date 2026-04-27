@@ -50,7 +50,6 @@
     },
     "progressShare": {
       "title": "进步卡片",
-      "hint": "直接分享图片，不用先分享链接。",
       "preparing": "正在生成进步卡片...",
       "previewAlt": "进步卡片预览",
       "shareImage": "分享图片",
