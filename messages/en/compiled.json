@@ -2188,6 +2188,9 @@
       "paragraph3": "I hope these games prove helpful and bring you joy. There's no pressure here - just choose whatever games spark your interest and enjoy the process. Even playing for just a few minutes each day is a beneficial mental workout.",
       "paragraph4": "If you have any feedback or suggestions, I'd be delighted to hear from you.",
       "paragraph5": "Contact: contact@freefocusgames.com"
+    },
+    "support": {
+      "text": "If you enjoy the site and want to support it, you can do so here."
     }
   },
   "adhdAssessment": {
@@ -2652,6 +2655,7 @@
     "termsOfService": "Terms of Service",
     "guides": "Guides",
     "tests": "Tests",
+    "supportProject": "Support this project",
     "workingMemoryGuide": "Working Memory",
     "assessmentTests": "Assessment Tests",
     "cognitiveAssessment": "Cognitive Test",

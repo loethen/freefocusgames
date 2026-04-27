@@ -83,4 +83,21 @@
   margin-bottom: 2rem;
   font-size: 1.875rem;
   font-weight: 700;
-} 
+}
+
+.support-note {
+  margin-bottom: 2rem;
+  border: 1px solid rgba(229, 231, 235, 0.8);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  background: rgba(249, 250, 251, 0.7);
+}
+
+.dark .support-note {
+  border-color: rgba(75, 85, 99, 0.8);
+  background: rgba(31, 41, 55, 0.35);
+}
+
+.support-button {
+  border-radius: 9999px;
+}

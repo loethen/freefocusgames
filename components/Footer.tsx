@@ -5,6 +5,8 @@ import { XLogo } from './ui/XLogo';
 import { Link } from '@/i18n/navigation';
 import { Github } from 'lucide-react';
 
+const KOFI_URL = "https://ko-fi.com/freefocusgames";
+
 export function Footer() {
   const t = useTranslations('common');
 
@@ -33,6 +35,15 @@ export function Footer() {
         >
           {t('termsOfService')}
         </Link>
+        <span>•</span>
+        <a
+          href={KOFI_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
+        >
+          {t('supportProject')}
+        </a>
         <span>•</span>
         <a
           href="https://x.com/2also397879"
