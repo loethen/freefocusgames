@@ -11,6 +11,7 @@ import LatestGames from "@/components/latest-games";
 import Image from "next/image";
 import { games } from "@/data/games";
 import { Wind, Gamepad2, ArrowRight, Play } from "lucide-react";
+import TrustpilotSection from "@/components/trustpilot-section";
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
@@ -615,6 +616,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background"></div>
                     </div>
                 </section>
+
+                {/* Trustpilot Reviews Section */}
+                <TrustpilotSection />
             </div>
         </>
     );

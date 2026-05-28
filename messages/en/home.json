@@ -143,6 +143,14 @@
       "description": "Learn how working memory, visual attention, and repeated short practice connect to better focus and more consistent training habits.",
       "cta": "Read the Working Memory Guide",
       "tag": "Neuroscience"
+    },
+    "trustpilot": {
+      "badge": "Verified Reviews",
+      "title": "What Players Are Saying",
+      "subtitle": "Real feedback from real users. We read every review and use it to make Free Focus Games better.",
+      "ctaBody": "Tried one of our games? We'd love to hear about your experience.",
+      "ctaNote": "Your feedback helps us improve and reach more people who need better focus tools.",
+      "ctaButton": "Leave a Review on Trustpilot"
     }
   }
 }
