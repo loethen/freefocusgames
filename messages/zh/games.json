@@ -1635,6 +1635,97 @@
         "hard": "困难"
       }
     },
+    "peripheralSpeedTraining": {
+      "title": "Double Decision 双重决策游戏",
+      "subtitle": "免费的自适应视觉处理速度、分散注意与有效视野训练",
+      "description": "免费在线体验 Double Decision 双重决策游戏，在一次短暂呈现中判断中央车辆并定位周边路牌。",
+      "metadata": {
+        "title": "Double Decision 双重决策游戏｜视觉处理速度训练",
+        "description": "免费在线玩 Double Decision 双重决策游戏：同时判断中央车辆和周边路牌位置，通过自适应速度、有效视野与分散注意任务进行认知练习。",
+        "keywords": "Double Decision, 双重决策游戏, Double Decision游戏, 视觉处理速度训练, 有效视野训练, UFOV训练, 周边视觉训练, 分散注意训练, 认知训练游戏, 老年人脑力游戏"
+      },
+      "howToPlay": {
+        "description": "Double Decision 是一种自适应视觉处理速度游戏。每轮会同时短暂显示中央车辆，以及八个周边位置之一的 66 号公路标志。",
+        "step1": "视线保持在中央红点上，不要转眼寻找路牌；同时判断中央出现的是哪辆车。",
+        "step2": "短暂视觉遮罩结束后，先选择中央车辆，再选择 66 号公路标志出现的道路扇区。",
+        "step3": "连续答对会缩短呈现时间；更高的视野等级会让目标离中心更远，并加入更多干扰路牌。"
+      },
+      "benefits": {
+        "visual": { "title": "一眼顾及更大范围", "description": "通过盯住一个点、同时留意更远位置，练习有效视野（UFOV）。目标是减少来回扫视，更容易捕捉焦点周围的细节，而不只是看见正中央的内容。" },
+        "speed": { "title": "更快抓住关键信息", "description": "练习在画面消失前找到真正重要的两条线索。随着游戏中的视觉处理速度提高，你会逐渐在更短的呈现时间里保持准确，而不是一味抢答。" },
+        "attention": { "title": "同时处理两条视觉线索", "description": "一眼兼顾中央车辆和周边路牌，练习更稳定的分散注意。它适合那些需要盯住主要目标，同时又不能忽略周围变化的视觉场景。" }
+      },
+      "science": {
+        "title": "为什么练习后会越来越快",
+        "overview": "Double Decision 最直接的好处，是练习在更短时间里获得更多有用的视觉信息。它不是单纯追求手快，而是把速度、准确率和周边觉察放在一起练。",
+        "methodHeading": "难度始终比舒适区高一点。",
+        "methodResult": "答对后，下一轮会更快，路牌也会逐渐移得更远；答错时，系统会重新增加时间。这样的自适应节奏既不会让你一直停在简单关卡，也不会突然难到只能碰运气。",
+        "evidenceHeading": "进步可以直接看见。",
+        "evidenceResult": "ACTIVE 等大型项目发现，视觉处理速度练习能让参与者在所训练的视觉能力上获得较持久的进步。在游戏里，这种变化会表现为更短的呈现时间、更高的视野等级，以及两项判断同时答对的比例不断提高。",
+        "gameLimit": "持续练习的目标很具体：更快认出中央目标，减少寻找周边信息的时间，并在画面变复杂后依然保持准确。这些视觉习惯适用于需要专注重点、又要同时留意周围变化的活动。",
+        "sourceTitle": "New Scientist：进一步了解速度训练研究",
+        "sourceDescription": "New Scientist 的近期报道，介绍自适应速度训练为何持续受到研究关注，以及反复练习可能带来的表现变化。"
+      },
+      "faq": {
+        "what": { "question": "Double Decision 双重决策游戏是什么？", "answer": "Double Decision 是一种自适应视觉处理速度与分散注意游戏。中央会出现一辆车，八个周边位置之一会同时出现 66 号路牌。画面消失后，玩家先判断车辆，再定位路牌；随着表现提高，呈现时间会缩短，地图中的干扰信息也会增加。" },
+        "free": { "question": "哪里可以免费在线玩 Double Decision 游戏？", "answer": "你可以直接在 Free Focus Games 免费在线玩 Double Decision 双重决策游戏，不需要下载软件或注册账号。设置中可以选择训练回合、起始呈现时间和视野等级，并可使用电脑、平板或手机浏览器开始视觉处理速度挑战。" },
+        "how": { "question": "Double Decision 视觉处理速度游戏怎么玩？", "answer": "把视线保持在中央红点附近。画面闪现时，直接判断中央车辆，同时用周边视觉留意 66 号路牌的位置。视觉遮罩结束后，先选择车辆，再选择路牌所在的道路扇区；两项判断全部正确，这一轮才算答对。" },
+        "ufov": { "question": "Double Decision 和有效视野（UFOV）训练有什么关系？", "answer": "Double Decision 与有效视野训练密切相关。UFOV 指不移动视线时，一次注视能够有效利用的视觉信息范围。游戏要求玩家持续关注中央车辆，同时定位更远处、甚至混在干扰路牌中的目标，因此也常被归入有效视野与周边视觉训练。" },
+        "benefits": { "question": "Double Decision 能练习视觉处理速度和周边视觉吗？", "answer": "反复练习可以帮助玩家更快、更准确地完成中央识别与周边定位这组特定任务。在游戏中，进步通常表现为呈现时间缩短、视野等级提高，同时准确率保持稳定；这个过程也会持续练习分散注意和周边视觉觉察。" },
+        "comparison": { "question": "Double Decision 和 Dual N-Back 有什么区别？", "answer": "Double Decision 主要练习视觉处理速度、分散注意和有效视野；Dual N-Back 则要求判断当前的视觉位置和声音，是否与前几个回合相同，重点更偏向工作记忆。两者都会同时处理两条信息，但规则、作答方式和主要任务能力完全不同。" },
+        "frequency": { "question": "Double Decision 训练多久玩一次比较合适？", "answer": "可以先从每次 10 到 20 个回合开始，并在注意力稳定时完成练习。短而规律的训练比偶尔进行一次很长的训练更容易比较进步。练习时先保持两项判断的准确率，再让自适应计时和视野等级逐渐增加难度。" }
+      },
+      "structuredData": {
+        "educationalUse": "视觉处理速度与分散注意练习",
+        "featureList": [
+          "免费在线 Double Decision 双重决策游戏",
+          "自适应视觉处理速度训练",
+          "八方位周边视觉定位任务",
+          "中央车辆与周边路牌双重判断",
+          "可调起始速度、视野等级和训练回合"
+        ]
+      },
+      "gameUI": {
+        "title": "一眼完成两个判断",
+        "intro": "判断中央车辆，同时记住 66 号公路标志出现的位置。",
+        "centralTargetTitle": "中央判断",
+        "centralTarget": "判断注视点上出现的是当前车辆组合中的哪一辆。",
+        "peripheralTargetTitle": "周边判断",
+        "peripheralTarget": "不要移开视线，同时留意 66 号公路标志出现的位置。",
+        "fixationTip": "视线保持在中央红点上。",
+        "start": "开始训练",
+        "playAgain": "再练一次",
+        "round": "第 {current} / {total} 轮",
+        "speed": "呈现 {milliseconds} 毫秒",
+        "fieldLevel": "视野等级 {level}",
+        "score": "准确率 {score}%",
+        "settings": "设置",
+        "settingsTitle": "训练设置",
+        "settingsRounds": "回合数",
+        "settingsSpeed": "起始呈现时间",
+        "settingsSpeedHelp": "车辆和路牌最初在画面上停留的时间；数值越小，难度越高。",
+        "settingsField": "起始视野",
+        "settingsFieldHelp": "路牌最初离中央注视点的距离；等级越高，距离越远，干扰路牌也越多。",
+        "settingsHint": "这些选项只设定起点，之后难度会根据表现自动调整。",
+        "levelValue": "等级 {level}",
+        "bestScore": "最佳准确率：{score}%",
+        "chooseVehicle": "中央出现了哪种车辆？",
+        "chooseVehicleHint": "先回答中央目标，再定位道路标志。",
+        "chooseLocation": "66 号公路标志出现在哪里？",
+        "chooseLocationHint": "选择八个道路扇区之一。",
+        "locationLabel": "道路扇区 {number}",
+        "correct": "两个判断都正确！",
+        "vehicleMissed": "中央车辆判断错误",
+        "signMissed": "道路标志位置判断错误",
+        "answerReveal": "中央是{vehicle}；66 号公路标志位于第 {location} 扇区。",
+        "vehicleDecision": "车辆",
+        "locationDecision": "位置",
+        "resultsTitle": "训练完成",
+        "resultsBody": "在 {total} 轮中，你有 {correct} 轮同时答对两个判断。",
+        "finalThreshold": "最终呈现：{milliseconds} 毫秒 · 视野等级 {level}",
+        "vehicles": { "sedan": "轿车", "taxi": "出租车", "bus": "巴士", "truck": "卡车" }
+      }
+    },
     "sbtiTest": {
       "title": "SBTI 人格测试",
       "description": "免费在线玩最近很火的 SBTI 人格测试，几分钟就能拿到结果图，看看你会被分到哪种人格。",

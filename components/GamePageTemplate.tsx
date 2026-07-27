@@ -30,7 +30,7 @@ interface BenefitItem {
 
 interface ScienceInfo {
     title: string;
-    description: string;
+    description: React.ReactNode;
     blogArticleUrl?: string;
     blogArticleTitle?: string;
     authorityLinks?: {
@@ -223,9 +223,9 @@ export function GamePageTemplate({
                                 <h3 className="text-2xl font-semibold mb-4 text-foreground">
                                     {science.title}
                                 </h3>
-                                <p className="text-lg text-muted-foreground leading-relaxed">
+                                <div className="text-lg text-muted-foreground leading-relaxed">
                                     {science.description}
-                                </p>
+                                </div>
                             </div>
 
                             {/* Blog文章链接 */}

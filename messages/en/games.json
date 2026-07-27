@@ -1635,6 +1635,97 @@
         "hard": "Hard"
       }
     },
+    "peripheralSpeedTraining": {
+      "title": "Double Decision Game",
+      "subtitle": "Free adaptive visual processing speed and useful field of view training",
+      "description": "Play a free Double Decision game that combines central vehicle recognition with peripheral road-sign location in one brief glance.",
+      "metadata": {
+        "title": "Double Decision Game | Free Visual Processing Speed Training",
+        "description": "Play a free Double Decision game inspired by useful field of view training. Identify a central vehicle and locate a peripheral sign as the display gets faster.",
+        "keywords": "double decision game, double decision online, visual processing speed training, useful field of view training, UFOV training, peripheral vision game, divided attention training, cognitive training game, brain game for adults"
+      },
+      "howToPlay": {
+        "description": "Double Decision is an adaptive visual processing speed game. In every trial, a vehicle at the centre and a Route 66 sign in one of eight peripheral locations appear at the same time.",
+        "step1": "Keep your gaze on the central red dot. Identify the vehicle without moving your eyes toward the road sign.",
+        "step2": "After the brief visual mask, choose the central vehicle first, then select the road sector where the Route 66 sign appeared.",
+        "step3": "The display becomes shorter after correct trials. Higher field levels move the target farther from the centre and add distractor signs."
+      },
+      "benefits": {
+        "visual": { "title": "Take In More at a Glance", "description": "Train your useful field of view (UFOV) by holding your gaze on one point while noticing what happens farther away. The goal is to rely less on scanning and become better at catching peripheral details around the thing you are focused on." },
+        "speed": { "title": "Spot Important Information Faster", "description": "Practice finding the two details that matter before the scene disappears. As your visual processing speed improves in the game, you can stay accurate with shorter displays instead of rushing and guessing." },
+        "attention": { "title": "Handle Two Visual Signals at Once", "description": "Build steadier divided attention by tracking a central vehicle and a peripheral sign in the same glance. This is useful practice for situations where you need to stay focused on a main target without losing awareness of what is happening around it." }
+      },
+      "science": {
+        "title": "Why practice can make you faster",
+        "overview": "The main benefit of Double Decision is learning to collect more useful visual information in less time. Instead of practising speed alone, you work on speed, accuracy and peripheral awareness together.",
+        "methodHeading": "The challenge stays just above your comfort zone.",
+        "methodResult": "Correct answers shorten the next display and gradually move the sign farther out. A mistake gives you more time again. This adaptive rhythm keeps the task demanding enough to create progress without leaving you stuck at a level that is too easy or too frustrating.",
+        "evidenceHeading": "Your improvement is easy to see.",
+        "evidenceResult": "Large projects such as ACTIVE found that speed-of-processing practice produced lasting gains on the visual skills being trained. In this game, the same kind of progress appears as a shorter display time, a wider field level and a higher rate of getting both answers right.",
+        "gameLimit": "With regular play, your aim is to recognise the centre faster, notice peripheral details with less searching and stay accurate when the scene becomes busier. Those are practical visual habits for any activity that asks you to focus on one thing while keeping track of the surrounding scene.",
+        "sourceTitle": "New Scientist: A closer look at speed-training research",
+        "sourceDescription": "A recent New Scientist report exploring why adaptive speed training continues to attract research interest and what sustained practice may change."
+      },
+      "faq": {
+        "what": { "question": "What is the Double Decision game?", "answer": "Double Decision is an adaptive visual processing speed and divided attention game. A vehicle appears in the centre while a Route 66 sign appears in one of eight peripheral locations. After the scene disappears, you identify the vehicle and then locate the sign. The display becomes faster and more crowded as your answers improve." },
+        "free": { "question": "Where can I play a free Double Decision game online?", "answer": "You can play this free Double Decision game directly in your browser on Free Focus Games. There is no download or account required. Choose the number of rounds, starting display time and field level in Settings, then begin the visual processing speed challenge on desktop, tablet or mobile." },
+        "how": { "question": "How do you play the Double Decision visual processing speed game?", "answer": "Keep your eyes near the central red dot. When the scene flashes, recognise the central vehicle while using peripheral vision to notice the Route 66 sign. After the mask, choose the vehicle first and then the sign’s location. Both answers must be correct for the round to count." },
+        "ufov": { "question": "Is Double Decision the same as useful field of view (UFOV) training?", "answer": "Double Decision is closely related to useful field of view training. UFOV describes how much visual information you can use in one glance without moving your eyes. Double Decision practises this by keeping attention on a central vehicle while a target appears farther into the periphery, sometimes among distractor signs." },
+        "benefits": { "question": "Can Double Decision improve visual processing speed and peripheral vision?", "answer": "Repeated play can make you faster and more accurate at this specific combination of central recognition and peripheral location. In the game, improvement appears as a shorter display time, a higher field level and stable accuracy. The task also provides focused practice in divided attention and peripheral visual awareness." },
+        "comparison": { "question": "What is the difference between Double Decision and Dual N-Back?", "answer": "Double Decision focuses on visual processing speed, divided attention and useful field of view. Dual N-Back focuses on working memory by asking whether current visual and audio items match items from several steps earlier. Both involve two streams of information, but they train different task skills and use completely different rules." },
+        "frequency": { "question": "How often should you practise Double Decision training?", "answer": "For a simple routine, start with 10 to 20 rounds per session and play while your concentration remains steady. Short, regular sessions are easier to compare over time than occasional long sessions. Focus on keeping both answers accurate and allow the adaptive timer and field level to increase the challenge gradually." }
+      },
+      "structuredData": {
+        "educationalUse": "Visual processing speed and divided attention practice",
+        "featureList": [
+          "Free Double Decision game online",
+          "Adaptive visual processing speed training",
+          "Eight-position peripheral vision task",
+          "Central vehicle and road-sign divided attention challenge",
+          "Adjustable starting speed, field level and session length"
+        ]
+      },
+      "gameUI": {
+        "title": "Two decisions in one glance",
+        "intro": "Identify the vehicle in the centre and remember where the Route 66 sign appeared.",
+        "centralTargetTitle": "Central decision",
+        "centralTarget": "Identify which vehicle from the current pair appeared at fixation.",
+        "peripheralTargetTitle": "Peripheral decision",
+        "peripheralTarget": "Without looking away, notice where the Route 66 sign appears.",
+        "fixationTip": "Keep your eyes on the red dot.",
+        "start": "Start training",
+        "playAgain": "Train again",
+        "round": "Round {current} of {total}",
+        "speed": "Display {milliseconds} ms",
+        "fieldLevel": "Field level {level}",
+        "score": "Accuracy {score}%",
+        "settings": "Settings",
+        "settingsTitle": "Training settings",
+        "settingsRounds": "Rounds",
+        "settingsSpeed": "Starting display",
+        "settingsSpeedHelp": "How long the vehicle and signs first stay visible. A lower value is harder.",
+        "settingsField": "Starting field",
+        "settingsFieldHelp": "How far the sign starts from the centre. Higher levels are farther away and add more distractors.",
+        "settingsHint": "These set the starting point; difficulty then adapts to your performance.",
+        "levelValue": "Level {level}",
+        "bestScore": "Best accuracy: {score}%",
+        "chooseVehicle": "Which vehicle was in the centre?",
+        "chooseVehicleHint": "Choose the central target before locating the road sign.",
+        "chooseLocation": "Where was the Route 66 sign?",
+        "chooseLocationHint": "Select one of the eight road sectors.",
+        "locationLabel": "Road sector {number}",
+        "correct": "Both decisions correct!",
+        "vehicleMissed": "Central vehicle missed",
+        "signMissed": "Road-sign location missed",
+        "answerReveal": "The centre showed a {vehicle}; the Route 66 sign was in sector {location}.",
+        "vehicleDecision": "Vehicle",
+        "locationDecision": "Location",
+        "resultsTitle": "Training complete",
+        "resultsBody": "You made both decisions correctly in {correct} of {total} trials.",
+        "finalThreshold": "Final display: {milliseconds} ms · field level {level}",
+        "vehicles": { "sedan": "Sedan", "taxi": "Taxi", "bus": "Bus", "truck": "Truck" }
+      }
+    },
     "sbtiTest": {
       "title": "SBTI Personality Test",
       "description": "Play the viral SBTI personality test online and get a shareable result poster in minutes. A fast meme-style quiz for people searching sbti test, sbti mbti, and personality test trends.",
