@@ -3144,9 +3144,9 @@
     "subtitle": "免费体验科学专注力训练游戏，用 5 分钟练习注意力、工作记忆、反应速度与专注表现。",
     "heroImageAlt": "免费专注力游戏平台 - 通过脑力训练提升注意力和记忆力",
     "heroFeatures": [
-      "✓ 无需下载安装",
-      "✓ 免费开始练习",
-      "✓ 适合成人、儿童与 ADHD 用户"
+      "无需下载安装",
+      "免费开始练习",
+      "适合成人、儿童与 ADHD 用户"
     ],
     "ctaButton": "从快速测验开始",
     "popularGames": "热门游戏",
@@ -3174,39 +3174,32 @@
       }
     },
     "searchPaths": {
-      "title": "快速找到合适的入口",
-      "subtitle": "通过这些快速入口，直接进入更适合的页面，无论你想找专注力游戏、ADHD 友好练习，还是某个具体训练工具。",
+      "title": "找到适合你的专注力游戏",
+      "subtitle": "从专注力、工作记忆、反应速度和注意控制中选择一个练习目标。",
+      "popularTools": "热门游戏与工具",
       "items": {
         "focusGames": {
-          "eyebrow": "热门搜索",
-          "title": "在线专注力游戏",
-          "description": "浏览完整的免费专注力游戏、注意力训练和集中力练习。"
+          "title": "专注力游戏",
+          "description": "练习持续注意、减少干扰，并更快回到当前任务。"
+        },
+        "workingMemory": {
+          "title": "工作记忆游戏",
+          "description": "在短时间内记住并处理数字、位置、声音和规则。"
         },
         "reactionTime": {
-          "eyebrow": "测试",
           "title": "反应速度测试",
-          "description": "用免费的快速测试在线查看反应速度，并练习视觉反应能力。"
+          "description": "测试视觉反应时间，挑战更快、更稳定的回应。"
         },
         "adhdGames": {
-          "eyebrow": "分类",
-          "title": "成人 ADHD 游戏",
-          "description": "查看适合 ADHD 用户的脑力训练游戏，覆盖注意控制、工作记忆和专注练习。"
-        },
-        "schulteTable": {
-          "eyebrow": "训练工具",
-          "title": "在线舒尔特表格",
-          "description": "使用免费的在线舒尔特表格训练视觉注意力、周边视觉和阅读速度。"
-        },
-        "adultAdhdAssessment": {
-          "eyebrow": "评估",
-          "title": "成人 ADHD 自测",
-          "description": "使用基于 WHO ASRS 框架的免费成人 ADHD 自评工具。"
-        },
-        "workingMemoryGuide": {
-          "eyebrow": "指南",
-          "title": "工作记忆指南",
-          "description": "了解工作记忆的原理，以及适合入门的训练游戏和练习。"
+          "title": "ADHD 友好游戏",
+          "description": "选择节奏短、反馈清晰、容易开始的专注练习。"
         }
+      },
+      "tools": {
+        "doubleDecision": "Double Decision 视觉速度训练",
+        "schulteTable": "在线舒尔特表格",
+        "visualTracking": "视觉追踪游戏",
+        "allGames": "查看全部游戏"
       }
     },
     "benefitsTitle": "这些游戏能帮你练什么",

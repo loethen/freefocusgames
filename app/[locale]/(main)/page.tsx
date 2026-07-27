@@ -10,7 +10,20 @@ import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
 import Image from "next/image";
 import { games } from "@/data/games";
-import { Wind, Gamepad2, ArrowRight, Play } from "lucide-react";
+import {
+    ArrowRight,
+    BookOpen,
+    Brain,
+    BrainCircuit,
+    BriefcaseBusiness,
+    Check,
+    Focus,
+    Gamepad2,
+    Play,
+    ScanEye,
+    Timer,
+    Wind
+} from "lucide-react";
 import TrustpilotSection from "@/components/trustpilot-section";
 
 export const dynamic = "force-static";
@@ -82,12 +95,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         "@type": "WebSite",
         "name": "Free Focus Games",
         "url": "https://freefocusgames.com",
-        "description": t("home.metaDescription"),
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://freefocusgames.com/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
+        "description": t("home.metaDescription")
     };
 
     // 第一组评价
@@ -159,12 +167,32 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     ];
 
     const quickStartLinks = [
-        { id: "focusGames", href: "/games" },
-        { id: "reactionTime", href: "/games/reaction-time" },
-        { id: "adhdGames", href: "/categories/adhd-games" },
+        {
+            id: "focusGames",
+            href: "/games",
+            icon: Focus
+        },
+        {
+            id: "workingMemory",
+            href: "/categories/working-memory",
+            icon: Brain
+        },
+        {
+            id: "reactionTime",
+            href: "/categories/reaction-time",
+            icon: Timer
+        },
+        {
+            id: "adhdGames",
+            href: "/categories/adhd-games",
+            icon: BrainCircuit
+        }
+    ];
+    const popularToolLinks = [
+        { id: "doubleDecision", href: "/games/peripheral-speed-training" },
         { id: "schulteTable", href: "/games/schulte-table" },
-        { id: "adultAdhdAssessment", href: "/adult-adhd-assessment" },
-        { id: "workingMemoryGuide", href: "/working-memory-guide" }
+        { id: "visualTracking", href: "/categories/visual-tracking" },
+        { id: "allGames", href: "/games" }
     ];
     const getIdKey = (id: string) => id.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase()).replace(/-/g, '');
 
@@ -196,7 +224,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             {/* SEO Feature Badges */}
                             <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 mt-4 text-sm text-muted-foreground font-medium">
                                 {(t.raw("home.heroFeatures") as string[] || []).map((feature: string, index: number) => (
-                                    <span key={index} className="flex items-center">
+                                    <span key={index} className="flex items-center gap-1.5">
+                                        <Check className="h-4 w-4 text-emerald-600" aria-hidden="true" />
                                         {feature}
                                     </span>
                                 ))}
@@ -220,52 +249,87 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </section>
 
+                {/* Goal-based navigation */}
+                <section
+                    aria-labelledby="training-goals-title"
+                    className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6"
+                >
+                    <div className="rounded-2xl bg-secondary/20 px-4 py-7 sm:rounded-3xl sm:p-10 lg:p-12">
+                        <div className="mb-8 max-w-2xl sm:mb-10">
+                            <h2 id="training-goals-title" className="text-3xl font-bold tracking-tight sm:text-4xl">
+                                {t("home.searchPaths.title")}
+                            </h2>
+                            <p className="mt-3 text-base leading-relaxed text-muted-foreground sm:mt-4 sm:text-lg">
+                                {t("home.searchPaths.subtitle")}
+                            </p>
+                        </div>
+
+                        <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-y-8 lg:grid-cols-4">
+                            {quickStartLinks.map((item, index) => {
+                                const Icon = item.icon;
+
+                                return (
+                                    <Link
+                                        key={item.id}
+                                        href={item.href}
+                                        className={cn(
+                                            "group relative border-t border-border/70 pt-5 sm:pt-6 lg:min-h-56",
+                                            index > 0 && "lg:border-l lg:pl-8"
+                                        )}
+                                    >
+                                        <div className="mb-5 flex items-center justify-between sm:mb-6 lg:mb-8">
+                                            <span className="font-mono text-xs tracking-[0.18em] text-muted-foreground">
+                                                {String(index + 1).padStart(2, "0")}
+                                            </span>
+                                            <Icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-foreground" aria-hidden="true" />
+                                        </div>
+                                        <h3 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-primary">
+                                            {t(`home.searchPaths.items.${item.id}.title`)}
+                                        </h3>
+                                        <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted-foreground">
+                                            {t(`home.searchPaths.items.${item.id}.description`)}
+                                        </p>
+                                        <ArrowRight
+                                            className="mt-5 h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground sm:mt-6"
+                                            aria-hidden="true"
+                                        />
+                                    </Link>
+                                );
+                            })}
+                        </div>
+
+                        <div className="mt-8 flex flex-col gap-3 border-t border-border/70 pt-5 sm:mt-10 sm:flex-row sm:items-center">
+                            <span className="shrink-0 text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
+                                {t("home.searchPaths.popularTools")}
+                            </span>
+                            <nav aria-label={t("home.searchPaths.popularTools")} className="flex flex-wrap items-center gap-x-5 gap-y-2">
+                                {popularToolLinks.map((item) => (
+                                    <Link
+                                        key={item.id}
+                                        href={item.href}
+                                        className="text-sm font-medium underline-offset-4 transition-colors hover:text-primary hover:underline"
+                                    >
+                                        {t(`home.searchPaths.tools.${item.id}`)}
+                                    </Link>
+                                ))}
+                            </nav>
+                        </div>
+                    </div>
+                </section>
+
                 {/* Games Section - Featured Bento Grid */}
-                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
                     <FeaturedBentoGrid />
                 </section>
 
-                <section className="mb-24 max-w-[1600px] mx-auto px-6">
-                    <div className="mb-8 max-w-2xl">
-                        <h2 className="text-3xl font-bold mb-3">
-                            {t("home.searchPaths.title")}
-                        </h2>
-                        <p className="text-lg text-muted-foreground">
-                            {t("home.searchPaths.subtitle")}
-                        </p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-6 gap-4">
-                        {quickStartLinks.map((item) => (
-                            <Link
-                                key={item.id}
-                                href={item.href}
-                                className="group rounded-2xl border bg-card p-5 transition-all hover:-translate-y-1 hover:shadow-md"
-                            >
-                                <div className="flex items-start justify-between gap-3 mb-4">
-                                    <span className="text-sm font-medium text-primary">
-                                        {t(`home.searchPaths.items.${item.id}.eyebrow`)}
-                                    </span>
-                                    <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
-                                </div>
-                                <h3 className="text-lg font-semibold mb-2">
-                                    {t(`home.searchPaths.items.${item.id}.title`)}
-                                </h3>
-                                <p className="text-sm text-muted-foreground">
-                                    {t(`home.searchPaths.items.${item.id}.description`)}
-                                </p>
-                            </Link>
-                        ))}
-                    </div>
-                </section>
-
                 {/* Latest Games */}
-                <section className="mb-24 max-w-[1600px] mx-auto px-6">
+                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
                     <LatestGames />
                 </section>
 
                 {/* Breathing Zone - Bento Layout */}
-                <section className="mb-24 max-w-[1600px] mx-auto px-6">
-                    <div className="flex items-center gap-2 mb-8">
+                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                    <div className="mb-6 flex items-center gap-2 sm:mb-8">
                         <Wind className="h-6 w-6 text-teal-500" />
                         <h2 className="text-2xl font-semibold">
                             {t("home.breathingZone")}
@@ -277,11 +341,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         const sideGames = breathingGames.filter(g => g.id !== mainGame?.id);
                         if (!mainGame) return null;
                         return (
-                            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 no-ads-inside">
+                            <div className="grid grid-cols-1 gap-4 no-ads-inside sm:gap-6 lg:grid-cols-3">
                                 {/* Main Featured Breathing Game */}
                                 <div className="lg:col-span-2 relative group overflow-hidden rounded-3xl bg-gray-50 dark:bg-zinc-900 border border-border transition-all hover:shadow-xl">
                                     <div className="flex flex-col-reverse md:flex-row h-full">
-                                        <div className="flex-1 p-8 flex flex-col justify-center gap-4 z-10 relative bg-white/50 dark:bg-black/20 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
+                                        <div className="relative z-10 flex flex-1 flex-col justify-center gap-4 bg-white/50 p-5 backdrop-blur-sm dark:bg-black/20 sm:p-8 md:bg-transparent md:backdrop-blur-none">
                                             <div>
                                                 <h3 className="text-3xl md:text-4xl font-bold mb-3">
                                                     {t(`games.${getIdKey(mainGame.id)}.title`)}
@@ -290,12 +354,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                                     {t(`games.${getIdKey(mainGame.id)}.homeDescription`)}
                                                 </p>
                                             </div>
-                                            <Link href={`/games/${mainGame.slug}`}>
-                                                <Button size="lg" className="rounded-full px-8 h-12 text-base shadow-lg hover:translate-y-[-2px] transition-transform w-full md:w-auto">
+                                            <Button asChild size="lg" className="h-12 w-full rounded-full px-8 text-base md:w-auto">
+                                                <Link href={`/games/${mainGame.slug}`}>
                                                     <Play className="mr-2 h-5 w-5" fill="currentColor" />
                                                     {t("buttons.start")}
-                                                </Button>
-                                            </Link>
+                                                </Link>
+                                            </Button>
                                         </div>
                                         <div className="flex-1 min-h-[250px] md:min-h-[300px] flex items-center justify-center relative">
                                             <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl transform scale-75 opacity-50" />
@@ -307,14 +371,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                 </div>
 
                                 {/* Side Breathing Cards */}
-                                <div className="grid grid-rows-2 gap-6 h-full">
+                                <div className="grid h-full grid-rows-2 gap-4 sm:gap-6">
                                     {sideGames.map(game => (
                                         <Link
                                             key={game.id}
                                             href={`/games/${game.slug}`}
                                             className="relative group overflow-hidden rounded-3xl bg-secondary/30 border border-border hover:bg-secondary/50 transition-colors min-h-[180px]"
                                         >
-                                            <div className="absolute inset-0 p-6 flex flex-col justify-between">
+                                            <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6">
                                                 <div className="flex justify-between items-start">
                                                     <div className="w-12 h-12 rounded-2xl bg-background shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
                                                         <Wind className="h-6 w-6 text-teal-500" />
@@ -326,9 +390,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <h4 className="font-bold text-lg mb-1 line-clamp-1">
+                                                    <h3 className="font-bold text-lg mb-1 line-clamp-1">
                                                         {t(`games.${getIdKey(game.id)}.title`)}
-                                                    </h4>
+                                                    </h3>
                                                     <p className="text-sm text-muted-foreground line-clamp-2">
                                                         {t(`games.${getIdKey(game.id)}.description`)}
                                                     </p>
@@ -344,14 +408,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
                 {/* For Fun */}
                 {games.filter(g => g.categories.includes('spring-festival')).length > 0 && (
-                    <section className="mb-24 max-w-[1600px] mx-auto px-6">
-                        <div className="flex items-center gap-2 mb-8">
+                    <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                        <div className="mb-6 flex items-center gap-2 sm:mb-8">
                             <Gamepad2 className="h-6 w-6" />
                             <h2 className="text-2xl font-semibold">
                                 {t("home.forFun")}
                             </h2>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
                             {games.filter(g => g.categories.includes('spring-festival')).map(game => (
                                 <Link key={game.id} href={`/games/${game.slug}`} className="group block">
                                     <div className="relative aspect-video rounded-xl overflow-hidden border border-purple-200 dark:border-purple-900 shadow-sm transition-all hover:shadow-lg hover:scale-[1.02] bg-purple-50/50 dark:bg-purple-950/20">
@@ -368,38 +432,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </section>
                 )}
 
-                {/* Types of Brain Training */}
-                <section className="mb-24 max-w-[1600px] mx-auto px-6">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold mb-4">{t("typesOfGames.title")}</h2>
-                        <p className="text-xl text-muted-foreground">{t("typesOfGames.subtitle")}</p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {[
-                            { id: 'nback', icon: '🧠', color: 'bg-indigo-50 text-indigo-700', href: '/games/dual-n-back' },
-                            { id: 'schulte', icon: '⚡', color: 'bg-amber-50 text-amber-700', href: '/games/schulte-table' },
-                            { id: 'stroop', icon: '🛑', color: 'bg-red-50 text-red-700', href: '/games/stroop-effect-test' },
-                            { id: 'memory', icon: '🧩', color: 'bg-emerald-50 text-emerald-700', href: '/categories/working-memory' }
-                        ].map(type => (
-                            <Link key={type.id} href={type.href} className="group block">
-                                <div className="p-6 rounded-2xl border bg-card hover:shadow-lg transition-all hover:-translate-y-1 h-full">
-                                    <div className="flex items-start justify-between gap-3 mb-4">
-                                        <div className={cn("w-12 h-12 rounded-xl flex items-center justify-center text-2xl", type.color)}>
-                                            {type.icon}
-                                        </div>
-                                        <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
-                                    </div>
-                                    <h3 className="text-xl font-bold mb-2">{t(`typesOfGames.${type.id}.title`)}</h3>
-                                    <p className="text-muted-foreground">{t(`typesOfGames.${type.id}.description`)}</p>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </section>
-
                 {/* Featured Guides */}
-                <section className="mb-24 max-w-[1600px] mx-auto px-0 sm:px-6">
-                    <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                    <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <h2 className="text-3xl font-bold mb-3">
                                 {t("home.featuredResources.title")}
@@ -416,12 +451,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             <ArrowRight className="h-4 w-4" />
                         </Link>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3">
                         {featuredResources.map((resource) => (
                             <Link
                                 key={resource.id}
                                 href={resource.href}
-                                className="group border rounded-2xl p-6 shadow-xs hover:shadow-md transition-all hover:-translate-y-1 bg-card"
+                                className="group border rounded-2xl bg-card p-5 shadow-xs transition-all hover:-translate-y-1 hover:shadow-md sm:p-6"
                             >
                                 <div className="text-xs font-medium uppercase tracking-wide text-primary mb-3">
                                     {resource.label}
@@ -442,16 +477,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </section>
 
                 {/* Benefits Section */}
-                <section className="mb-24 max-w-3xl mx-auto px-0 sm:px-6">
-                    <h2 className="text-3xl font-bold text-center mb-8">
+                <section className="mb-20 max-w-3xl mx-auto px-4 sm:mb-24 sm:px-6">
+                    <h2 className="mb-6 text-center text-3xl font-bold sm:mb-8">
                         {t("home.benefitsTitle")}
                     </h2>
 
                     <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
                         <p>{t("home.benefitsIntro")}</p>
 
-                        <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
-                            <div className="shrink-0 text-2xl">👨👧</div>
+                        <div className="flex items-start gap-4 rounded-xl bg-background/50 p-5 sm:p-6">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-50 text-sky-700 dark:bg-sky-950 dark:text-sky-300">
+                                <BookOpen className="h-5 w-5" aria-hidden="true" />
+                            </div>
                             <div>
                                 <h3 className="font-medium mb-2 text-foreground">
                                     {t("home.familyLifeTitle")}
@@ -460,8 +497,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             </div>
                         </div>
 
-                        <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
-                            <div className="shrink-0 text-2xl">💼</div>
+                        <div className="flex items-start gap-4 rounded-xl bg-background/50 p-5 sm:p-6">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-violet-50 text-violet-700 dark:bg-violet-950 dark:text-violet-300">
+                                <BriefcaseBusiness className="h-5 w-5" aria-hidden="true" />
+                            </div>
                             <div>
                                 <h3 className="font-medium mb-2 text-foreground">
                                     {t("home.workPerformanceTitle")}
@@ -479,8 +518,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             </div>
                         </div>
 
-                        <div className="flex items-start gap-4 p-6 bg-background/50 rounded-xl">
-                            <div className="shrink-0 text-2xl">🎯</div>
+                        <div className="flex items-start gap-4 rounded-xl bg-background/50 p-5 sm:p-6">
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
+                                <ScanEye className="h-5 w-5" aria-hidden="true" />
+                            </div>
                             <div>
                                 <h3 className="font-medium mb-2 text-foreground">
                                     {t("home.personalGrowthTitle")}
@@ -517,8 +558,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
 
                 {/* Science Behind Section */}
-                <section className="mb-24 max-w-4xl mx-auto px-6 text-center">
-                    <div className="bg-muted/30 dark:bg-muted/10 p-8 sm:p-12 rounded-3xl border border-border">
+                <section className="mb-20 max-w-4xl mx-auto px-2 text-center sm:mb-24 sm:px-6">
+                    <div className="rounded-2xl border border-border bg-muted/30 p-5 py-7 dark:bg-muted/10 sm:rounded-3xl sm:p-12">
                         <span className="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-foreground uppercase bg-muted rounded-full">
                             {t("home.scienceBehind.tag")}
                         </span>
@@ -540,18 +581,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </section>
 
                 {/* Testimonials Section */}
-                <section className="mb-24 max-w-7xl mx-auto">
-                    <h2 className="text-3xl font-bold text-center mb-12">
+                <section className="mb-20 max-w-7xl mx-auto sm:mb-24">
+                    <h2 className="mb-8 px-4 text-center text-3xl font-bold sm:mb-12 sm:px-0">
                         {t("home.testimonialsTitle")}
                     </h2>
 
-                    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-6">
+                    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-2 sm:px-6">
                         <Marquee pauseOnHover className="[--duration:20s] mb-8">
                             {firstRowReviews.map((review) => (
-                                <div key={review.username} className="mx-4 w-72">
+                                <div key={review.username} className="mx-2 w-72 sm:mx-4">
                                     <div
                                         className={cn(
-                                            "relative h-full cursor-pointer overflow-hidden rounded-xl border p-6",
+                                            "relative h-full cursor-pointer overflow-hidden rounded-xl border p-5 sm:p-6",
                                             "bg-background/80 hover:bg-border/10",
                                             "border"
                                         )}
@@ -581,10 +622,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
                         <Marquee reverse pauseOnHover className="[--duration:20s]">
                             {secondRowReviews.map((review) => (
-                                <div key={review.username} className="mx-4 w-72">
+                                <div key={review.username} className="mx-2 w-72 sm:mx-4">
                                     <div
                                         className={cn(
-                                            "relative h-full cursor-pointer overflow-hidden rounded-xl border p-6",
+                                            "relative h-full cursor-pointer overflow-hidden rounded-xl border p-5 sm:p-6",
                                             "bg-background/80 hover:bg-border/10",
                                             "border"
                                         )}

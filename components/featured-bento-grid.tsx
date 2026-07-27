@@ -3,23 +3,17 @@
 import { Link } from "@/i18n/navigation";
 import { getGame, Game } from "@/data/games";
 import { useTranslations } from "next-intl";
-import { ArrowRight, Play, TrendingUp } from "lucide-react";
+import {
+    ArrowRight,
+    Play,
+    TrendingUp
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
 // Select specific games for the bento grid
 const FEATURED_GAME_ID = 'dual-n-back';
 const SECONDARY_GAME_IDS = ['schulte-table', 'sbti-test', 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'];
-
-// Helper icons - mapped by ID for specific ones, default for others
-const GAME_ICONS: Record<string, string> = {
-    'schulte-table': '⚡',
-    'dual-n-back': '🧠',
-    'sbti-test': '🔥',
-    'reaction-time': '⏱️',
-    'stroop-effect-test': '🎨',
-    'frog-memory-leap': '🐸'
-};
 
 export default function FeaturedBentoGrid() {
     const t = useTranslations("home");
@@ -32,9 +26,6 @@ export default function FeaturedBentoGrid() {
 
     if (!featuredGame) return null;
 
-    // Split secondary games into first column (next to main) and bottom row
-    const sideGames = secondaryGames.slice(0, 2);
-    const bottomGames = secondaryGames.slice(2, 5);
     const featuredGameIdKey = getGameIdKey(featuredGame.id);
     const featuredDescriptionKey = `${featuredGameIdKey}.featuredDescription`;
     const featuredDescription = gamesT.has(featuredDescriptionKey)
@@ -42,108 +33,98 @@ export default function FeaturedBentoGrid() {
         : gamesT(`${featuredGameIdKey}.description`);
 
     return (
-        <div className="space-y-8 no-ads-inside">
+        <div className="space-y-6 no-ads-inside sm:space-y-8">
             <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-semibold flex items-center gap-2">
-                    <TrendingUp className="h-6 w-6 text-orange-500" />
+                <h2 className="text-2xl font-semibold flex items-center gap-2">
+                    <TrendingUp className="h-6 w-6 text-muted-foreground" />
                     {t("featuredGames")}
-                </h3>
-                <Link href="/games">
-                    <Button variant="ghost" className="gap-2">
+                </h2>
+                <Button asChild variant="ghost" className="gap-2 rounded-full px-4">
+                    <Link href="/games">
                         {buttonsT("viewAll")} <ArrowRight className="h-4 w-4" />
-                    </Button>
-                </Link>
+                    </Link>
+                </Button>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Main Featured Game - Spans 2 cols */}
-                <div className="lg:col-span-2 relative overflow-hidden rounded-3xl bg-gray-50 dark:bg-zinc-900 border border-border transition-all hover:shadow-xl group">
-                    <div className="flex flex-col-reverse md:flex-row h-full">
-                        {/* Content Section - Left (Desktop) / Bottom (Mobile) */}
-                        <div className="flex-1 p-8 flex flex-col justify-center gap-6 z-10 relative bg-white/50 dark:bg-black/20 md:bg-transparent backdrop-blur-sm md:backdrop-blur-none">
-                            <div>
-                                <h3 className="text-3xl md:text-4xl font-bold mb-3">
+            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-12 lg:auto-rows-[220px]">
+                <div className="group relative min-h-[480px] overflow-hidden rounded-[2rem] border border-border/70 bg-secondary/25 transition-colors hover:bg-secondary/35 lg:col-span-8 lg:row-span-2 lg:min-h-0">
+                    <div className="flex h-full flex-col p-5 sm:p-9 lg:p-10">
+                        <div className="flex items-start justify-between gap-4">
+                            <span
+                                className="font-mono text-xs tracking-[0.18em] text-muted-foreground"
+                                aria-hidden="true"
+                            >
+                                01
+                            </span>
+                            <span className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                                {categoriesT(`categoryNames.${featuredGame.categories[0]}`)}
+                            </span>
+                        </div>
+
+                        <div className="grid flex-1 items-center gap-6 pt-6 sm:gap-8 sm:pt-7 md:grid-cols-[0.95fr_1.05fr]">
+                            <div className="order-2 md:order-1">
+                                <h3 className="text-3xl font-bold tracking-tight md:text-4xl">
                                     {gamesT(`${featuredGameIdKey}.title`)}
                                 </h3>
-                                <p className="text-muted-foreground text-lg line-clamp-3 mb-4">
+                                <p className="mt-4 line-clamp-3 text-base leading-relaxed text-muted-foreground sm:text-lg">
                                     {featuredDescription}
                                 </p>
-                                <div className="flex flex-wrap gap-2 mb-2">
-                                    {featuredGame.categories.map(cat => (
-                                        <span key={cat} className="text-xs font-medium px-2.5 py-1 rounded-full bg-primary/10 text-primary uppercase tracking-wide">
-                                            {categoriesT(`categoryNames.${cat}`)}
-                                        </span>
-                                    ))}
+
+                                <Button asChild size="lg" className="mt-7 h-11 w-full rounded-full px-7 text-sm shadow-none sm:w-fit">
+                                    <Link href={`/games/${featuredGame.slug}`}>
+                                        <Play className="mr-2 h-5 w-5" fill="currentColor" />
+                                        {buttonsT('start')}
+                                    </Link>
+                                </Button>
+                            </div>
+
+                            <div className="order-1 flex min-h-[220px] items-center justify-center md:order-2 md:min-h-0">
+                                <div className="relative w-full max-w-[380px] overflow-hidden rounded-3xl bg-background/70 shadow-sm">
+                                    {featuredGame.preview}
                                 </div>
                             </div>
-
-                            <Link href={`/games/${featuredGame.slug}`}>
-                                <Button size="lg" className="rounded-full px-8 h-12 text-base shadow-lg hover:translate-y-[-2px] transition-transform w-full md:w-auto">
-                                    <Play className="mr-2 h-5 w-5" fill="currentColor" />
-                                    {buttonsT('start')}
-                                </Button>
-                            </Link>
-                        </div>
-
-                        {/* Visual Section - Right (Desktop) / Top (Mobile) */}
-                        <div className="flex-1 min-h-[300px] md:min-h-[400px] flex items-center justify-center relative">
-                            {/* Decorative background glow */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl transform scale-75 opacity-50" />
-
-                            <div className="relative z-0 flex w-full h-full items-center justify-center p-4 md:p-6 lg:p-8 transform group-hover:scale-[1.02] transition-transform duration-700 ease-in-out">
-                                {featuredGame.preview}
-                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Side Column Games (Stacked) */}
-                <div className="grid grid-rows-2 gap-6 h-full">
-                    {sideGames.map(game => (
-                        <GameBentoCard key={game.id} game={game} />
-                    ))}
-                </div>
-
-                {/* Bottom Row Games */}
-                {bottomGames.length > 0 && (
-                    <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6">
-                        {bottomGames.map(game => (
-                            <GameBentoCard key={game.id} game={game} />
-                        ))}
-                    </div>
-                )}
+                {secondaryGames.map((game, index) => (
+                    <GameBentoCard key={game.id} game={game} index={index + 2} />
+                ))}
             </div>
         </div>
     );
 }
 
 // Sub-component for standard bento cards
-function GameBentoCard({ game }: { game: Game }) {
+function GameBentoCard({ game, index }: { game: Game; index: number }) {
     const gamesT = useTranslations("games");
     const idKey = getGameIdKey(game.id);
+    const title = gamesT(`${idKey}.title`);
 
     return (
         <Link
             href={`/games/${game.slug}`}
-            className="relative group overflow-hidden rounded-3xl bg-secondary/30 border border-border hover:bg-secondary/50 transition-colors h-[200px] lg:h-auto min-h-[180px]"
+            className="group relative min-h-[210px] overflow-hidden rounded-[2rem] border border-border/70 bg-card p-5 transition-colors hover:bg-secondary/20 sm:p-6 lg:col-span-4 lg:min-h-0"
         >
-            <div className="absolute inset-0 p-6 flex flex-col justify-between">
-                <div className="flex justify-between items-start">
-                    <div className="w-12 h-12 rounded-2xl bg-background shadow-sm flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
-                        {GAME_ICONS[game.id] || '🎮'}
-                    </div>
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
-                        <div className="bg-background rounded-full p-2 shadow-sm">
-                            <ArrowRight className="h-4 w-4" />
-                        </div>
-                    </div>
+            <div className="flex h-full flex-col justify-between">
+                <div className="flex items-start justify-between">
+                    <span
+                        className="font-mono text-xs tracking-[0.18em] text-muted-foreground"
+                        aria-hidden="true"
+                    >
+                        {String(index).padStart(2, "0")}
+                    </span>
+                    <ArrowRight
+                        className="h-4 w-4 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-foreground"
+                        aria-hidden="true"
+                    />
                 </div>
 
                 <div>
-                    <h4 className="font-bold text-lg mb-1 line-clamp-1">
-                        {gamesT(`${idKey}.title`)}
-                    </h4>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
+                    <h3 className="line-clamp-2 text-xl font-semibold tracking-tight">
+                        {title}
+                    </h3>
+                    <p className="mt-3 line-clamp-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
                         {gamesT(`${idKey}.description`)}
                     </p>
                 </div>

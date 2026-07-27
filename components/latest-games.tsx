@@ -15,20 +15,20 @@ export default function LatestGames() {
     if (latestGames.length === 0) return null;
 
     return (
-        <section className="space-y-6 no-ads-inside">
+        <section className="space-y-5 no-ads-inside sm:space-y-6">
             <div className="flex items-center justify-between">
-                <h3 className="text-2xl font-semibold flex items-center gap-2">
-                    <Sparkles className="h-6 w-6 text-blue-500" />
+                <h2 className="text-2xl font-semibold flex items-center gap-2">
+                    <Sparkles className="h-6 w-6 text-muted-foreground" />
                     {t("latestGames")}
-                </h3>
-                <Link href="/games">
-                    <Button variant="ghost" className="gap-2">
+                </h2>
+                <Button asChild variant="ghost" className="gap-2 rounded-full px-4">
+                    <Link href="/games">
                         {buttonsT("viewAll")} <ArrowRight className="h-4 w-4" />
-                    </Button>
-                </Link>
+                    </Link>
+                </Button>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 md:gap-8">
                 {latestGames.map((game) => (
                     <GameCard
                         key={game.id}

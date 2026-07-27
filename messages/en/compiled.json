@@ -3144,9 +3144,9 @@
     "subtitle": "Play quick science-based focus games online for free. Train attention, working memory, reaction time, and concentration in just 5 minutes a day.",
     "heroImageAlt": "Free Focus Games Platform - Play brain training games to improve concentration and memory",
     "heroFeatures": [
-      "✓ No Download Required",
-      "✓ Free to Play",
-      "✓ Adults, Kids, and ADHD-Friendly"
+      "No Download Required",
+      "Free to Play",
+      "Adults, Kids, and ADHD-Friendly"
     ],
     "ctaButton": "Start with a Quick Quiz",
     "popularGames": "Popular Games",
@@ -3174,39 +3174,32 @@
       }
     },
     "searchPaths": {
-      "title": "Find the Right Place to Start",
-      "subtitle": "Use these quick paths to jump into the page that fits best, whether you want focus games, ADHD-friendly practice, or a specific training tool.",
+      "title": "Find the Right Focus Game",
+      "subtitle": "Choose what you want to practice: focus, working memory, reaction time, or attention control.",
+      "popularTools": "Popular games and tools",
       "items": {
         "focusGames": {
-          "eyebrow": "Popular Search",
-          "title": "Focus Games Online",
-          "description": "Browse our full library of free focus games, attention training, and concentration practice."
+          "title": "Focus Games",
+          "description": "Practice sustained attention, tune out distractions, and return to the task at hand."
+        },
+        "workingMemory": {
+          "title": "Working Memory Games",
+          "description": "Hold and work with numbers, positions, sounds, and rules for short periods."
         },
         "reactionTime": {
-          "eyebrow": "Test",
-          "title": "Reaction Time Test",
-          "description": "Check your reaction time online and train visual response speed with a quick, free test."
+          "title": "Reaction Time Tests",
+          "description": "Measure visual reaction time and challenge yourself to respond faster and more consistently."
         },
         "adhdGames": {
-          "eyebrow": "Category",
-          "title": "ADHD Games for Adults",
-          "description": "Explore ADHD-friendly brain training games for attention control, working memory, and focus."
-        },
-        "schulteTable": {
-          "eyebrow": "Training Tool",
-          "title": "Schulte Table Online",
-          "description": "Train visual attention, peripheral vision, and reading speed with our free Schulte Table online."
-        },
-        "adultAdhdAssessment": {
-          "eyebrow": "Assessment",
-          "title": "Adult ADHD Self-Assessment",
-          "description": "Take our free adult ADHD self-assessment based on the WHO ASRS screening framework."
-        },
-        "workingMemoryGuide": {
-          "eyebrow": "Guide",
-          "title": "Working Memory Guide",
-          "description": "Learn how working memory works and which games and exercises are best to start with."
+          "title": "ADHD-Friendly Games",
+          "description": "Choose short, clearly structured focus exercises that are easy to start."
         }
+      },
+      "tools": {
+        "doubleDecision": "Double Decision Visual Speed Training",
+        "schulteTable": "Schulte Table Online",
+        "visualTracking": "Visual Tracking Games",
+        "allGames": "Browse All Games"
       }
     },
     "benefitsTitle": "What You Can Practice With These Games",
