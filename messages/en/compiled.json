@@ -434,9 +434,46 @@
       }
     },
     "title": "Games",
-    "play": "Play",
-    "heading": "All Brain Training Games for Focus, Memory, and Reaction Time",
-    "description": "Browse our full library of brain training games by skill, including attention, working memory, reaction time, visual tracking, and ADHD-friendly practice.",
+    "breadcrumbHome": "Home",
+    "play": "Play game",
+    "eyebrow": "Free online game library",
+    "heading": "Free Brain Training Games Online",
+    "description": "Choose from free online brain games for focus, memory, reaction time, visual attention, and mental flexibility. Every game works in your browser with no download required.",
+    "categoryNav": {
+      "ariaLabel": "Browse brain games by skill",
+      "label": "Browse by skill",
+      "all": "View all categories"
+    },
+    "library": {
+      "title": "All Brain Training Games",
+      "count": "{count} free online games"
+    },
+    "chooseGame": {
+      "eyebrow": "Start with your goal",
+      "title": "How to Choose a Brain Training Game",
+      "intro": "Pick one skill you want to practice today. Start with a game that feels easy to understand, then increase the challenge as your accuracy and consistency improve.",
+      "groups": {
+        "focus": {
+          "title": "For focus and visual attention",
+          "description": "Practice staying on task, scanning efficiently, and noticing useful visual details without rushing."
+        },
+        "memory": {
+          "title": "For working memory",
+          "description": "Practice holding, updating, and recalling information while the task continues."
+        },
+        "speed": {
+          "title": "For reaction and processing speed",
+          "description": "Practice making accurate visual decisions under gentle time pressure."
+        }
+      }
+    },
+    "resources": {
+      "title": "Not sure where to begin?",
+      "description": "Use a practical guide, browse every training category, or start a short focus session with the Pomodoro timer.",
+      "workingMemory": "Read the working memory guide",
+      "categories": "Browse all game categories",
+      "pomodoro": "Open the Pomodoro timer"
+    },
     "filters": {
       "all": "All Games",
       "more": "More Categories..."
@@ -517,11 +554,11 @@
         "item3": "Schulte Table (5 min)"
       }
     },
-    "metaTitle": "Brain Training Games Library | Focus, Memory & Reaction Time",
-    "metaDescription": "Browse all brain training games by goal: focus, memory, reaction time, visual attention, and ADHD-friendly practice. Find the right game for each cognitive skill.",
-    "metaKeywords": "brain training games, memory games, reaction time games, visual attention games, working memory games, adhd brain training, cognitive training games, focus exercises",
-    "ogTitle": "Brain Training Games Library | Focus, Memory & Reaction Time",
-    "ogDescription": "Browse brain training games for focus, memory, reaction time, visual attention, and ADHD-friendly practice in one organized library.",
+    "metaTitle": "Free Brain Training Games Online | Focus & Memory",
+    "metaDescription": "Play free brain training games online for focus, memory, reaction time, visual attention, and mental flexibility. No download or sign-up required.",
+    "metaKeywords": "free brain training games online, focus games, memory games, reaction time games, visual attention games, working memory games, concentration games, cognitive games",
+    "ogTitle": "Free Brain Training Games Online",
+    "ogDescription": "Explore free browser games for focus, memory, reaction time, visual attention, and mental flexibility.",
     "schulteTable": {
       "title": "Schulte Table",
       "subtitle": "Free Online Visual Attention and Speed Reading Training",
