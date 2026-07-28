@@ -6,7 +6,7 @@ import { GamePreview as ResonanceBreathingPreview } from "@/app/[locale]/(main)/
 import { GamePreview as SpacebarClickerPreview } from "@/app/[locale]/(main)/games/spacebar-clicker/components/GamePreview";
 import { GamePreview as FishTraceGamePreview } from "@/app/[locale]/(main)/games/fish-trace/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
-import { PeripheralSpeedPreview } from "@/app/[locale]/(main)/games/peripheral-speed-training/components/GamePreview";
+import { PeripheralSpeedPreview } from "@/app/[locale]/(main)/games/double-decision/components/GamePreview";
 
 
 export type Game = {
@@ -92,9 +92,9 @@ export const games: Game[] = [
     categories: ["working-memory", "divided-attention", "adhd-games"],
   },
   {
-    id: "peripheral-speed-training",
+    id: "double-decision",
     title: "Double Decision Game",
-    slug: "peripheral-speed-training",
+    slug: "double-decision",
     preview: <PeripheralSpeedPreview />,
     categories: ["divided-attention", "visual-tracking", "reaction-time", "selective-attention"],
   },
@@ -284,7 +284,7 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
-    'peripheral-speed-training', // Double Decision Game - Newest
+    'double-decision', // Double Decision Game - Newest
     'sbti-test',        // SBTI Test - Trending
     'memory-matching-game', // Memory Matching Game - Newest
     'cps-test',          // CPS Test - Newest

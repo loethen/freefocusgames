@@ -57,6 +57,7 @@ build-scripts/seo-opportunities.mjs
 
 # Cloudflare
 .wrangler/
+.backups/
 
 .agent/
 

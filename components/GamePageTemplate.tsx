@@ -15,7 +15,11 @@ import { getGame } from '@/data/games';
 import { useTranslations } from 'next-intl';
 import { ExternalLink, BookOpen } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
-import { LeaderboardDisplay, FormatterType } from '@/components/leaderboard-display';
+import {
+    LeaderboardDisplay,
+    FormatterType,
+    LeaderboardDetailsType,
+} from '@/components/leaderboard-display';
 
 interface FaqItem {
     question: string;
@@ -55,6 +59,7 @@ interface GamePageTemplateProps {
     hasLeaderboard?: boolean;
     leaderboardTitle?: React.ReactNode;
     leaderboardFormatterType?: FormatterType;
+    leaderboardDetailsType?: LeaderboardDetailsType;
     leaderboardMode?: string;
     leaderboardIntro?: React.ReactNode;
     leaderboardComponent?: React.ReactNode;
@@ -76,6 +81,7 @@ export function GamePageTemplate({
     hasLeaderboard,
     leaderboardTitle,
     leaderboardFormatterType,
+    leaderboardDetailsType,
     leaderboardMode,
     leaderboardIntro,
     leaderboardComponent,
@@ -159,6 +165,7 @@ export function GamePageTemplate({
                             <LeaderboardDisplay
                                 gameId={gameId}
                                 formatterType={leaderboardFormatterType}
+                                detailsType={leaderboardDetailsType}
                                 mode={leaderboardMode}
                             />
                         )}

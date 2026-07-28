@@ -31,7 +31,7 @@ export async function generateMetadata(
 }
 
 const LIBRARY_ORDER = [
-    "peripheral-speed-training",
+    "double-decision",
     "dual-n-back",
     "schulte-table",
     "reaction-time",
@@ -87,7 +87,7 @@ const CHOICE_GROUPS = [
         id: "speed",
         games: [
             ["reaction-time", "reaction-time"],
-            ["peripheral-speed-training", "peripheral-speed-training"],
+            ["double-decision", "double-decision"],
             ["stroop-effect-test", "stroop-effect-test"],
         ],
     },

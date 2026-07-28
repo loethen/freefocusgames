@@ -1672,7 +1672,7 @@
         "hard": "Hard"
       }
     },
-    "peripheralSpeedTraining": {
+    "doubleDecision": {
       "title": "Double Decision Game",
       "subtitle": "Free adaptive visual processing speed and useful field of view training",
       "description": "Play a free Double Decision game that combines central vehicle recognition with peripheral road-sign location in one brief glance.",
@@ -1680,6 +1680,10 @@
         "title": "Double Decision Game | Free Visual Processing Speed Training",
         "description": "Play a free Double Decision game inspired by useful field of view training. Identify a central vehicle and locate a peripheral sign as the display gets faster.",
         "keywords": "double decision game, double decision online, visual processing speed training, useful field of view training, UFOV training, peripheral vision game, divided attention training, cognitive training game, brain game for adults"
+      },
+      "leaderboard": {
+        "title": "Double Decision Leaderboard",
+        "description": "Complete at least 20 rounds with 70% accuracy to enter automatically. Your decision rating balances accuracy, display speed, and field difficulty; only your personal best is kept."
       },
       "howToPlay": {
         "description": "Double Decision is an adaptive visual processing speed game. In every trial, a vehicle at the centre and a Route 66 sign in one of eight peripheral locations appear at the same time.",
@@ -1746,6 +1750,14 @@
         "settingsHint": "These set the starting point; difficulty then adapts to your performance.",
         "levelValue": "Level {level}",
         "bestScore": "Best accuracy: {score}%",
+        "bestRating": "Best decision rating: {score}",
+        "ratingUnit": "decision rating",
+        "resultAccuracy": "Accuracy",
+        "resultField": "Highest field",
+        "resultFastest": "Fastest display",
+        "leaderboardRecorded": "This result meets the leaderboard requirements and will be recorded automatically if it is your new personal best.",
+        "leaderboardNeedsRounds": "Complete 20 or 30 rounds to make a leaderboard-eligible result.",
+        "leaderboardNeedsAccuracy": "Reach at least 70% accuracy to make a leaderboard-eligible result.",
         "chooseVehicle": "Which vehicle was in the centre?",
         "chooseVehicleHint": "Choose the central target before locating the road sign.",
         "chooseLocation": "Where was the Route 66 sign?",

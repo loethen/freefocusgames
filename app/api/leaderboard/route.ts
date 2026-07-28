@@ -4,6 +4,15 @@ import {
     DEFAULT_LEADERBOARD_MODE,
 } from "@/lib/leaderboard-config";
 import {
+    DOUBLE_DECISION_MAX_DISPLAY_MS,
+    DOUBLE_DECISION_MAX_TRIAL_POINTS,
+    DOUBLE_DECISION_MIN_DISPLAY_MS,
+    DOUBLE_DECISION_MIN_RANKED_ACCURACY,
+    DOUBLE_DECISION_MIN_RANKED_TRIALS,
+    DOUBLE_DECISION_RULES_VERSION,
+    calculateDoubleDecisionScore,
+} from "@/lib/double-decision-score";
+import {
     DUAL_N_BACK_CLEAR_MAX_DURATION_MS,
     DUAL_N_BACK_CLEAR_MAX_INTERVAL_MS,
     DUAL_N_BACK_CLEAR_MAX_LEVEL,
@@ -21,6 +30,7 @@ import {
     getLeaderboardTarget,
     hasTargetScore,
     getLeaderboardSnapshotKey,
+    isBetterScore,
     isHigherScoreBetter,
     updateSnapshotWithScore,
     type LeaderboardSnapshot,
@@ -42,8 +52,16 @@ type D1DatabaseBinding = {
 
 type LeaderboardSubmissionDetails = {
     accuracy?: unknown;
+    correctCount?: unknown;
     durationMs?: unknown;
+    fastestDisplayMs?: unknown;
     level?: unknown;
+    maxFieldLevel?: unknown;
+    pointsTotal?: unknown;
+    rulesVersion?: unknown;
+    startingDisplayMs?: unknown;
+    startingFieldLevel?: unknown;
+    totalTrials?: unknown;
     trialInterval?: unknown;
     trainingMode?: unknown;
     trialsPerRound?: unknown;
@@ -256,11 +274,97 @@ function validateDualNBackClearDetails(score: number, details: LeaderboardSubmis
     return null;
 }
 
+function validateDoubleDecisionDetails(
+    score: number,
+    mode: string,
+    details: LeaderboardSubmissionDetails | null
+) {
+    if (mode !== DEFAULT_LEADERBOARD_MODE || !details) {
+        return "Score rejected (Invalid Double Decision entry)";
+    }
+
+    const accuracy = toNumber(details.accuracy, NaN);
+    const correctCount = toNumber(details.correctCount, NaN);
+    const fastestDisplayMs = toNumber(details.fastestDisplayMs, NaN);
+    const maxFieldLevel = toNumber(details.maxFieldLevel, NaN);
+    const pointsTotal = toNumber(details.pointsTotal, NaN);
+    const rulesVersion = toNumber(details.rulesVersion, NaN);
+    const startingDisplayMs = toNumber(details.startingDisplayMs, NaN);
+    const startingFieldLevel = toNumber(details.startingFieldLevel, NaN);
+    const totalTrials = toNumber(details.totalTrials, NaN);
+
+    if (
+        !Number.isInteger(totalTrials) ||
+        ![20, 30].includes(totalTrials) ||
+        totalTrials < DOUBLE_DECISION_MIN_RANKED_TRIALS
+    ) {
+        return "Score rejected (Not enough Double Decision rounds)";
+    }
+
+    if (
+        !Number.isInteger(correctCount) ||
+        correctCount < 0 ||
+        correctCount > totalTrials
+    ) {
+        return "Score rejected (Invalid Double Decision accuracy)";
+    }
+
+    const expectedAccuracy = Math.round((correctCount / totalTrials) * 100);
+    if (
+        !Number.isInteger(accuracy) ||
+        accuracy < DOUBLE_DECISION_MIN_RANKED_ACCURACY ||
+        accuracy > 100 ||
+        accuracy !== expectedAccuracy
+    ) {
+        return "Score rejected (Double Decision accuracy mismatch)";
+    }
+
+    if (
+        !Number.isInteger(maxFieldLevel) ||
+        maxFieldLevel < 1 ||
+        maxFieldLevel > 3 ||
+        !Number.isInteger(startingFieldLevel) ||
+        ![1, 2, 3].includes(startingFieldLevel) ||
+        maxFieldLevel < startingFieldLevel
+    ) {
+        return "Score rejected (Invalid Double Decision field)";
+    }
+
+    if (
+        !Number.isInteger(startingDisplayMs) ||
+        ![800, 1200, 1600].includes(startingDisplayMs) ||
+        !Number.isInteger(fastestDisplayMs) ||
+        fastestDisplayMs < DOUBLE_DECISION_MIN_DISPLAY_MS ||
+        fastestDisplayMs > DOUBLE_DECISION_MAX_DISPLAY_MS
+    ) {
+        return "Score rejected (Invalid Double Decision speed)";
+    }
+
+    if (
+        !Number.isInteger(pointsTotal) ||
+        pointsTotal < 0 ||
+        pointsTotal > totalTrials * DOUBLE_DECISION_MAX_TRIAL_POINTS ||
+        !Number.isInteger(score) ||
+        score < 0 ||
+        score > 1000 ||
+        score !== calculateDoubleDecisionScore(pointsTotal, totalTrials)
+    ) {
+        return "Score rejected (Double Decision score mismatch)";
+    }
+
+    if (rulesVersion !== DOUBLE_DECISION_RULES_VERSION) {
+        return "Score rejected (Unsupported Double Decision rules)";
+    }
+
+    return null;
+}
+
 async function rebuildSnapshotFromDatabase(
     db: D1DatabaseBinding,
     gameId: string,
     mode: string
 ) {
+    const hasDetailsColumn = await hasLeaderboardDetailsColumn(db);
     const scoreOrder = isHigherScoreBetter(gameId) ? "DESC" : "ASC";
     const target = getLeaderboardTarget(gameId);
     const scoreOrderClause =
@@ -277,6 +381,7 @@ async function rebuildSnapshotFromDatabase(
                     player_name,
                     score,
                     created_at,
+                    ${hasDetailsColumn ? "details_json" : "NULL AS details_json"},
                     ROW_NUMBER() OVER (
                         PARTITION BY COALESCE(player_id, player_name)
                         ORDER BY ${scoreOrderClause}
@@ -289,7 +394,8 @@ async function rebuildSnapshotFromDatabase(
                 player_id AS playerId,
                 player_name AS playerName,
                 score,
-                created_at AS createdAt
+                created_at AS createdAt,
+                details_json AS detailsJson
             FROM ranked_scores
             WHERE player_rank = 1
             ORDER BY ${scoreOrderClause}
@@ -327,6 +433,9 @@ async function rebuildSnapshotFromDatabase(
             playerName: String(row.playerName ?? "Anonymous"),
             score: toNumber(row.score),
             createdAt: String(row.createdAt ?? new Date().toISOString()),
+            details:
+                normalizeLeaderboardDetails(parseDetails(row.detailsJson)) ??
+                undefined,
         })),
     };
 }
@@ -400,6 +509,8 @@ function validateScore(
                 return null;
             }
             return "Score rejected (Unsupported dual n-back mode)";
+        case "double-decision":
+            return validateDoubleDecisionDetails(score, mode, details);
         case "challenge10Seconds":
             if (score < 0 || score > 60000) {
                 return "Score rejected (Outside expected timing range)";
@@ -559,6 +670,7 @@ export async function GET(req: NextRequest) {
                     playerName: entry.playerName,
                     score: entry.score,
                     createdAt: entry.createdAt,
+                    details: entry.details,
                 })),
                 averageScore: getAverageScore(snapshot),
                 totalPlayers: snapshot.totalPlayers,
@@ -605,7 +717,13 @@ export async function POST(req: NextRequest) {
         const { db, bucket } = await getCloudflareBindings();
         const playerName = await generateStableName(playerId);
         const nowIso = new Date().toISOString();
-        const scoreOrder = isHigherScoreBetter(gameId) ? "DESC" : "ASC";
+        const isDualNBackClear =
+            gameId === "dual-n-back" && mode === "standard-clear";
+        const scoreOrder = isDualNBackClear
+            ? "ASC"
+            : isHigherScoreBetter(gameId)
+                ? "DESC"
+                : "ASC";
         const target = getLeaderboardTarget(gameId);
         const scoreOrderClause =
             typeof target === "number"
@@ -613,11 +731,11 @@ export async function POST(req: NextRequest) {
                 : `score ${scoreOrder}, datetime(created_at) ASC`;
 
         const existingBest = await db.prepare(
-            `SELECT score
+            `SELECT id, score
              FROM leaderboard
              WHERE game_id = ?
                AND mode = ?
-               AND COALESCE(player_id, player_name) = ?
+               AND player_id = ?
              ORDER BY ${scoreOrderClause}
              LIMIT 1`
         ).bind(gameId, mode, playerId).first();
@@ -629,74 +747,92 @@ export async function POST(req: NextRequest) {
                     ? Number(existingBest.score)
                     : null;
         const isFirstPlayer = previousBestScore === null;
-
-        const recentSubmissions = await db.prepare(
-            `SELECT COUNT(id) AS submissionCount
-             FROM leaderboard
-             WHERE game_id = ?
-               AND mode = ?
-               AND COALESCE(player_id, player_name) = ?
-               AND created_at >= datetime('now', '-1 minute')`
-        ).bind(gameId, mode, playerId).first();
-
-        if (Number(recentSubmissions?.submissionCount || 0) >= 8) {
-            return NextResponse.json({ error: "Too many submissions. Please wait a moment." }, { status: 429 });
-        }
-
-        const duplicateSubmission = await db.prepare(
-            `SELECT id
-             FROM leaderboard
-             WHERE game_id = ?
-               AND mode = ?
-               AND COALESCE(player_id, player_name) = ?
-               AND score = ?
-               AND created_at >= datetime('now', '-10 seconds')
-             LIMIT 1`
-        ).bind(gameId, mode, playerId, score).first();
-
-        if (duplicateSubmission?.id) {
-            return NextResponse.json({ error: "Duplicate submission rejected" }, { status: 409 });
-        }
+        const isImprovedBest =
+            previousBestScore !== null &&
+            (isDualNBackClear
+                ? score < previousBestScore
+                : isBetterScore(gameId, score, previousBestScore));
+        const shouldRecord = isFirstPlayer || isImprovedBest;
 
         const hasDetailsColumn = await hasLeaderboardDetailsColumn(db);
 
-        if (hasDetailsColumn) {
-            await db.prepare(
-                `INSERT INTO leaderboard (
-                    game_id,
-                    player_id,
-                    player_name,
-                    mode,
-                    score,
-                    details_json
-                ) VALUES (?, ?, ?, ?, ?, ?)`
-            ).bind(
-                gameId,
-                playerId,
-                playerName,
-                mode,
-                score,
-                normalizedDetails ? JSON.stringify(normalizedDetails) : null
-            ).run();
-        } else {
-            await db.prepare(
-                `INSERT INTO leaderboard (
-                    game_id,
-                    player_id,
-                    player_name,
-                    mode,
-                    score
-                ) VALUES (?, ?, ?, ?, ?)`
-            ).bind(
-                gameId,
-                playerId,
-                playerName,
-                mode,
-                score
-            ).run();
+        if (shouldRecord) {
+            if (isFirstPlayer) {
+                if (hasDetailsColumn) {
+                    await db.prepare(
+                        `INSERT INTO leaderboard (
+                            game_id,
+                            player_id,
+                            player_name,
+                            mode,
+                            score,
+                            details_json
+                        ) VALUES (?, ?, ?, ?, ?, ?)`
+                    ).bind(
+                        gameId,
+                        playerId,
+                        playerName,
+                        mode,
+                        score,
+                        normalizedDetails ? JSON.stringify(normalizedDetails) : null
+                    ).run();
+                } else {
+                    await db.prepare(
+                        `INSERT INTO leaderboard (
+                            game_id,
+                            player_id,
+                            player_name,
+                            mode,
+                            score
+                        ) VALUES (?, ?, ?, ?, ?)`
+                    ).bind(
+                        gameId,
+                        playerId,
+                        playerName,
+                        mode,
+                        score
+                    ).run();
+                }
+            } else {
+                const existingBestId = toNumber(existingBest?.id, NaN);
+                if (!Number.isInteger(existingBestId)) {
+                    return NextResponse.json(
+                        { error: "Unable to update leaderboard record" },
+                        { status: 500 }
+                    );
+                }
+
+                if (hasDetailsColumn) {
+                    await db.prepare(
+                        `UPDATE leaderboard
+                         SET player_name = ?,
+                             score = ?,
+                             details_json = ?,
+                             created_at = CURRENT_TIMESTAMP
+                         WHERE id = ?`
+                    ).bind(
+                        playerName,
+                        score,
+                        normalizedDetails ? JSON.stringify(normalizedDetails) : null,
+                        existingBestId
+                    ).run();
+                } else {
+                    await db.prepare(
+                        `UPDATE leaderboard
+                         SET player_name = ?,
+                             score = ?,
+                             created_at = CURRENT_TIMESTAMP
+                         WHERE id = ?`
+                    ).bind(
+                        playerName,
+                        score,
+                        existingBestId
+                    ).run();
+                }
+            }
         }
 
-        if (!(gameId === "dual-n-back" && mode === "standard-clear")) {
+        if (shouldRecord && !(gameId === "dual-n-back" && mode === "standard-clear")) {
             try {
                 const currentSnapshot = (await readSnapshot(bucket, gameId, mode)) ?? createEmptySnapshot(gameId, mode);
                 const nextSnapshot = updateSnapshotWithScore(
@@ -706,6 +842,7 @@ export async function POST(req: NextRequest) {
                         playerName,
                         score,
                         createdAt: nowIso,
+                        details: normalizedDetails ?? undefined,
                     },
                     {
                         isFirstPlayer,
@@ -721,7 +858,12 @@ export async function POST(req: NextRequest) {
             }
         }
 
-        return NextResponse.json({ success: true, playerName });
+        return NextResponse.json({
+            success: true,
+            playerName,
+            recorded: shouldRecord,
+            bestScore: shouldRecord ? score : previousBestScore,
+        });
     } catch (error) {
         console.error("Leaderboard POST Error:", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });

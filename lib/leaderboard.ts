@@ -37,17 +37,23 @@ export async function submitScoreToLeaderboard(
         });
 
         if (res.ok) {
-            const data = await res.json() as { playerName: string };
-            const event = new CustomEvent('leaderboardUpdated', {
-                detail: {
-                    gameId,
-                    playerName: data.playerName,
-                    score,
-                    mode: options.mode,
-                    details: options.details,
-                }
-            });
-            window.dispatchEvent(event);
+            const data = await res.json() as {
+                bestScore?: number;
+                playerName: string;
+                recorded?: boolean;
+            };
+            if (data.recorded !== false) {
+                const event = new CustomEvent('leaderboardUpdated', {
+                    detail: {
+                        gameId,
+                        playerName: data.playerName,
+                        score: data.bestScore ?? score,
+                        mode: options.mode,
+                        details: options.details,
+                    }
+                });
+                window.dispatchEvent(event);
+            }
         } else {
             console.error("Score submission rejected:", await res.text());
         }

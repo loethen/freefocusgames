@@ -11,6 +11,7 @@ import {
   Play,
   RotateCcw,
   Settings2,
+  Trophy,
   Truck,
   X,
 } from 'lucide-react'
@@ -24,6 +25,15 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
+import { submitScoreToLeaderboard } from '@/lib/leaderboard'
+import {
+  DOUBLE_DECISION_MAX_DISPLAY_MS,
+  DOUBLE_DECISION_MIN_DISPLAY_MS,
+  DOUBLE_DECISION_RULES_VERSION,
+  calculateDoubleDecisionScore,
+  calculateDoubleDecisionTrialPoints,
+  isDoubleDecisionLeaderboardEligible,
+} from '@/lib/double-decision-score'
 
 type Vehicle = 'sedan' | 'taxi' | 'bus' | 'truck'
 type Phase =
@@ -57,10 +67,9 @@ interface GameSettings {
 }
 
 const INITIAL_DISPLAY_MS = 1200
-const MIN_DISPLAY_MS = 120
-const MAX_DISPLAY_MS = 2200
 const MASK_DURATION_MS = 120
-const BEST_SCORE_KEY = 'doubleDecisionCityBestScore'
+const BEST_ACCURACY_KEY = 'doubleDecisionBestAccuracy'
+const BEST_RATING_KEY = 'doubleDecisionBestRating'
 const DEFAULT_SETTINGS: GameSettings = {
   totalTrials: 20,
   startingDisplayMs: INITIAL_DISPLAY_MS,
@@ -290,7 +299,7 @@ function LocationResponse({
   trial: Trial
   onSelect: (position: number) => void
 }) {
-  const t = useTranslations('games.peripheralSpeedTraining.gameUI')
+  const t = useTranslations('games.doubleDecision.gameUI')
 
   return (
     <div className="relative min-h-[460px] overflow-hidden motion-safe:animate-in motion-safe:fade-in motion-safe:duration-200 sm:min-h-[520px]">
@@ -327,7 +336,7 @@ function SettingsDialog({
   settings: GameSettings
   onChange: (settings: GameSettings) => void
 }) {
-  const t = useTranslations('games.peripheralSpeedTraining.gameUI')
+  const t = useTranslations('games.doubleDecision.gameUI')
 
   const update = <Key extends keyof GameSettings>(
     key: Key,
@@ -428,7 +437,7 @@ function SettingsDialog({
 }
 
 export function PeripheralSpeedGame() {
-  const t = useTranslations('games.peripheralSpeedTraining.gameUI')
+  const t = useTranslations('games.doubleDecision.gameUI')
   const [phase, setPhase] = useState<Phase>('intro')
   const [trialIndex, setTrialIndex] = useState(0)
   const [trial, setTrial] = useState<Trial>(() => createTrial(1))
@@ -436,10 +445,15 @@ export function PeripheralSpeedGame() {
   const [fieldLevel, setFieldLevel] = useState(1)
   const [successStreak, setSuccessStreak] = useState(0)
   const [correctCount, setCorrectCount] = useState(0)
+  const [pointsTotal, setPointsTotal] = useState(0)
+  const [maxFieldReached, setMaxFieldReached] = useState(1)
+  const [fastestCorrectDisplayMs, setFastestCorrectDisplayMs] = useState(INITIAL_DISPLAY_MS)
   const [outcome, setOutcome] = useState<TrialOutcome | null>(null)
-  const [bestScore, setBestScore] = useState<number | null>(null)
+  const [bestAccuracy, setBestAccuracy] = useState<number | null>(null)
+  const [bestRating, setBestRating] = useState<number | null>(null)
   const [countdown, setCountdown] = useState(3)
   const [settings, setSettings] = useState<GameSettings>(DEFAULT_SETTINGS)
+  const [activeSettings, setActiveSettings] = useState<GameSettings>(DEFAULT_SETTINGS)
   const [totalTrials, setTotalTrials] = useState(DEFAULT_SETTINGS.totalTrials)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -451,8 +465,10 @@ export function PeripheralSpeedGame() {
   }, [])
 
   useEffect(() => {
-    const saved = window.localStorage.getItem(BEST_SCORE_KEY)
-    if (saved) setBestScore(Number(saved))
+    const savedAccuracy = window.localStorage.getItem(BEST_ACCURACY_KEY)
+    const savedRating = window.localStorage.getItem(BEST_RATING_KEY)
+    if (savedAccuracy) setBestAccuracy(Number(savedAccuracy))
+    if (savedRating) setBestRating(Number(savedRating))
     return clearPendingTimeout
   }, [clearPendingTimeout])
 
@@ -493,8 +509,12 @@ export function PeripheralSpeedGame() {
     setDisplayMs(settings.startingDisplayMs)
     setFieldLevel(settings.startingFieldLevel)
     setTotalTrials(settings.totalTrials)
+    setActiveSettings(settings)
     setSuccessStreak(0)
     setCorrectCount(0)
+    setPointsTotal(0)
+    setMaxFieldReached(settings.startingFieldLevel)
+    setFastestCorrectDisplayMs(settings.startingDisplayMs)
     setTrialIndex(0)
     setCountdown(3)
     setPhase('countdown')
@@ -522,32 +542,68 @@ export function PeripheralSpeedGame() {
       const nextStreak = fullyCorrect ? successStreak + 1 : 0
       const shouldExpandField = nextStreak >= 3 && fieldLevel < 3
       const nextFieldLevel = shouldExpandField ? fieldLevel + 1 : fieldLevel
+      const trialPoints = calculateDoubleDecisionTrialPoints({
+        correct: fullyCorrect,
+        displayMs,
+        fieldLevel: trial.fieldLevel,
+      })
+      const nextPointsTotal = pointsTotal + trialPoints
+      const nextMaxFieldReached = Math.max(maxFieldReached, trial.fieldLevel)
+      const nextFastestCorrectDisplayMs = fullyCorrect
+        ? Math.min(fastestCorrectDisplayMs, displayMs)
+        : fastestCorrectDisplayMs
       const nextDisplayMs = fullyCorrect
         ? Math.max(
-            MIN_DISPLAY_MS,
+            DOUBLE_DECISION_MIN_DISPLAY_MS,
             displayMs - (displayMs > 500 ? 120 : 40),
           )
-        : Math.min(MAX_DISPLAY_MS, displayMs + 220)
+        : Math.min(DOUBLE_DECISION_MAX_DISPLAY_MS, displayMs + 220)
 
       setOutcome({ vehicleCorrect, locationCorrect, selectedPosition })
       setCorrectCount(nextCorrectCount)
+      setPointsTotal(nextPointsTotal)
+      setMaxFieldReached(nextMaxFieldReached)
+      setFastestCorrectDisplayMs(nextFastestCorrectDisplayMs)
       setSuccessStreak(shouldExpandField ? 0 : nextStreak)
       setFieldLevel(nextFieldLevel)
       setDisplayMs(
         shouldExpandField
-          ? Math.min(MAX_DISPLAY_MS, nextDisplayMs + 180)
+          ? Math.min(DOUBLE_DECISION_MAX_DISPLAY_MS, nextDisplayMs + 180)
           : nextDisplayMs,
       )
       setPhase('feedback')
 
       timeoutRef.current = setTimeout(() => {
         if (trialIndex + 1 >= totalTrials) {
-          const score = Math.round((nextCorrectCount / totalTrials) * 100)
-          setBestScore((currentBest) => {
-            const nextBest = Math.max(currentBest ?? 0, score)
-            window.localStorage.setItem(BEST_SCORE_KEY, String(nextBest))
+          const accuracy = Math.round((nextCorrectCount / totalTrials) * 100)
+          const rating = calculateDoubleDecisionScore(nextPointsTotal, totalTrials)
+
+          setBestAccuracy((currentBest) => {
+            const nextBest = Math.max(currentBest ?? 0, accuracy)
+            window.localStorage.setItem(BEST_ACCURACY_KEY, String(nextBest))
             return nextBest
           })
+          setBestRating((currentBest) => {
+            const nextBest = Math.max(currentBest ?? 0, rating)
+            window.localStorage.setItem(BEST_RATING_KEY, String(nextBest))
+            return nextBest
+          })
+
+          if (isDoubleDecisionLeaderboardEligible({ accuracy, totalTrials })) {
+            void submitScoreToLeaderboard('double-decision', rating, {
+              details: {
+                accuracy,
+                correctCount: nextCorrectCount,
+                fastestDisplayMs: nextFastestCorrectDisplayMs,
+                maxFieldLevel: nextMaxFieldReached,
+                pointsTotal: nextPointsTotal,
+                rulesVersion: DOUBLE_DECISION_RULES_VERSION,
+                startingDisplayMs: activeSettings.startingDisplayMs,
+                startingFieldLevel: activeSettings.startingFieldLevel,
+                totalTrials,
+              },
+            })
+          }
           setPhase('results')
         } else {
           startStimulus(trialIndex + 1, nextFieldLevel)
@@ -558,10 +614,15 @@ export function PeripheralSpeedGame() {
     [
       correctCount,
       displayMs,
+      fastestCorrectDisplayMs,
       fieldLevel,
+      activeSettings,
+      maxFieldReached,
+      pointsTotal,
       startStimulus,
       successStreak,
       totalTrials,
+      trial.fieldLevel,
       trialIndex,
     ],
   )
@@ -590,6 +651,11 @@ export function PeripheralSpeedGame() {
   const currentAccuracy = Math.round(
     (correctCount / Math.max(1, completedRounds)) * 100,
   )
+  const decisionRating = calculateDoubleDecisionScore(pointsTotal, totalTrials)
+  const leaderboardEligible = isDoubleDecisionLeaderboardEligible({
+    accuracy: currentAccuracy,
+    totalTrials,
+  })
   const feedbackCorrect =
     outcome?.vehicleCorrect === true && outcome.locationCorrect === true
   const visibleRound =
@@ -647,10 +713,15 @@ export function PeripheralSpeedGame() {
             <Play className="mr-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" />
             {t('start')}
           </Button>
-          {bestScore !== null && (
-            <p className="mt-4 text-xs text-muted-foreground">
-              {t('bestScore', { score: bestScore })}
-            </p>
+          {(bestRating !== null || bestAccuracy !== null) && (
+            <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+              {bestRating !== null && (
+                <span>{t('bestRating', { score: bestRating })}</span>
+              )}
+              {bestAccuracy !== null && (
+                <span>{t('bestScore', { score: bestAccuracy })}</span>
+              )}
+            </div>
           )}
         </div>
       )}
@@ -741,12 +812,39 @@ export function PeripheralSpeedGame() {
       {phase === 'results' && (
         <div className="flex min-h-[460px] flex-col items-center justify-center bg-background px-6 pb-12 pt-20 text-center motion-safe:animate-in motion-safe:fade-in motion-safe:duration-500 sm:min-h-[520px]">
           <div className="font-mono text-6xl font-medium tracking-tight motion-safe:animate-in motion-safe:zoom-in-75 motion-safe:duration-500">
-            {Math.round((correctCount / totalTrials) * 100)}%
+            {decisionRating}
           </div>
+          <p className="mt-1 text-sm font-medium text-muted-foreground">
+            {t('ratingUnit')}
+          </p>
           <h2 className="mt-4 text-xl font-semibold">{t('resultsTitle')}</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             {t('resultsBody', { correct: correctCount, total: totalTrials })}
           </p>
+          <div className="mt-6 grid w-full max-w-md grid-cols-3 gap-3">
+            <div className="rounded-xl bg-muted/60 px-3 py-3">
+              <div className="font-mono text-lg font-semibold">{currentAccuracy}%</div>
+              <div className="mt-1 text-xs text-muted-foreground">{t('resultAccuracy')}</div>
+            </div>
+            <div className="rounded-xl bg-muted/60 px-3 py-3">
+              <div className="font-mono text-lg font-semibold">{maxFieldReached}</div>
+              <div className="mt-1 text-xs text-muted-foreground">{t('resultField')}</div>
+            </div>
+            <div className="rounded-xl bg-muted/60 px-3 py-3">
+              <div className="font-mono text-lg font-semibold">{fastestCorrectDisplayMs} ms</div>
+              <div className="mt-1 text-xs text-muted-foreground">{t('resultFastest')}</div>
+            </div>
+          </div>
+          <div className="mt-5 flex max-w-md items-start gap-2 text-left text-xs leading-5 text-muted-foreground">
+            <Trophy className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>
+              {leaderboardEligible
+                ? t('leaderboardRecorded')
+                : totalTrials < 20
+                  ? t('leaderboardNeedsRounds')
+                  : t('leaderboardNeedsAccuracy')}
+            </span>
+          </div>
           <Button
             className="group mt-8 h-11 rounded-full px-7 transition-transform active:scale-95"
             onClick={startGame}

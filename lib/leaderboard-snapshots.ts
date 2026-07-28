@@ -5,6 +5,7 @@ export interface LeaderboardSnapshotEntry {
   playerName: string;
   score: number;
   createdAt: string;
+  details?: Record<string, boolean | number | string | null>;
 }
 
 export interface LeaderboardSnapshot {

@@ -8,17 +8,20 @@ import { getPublicLeaderboardUrl } from "@/lib/leaderboard-public";
 import { compareScores, hasTargetScore, isHigherScoreBetter } from "@/lib/leaderboard-snapshots";
 
 export type FormatterType = 'ms' | 'sec3' | 'sec4' | 'cps' | 'pts' | 'levels' | 'schulte' | 'percent' | 'default';
+export type LeaderboardDetailsType = 'double-decision';
 
 export interface LeaderboardDisplayProps {
     gameId: string;
     formatterType?: FormatterType;
     mode?: string;
+    detailsType?: LeaderboardDetailsType;
 }
 
 type LeaderboardRecord = {
     playerName: string;
     score: number;
     createdAt: string;
+    details?: Record<string, boolean | number | string | null>;
 };
 
 type LeaderboardApiResponse = {
@@ -29,6 +32,7 @@ type LeaderboardApiResponse = {
         playerName: string;
         score: number;
         createdAt: string;
+        details?: Record<string, boolean | number | string | null>;
     }>;
     scoreSum?: number;
 };
@@ -41,6 +45,7 @@ function normalizeLeaderboardResponse(data: LeaderboardApiResponse) {
                 playerName: entry.playerName,
                 score: entry.score,
                 createdAt: entry.createdAt,
+                details: entry.details,
             }))
             : [];
 
@@ -90,6 +95,7 @@ export function LeaderboardDisplay({
     gameId,
     formatterType = 'default',
     mode = DEFAULT_LEADERBOARD_MODE,
+    detailsType,
 }: LeaderboardDisplayProps) {
     const t = useTranslations('common.leaderboard');
     const [top20, setTop20] = useState<LeaderboardRecord[]>([]);
@@ -97,7 +103,11 @@ export function LeaderboardDisplay({
     const [totalPlayers, setTotalPlayers] = useState<number>(0);
     const [loading, setLoading] = useState(false);
     const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
-    const [mySessionDetail, setMySessionDetail] = useState<{ playerName: string; score: number } | null>(null);
+    const [mySessionDetail, setMySessionDetail] = useState<{
+        playerName: string;
+        score: number;
+        details?: Record<string, boolean | number | string | null>;
+    } | null>(null);
     const containerRef = useRef<HTMLDivElement | null>(null);
 
     const formatScore = useCallback((s: number) => {
@@ -194,11 +204,18 @@ export function LeaderboardDisplay({
 
     useEffect(() => {
         const handleUpdate = (e: Event) => {
-            const customEvent = e as CustomEvent<{ gameId: string, playerName: string, score: number, mode?: string }>;
+            const customEvent = e as CustomEvent<{
+                details?: Record<string, boolean | number | string | null>;
+                gameId: string;
+                mode?: string;
+                playerName: string;
+                score: number;
+            }>;
             if (customEvent.detail && customEvent.detail.gameId === gameId && (customEvent.detail.mode || DEFAULT_LEADERBOARD_MODE) === mode) {
                 setMySessionDetail({
                     playerName: customEvent.detail.playerName,
-                    score: customEvent.detail.score
+                    score: customEvent.detail.score,
+                    details: customEvent.detail.details,
                 });
                 setHasEnteredViewport(true);
                 void fetchLeaderboard(true);
@@ -291,6 +308,19 @@ export function LeaderboardDisplay({
                             <tr>
                                 <th className="text-left font-medium p-4 text-muted-foreground">{t('rank')}</th>
                                 <th className="text-left font-medium p-4 text-muted-foreground">{t('player')}</th>
+                                {detailsType === 'double-decision' && (
+                                    <>
+                                        <th className="hidden text-right font-medium p-4 text-muted-foreground sm:table-cell">
+                                            {t('accuracy')}
+                                        </th>
+                                        <th className="hidden text-right font-medium p-4 text-muted-foreground md:table-cell">
+                                            {t('field')}
+                                        </th>
+                                        <th className="hidden text-right font-medium p-4 text-muted-foreground lg:table-cell">
+                                            {t('fastestDisplay')}
+                                        </th>
+                                    </>
+                                )}
                                 <th className="text-right font-medium p-4 text-muted-foreground">{t('score')}</th>
                             </tr>
                         </thead>
@@ -311,6 +341,25 @@ export function LeaderboardDisplay({
                                             {record.playerName}
                                             {isMe && <span className="text-[10px] uppercase bg-primary text-primary-foreground px-1.5 py-0.5 rounded-sm font-bold">{t('you')}</span>}
                                         </td>
+                                        {detailsType === 'double-decision' && (
+                                            <>
+                                                <td className="hidden p-4 text-right font-mono sm:table-cell">
+                                                    {typeof record.details?.accuracy === 'number'
+                                                        ? `${record.details.accuracy}%`
+                                                        : '—'}
+                                                </td>
+                                                <td className="hidden p-4 text-right font-mono md:table-cell">
+                                                    {typeof record.details?.maxFieldLevel === 'number'
+                                                        ? record.details.maxFieldLevel
+                                                        : '—'}
+                                                </td>
+                                                <td className="hidden p-4 text-right font-mono lg:table-cell">
+                                                    {typeof record.details?.fastestDisplayMs === 'number'
+                                                        ? `${record.details.fastestDisplayMs} ${t('unitMs')}`
+                                                        : '—'}
+                                                </td>
+                                            </>
+                                        )}
                                         <td className="p-4 text-right font-mono font-bold">
                                             <div>{formatScore(record.score)}</div>
                                         </td>

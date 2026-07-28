@@ -20,6 +20,7 @@ export const LEADERBOARD_GAME_CONFIG: Record<string, LeaderboardSortConfig> = {
   "block-memory-challenge": { primary: "DESC" },
   "schulte-table": { primary: "ASC" },
   "dual-n-back": { primary: "DESC" },
+  "double-decision": { primary: "DESC" },
 };
 
 export function getLeaderboardSortConfig(gameId: string): LeaderboardSortConfig {

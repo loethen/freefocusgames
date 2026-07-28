@@ -2105,7 +2105,7 @@
         "hard": "困难"
       }
     },
-    "peripheralSpeedTraining": {
+    "doubleDecision": {
       "title": "Double Decision 双重决策游戏",
       "subtitle": "免费的自适应视觉处理速度、分散注意与有效视野训练",
       "description": "免费在线体验 Double Decision 双重决策游戏，在一次短暂呈现中判断中央车辆并定位周边路牌。",
@@ -2113,6 +2113,10 @@
         "title": "Double Decision 双重决策游戏｜视觉处理速度训练",
         "description": "免费在线玩 Double Decision 双重决策游戏：同时判断中央车辆和周边路牌位置，通过自适应速度、有效视野与分散注意任务进行认知练习。",
         "keywords": "Double Decision, 双重决策游戏, Double Decision游戏, 视觉处理速度训练, 有效视野训练, UFOV训练, 周边视觉训练, 分散注意训练, 认知训练游戏, 老年人脑力游戏"
+      },
+      "leaderboard": {
+        "title": "Double Decision 排行榜",
+        "description": "完成至少 20 轮并达到 70% 准确率后自动参与排名。决策评分综合准确率、呈现速度和视野难度，数据库只保留你的个人最佳成绩。"
       },
       "howToPlay": {
         "description": "Double Decision 是一种自适应视觉处理速度游戏。每轮会同时短暂显示中央车辆，以及八个周边位置之一的 66 号公路标志。",
@@ -2209,6 +2213,14 @@
         "settingsHint": "这些选项只设定起点，之后难度会根据表现自动调整。",
         "levelValue": "等级 {level}",
         "bestScore": "最佳准确率：{score}%",
+        "bestRating": "最佳决策评分：{score}",
+        "ratingUnit": "决策评分",
+        "resultAccuracy": "准确率",
+        "resultField": "最高视野",
+        "resultFastest": "最快呈现",
+        "leaderboardRecorded": "本次成绩符合排行榜要求；如果刷新了个人最佳，将自动记录。",
+        "leaderboardNeedsRounds": "完成 20 或 30 轮后，成绩才会参与排行榜。",
+        "leaderboardNeedsAccuracy": "准确率达到 70% 后，成绩才会参与排行榜。",
         "chooseVehicle": "中央出现了哪种车辆？",
         "chooseVehicleHint": "先回答中央目标，再定位道路标志。",
         "chooseLocation": "66 号公路标志出现在哪里？",
@@ -2841,6 +2853,9 @@
       "rank": "排名",
       "player": "玩家",
       "score": "得分",
+      "accuracy": "准确率",
+      "field": "视野",
+      "fastestDisplay": "最快呈现",
       "date": "日期",
       "rawTime": "原始时间",
       "mistakeSingular": "次错误",
