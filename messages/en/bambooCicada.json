@@ -1,0 +1,51 @@
+{
+  "games": {
+    "bambooCicada": {
+      "title": "Bamboo Cicada",
+      "heading": "Bamboo Cicada Online Game",
+      "subtitle": "Play the traditional Chinese sound toy online and hear every turn become a call",
+      "description": "Swing a virtual bamboo cicada with your mouse, finger, or phone. The faster it turns and the tighter the string becomes, the louder it calls.",
+      "iframeTitle": "Interactive Bamboo Cicada toy",
+      "metadata": {
+        "title": "Bamboo Cicada Online Game – Swing & Sing",
+        "description": "Play Bamboo Cicada online for free. Swing this traditional Chinese sound toy with your mouse, finger, or phone and hear its call respond to every turn.",
+        "keywords": "bamboo cicada, traditional Chinese toy, bamboo toy online, interactive folk toy, phone motion game",
+        "ogTitle": "Bamboo Cicada Online Game – Swing & Sing",
+        "ogDescription": "Play the traditional Chinese sound toy online for free. Swing it with your mouse, finger, or phone and hear its call change with speed."
+      },
+      "about": {
+        "title": "About the Bamboo Cicada Online Game",
+        "description": "This browser game lets you play with a traditional bamboo cicada online for free, with no download or registration. Draw circles with a mouse or finger, or swing a compatible phone. The bamboo handle, string, and resonator move together while the toy's call responds naturally to speed and string tension."
+      },
+      "howToPlay": {
+        "intro": "Faster, tighter turns make the bamboo cicada call louder and brighter. When you let go, it keeps moving with its momentum and gradually slows down.",
+        "pointer": "Hold inside the game and draw circles with your mouse or finger. Small, steady circles work especially well on phones.",
+        "auto": "Choose Auto swing, or press Space on a keyboard, to watch the full motion without drawing circles yourself.",
+        "motion": "On a phone, choose Swing phone and allow motion access when asked. Keep a secure grip and move the phone in small, controlled circles.",
+        "model": "Use the cicada appearance control to choose the visual style you prefer."
+      },
+      "credit": {
+        "prefix": "This game is adapted from the open-source project",
+        "suffix": ". Thanks to imsai-sh for creating and sharing the project."
+      },
+      "faq": {
+        "what": {
+          "question": "What is a bamboo cicada?",
+          "answer": "It is a traditional folk toy made from a bamboo resonator, membrane, rosin-coated string, and a small handle. Swinging it produces repeated friction pulses that resonate through the membrane and bamboo chamber."
+        },
+        "sound": {
+          "question": "Why does the sound change as I swing faster?",
+          "answer": "Faster turns and a tighter string make the bamboo cicada call louder and brighter. As it slows down or the string loosens, the sound naturally fades."
+        },
+        "motion": {
+          "question": "Why can’t I see or enable phone motion controls?",
+          "answer": "Not every phone supports motion input. Choose Swing phone and allow access when asked. If the button is unavailable, you can still draw circles with your finger or use Auto swing."
+        },
+        "model": {
+          "question": "How can I make the bamboo cicada call more easily?",
+          "answer": "Begin with small, steady circles to tighten the string, then increase your speed smoothly. Very large circles, sudden reversals, and frequent stops can loosen the string."
+        }
+      }
+    }
+  }
+}

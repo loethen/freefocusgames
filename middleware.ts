@@ -38,6 +38,6 @@ export const config = {
     // 匹配所有路径除了API、静态资源、sitemap.xml、robots.txt等
     matcher: [
         // 包含所有页面路径，但排除 sitemap.xml 和 robots.txt 以及常见的静态资源文件
-        "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|mp3|wav|ogg|mp4|webm|txt|xml|json)$).*)",
+        "/((?!api|embedded|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|mp3|wav|ogg|mp4|webm|txt|xml|json)$).*)",
     ],
 };

@@ -407,7 +407,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </section>
 
                 {/* For Fun */}
-                {games.filter(g => g.categories.includes('spring-festival')).length > 0 && (
+                {games.filter(g => g.categories.includes('for-fun')).length > 0 && (
                     <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
                         <div className="mb-6 flex items-center gap-2 sm:mb-8">
                             <Gamepad2 className="h-6 w-6" />
@@ -416,7 +416,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             </h2>
                         </div>
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-                            {games.filter(g => g.categories.includes('spring-festival')).map(game => (
+                            {games.filter(g => g.categories.includes('for-fun')).map(game => (
                                 <Link key={game.id} href={`/games/${game.slug}`} className="group block">
                                     <div className="relative aspect-video rounded-xl overflow-hidden border border-purple-200 dark:border-purple-900 shadow-sm transition-all hover:shadow-lg hover:scale-[1.02] bg-purple-50/50 dark:bg-purple-950/20">
                                         <div className="w-full h-full flex items-center justify-center">

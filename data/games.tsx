@@ -66,7 +66,20 @@ export const games: Game[] = [
     title: "Challenge 10 Seconds",
     slug: "challenge-10-seconds",
     preview: <ImagePreview src="/games/challenge-10-seconds.png" />,
-    categories: ["focus-games", "reaction-time", "spring-festival"],
+    categories: ["focus-games", "reaction-time", "spring-festival", "for-fun"],
+  },
+  {
+    id: "bamboo-cicada",
+    title: "Bamboo Cicada",
+    slug: "bamboo-cicada",
+    preview: (
+      <ImagePreview
+        src="/games/bamboo-cicada/preview.jpg"
+        alt="Bamboo Cicada game preview"
+        fit="cover"
+      />
+    ),
+    categories: ["for-fun"],
   },
   {
     id: "baby-animal-matching",

@@ -23,6 +23,7 @@ export function generateAlternates(locale: string, pagePath: string = '') {
     acc[lang] = `${baseUrl}${lang === 'en' ? '' : `/${lang}`}${normalizePage}`;
     return acc;
   }, {} as Record<string, string>);
+  alternateLanguages['x-default'] = `${baseUrl}${normalizePage}`;
   
   return {
     canonical: `${baseUrl}${locale === 'en' ? '' : `/${locale}`}${normalizePage}`,
