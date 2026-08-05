@@ -511,6 +511,11 @@ function validateScore(
             return "Score rejected (Unsupported dual n-back mode)";
         case "double-decision":
             return validateDoubleDecisionDetails(score, mode, details);
+        case "bamboo-cicada":
+            if (mode !== "lifetime" || !Number.isInteger(score) || score < 1 || score > 1_000_000) {
+                return "Score rejected (Invalid bamboo cicada wah count)";
+            }
+            return null;
         case "challenge10Seconds":
             if (score < 0 || score > 60000) {
                 return "Score rejected (Outside expected timing range)";

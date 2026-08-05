@@ -312,6 +312,10 @@
 
 <footer class="lore" id="loreText">竹膜为鼓 · 松香为弦<br>摩擦生振 · 膜腔共鸣</footer>
 
+<div class="stats" id="stats">
+  <span class="mine" id="stMineWrap"><span id="wahLabel">哇了</span> <b id="stMine">0</b> <span id="wahUnit">圈</span></span>
+</div>
+
 <!-- 无 JS 环境（含不执行 JS 的爬虫）能读到的唯一正文；正常用户不可见 -->
 <noscript>
   <section style="position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);max-width:80vw;color:#f0e6d2;font-size:14px;line-height:2">
@@ -337,14 +341,14 @@ const TEXT = {
     title: '竹知了', subtitle: '一转，就哇哇地叫', seal: '儿时玩物',
     hint: '按住 · 画圈 · 甩起来', sound: '🔊 有声音', speed: '圈 / 秒',
     motion: '甩手机', auto: '自动甩', stop: '停一停', model3d: '3D 小蝉', model2d: '手绘小蝉',
-    denied: '未授权', unavailable: '不可用', unlock: '🔊 点一下开声',
+    denied: '未授权', unavailable: '不可用', unlock: '🔊 点一下开声', wahLabel: '哇了', wahUnit: '圈',
     lore: '竹膜为鼓 · 松香为弦<br>摩擦生振 · 膜腔共鸣'
   },
   en: {
     title: 'Bamboo Cicada', subtitle: 'Swing it and hear it sing', seal: 'Folk Toy',
     hint: 'Hold · Circle · Swing', sound: '🔊 Sound on', speed: 'turns / sec',
     motion: 'Swing phone', auto: 'Auto swing', stop: 'Stop', model3d: '3D cicada', model2d: 'Hand-drawn',
-    denied: 'Denied', unavailable: 'Unavailable', unlock: '🔊 Tap for sound',
+    denied: 'Denied', unavailable: 'Unavailable', unlock: '🔊 Tap for sound', wahLabel: 'Wah count', wahUnit: 'turns',
     lore: 'Bamboo membrane · Rosin string<br>Friction vibrates · Chamber resonates'
   }
 }[GAME_LOCALE];
@@ -361,6 +365,8 @@ document.getElementById('autoBtn').textContent = TEXT.auto;
 document.getElementById('d3Btn').textContent = TEXT.model3d;
 document.getElementById('unlock').textContent = TEXT.unlock;
 document.getElementById('loreText').innerHTML = TEXT.lore;
+document.getElementById('wahLabel').textContent = TEXT.wahLabel;
+document.getElementById('wahUnit').textContent = TEXT.wahUnit;
 /* ============================================================
    竹知了 —— 传统玩具模拟
    物理：甩杆(指针) → 绳系竹筒(质点, 重力+弹性绳+阻力)
@@ -1358,10 +1364,39 @@ window.addEventListener('pageshow', () => {   // bfcache 恢复时也拉一把
   }
 });
 
-// FreeFocusGames keeps the game engine but omits the upstream global counter,
-// visitor UUID, WebSocket backend, service worker, and install prompt.
-const stEls = { mineWrap: null };
-function addWah() {}
+// FreeFocusGames keeps a device-local personal counter for the site leaderboard,
+// while omitting the upstream global visitor counter and WebSocket backend.
+const stEls = {
+  mine: document.getElementById('stMine'),
+  mineWrap: document.getElementById('stMineWrap'),
+};
+const WAH_STORAGE_KEY = 'freefocusgames.bamboo-cicada.wahs';
+let myWah = 0;
+try{ myWah = Math.max(0, parseInt(localStorage.getItem(WAH_STORAGE_KEY) || '0', 10) || 0); }
+catch(_){ /* Storage may be unavailable in private browsing. */ }
+
+function renderMine(){ stEls.mine.textContent = myWah.toLocaleString(GAME_LOCALE === 'zh' ? 'zh-Hans-CN' : 'en'); }
+function reportWahCount(reason){
+  if(window.parent === window) return;
+  window.parent.postMessage({
+    type: 'bamboo-cicada:wah-count',
+    count: myWah,
+    reason,
+  }, location.origin);
+}
+function addWah(n = 1){
+  const increment = Math.max(0, Math.floor(n));
+  if(!increment) return;
+  myWah += increment;
+  try{ localStorage.setItem(WAH_STORAGE_KEY, String(myWah)); }catch(_){}
+  renderMine();
+  stEls.mineWrap.classList.remove('minepop');
+  void stEls.mineWrap.offsetWidth;
+  stEls.mineWrap.classList.add('minepop');
+  reportWahCount('increment');
+}
+renderMine();
+setTimeout(() => reportWahCount('ready'), 250);
 cv.addEventListener('contextmenu', e => e.preventDefault());
 
 window.addEventListener('resize', resize);
@@ -1369,7 +1404,7 @@ resize();   // 内部会把竹筒挂到屏幕中央，轻轻晃着
 
 // 调试钩子（供自动化验证）
 window.__zzl = {
-  get state(){ return { rps, active, drive, taut, theta,
+  get state(){ return { rps, active, drive, taut, theta, wahs: myWah,
     stick: { x: stick.x, y: stick.y }, tube: { x: tube.x, y: tube.y },
     target: { x: target.x, y: target.y }, auto: auto.on,
     audio: AC ? AC.state : 'none', voice: au ? au.mode : null }; },

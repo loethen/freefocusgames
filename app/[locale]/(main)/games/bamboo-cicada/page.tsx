@@ -138,6 +138,11 @@ export default function BambooCicadaPage({
                     </p>
                 </div>
             }
+            hasLeaderboard={true}
+            leaderboardTitle={t('leaderboard.title')}
+            leaderboardFormatterType="wahs"
+            leaderboardMode="lifetime"
+            leaderboardIntro={<p>{t('leaderboard.description')}</p>}
             faq={faq}
             relatedGames={['challenge10Seconds', 'spacebar-clicker', 'cps-test']}
             structuredData={structuredData}

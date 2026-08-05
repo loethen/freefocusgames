@@ -50,7 +50,8 @@
       "unitSec": "秒",
       "unitCps": "CPS",
       "unitLevel": "第{score}关",
-      "unitPercent": "%"
+      "unitPercent": "%",
+      "unitWahTurns": "哇了 {score} 圈"
     },
     "progressShare": {
       "title": "进步卡片",

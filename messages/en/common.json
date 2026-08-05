@@ -50,7 +50,8 @@
       "unitSec": "s",
       "unitCps": "CPS",
       "unitLevel": "Level {score}",
-      "unitPercent": "%"
+      "unitPercent": "%",
+      "unitWahTurns": "{score} wah turns"
     },
     "progressShare": {
       "title": "Progress Card",

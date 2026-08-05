@@ -28,6 +28,10 @@
         "prefix": "This game is adapted from the open-source project",
         "suffix": ". Thanks to imsai-sh for creating and sharing the project."
       },
+      "leaderboard": {
+        "title": "Bamboo Cicada Wah-Turn Leaderboard",
+        "description": "Ranked by the manual wah turns accumulated on this device. Mouse, touch, and phone swings count; Auto swing does not. Your latest total is submitted shortly after you stop swinging."
+      },
       "faq": {
         "what": {
           "question": "What is a bamboo cicada?",

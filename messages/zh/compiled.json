@@ -362,6 +362,10 @@
         "prefix": "本游戏根据以下开源项目适配：",
         "suffix": "。感谢 imsai-sh 创作并分享这个项目。"
       },
+      "leaderboard": {
+        "title": "竹知了哇圈排行榜",
+        "description": "按每位玩家在本设备累计手动甩响的圈数排名。鼠标、手指和甩手机都会计入，自动甩不计入；停止甩动片刻后会自动提交最新纪录。"
+      },
       "faq": {
         "what": {
           "question": "竹知了是什么？",
@@ -2913,7 +2917,8 @@
       "unitSec": "秒",
       "unitCps": "CPS",
       "unitLevel": "第{score}关",
-      "unitPercent": "%"
+      "unitPercent": "%",
+      "unitWahTurns": "哇了 {score} 圈"
     },
     "progressShare": {
       "title": "进步卡片",

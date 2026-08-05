@@ -7,7 +7,7 @@ import { DEFAULT_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
 import { getPublicLeaderboardUrl } from "@/lib/leaderboard-public";
 import { compareScores, hasTargetScore, isHigherScoreBetter } from "@/lib/leaderboard-snapshots";
 
-export type FormatterType = 'ms' | 'sec3' | 'sec4' | 'cps' | 'pts' | 'levels' | 'schulte' | 'percent' | 'default';
+export type FormatterType = 'ms' | 'sec3' | 'sec4' | 'cps' | 'pts' | 'levels' | 'schulte' | 'percent' | 'wahs' | 'default';
 export type LeaderboardDetailsType = 'double-decision';
 
 export interface LeaderboardDisplayProps {
@@ -121,6 +121,7 @@ export function LeaderboardDisplay({
             case 'levels': return t('unitLevel', { score: rounded.toString() });
             case 'schulte': return `${(s / 1000).toFixed(1)} ${t('unitSec')}`;
             case 'percent': return `${rounded}${t('unitPercent')}`;
+            case 'wahs': return t('unitWahTurns', { score: rounded.toString() });
             default: return rounded.toString();
         }
     }, [formatterType, t]);
