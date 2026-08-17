@@ -390,11 +390,11 @@
       "subtitle": "免费在线测试 1 秒、5 秒、10 秒鼠标点击速度与手速",
       "description": "想知道您的手速有多快？使用这个免费在线 CPS 测试工具，在 1 秒、3 秒、5 秒和 10 秒模式下测试鼠标点击速度、连点能力与瞬时爆发力。",
       "metadata": {
-        "title": "CPS测试网站：鼠标点击速度、连点与手速在线测试",
-        "description": "免费在线 CPS 测试网站，支持 1 秒、3 秒、5 秒和 10 秒模式。立即测试鼠标点击速度、连点能力与手速水平，适合电竞玩家、手速训练和点击速度测试需求。",
+        "title": "CPS测试：免费在线鼠标点击速度测试",
+        "description": "免费在线测试每秒点击次数、鼠标点击速度和爆发手速，支持 1 秒、3 秒、5 秒和 10 秒模式。",
         "keywords": "cps测试网站, cps测试, 鼠标点击速度测试, 鼠标连点测试, 点击速度测试, 手速测试, 鼠标测试点击, cps测试在线玩, 鼠标cps测试网页版, 电竞手速测试",
-        "ogTitle": "CPS测试网站：鼠标点击速度、连点与手速在线测试",
-        "ogDescription": "免费在线 CPS 测试网站，支持 1 秒、3 秒、5 秒和 10 秒模式。立即测试鼠标点击速度、连点能力与手速水平。"
+        "ogTitle": "CPS测试：免费在线鼠标点击速度测试",
+        "ogDescription": "免费在线测试每秒点击次数、鼠标点击速度和爆发手速，支持 1 秒、3 秒、5 秒和 10 秒模式。"
       },
       "howToPlay": {
         "description": "CPS测试（Clicks Per Second）用于测量您在给定时间内点击鼠标的速度。玩法非常简单：",
@@ -3302,6 +3302,7 @@
       "tools": {
         "doubleDecision": "Double Decision 视觉速度训练",
         "schulteTable": "在线舒尔特表格",
+        "pomodoroTimer": "在线番茄钟",
         "visualTracking": "视觉追踪游戏",
         "allGames": "查看全部游戏"
       }
@@ -3530,8 +3531,8 @@
     "title": "SBTI 人格测试",
     "subtitle": "最近很火的 SBTI 人格测试，直接开玩，几分钟就能拿到结果。",
     "metadata": {
-      "title": "SBTI 人格测试 | 免费在线玩最近很火的人格测试",
-      "description": "免费在线玩最近爆火的 SBTI 人格测试，这里可直接进入测试入口，几分钟就能拿到结果图。适合想玩人格测试、SBTI 测试、MBTI 风格测试的用户直接开始。",
+      "title": "SBTI 测试在线玩：免费热门人格测试",
+      "description": "免费在线玩 SBTI 测试，几分钟生成可分享的人格结果，并了解它与 MBTI 风格测试的区别。",
       "keywords": "SBTI人格测试, SBTI测试, SBTI人格测试入口, SBTI测试入口, SBTI在线测试, SBTI是什么, 人格测试, 性格测试, 在线人格测试, 免费人格测试, 娱乐人格测试, MBTI风格测试, MBTI人格测试, SBTI结果"
     },
     "structuredData": {

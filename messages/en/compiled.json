@@ -390,11 +390,11 @@
       "subtitle": "Free Online 1s, 5s, and 10s Mouse Click Speed Test",
       "description": "Curious how fast you can click? Use this free online CPS test to measure your click speed, mouse clicking rhythm, and burst clicking power across 1s, 3s, 5s, and 10s modes.",
       "metadata": {
-        "title": "CPS Test Online: Mouse Click Speed Test Website",
-        "description": "Use this free CPS test website to measure mouse click speed, clicks per second, and burst clicking performance. Try 1s, 3s, 5s, and 10s modes for a full click speed test.",
+        "title": "CPS Test – Free Mouse Click Speed Test Online",
+        "description": "Use this free CPS test to measure clicks per second, mouse click speed, and burst clicking in 1s, 3s, 5s, or 10s modes.",
         "keywords": "cps test, cps test website, click speed test, mouse click speed test, clicks per second test, mouse clicking test, jitter click test, click speed test free, gamer clicking test",
-        "ogTitle": "CPS Test Online: Mouse Click Speed Test Website",
-        "ogDescription": "Use this free CPS test website to measure mouse click speed, clicks per second, and burst clicking performance across 1s, 3s, 5s, and 10s modes."
+        "ogTitle": "CPS Test – Free Mouse Click Speed Test Online",
+        "ogDescription": "Measure clicks per second, mouse click speed, and burst clicking in 1s, 3s, 5s, or 10s modes."
       },
       "howToPlay": {
         "description": "CPS Test measures how fast you can click in a given time. It's simple:",
@@ -3302,6 +3302,7 @@
       "tools": {
         "doubleDecision": "Double Decision Visual Speed Training",
         "schulteTable": "Schulte Table Online",
+        "pomodoroTimer": "Pomodoro Timer Online",
         "visualTracking": "Visual Tracking Games",
         "allGames": "Browse All Games"
       }
@@ -3530,8 +3531,8 @@
     "title": "SBTI Personality Test",
     "subtitle": "Take the viral SBTI personality test and get a chaotic meme-style result in minutes.",
     "metadata": {
-      "title": "SBTI Personality Test | Free Online Viral SBTI Test",
-      "description": "Take the viral SBTI personality test online for free. Play the trending SBTI test, compare it with MBTI-style quizzes, and get a shareable result in minutes.",
+      "title": "SBTI Test Online – Free Viral Personality Test",
+      "description": "Take the viral SBTI test online for free, get a shareable personality result in minutes, and compare it with MBTI-style quizzes.",
       "keywords": "sbti personality test, sbti test, sbti mbti, sbti personality, viral personality test, free online personality test, mbti test, meme personality quiz, sbti.unun.dev"
     },
     "structuredData": {
