@@ -27,7 +27,7 @@ jobs:
           npm run build
           npx opennextjs-cloudflare build
         env:
-          NEXT_PUBLIC_SITE_URL: "https://freefocusgames.com"
+          NEXT_PUBLIC_SITE_URL: "https://www.freefocusgames.com"
 
           NEXT_PUBLIC_GOOGLE_ADSENSE_ID: ${{ secrets.NEXT_PUBLIC_GOOGLE_ADSENSE_ID }}
           NEXT_PUBLIC_LEADERBOARD_BASE_URL: ${{ secrets.NEXT_PUBLIC_LEADERBOARD_BASE_URL }}

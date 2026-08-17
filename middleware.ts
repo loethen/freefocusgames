@@ -12,6 +12,22 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
+    // Career Tests are intentionally English-only. Keep their public URLs
+    // unprefixed and ignore any previously selected site-language cookie.
+    if (/^\/(?:en|zh)\/career-tests(?:\/|$)/.test(pathname)) {
+        const englishOnlyPath = pathname.replace(/^\/(?:en|zh)/, '') || '/career-tests';
+        return NextResponse.redirect(
+            new URL(englishOnlyPath + request.nextUrl.search, request.url),
+            301
+        );
+    }
+
+    if (/^\/career-tests(?:\/|$)/.test(pathname)) {
+        const rewriteUrl = request.nextUrl.clone();
+        rewriteUrl.pathname = `/en${pathname}`;
+        return NextResponse.rewrite(rewriteUrl);
+    }
+
     // 检查路径是否以无效的语言前缀开头
     const pathSegments = pathname.split('/').filter(Boolean);
 

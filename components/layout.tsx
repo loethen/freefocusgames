@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { Header } from "./header"
 import { useState, useEffect, useCallback } from "react"
 import { Footer } from "./Footer"
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export function Layout({
     children,
@@ -12,6 +12,7 @@ export function Layout({
     children: React.ReactNode;
 }) {
     const t = useTranslations('common');
+    const locale = useLocale();
     // Default to desktop view (sidebar open) for SSG consistency
     // This might cause a hydration mismatch on mobile which useEffect will fix
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -85,6 +86,9 @@ export function Layout({
                     <NavItem href="/">{t('home')}</NavItem>
                     <NavItem href="/categories">{t('categories')}</NavItem>
                     <NavItem href="/games">{t('games')}</NavItem>
+                    {locale === "en" && (
+                        <NavItem href="/career-tests">Career Tests</NavItem>
+                    )}
                     <NavItem href="/tests">{t('tests')}</NavItem>
                     <NavItem href="/guides">{t('guides')}</NavItem>
                     <NavItem href="/blog">{t('blog')}</NavItem>
@@ -111,4 +115,4 @@ export function Layout({
             </div>
         </div>
     );
-} 
+}

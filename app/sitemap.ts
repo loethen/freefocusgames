@@ -5,6 +5,7 @@ import { blogData } from '@/data/generated'
 import { CONTENT_LAST_UPDATED_DATE, SITE_BASE_URL } from '@/lib/site-constants'
 
 const LOCALES = ['en', 'zh'] // 支持的语言列表
+const CAREER_TEST_LAST_UPDATED_DATE = new Date('2026-08-17T00:00:00.000Z')
 export const revalidate = 86400
 
 // 生成基本页面路由
@@ -103,6 +104,19 @@ function generateGameRoutes(locale: string): MetadataRoute.Sitemap {
   }))
 }
 
+function generateCareerTestRoutes(): MetadataRoute.Sitemap {
+  return [
+    '/career-tests',
+    '/career-tests/criticall-practice-test',
+    '/career-tests/911-dispatcher-typing-test',
+  ].map(path => ({
+    url: `${SITE_BASE_URL}${path}`,
+    lastModified: CAREER_TEST_LAST_UPDATED_DATE,
+    changeFrequency: 'weekly' as const,
+    priority: path === '/career-tests' ? 0.9 : 0.8,
+  }))
+}
+
 // 生成分类页面路由
 function generateCategoryRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
@@ -129,7 +143,7 @@ function generateBlogRoutes(locale: string): MetadataRoute.Sitemap {
 
 // 静态生成sitemap
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const routes: MetadataRoute.Sitemap = []
+  const routes: MetadataRoute.Sitemap = [...generateCareerTestRoutes()]
 
   for (const locale of LOCALES) {
     routes.push(
