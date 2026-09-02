@@ -18,14 +18,14 @@ const HOMEPAGE_POPULAR_GAME_IDS = [
     "frog-memory-leap",
 ] as const;
 
-// Build the discovery pool from every other game, so new games are included
-// automatically without having to maintain a second curated list.
+// Build the discovery pool from every other non-breathing game, so new games
+// are included automatically without having to maintain a second curated list.
 const EXCLUDED_GAME_IDS = new Set([
     ...HOMEPAGE_POPULAR_GAME_IDS,
     ...getLatestGames(3).map((game) => game.id),
 ]);
 const TRY_YOUR_LUCK_GAME_IDS = games
-    .filter((game) => !EXCLUDED_GAME_IDS.has(game.id))
+    .filter((game) => !EXCLUDED_GAME_IDS.has(game.id) && !game.categories.includes("relaxation"))
     .map((game) => game.id);
 
 const PICKS_PER_REFRESH = 3;
