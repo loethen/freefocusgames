@@ -3400,6 +3400,12 @@
     "popularGames": "Popular Games",
     "featuredGames": "Popular Games",
     "latestGames": "Recently Added",
+    "tryLuck": {
+      "title": "Try Your Luck",
+      "subtitle": "Not sure what to play? Discover a different fun focus game each time.",
+      "refresh": "Try another set",
+      "refreshAriaLabel": "Show another set of games"
+    },
     "springFestivalSpecial": "Spring Festival Special",
     "breathingZone": "Breathing Exercises and Relaxation",
     "forFun": "Just for Fun",

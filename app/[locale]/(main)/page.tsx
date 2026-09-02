@@ -8,6 +8,7 @@ import type { Metadata } from "next";
 import { getBlogPosts } from "@/lib/blog";
 import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
+import TryYourLuck from "@/components/try-your-luck";
 import Image from "next/image";
 import { games } from "@/data/games";
 import {
@@ -321,6 +322,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 {/* Games Section - Featured Bento Grid */}
                 <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
                     <FeaturedBentoGrid />
+                </section>
+
+                {/* Discovery Section - Rotating selection of fun games */}
+                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                    <TryYourLuck />
                 </section>
 
                 {/* Latest Games */}

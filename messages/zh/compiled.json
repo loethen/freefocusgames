@@ -3400,6 +3400,12 @@
     "popularGames": "热门游戏",
     "featuredGames": "热门游戏",
     "latestGames": "最近加入的游戏",
+    "tryLuck": {
+      "title": "试试手气",
+      "subtitle": "不知道玩什么？换一组轻松有趣的专注力小游戏，看看今天会遇到哪一款。",
+      "refresh": "换一组",
+      "refreshAriaLabel": "换一组推荐游戏"
+    },
     "springFestivalSpecial": "春节专区",
     "breathingZone": "呼吸练习与放松",
     "forFun": "轻松玩一玩",
