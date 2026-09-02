@@ -708,6 +708,150 @@
         "leaderboardDescription": "The leaderboard ranks your adjusted time: completion time plus a small penalty for each mistake."
       }
     },
+    "rotatingSchulteTable": {
+      "title": "Rotating Schulte Table",
+      "subtitle": "Free Online Circular Schulte Table with Rotating Rings",
+      "description": "Play a dynamic circular Schulte Table with three number rings that rotate independently in different directions. Find numbers 1 to 42 while practicing visual search, focused attention, and quick, accurate responses.",
+      "howToPlay": {
+        "description": "Start at 1 and click every number in ascending order until you reach 42. Focus on accuracy first, then try to reduce your completion time.",
+        "step1": "Watch the three circular rings as their numbered sectors move together.",
+        "step2": "Click 1, then 2, then 3, continuing until you reach 42.",
+        "step3": "The rings rotate clockwise or counterclockwise at different speeds.",
+        "step4": "Avoid mistakes: each incorrect click adds two seconds to your ranked time."
+      },
+      "metaTitle": "Rotating Schulte Table Online: Free Visual Search Game",
+      "metaDescription": "Play a free rotating Schulte Table online. Find numbers 1–42 across three independently spinning rings and track your speed, accuracy, and best time.",
+      "ogTitle": "Rotating Schulte Table: Free Dynamic Number Search",
+      "ogDescription": "Find numbers 1–42 across three independently spinning rings in this free dynamic Schulte Table game.",
+      "structuredData": {
+        "featureList": [
+          "42-number circular Schulte Table",
+          "Three independently rotating rings",
+          "Clockwise and counterclockwise ring movement",
+          "Timed ranked mode with mistake penalties",
+          "Dynamic visual search and goal-directed attention practice"
+        ],
+        "educationalUse": "Visual Search and Attention Practice"
+      },
+      "leaderboard": {
+        "title": "Rotating Schulte Table Leaderboard",
+        "description": "The leaderboard ranks adjusted time: completion time plus a two-second penalty for each incorrect click."
+      },
+      "comparison": {
+        "title": "Rotating Schulte Table vs. Regular Schulte Table",
+        "intro": "Both versions ask you to find numbers in order, but the rotating version changes the search field throughout the round. If you prefer a fixed 5×5 grid, try the",
+        "classicLink": "classic Schulte Table",
+        "feature": "Feature",
+        "rotating": "Rotating version",
+        "classic": "Regular version",
+        "rows": {
+          "layout": {
+            "label": "Layout",
+            "rotating": "Three concentric rings",
+            "classic": "Fixed 5×5 grid"
+          },
+          "movement": {
+            "label": "Movement",
+            "rotating": "Rings rotate independently in both directions",
+            "classic": "Numbers remain stationary"
+          },
+          "targets": {
+            "label": "Targets",
+            "rotating": "Numbers 1–42",
+            "classic": "Numbers 1–25"
+          },
+          "strategy": {
+            "label": "Search demand",
+            "rotating": "Repeatedly update target locations",
+            "classic": "Scan a stable visual field"
+          },
+          "scoring": {
+            "label": "Scoring",
+            "rotating": "Time plus two seconds per mistake",
+            "classic": "Time plus a mistake penalty"
+          }
+        }
+      },
+      "benefits": {
+        "title": "What This Game Helps You Practice",
+        "visualTracking": {
+          "title": "Dynamic Visual Search",
+          "description": "Locate one target among many distractors while every numbered sector continues to move."
+        },
+        "attention": {
+          "title": "Goal-Directed Attention",
+          "description": "Keep the next number active, ignore irrelevant numbers, and return to the sequence after every click."
+        },
+        "processingSpeed": {
+          "title": "Speed–Accuracy Control",
+          "description": "Balance faster visual decisions against the two-second penalty added for an incorrect choice."
+        }
+      },
+      "science": {
+        "title": "Why This Game Can Help You Practice Focus",
+        "visualSearch": {
+          "title": "Stay focused on one goal",
+          "description": "You always have one clear goal: find the next number. Keeping that number in mind while ignoring the others gives your attention a simple, repeatable challenge and encourages steady concentration throughout the round."
+        },
+        "rotation": {
+          "title": "Adapt to constant movement",
+          "description": "Because the rings keep moving, you must repeatedly scan the board and relocate each target. This encourages flexible visual attention, quicker target finding, and a better balance between speed and accuracy."
+        }
+      },
+      "faq": {
+        "whatIsIt": {
+          "question": "What is a rotating Schulte Table?",
+          "answer": "A rotating Schulte Table, also known as a spinning Schulte Table or dynamic Schulte Table, is a number-search game with moving targets. In this version, you find numbers 1–42 across three concentric rings that rotate independently."
+        },
+        "howToPlay": {
+          "question": "How do I play the rotating Schulte Table game?",
+          "answer": "Start the game, then click 1, 2, 3, and so on through 42. The sectors keep moving, so watch the board and click the correct number when it comes into view."
+        },
+        "whatMakesItDynamic": {
+          "question": "What makes this Schulte Table dynamic?",
+          "answer": "Each numbered ring moves at its own speed and direction. Because the spatial relationship between numbers changes throughout the round, you must search the current display instead of relying only on locations you noticed earlier."
+        },
+        "howToPractice": {
+          "question": "How should I practice?",
+          "answer": "Begin with one or two accurate rounds and only then work on reducing your time. Compare rounds played in the same mode and take a break if your eyes feel tired. Short, repeatable sessions make it easier to separate steady improvement from fatigue."
+        },
+        "regularDifference": {
+          "question": "How is a rotating Schulte Table different from a regular one?",
+          "answer": "A regular Schulte Table uses a stationary square grid, usually with numbers 1–25. This version uses 42 numbers on three moving circular rings, so target locations keep changing and the board cannot be memorized as a fixed layout."
+        },
+        "doesItImproveFocus": {
+          "question": "Does a rotating Schulte Table improve focus?",
+          "answer": "Yes, it can help you practice goal-directed attention. Every round asks you to keep the next number in mind, ignore distracting numbers, and stay with the sequence while the board moves. Regular practice also gives you a simple way to track changes in your speed and accuracy."
+        },
+        "goodTime": {
+          "question": "What is a good rotating Schulte Table time?",
+          "answer": "There is no validated population standard for this 42-number rotating version. Use your own recent results as the best benchmark, comparing adjusted times from the same device and prioritizing accurate clicks before speed."
+        },
+        "motionComfort": {
+          "question": "What should I do if the rotating rings feel uncomfortable?",
+          "answer": "Stop the round if the motion causes dizziness, nausea, headache, or eye strain. When reduced motion is enabled in your device settings, the game removes the ring animation so you can use the number-search layout without continuous movement."
+        },
+        "isFree": {
+          "question": "Is the rotating Schulte Table free?",
+          "answer": "Yes. The game runs free in your browser with no download required. You can play immediately, save your personal best on the device, and submit an adjusted time to the leaderboard."
+        }
+      },
+      "gameUI": {
+        "time": "Time",
+        "mistakes": "Mistakes",
+        "findNumber": "Find number",
+        "number": "Number",
+        "finished": "Finished",
+        "boardLabel": "Rotating Schulte Table with three independently rotating number rings",
+        "bestTime": "Best Time",
+        "startGame": "Start Game",
+        "playAgain": "Play Again",
+        "share": "Share",
+        "restart": "Restart",
+        "endGame": "End Game",
+        "gameComplete": "Game Complete!"
+      }
+    },
     "dualNBack": {
       "title": "Dual N-Back",
       "subtitle": "Play free dual n-back online to train working memory, attention control, and dual-task recall",

@@ -159,6 +159,20 @@ export const games: Game[] = [
     categories: ["selective-attention", "visual-tracking", "reaction-time", "adhd-games", "brain-games-for-kids"],
   },
   {
+    id: "rotating-schulte-table",
+    title: "Rotating Schulte Table",
+    slug: "rotating-schulte-table",
+    preview: (
+      <ImagePreview
+        src="/games/rotating-schulte-table.png"
+        alt="Rotating Schulte Table game preview"
+        fit="contain"
+        className="bg-white"
+      />
+    ),
+    categories: ["selective-attention", "visual-tracking", "reaction-time", "sustained-attention"],
+  },
+  {
     id: "reaction-time",
     title: "Reaction Time Test",
     slug: "reaction-time",
@@ -297,6 +311,7 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
+    'rotating-schulte-table', // Rotating Schulte Table - Newest
     'double-decision', // Double Decision Game - Newest
     'sbti-test',        // SBTI Test - Trending
     'memory-matching-game', // Memory Matching Game - Newest

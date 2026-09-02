@@ -484,6 +484,7 @@ function validateScore(
             }
             return null;
         case "schulte-table":
+        case "rotating-schulte-table":
             if (score < 3000 || score > 180000) {
                 return "Score rejected (Outside expected completion range)";
             }

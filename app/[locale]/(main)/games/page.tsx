@@ -34,6 +34,7 @@ const LIBRARY_ORDER = [
     "double-decision",
     "dual-n-back",
     "schulte-table",
+    "rotating-schulte-table",
     "reaction-time",
     "memory-matching-game",
     "block-memory-challenge",
@@ -71,6 +72,7 @@ const CHOICE_GROUPS = [
         id: "focus",
         games: [
             ["schulte-table", "schulte-table"],
+            ["rotating-schulte-table", "rotating-schulte-table"],
             ["fish-trace", "fish-trace"],
             ["focus-reaction-test", "focus-reaction-test"],
         ],

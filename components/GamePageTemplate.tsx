@@ -49,10 +49,12 @@ interface GamePageTemplateProps {
     gameId: string;
     title: string;
     subtitle: string;
+    description?: React.ReactNode;
     gameComponent: React.ReactNode;
     howToPlay: React.ReactNode;
     additionalContent?: React.ReactNode;
     benefits?: BenefitItem[];
+    benefitsTitle?: React.ReactNode;
     science?: ScienceInfo;
     faq?: FaqItem[];
     relatedGames?: string[];
@@ -71,10 +73,12 @@ export function GamePageTemplate({
     gameId,
     title,
     subtitle,
+    description,
     gameComponent,
     howToPlay,
     additionalContent,
     benefits,
+    benefitsTitle,
     science,
     faq,
     relatedGames,
@@ -110,6 +114,11 @@ export function GamePageTemplate({
             {/* 游戏标题和描述 */}
             <div className="container mx-auto pt-8">
                 <GameHeader title={title} subtitle={subtitle} />
+                {description && (
+                    <div className="mx-auto -mt-6 mb-10 max-w-3xl text-center text-lg leading-relaxed text-muted-foreground">
+                        {description}
+                    </div>
+                )}
             </div>
 
             {/* 游戏组件 */}
@@ -177,7 +186,7 @@ export function GamePageTemplate({
             {benefits && benefits.length > 0 && (
                 <section className="max-w-6xl mx-auto mb-16 py-16">
                     <h2 className="text-3xl font-bold mb-12 text-center">
-                        {gameT("cognitiveBenefits")}
+                        {benefitsTitle ?? gameT("cognitiveBenefits")}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {benefits.map((benefit, index) => (

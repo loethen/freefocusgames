@@ -213,7 +213,7 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
                 ]
             }}
             faq={faq}
-            relatedGames={["fish-trace", "block-memory-challenge"]}
+            relatedGames={["rotating-schulte-table", "fish-trace", "block-memory-challenge"]}
             hasLeaderboard={true}
             leaderboardFormatterType="schulte"
             leaderboardMode={RANKED_LEADERBOARD_MODE}
