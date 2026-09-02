@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 
 // Select specific games for the bento grid
 const FEATURED_GAME_ID = 'rotating-schulte-table';
-const SECONDARY_GAME_IDS = ['counting-boxes', 'sbti-test', 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'];
+const SECONDARY_GAME_IDS = ['dual-n-back', 'sbti-test', 'reaction-time', 'stroop-effect-test', 'frog-memory-leap'];
 
 export default function FeaturedBentoGrid() {
     const t = useTranslations("home");
