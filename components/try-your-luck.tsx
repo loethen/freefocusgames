@@ -4,23 +4,35 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { RefreshCw, Shuffle } from "lucide-react";
 
-import { getGame, type Game } from "@/data/games";
+import { games, getGame, getLatestGames, type Game } from "@/data/games";
 import GameCard from "@/components/game-card";
 import { Button } from "@/components/ui/button";
 
-// Keep this list focused on games that are fun to discover, even when they are
-// not part of the homepage's most-search-oriented sections.
-const TRY_YOUR_LUCK_GAME_IDS = [
+// These are the games already shown in the homepage's Popular Games bento.
+const HOMEPAGE_POPULAR_GAME_IDS = [
+    "rotating-schulte-table",
+    "dual-n-back",
+    "sbti-test",
+    "reaction-time",
+    "stroop-effect-test",
+    "frog-memory-leap",
+] as const;
+
+// Build the discovery pool from every other game, so new games are included
+// automatically without having to maintain a second curated list.
+const EXCLUDED_GAME_IDS = new Set([
+    ...HOMEPAGE_POPULAR_GAME_IDS,
+    ...getLatestGames(3).map((game) => game.id),
+]);
+const TRY_YOUR_LUCK_GAME_IDS = games
+    .filter((game) => !EXCLUDED_GAME_IDS.has(game.id))
+    .map((game) => game.id);
+
+const INITIAL_GAME_IDS = [
     "counting-boxes",
     "baby-animal-matching",
     "focus-sudoku",
-    "larger-number",
-    "memory-matching-game",
-    "free-short-term-memory-test",
-    "fish-trace",
-] as const;
-
-const INITIAL_GAME_IDS = TRY_YOUR_LUCK_GAME_IDS.slice(0, 3);
+].filter((id) => TRY_YOUR_LUCK_GAME_IDS.includes(id));
 const PICKS_PER_REFRESH = 3;
 
 function shuffle<T>(items: readonly T[]): T[] {
