@@ -189,7 +189,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         }
     ];
     const popularToolLinks = [
-        { id: "doubleDecision", href: "/games/double-decision" },
+        { id: "dualNBack", href: "/games/dual-n-back" },
         { id: "schulteTable", href: "/games/schulte-table" },
         { id: "pomodoroTimer", href: "/games/pomodoro-timer" },
         { id: "visualTracking", href: "/categories/visual-tracking" },

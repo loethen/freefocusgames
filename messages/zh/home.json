@@ -56,7 +56,7 @@
         }
       },
       "tools": {
-        "doubleDecision": "Double Decision 视觉速度训练",
+        "dualNBack": "双重 N-Back 训练",
         "schulteTable": "在线舒尔特表格",
         "pomodoroTimer": "在线番茄钟",
         "visualTracking": "视觉追踪游戏",

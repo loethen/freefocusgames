@@ -3444,7 +3444,7 @@
         }
       },
       "tools": {
-        "doubleDecision": "Double Decision Visual Speed Training",
+        "dualNBack": "Dual N-Back Training",
         "schulteTable": "Schulte Table Online",
         "pomodoroTimer": "Pomodoro Timer Online",
         "visualTracking": "Visual Tracking Games",
