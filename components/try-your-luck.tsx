@@ -28,12 +28,8 @@ const TRY_YOUR_LUCK_GAME_IDS = games
     .filter((game) => !EXCLUDED_GAME_IDS.has(game.id))
     .map((game) => game.id);
 
-const INITIAL_GAME_IDS = [
-    "counting-boxes",
-    "baby-animal-matching",
-    "focus-sudoku",
-].filter((id) => TRY_YOUR_LUCK_GAME_IDS.includes(id));
 const PICKS_PER_REFRESH = 3;
+const INITIAL_GAME_IDS = TRY_YOUR_LUCK_GAME_IDS.slice(0, PICKS_PER_REFRESH);
 
 function shuffle<T>(items: readonly T[]): T[] {
     const shuffled = [...items];
@@ -53,7 +49,7 @@ function pickNewGameIds(currentIds: readonly string[]): string[] {
 
 export default function TryYourLuck() {
     const t = useTranslations("home");
-    const [gameIds, setGameIds] = useState<string[]>([...INITIAL_GAME_IDS]);
+    const [gameIds, setGameIds] = useState<string[]>(INITIAL_GAME_IDS);
 
     const refreshGames = () => {
         setGameIds((currentIds) => pickNewGameIds(currentIds));
