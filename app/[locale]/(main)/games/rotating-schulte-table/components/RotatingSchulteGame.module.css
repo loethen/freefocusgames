@@ -170,15 +170,3 @@
     transform: rotate(var(--label-turn));
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .boardSvg {
-    transition: none;
-  }
-
-  .ringMotion,
-  .labelMotion,
-  .error .segmentPath {
-    animation: none;
-  }
-}
