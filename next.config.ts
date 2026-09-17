@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
   // 关闭 React Strict Mode，防止某些特殊客户端库被双重初始化
   reactStrictMode: false,
   // 这里可以添加将来需要的配置选项
+  async headers() {
+    const noIndex = [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }];
+    return process.env.SITE_INDEXABLE === 'false'
+      ? [{ source: '/:path*', headers: noIndex }]
+      : [{ source: '/:path*', has: [{ type: 'host', value: '.*\\.workers\\.dev' }], headers: noIndex }];
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

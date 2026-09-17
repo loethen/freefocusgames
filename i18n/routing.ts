@@ -9,5 +9,9 @@ export const routing = defineRouting({
 
     // Default locale doesn't need prefix
     localePrefix: "as-needed",
+    // A public URL always serves the same language; the switcher changes the URL.
+    localeDetection: false,
+    // Page metadata and sitemap know which translations actually exist.
+    alternateLinks: false,
 });
 

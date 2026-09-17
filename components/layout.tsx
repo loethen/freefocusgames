@@ -13,9 +13,8 @@ export function Layout({
 }) {
     const t = useTranslations('common');
     const locale = useLocale();
-    // Default to desktop view (sidebar open) for SSG consistency
-    // This might cause a hydration mismatch on mobile which useEffect will fix
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    // CSS chooses the initial viewport layout before hydration.
+    const [isSidebarOpen, setIsSidebarOpen] = useState<boolean | null>(null);
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -65,20 +64,22 @@ export function Layout({
 
     return (
         <div className="min-h-screen">
-            <Header onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+            <Header onToggleSidebar={() => setIsSidebarOpen(open => !(open ?? !isMobile))} />
 
             {/* Sidebar */}
             <div
                 className={`
           fixed top-0 h-screen
-          w-full md:w-[180px]
+          w-full lg:w-[180px]
           flex pt-40
           transform transition-all duration-300 ease-in-out
-          shadow-lg md:shadow-none
-          bg-background/50 backdrop-blur-lg z-30 md:bg-transparent
-          ${isSidebarOpen
-                        ? "translate-x-0 opacity-100"
-                        : "-translate-x-full opacity-0 pointer-events-none"
+          shadow-lg lg:shadow-none
+          bg-background/50 backdrop-blur-lg z-30 lg:bg-transparent
+          ${isSidebarOpen === null
+                        ? "invisible -translate-x-full opacity-0 pointer-events-none lg:visible lg:translate-x-0 lg:opacity-100 lg:pointer-events-auto"
+                        : isSidebarOpen
+                            ? "visible translate-x-0 opacity-100"
+                            : "invisible -translate-x-full opacity-0 pointer-events-none"
                     }
         `}
             >
@@ -99,14 +100,10 @@ export function Layout({
             {/* Main content */}
             <div className="flex">
                 <aside
-                    className={`transition-all duration-300 ease-in-out ${isSidebarOpen ? (isMobile ? "w-0" : "w-[180px]") : "w-0"
-                        }`}
+                    className={`w-0 shrink-0 transition-[width] duration-300 ease-in-out motion-reduce:transition-none ${isSidebarOpen !== false ? "lg:w-[180px]" : ""}`}
                 />
                 <main
-                    className={`transition-all duration-300 ease-in-out flex-1 pl-4 pr-4 md:pl-8 md:pr-8 bg-background ${isSidebarOpen && !isMobile
-                            ? "md:w-[calc(100%-180px)]"
-                            : "w-full"
-                        }`}
+                    className="min-w-0 w-full flex-1 px-4 md:px-8 bg-background"
                 >
                     {children}
 

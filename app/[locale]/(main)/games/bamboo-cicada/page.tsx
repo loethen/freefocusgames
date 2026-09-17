@@ -1,3 +1,4 @@
+import { SITE_BASE_URL } from "@/lib/site-constants";
 import type { Metadata } from 'next';
 import { use } from 'react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -55,7 +56,7 @@ export default function BambooCicadaPage({
     const { locale } = use(params);
     setRequestLocale(locale);
     const t = useTranslations('games.bambooCicada');
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.freefocusgames.com';
+    const baseUrl = SITE_BASE_URL;
     const localePrefix = locale === 'en' ? '' : `/${locale}`;
     const pageUrl = `${baseUrl}${localePrefix}/games/bamboo-cicada`;
     const faq = [

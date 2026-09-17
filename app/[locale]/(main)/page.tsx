@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Marquee } from "@/components/magicui/marquee";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import { SingleTrackMarquee } from "@/components/magicui/marquee";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from "next";
 import { getBlogPosts } from "@/lib/blog";
@@ -593,75 +593,61 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         {t("home.testimonialsTitle")}
                     </h2>
 
-                    <div className="relative flex w-full flex-col items-center justify-center overflow-hidden px-2 sm:px-6">
-                        <Marquee pauseOnHover className="[--duration:20s] mb-8">
+                    <div className="relative px-2 sm:px-6">
+                        <SingleTrackMarquee pauseOnHover duration={20} trackClassName="gap-8 sm:gap-12" className="mb-8">
                             {firstRowReviews.map((review) => (
-                                <div key={review.username} className="mx-2 w-72 sm:mx-4">
-                                    <div
-                                        className={cn(
-                                            "relative h-full cursor-pointer overflow-hidden rounded-xl border p-5 sm:p-6",
-                                            "bg-background/80 hover:bg-border/10",
-                                            "border"
-                                        )}
-                                    >
-                                        <div className="flex flex-col gap-4">
-                                            <div className="flex items-center gap-2">
-                                                <div
-                                                    className={`h-16 w-16 rounded-full bg-linear-to-r ${review.gradient}`}
-                                                />
-                                                <div className="">
-                                                    <h3 className="text-lg font-semibold">
-                                                        {review.name}
-                                                    </h3>
-                                                    <p className="text-sm text-muted-foreground">
-                                                        {review.username}
-                                                    </p>
-                                                </div>
+                                <article
+                                    key={review.username}
+                                    data-use-case={review.name}
+                                    className="w-72 shrink-0 rounded-xl border border-border bg-background/80 p-5 transition-colors hover:bg-border/10 sm:p-6"
+                                >
+                                    <div className="flex h-full flex-col gap-4">
+                                        <div className="flex items-center gap-3">
+                                            <div
+                                                className={cn("h-16 w-16 shrink-0 rounded-full bg-linear-to-r", review.gradient)}
+                                                aria-hidden="true"
+                                            />
+                                            <div>
+                                                <h3 className="text-lg font-semibold">{review.name}</h3>
+                                                <p className="text-sm text-muted-foreground">{review.username}</p>
                                             </div>
-                                            <blockquote className="mt-2 text-sm">
-                                                {review.body}
-                                            </blockquote>
                                         </div>
+                                        <blockquote className="mt-2 text-sm text-muted-foreground">
+                                            {review.body}
+                                        </blockquote>
                                     </div>
-                                </div>
+                                </article>
                             ))}
-                        </Marquee>
+                        </SingleTrackMarquee>
 
-                        <Marquee reverse pauseOnHover className="[--duration:20s]">
+                        <SingleTrackMarquee reverse pauseOnHover duration={20} trackClassName="gap-8 sm:gap-12">
                             {secondRowReviews.map((review) => (
-                                <div key={review.username} className="mx-2 w-72 sm:mx-4">
-                                    <div
-                                        className={cn(
-                                            "relative h-full cursor-pointer overflow-hidden rounded-xl border p-5 sm:p-6",
-                                            "bg-background/80 hover:bg-border/10",
-                                            "border"
-                                        )}
-                                    >
-                                        <div className="flex flex-col gap-4">
-                                            <div className="flex items-center gap-2">
-                                                <div
-                                                    className={`h-16 w-16 rounded-full bg-linear-to-r ${review.gradient}`}
-                                                />
-                                                <div className="">
-                                                    <h3 className="text-lg font-semibold">
-                                                        {review.name}
-                                                    </h3>
-                                                    <h4 className="text-sm text-muted-foreground">
-                                                        {review.username}
-                                                    </h4>
-                                                </div>
+                                <article
+                                    key={review.username}
+                                    data-use-case={review.name}
+                                    className="w-72 shrink-0 rounded-xl border border-border bg-background/80 p-5 transition-colors hover:bg-border/10 sm:p-6"
+                                >
+                                    <div className="flex h-full flex-col gap-4">
+                                        <div className="flex items-center gap-3">
+                                            <div
+                                                className={cn("h-16 w-16 shrink-0 rounded-full bg-linear-to-r", review.gradient)}
+                                                aria-hidden="true"
+                                            />
+                                            <div>
+                                                <h3 className="text-lg font-semibold">{review.name}</h3>
+                                                <p className="text-sm text-muted-foreground">{review.username}</p>
                                             </div>
-                                            <blockquote className="mt-2 text-sm">
-                                                {review.body}
-                                            </blockquote>
                                         </div>
+                                        <blockquote className="mt-2 text-sm text-muted-foreground">
+                                            {review.body}
+                                        </blockquote>
                                     </div>
-                                </div>
+                                </article>
                             ))}
-                        </Marquee>
+                        </SingleTrackMarquee>
 
-                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background"></div>
-                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background"></div>
+                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background" />
+                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background" />
                     </div>
                 </section>
 

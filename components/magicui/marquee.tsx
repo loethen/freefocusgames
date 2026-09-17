@@ -1,5 +1,7 @@
+"use client";
+
 import { cn } from "@/lib/utils";
-import { ComponentPropsWithoutRef } from "react";
+import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
 
 interface MarqueeProps extends ComponentPropsWithoutRef<"div"> {
   /**
@@ -68,6 +70,114 @@ export function Marquee({
             {children}
           </div>
         ))}
+    </div>
+  );
+}
+
+interface SingleTrackMarqueeProps extends ComponentPropsWithoutRef<"div"> {
+  reverse?: boolean;
+  pauseOnHover?: boolean;
+  duration?: number;
+  trackClassName?: string;
+  children: React.ReactNode;
+}
+
+/**
+ * Moves one copy of its content between the two edges of the viewport.
+ * This keeps indexable text unique while preserving the marquee treatment.
+ */
+export function SingleTrackMarquee({
+  className,
+  reverse = false,
+  pauseOnHover = false,
+  duration = 20,
+  trackClassName,
+  children,
+  ...props
+}: SingleTrackMarqueeProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const animationRef = useRef<Animation | null>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const track = trackRef.current;
+
+    if (!container || !track) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const updateAnimation = () => {
+      animationRef.current?.cancel();
+      animationRef.current = null;
+      track.style.transform = "";
+
+      const distance = Math.max(track.scrollWidth - container.clientWidth, 0);
+      if (distance === 0 || reducedMotion.matches) return;
+
+      animationRef.current = track.animate(
+        [
+          { transform: "translate3d(0, 0, 0)" },
+          {
+            transform: `translate3d(${reverse ? distance : -distance}px, 0, 0)`,
+          },
+        ],
+        {
+          duration: Math.max(duration, 1) * 1000,
+          easing: "ease-in-out",
+          iterations: Infinity,
+          direction: "alternate",
+        },
+      );
+    };
+
+    const resizeObserver = new ResizeObserver(updateAnimation);
+    resizeObserver.observe(container);
+    resizeObserver.observe(track);
+    reducedMotion.addEventListener("change", updateAnimation);
+    updateAnimation();
+
+    return () => {
+      resizeObserver.disconnect();
+      reducedMotion.removeEventListener("change", updateAnimation);
+      animationRef.current?.cancel();
+      animationRef.current = null;
+    };
+  }, [duration, reverse]);
+
+  const pause = () => {
+    if (pauseOnHover) animationRef.current?.pause();
+  };
+
+  const resume = () => {
+    if (pauseOnHover) animationRef.current?.play();
+  };
+
+  return (
+    <div
+      {...props}
+      ref={containerRef}
+      className={cn(
+        "flex overflow-x-auto p-2 motion-safe:overflow-hidden",
+        reverse
+          ? "motion-safe:justify-end motion-reduce:justify-start"
+          : "justify-start",
+        className,
+      )}
+      onMouseEnter={pause}
+      onMouseLeave={resume}
+      onFocusCapture={pause}
+      onBlurCapture={resume}
+    >
+      <div
+        ref={trackRef}
+        className={cn(
+          "flex w-max min-w-full shrink-0 items-stretch gap-4 will-change-transform",
+          trackClassName,
+        )}
+      >
+        {children}
+      </div>
     </div>
   );
 }

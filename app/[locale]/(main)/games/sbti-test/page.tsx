@@ -1,3 +1,4 @@
+import { SITE_BASE_URL } from "@/lib/site-constants";
 import { Metadata } from 'next';
 import { use } from 'react';
 import { useTranslations } from 'next-intl';
@@ -34,7 +35,7 @@ export default function SbtiTestPage({ params }: { params: Promise<{ locale: str
     setRequestLocale(locale);
 
     const t = useTranslations('sbtiTest');
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.freefocusgames.com';
+    const baseUrl = SITE_BASE_URL;
     const localePrefix = locale === 'en' ? '' : `/${locale}`;
     const pageUrl = `${baseUrl}${localePrefix}/games/sbti-test`;
 

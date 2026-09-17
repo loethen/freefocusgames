@@ -1,3 +1,4 @@
+import { SITE_BASE_URL } from "@/lib/site-constants";
 import { Metadata } from "next";
 import { Link } from "@/i18n/navigation";
 import { PatternRecallGame } from "./components/PatternRecallGame";
@@ -41,7 +42,7 @@ export async function generateMetadata({
 export default function BlockMemoryPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.freefocusgames.com";
+    const baseUrl = SITE_BASE_URL;
     const t = useTranslations("games.blockMemoryChallenge");
     const tCommon = useTranslations("common");
     const benefitsT = useTranslations("games.blockMemoryChallenge.benefits");

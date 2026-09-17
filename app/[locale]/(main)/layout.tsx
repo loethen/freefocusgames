@@ -10,6 +10,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import { SITE_BASE_URL } from "@/lib/site-constants";
 import { getTranslations, getMessages, setRequestLocale } from 'next-intl/server';
 
 export const dynamic = "force-static";
@@ -29,7 +30,7 @@ export async function generateMetadata(
     const t = await getTranslations({ locale, namespace: 'metadata' });
 
     // 获取当前URL的基本部分（不包含locale）
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003";
+    const baseUrl = SITE_BASE_URL;
 
     return {
         // 网站级别的默认元数据
@@ -55,7 +56,7 @@ export async function generateMetadata(
         },
         // 其他通用配置
         robots: {
-            index: true,
+            index: process.env.SITE_INDEXABLE !== "false",
             follow: true,
         },
         authors: [{ name: 'FreeFocusGames Team' }],

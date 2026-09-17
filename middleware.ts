@@ -12,6 +12,11 @@ export default async function middleware(request: NextRequest) {
         return NextResponse.next();
     }
 
+    // This resource list has no Chinese translation; keep one indexable URL.
+    if (/^\/(?:en|zh)\/partnerships$/.test(pathname)) {
+        return NextResponse.redirect(new URL('/partnerships' + request.nextUrl.search, request.url), 301);
+    }
+
     // Career Tests are intentionally English-only. Keep their public URLs
     // unprefixed and ignore any previously selected site-language cookie.
     if (/^\/(?:en|zh)\/career-tests(?:\/|$)/.test(pathname)) {

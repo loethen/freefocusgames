@@ -1,3 +1,4 @@
+import { SITE_BASE_URL } from "@/lib/site-constants";
 import { Metadata } from 'next'
 import { use } from 'react'
 import { Brain, Eye, Zap } from 'lucide-react'
@@ -90,7 +91,7 @@ export default function DoubleDecisionPage({
   ]
 
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://www.freefocusgames.com'
+    SITE_BASE_URL
   const localePrefix = locale === 'en' ? '' : `/${locale}`
   const pageUrl = `${baseUrl}${localePrefix}/games/double-decision`
   const structuredData = [

@@ -1,6 +1,7 @@
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { routing } from '@/i18n/routing';
+import { SITE_BASE_URL } from '@/lib/site-constants';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -12,22 +13,19 @@ export function cn(...inputs: ClassValue[]) {
  * @param pagePath 当前页面路径（不包含语言前缀）
  * @returns 包含canonical和languages的alternates对象
  */
-export function generateAlternates(locale: string, pagePath: string = '') {
-  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.freefocusgames.com").replace(/\/+$/, '');
-  const cleanPath = pagePath.replace(/^\/+|\/+$/g, '');
-  const pathSuffix = cleanPath ? `/${cleanPath}` : '';
-  
-  // 为所有支持的语言创建备选语言链接
-  const alternateLanguages = routing.locales.reduce((acc, lang) => {
-    acc[lang] = `${baseUrl}${lang === 'en' ? '' : `/${lang}`}${pathSuffix}`;
-    return acc;
-  }, {} as Record<string, string>);
-  alternateLanguages['x-default'] = `${baseUrl}${pathSuffix}`;
-  
-  return {
-    canonical: `${baseUrl}${locale === 'en' ? '' : `/${locale}`}${pathSuffix}`,
-    languages: alternateLanguages,
-  };
+export function generateAlternates(
+  locale: string,
+  pagePath: string = '',
+  availableLocales: readonly string[] = routing.locales
+) {
+  const cleanPath = pagePath.split(/[?#]/, 1)[0].replace(/^\/+|\/+$/g, '');
+  const pageUrl = (lang: string) =>
+    `${SITE_BASE_URL}${lang === 'en' ? '' : `/${lang}`}${cleanPath ? `/${cleanPath}` : ''}`;
+  const languages = Object.fromEntries(availableLocales.map(lang => [lang, pageUrl(lang)]));
+  if (availableLocales.length) {
+    languages['x-default'] = pageUrl(availableLocales.includes('en') ? 'en' : availableLocales[0]);
+  }
+  return { canonical: pageUrl(locale), languages };
 }
 
 export function formatDate(date: string, locale: string): string {

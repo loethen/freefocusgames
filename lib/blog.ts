@@ -17,23 +17,16 @@ export interface PostNavigation {
 
 // Get all blog posts for a locale
 export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
-  // Try requested locale, fall back to English
-  const posts = blogData[locale] || blogData['en'] || [];
-  return posts;
+  return blogData[locale] || [];
 }
 
-// Get a single blog post by slug
+export function getBlogLocales(slug: string): string[] {
+  return Object.keys(blogData).filter(locale => blogData[locale].some(post => post.slug === slug));
+}
+
+// Never silently render an English article at an indexable Chinese URL.
 export async function getBlogPost(slug: string, locale: string = 'en'): Promise<BlogPost | null> {
-  const posts = await getBlogPosts(locale);
-  let post = posts.find(p => p.slug === slug) || null;
-
-  // Fall back to English if not found in requested locale
-  if (!post && locale !== 'en') {
-    const enPosts = blogData['en'] || [];
-    post = enPosts.find(p => p.slug === slug) || null;
-  }
-
-  return post;
+  return (await getBlogPosts(locale)).find(post => post.slug === slug) || null;
 }
 
 // Get navigation (previous/next) for a blog post

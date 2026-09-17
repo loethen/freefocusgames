@@ -1,3 +1,4 @@
+import { SITE_BASE_URL } from "@/lib/site-constants";
 import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
@@ -46,7 +47,7 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
   setRequestLocale(locale);
   const t = useTranslations('games.dualNBack');
   const tCommon = useTranslations('common');
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.freefocusgames.com';
+  const baseUrl = SITE_BASE_URL;
   const localePrefix = locale === 'en' ? '' : `/${locale}`;
   const pageUrl = `${baseUrl}${localePrefix}/games/dual-n-back`;
 

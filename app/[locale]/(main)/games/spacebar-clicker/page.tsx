@@ -1,3 +1,4 @@
+import { SITE_BASE_URL } from "@/lib/site-constants";
 import { Metadata } from 'next'
 import { use } from 'react'
 import { Keyboard, Gauge, TimerReset } from 'lucide-react'
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function SpacebarClickerPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.freefocusgames.com";
+    const baseUrl = SITE_BASE_URL;
     const t = useTranslations('games.spacebarClicker');
 
     const faq = [

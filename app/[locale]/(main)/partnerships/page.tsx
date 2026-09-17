@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { permanentRedirect } from 'next/navigation';
 import { Link as LinkIcon, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { CONTENT_LAST_UPDATED_EN } from '@/lib/site-constants';
@@ -8,6 +9,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
 ): Promise<Metadata> {
   const { locale } = await params;
+  if (locale !== 'en') permanentRedirect('/partnerships');
   return {
     title: "Our Partners and Featured Resources",
     description: "Discover websites and resources that have featured our brain training games and cognitive development tools.",
@@ -17,7 +19,7 @@ export async function generateMetadata(
       description: "See where our brain training games have been featured across the web.",
       type: "website",
     },
-    alternates: generateAlternates(locale, 'partnerships'),
+    alternates: { canonical: generateAlternates('en', 'partnerships', ['en']).canonical },
   }
 }
 
@@ -85,7 +87,8 @@ function Backlink({ title, url, description, category, date }: BacklinkProps) {
   );
 }
 
-export default function PartnershipsPage() {
+export default async function PartnershipsPage({ params }: { params: Promise<{ locale: string }> }) {
+  if ((await params).locale !== 'en') permanentRedirect('/partnerships');
   // Group backlinks by category
   const categories = [...new Set(backlinkData.map(item => item.category))];
   

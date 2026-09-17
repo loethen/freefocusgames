@@ -1,5 +1,5 @@
-import { getBlogPosts, getBlogPost, getPostNavigation } from '@/lib/blog';
-import { notFound } from 'next/navigation';
+import { getBlogPosts, getBlogPost, getPostNavigation, getBlogLocales } from '@/lib/blog';
+import { notFound, permanentRedirect } from 'next/navigation';
 import Image from 'next/image';
 import { formatDate, generateAlternates } from '@/lib/utils';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -9,6 +9,15 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { PostNavigation } from '@/components/post-navigation';
 import { ShareButton } from '@/components/share-button';
 import { routing } from '@/i18n/routing';
+
+async function getLocalizedPost(slug: string, locale: string) {
+  const post = await getBlogPost(slug, locale);
+  if (post) return post;
+  const locales = getBlogLocales(slug);
+  if (!locales.length) notFound();
+  const fallbackLocale = locales.includes('en') ? 'en' : locales[0];
+  permanentRedirect(`${fallbackLocale === 'en' ? '' : `/${fallbackLocale}`}/blog/${slug}`);
+}
 
 export const dynamic = "force-static";
 export const revalidate = 86400;
@@ -29,13 +38,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const post = await getBlogPost(slug, locale);
-
-  if (!post) {
-    return {
-      title: 'Post Not Found',
-    };
-  }
+  const post = await getLocalizedPost(slug, locale);
 
   return {
     title: post.title,
@@ -46,8 +49,10 @@ export async function generateMetadata(
       title: post.title,
       description: post.excerpt,
       type: 'article',
+      publishedTime: post.date,
+      modifiedTime: post.updatedAt || post.date,
     },
-    alternates: generateAlternates(locale, `blog/${slug}`),
+    alternates: generateAlternates(locale, `blog/${slug}`, getBlogLocales(slug)),
   };
 }
 
@@ -57,11 +62,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
   const t = await getTranslations({ locale, namespace: 'blog' });
   const commonT = await getTranslations({ locale, namespace: 'common' });
-  const post = await getBlogPost(slug, locale);
-
-  if (!post) {
-    notFound();
-  }
+  const post = await getLocalizedPost(slug, locale);
 
   const navigation = await getPostNavigation(slug, locale);
 
@@ -95,6 +96,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               <div className="font-medium">{post.author.name}</div>
               <div className="text-sm text-muted-foreground">
                 {formatDate(post.date, locale)}
+                {post.updatedAt && (
+                  <span> · {locale === 'zh' ? '更新于' : 'Updated'} <time dateTime={post.updatedAt}>{formatDate(post.updatedAt, locale)}</time></span>
+                )}
               </div>
             </div>
           </div>

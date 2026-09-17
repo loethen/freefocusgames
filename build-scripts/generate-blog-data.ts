@@ -12,6 +12,7 @@ interface BlogPost {
     slug: string;
     title: string;
     date: string;
+  updatedAt?: string;
     excerpt: string;
     coverImage?: string;
     keywords?: string;
@@ -50,6 +51,7 @@ function processMarkdownFiles(dir: string): BlogPost[] {
                 slug,
                 title: data.title || '',
                 date: data.date || '',
+        ...(data.updatedAt ? { updatedAt: data.updatedAt } : {}),
                 excerpt: data.excerpt || '',
                 coverImage: data.coverImage,
                 keywords: data.keywords || '',
@@ -98,6 +100,7 @@ export interface BlogPost {
   slug: string;
   title: string;
   date: string;
+  updatedAt?: string;
   excerpt: string;
   coverImage?: string;
   keywords?: string;

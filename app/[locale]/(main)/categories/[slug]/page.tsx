@@ -3,6 +3,7 @@ import { getGamesByCategory } from "@/data/games";
 import GameCard from "@/components/game-card";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from "@/i18n/routing";
 import { generateAlternates } from "@/lib/utils";
@@ -32,12 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // Load translations once with a merged namespace
   const t = await getTranslations({ locale, namespace: 'categories' });
 
-  if (!category) {
-    return {
-      title: t('categoryNotFound'),
-      description: t('categoryNotFoundDesc')
-    };
-  }
+  if (!category) notFound();
 
   const categoryName = t(`categoryNames.${category.id}`, { defaultMessage: category.name });
   const categoryDescription = t(`categoryDescriptions.${category.id}`, { defaultMessage: category.description });
@@ -87,7 +83,7 @@ export default async function CategoryPage({ params }: Props) {
   const category = getCategoryBySlug(slug);
 
   if (!category) {
-    return <div>Category not found</div>;
+    notFound();
   }
 
   const games = getGamesByCategory(category.id);

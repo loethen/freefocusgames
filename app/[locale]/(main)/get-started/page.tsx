@@ -10,7 +10,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: 'getStarted.meta' });
-  
+
   return {
     title: t('title'),
     description: t('description'),
@@ -26,4 +26,4 @@ export async function generateMetadata({
 
 export default function GetStartedPage() {
   return <OnboardingFlow />;
-} 
+}
