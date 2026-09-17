@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 import { routing } from '@/i18n/routing'
+import { generateAlternates } from '@/lib/utils'
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -25,6 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: t('metadata.ogDescription'),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
+    alternates: generateAlternates(locale, 'games/frog-memory-leap'),
   };
 }
 

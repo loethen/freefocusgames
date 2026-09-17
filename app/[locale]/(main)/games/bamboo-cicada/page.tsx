@@ -55,7 +55,7 @@ export default function BambooCicadaPage({
     const { locale } = use(params);
     setRequestLocale(locale);
     const t = useTranslations('games.bambooCicada');
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://freefocusgames.com';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.freefocusgames.com';
     const localePrefix = locale === 'en' ? '' : `/${locale}`;
     const pageUrl = `${baseUrl}${localePrefix}/games/bamboo-cicada`;
     const faq = [

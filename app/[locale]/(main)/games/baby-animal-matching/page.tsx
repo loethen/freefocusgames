@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server'; // Import server-side translator
 import { use } from 'react';
 import { routing } from '@/i18n/routing';
+import { generateAlternates } from '@/lib/utils';
 
 // Define types for placeholders
 interface Benefit {
@@ -49,9 +50,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
             title: t('twitterTitle'),
             description: t('twitterDescription'),
         },
-        alternates: {
-            canonical: "/games/baby-animal-matching", // Keep canonical static or handle localization if needed
-        },
+        alternates: generateAlternates(locale, 'games/baby-animal-matching'),
     };
 }
 

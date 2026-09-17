@@ -46,7 +46,7 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
   setRequestLocale(locale);
   const t = useTranslations('games.dualNBack');
   const tCommon = useTranslations('common');
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://freefocusgames.com';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.freefocusgames.com';
   const localePrefix = locale === 'en' ? '' : `/${locale}`;
   const pageUrl = `${baseUrl}${localePrefix}/games/dual-n-back`;
 

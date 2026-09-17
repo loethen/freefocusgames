@@ -2,8 +2,12 @@ import { Metadata } from "next";
 import { Link as LinkIcon, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { CONTENT_LAST_UPDATED_EN } from '@/lib/site-constants';
+import { generateAlternates } from '@/lib/utils';
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: Promise<{ locale: string }> }
+): Promise<Metadata> {
+  const { locale } = await params;
   return {
     title: "Our Partners and Featured Resources",
     description: "Discover websites and resources that have featured our brain training games and cognitive development tools.",
@@ -12,7 +16,8 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Our Partners and Resources | FreeFocusGames",
       description: "See where our brain training games have been featured across the web.",
       type: "website",
-    }
+    },
+    alternates: generateAlternates(locale, 'partnerships'),
   }
 }
 

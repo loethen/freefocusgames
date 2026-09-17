@@ -8,99 +8,56 @@ const LOCALES = ['en', 'zh'] // 支持的语言列表
 const CAREER_TEST_LAST_UPDATED_DATE = new Date('2026-08-17T00:00:00.000Z')
 export const revalidate = 86400
 
+function getLanguages(pagePath: string) {
+  const cleanPath = pagePath.replace(/^\/+|\/+$/g, '');
+  const pathSuffix = cleanPath ? `/${cleanPath}` : '';
+  return {
+    en: `${SITE_BASE_URL}${pathSuffix}`,
+    zh: `${SITE_BASE_URL}/zh${pathSuffix}`,
+  };
+}
+
 // 生成基本页面路由
 function generateBaseRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
-  return [
-    {
-      url: `${SITE_BASE_URL}${localePrefix}`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'weekly',
-      priority: 1.0,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/games`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/categories`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/blog`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/about`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.7,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/tests`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/guides`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/get-started`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/working-memory-guide`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/adhd-assessment`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/partnerships`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/privacy-policy`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'yearly',
-      priority: 0.4,
-    },
-    {
-      url: `${SITE_BASE_URL}${localePrefix}/terms-of-service`,
-      lastModified: CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'yearly',
-      priority: 0.4,
-    }
+  const basePages = [
+    { path: '', changeFrequency: 'weekly' as const, priority: 1.0 },
+    { path: 'games', changeFrequency: 'weekly' as const, priority: 0.9 },
+    { path: 'categories', changeFrequency: 'weekly' as const, priority: 0.8 },
+    { path: 'blog', changeFrequency: 'daily' as const, priority: 0.9 },
+    { path: 'about', changeFrequency: 'monthly' as const, priority: 0.7 },
+    { path: 'tests', changeFrequency: 'monthly' as const, priority: 0.9 },
+    { path: 'guides', changeFrequency: 'monthly' as const, priority: 0.9 },
+    { path: 'get-started', changeFrequency: 'monthly' as const, priority: 0.8 },
+    { path: 'working-memory-guide', changeFrequency: 'monthly' as const, priority: 0.9 },
+    { path: 'adhd-assessment', changeFrequency: 'monthly' as const, priority: 0.8 },
+    { path: 'partnerships', changeFrequency: 'monthly' as const, priority: 0.6 },
+    { path: 'privacy-policy', changeFrequency: 'yearly' as const, priority: 0.4 },
+    { path: 'terms-of-service', changeFrequency: 'yearly' as const, priority: 0.4 },
   ]
+
+  return basePages.map((page) => ({
+    url: `${SITE_BASE_URL}${localePrefix}${page.path ? `/${page.path}` : ''}`,
+    lastModified: CONTENT_LAST_UPDATED_DATE,
+    changeFrequency: page.changeFrequency,
+    priority: page.priority,
+    alternates: {
+      languages: getLanguages(page.path),
+    },
+  }))
 }
 
 // 生成游戏页面路由
 function generateGameRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
-  return games.map(game => ({
+  return games.map((game) => ({
     url: `${SITE_BASE_URL}${localePrefix}/games/${game.slug}`,
     lastModified: CONTENT_LAST_UPDATED_DATE,
-    changeFrequency: 'weekly',
+    changeFrequency: 'weekly' as const,
     priority: 0.8,
+    alternates: {
+      languages: getLanguages(`games/${game.slug}`),
+    },
   }))
 }
 
@@ -109,7 +66,7 @@ function generateCareerTestRoutes(): MetadataRoute.Sitemap {
     '/career-tests',
     '/career-tests/criticall-practice-test',
     '/career-tests/911-dispatcher-typing-test',
-  ].map(path => ({
+  ].map((path) => ({
     url: `${SITE_BASE_URL}${path}`,
     lastModified: CAREER_TEST_LAST_UPDATED_DATE,
     changeFrequency: 'weekly' as const,
@@ -120,11 +77,14 @@ function generateCareerTestRoutes(): MetadataRoute.Sitemap {
 // 生成分类页面路由
 function generateCategoryRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
-  return categories.map(category => ({
+  return categories.map((category) => ({
     url: `${SITE_BASE_URL}${localePrefix}/categories/${category.slug}`,
     lastModified: CONTENT_LAST_UPDATED_DATE,
-    changeFrequency: 'weekly',
+    changeFrequency: 'weekly' as const,
     priority: 0.7,
+    alternates: {
+      languages: getLanguages(`categories/${category.slug}`),
+    },
   }))
 }
 
@@ -134,11 +94,14 @@ function generateBlogRoutes(locale: string): MetadataRoute.Sitemap {
   const posts = blogData[locale] || blogData.en || []
 
   return posts.map((post) => ({
-      url: `${SITE_BASE_URL}${localePrefix}/blog/${post.slug}`,
-      lastModified: post.date ? new Date(post.date) : CONTENT_LAST_UPDATED_DATE,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    }))
+    url: `${SITE_BASE_URL}${localePrefix}/blog/${post.slug}`,
+    lastModified: post.date ? new Date(post.date) : CONTENT_LAST_UPDATED_DATE,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+    alternates: {
+      languages: getLanguages(`blog/${post.slug}`),
+    },
+  }))
 }
 
 // 静态生成sitemap
@@ -155,4 +118,4 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   return routes
-} 
+}

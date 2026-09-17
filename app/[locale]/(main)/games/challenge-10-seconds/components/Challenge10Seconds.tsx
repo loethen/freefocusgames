@@ -141,8 +141,8 @@ export default function Challenge10Seconds() {
                 ],
                 footer: t('gameUI.cardFooter', { count: insights.sessions }),
                 siteUrl: locale === 'en'
-                    ? 'freefocusgames.com/games/challenge-10-seconds'
-                    : `freefocusgames.com/${locale}/games/challenge-10-seconds`,
+                    ? 'www.freefocusgames.com/games/challenge-10-seconds'
+                    : `www.freefocusgames.com/${locale}/games/challenge-10-seconds`,
                 theme: {
                     backgroundFrom: '#faf6ef',
                     backgroundTo: '#e7edf3',

@@ -1,18 +1,18 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { BlogPost } from '@/lib/blog';
 
 interface PostNavigationProps {
   previousPost: BlogPost | null;
   nextPost: BlogPost | null;
-  locale: string;
+  locale?: string;
   labels: {
     previousPost: string;
     nextPost: string;
   };
 }
 
-export function PostNavigation({ previousPost, nextPost, locale, labels }: PostNavigationProps) {
+export function PostNavigation({ previousPost, nextPost, labels }: PostNavigationProps) {
   if (!previousPost && !nextPost) {
     return null;
   }
@@ -21,7 +21,7 @@ export function PostNavigation({ previousPost, nextPost, locale, labels }: PostN
     <div className="grid md:grid-cols-2 gap-4 border-t border-b py-6 my-8">
       {previousPost ? (
         <Link 
-          href={`/${locale}/blog/${previousPost.slug}`}
+          href={`/blog/${previousPost.slug}`}
           className="flex flex-col p-4 rounded-md hover:bg-muted transition-colors group"
         >
           <span className="flex items-center text-sm text-muted-foreground mb-2">
@@ -36,7 +36,7 @@ export function PostNavigation({ previousPost, nextPost, locale, labels }: PostN
 
       {nextPost ? (
         <Link 
-          href={`/${locale}/blog/${nextPost.slug}`}
+          href={`/blog/${nextPost.slug}`}
           className="flex flex-col p-4 rounded-md hover:bg-muted transition-colors group text-right"
         >
           <span className="flex items-center text-sm text-muted-foreground mb-2 justify-end">

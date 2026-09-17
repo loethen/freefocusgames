@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import { routing } from '@/i18n/routing'
+import { generateAlternates } from '@/lib/utils'
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -27,13 +28,14 @@ export async function generateMetadata(
             description: t('metadata.ogDescription'),
             images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
         },
+        alternates: generateAlternates(locale, 'games/478-breathing'),
         other: {
             'script:ld+json': JSON.stringify({
                 "@context": "https://schema.org",
                 "@type": "WebApplication",
                 "name": t('title'),
                 "description": t('metadata.description'),
-                "url": `https://freefocusgames.com/${locale}/games/478-breathing`,
+                "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/478-breathing`,
                 "applicationCategory": "HealthApplication",
                 "operatingSystem": "Web Browser",
                 "offers": {

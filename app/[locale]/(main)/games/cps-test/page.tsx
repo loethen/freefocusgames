@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function CPSTestPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://freefocusgames.com";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.freefocusgames.com";
     const t = useTranslations('games.cpsTest');
     const faq = [
         {
@@ -147,9 +147,7 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
             science={{
                 title: t('science.title'),
                 description: t('science.description'),
-                blogArticleUrl: locale === 'zh'
-                    ? "/zh/blog/what-is-a-good-cps-test-score"
-                    : "/blog/what-is-a-good-cps-test-score",
+                blogArticleUrl: "/blog/what-is-a-good-cps-test-score",
                 blogArticleTitle: t('science.blogArticleTitle'),
             }}
             faq={faq}

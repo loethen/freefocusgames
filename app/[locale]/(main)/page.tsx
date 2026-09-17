@@ -95,7 +95,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Free Focus Games",
-        "url": "https://freefocusgames.com",
+        "url": "https://www.freefocusgames.com",
         "description": t("home.metaDescription")
     };
 

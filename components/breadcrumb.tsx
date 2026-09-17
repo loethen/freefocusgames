@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/navigation';
 import { ChevronRight, Home } from 'lucide-react';
 
 interface BreadcrumbItem {
@@ -9,15 +9,15 @@ interface BreadcrumbItem {
 interface BreadcrumbProps {
   items: BreadcrumbItem[];
   homeLabel: string;
-  locale: string;
+  locale?: string;
 }
 
-export function Breadcrumb({ items, homeLabel, locale }: BreadcrumbProps) {
+export function Breadcrumb({ items, homeLabel }: BreadcrumbProps) {
   return (
     <nav className="flex items-center text-sm text-muted-foreground mb-6" aria-label="Breadcrumb">
       <ol className="flex items-center space-x-1">
         <li>
-          <Link href={`/${locale}`} className="flex items-center hover:text-foreground">
+          <Link href="/" className="flex items-center hover:text-foreground">
             <Home className="h-4 w-4 mr-1" />
             <span>{homeLabel}</span>
           </Link>

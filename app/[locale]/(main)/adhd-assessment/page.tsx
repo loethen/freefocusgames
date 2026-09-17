@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import AdhdAssessmentFlow from './components/AdhdAssessmentFlow';
+import { generateAlternates } from '@/lib/utils';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -15,13 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       description: t('ogDescription'),
       type: 'website',
     },
-    alternates: {
-      canonical: `/${locale}/adhd-assessment`,
-      languages: {
-        'zh': '/zh/adhd-assessment',
-        'en': '/en/adhd-assessment',
-      },
-    },
+    alternates: generateAlternates(locale, 'adhd-assessment'),
   };
 }
 

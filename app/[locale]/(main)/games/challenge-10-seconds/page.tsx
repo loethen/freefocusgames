@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function Challenge10SecondsPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://freefocusgames.com";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.freefocusgames.com";
     const localePrefix = locale === 'en' ? '' : `/${locale}`;
     const pageUrl = `${baseUrl}${localePrefix}/games/challenge-10-seconds`;
     const t = useTranslations('games.challenge10Seconds');

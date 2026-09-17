@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import "../globals.css";
-import { cn, generateAlternates } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Layout } from "@/components/layout";
 import { ThemeProvider } from "next-themes";
 // import { headers } from "next/headers";
@@ -53,8 +53,6 @@ export async function generateMetadata(
         twitter: {
             card: 'summary_large_image',
         },
-        // 多语言替代版本
-        alternates: generateAlternates(locale),
         // 其他通用配置
         robots: {
             index: true,

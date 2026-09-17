@@ -34,7 +34,7 @@ export default function SbtiTestPage({ params }: { params: Promise<{ locale: str
     setRequestLocale(locale);
 
     const t = useTranslations('sbtiTest');
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://freefocusgames.com';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.freefocusgames.com';
     const localePrefix = locale === 'en' ? '' : `/${locale}`;
     const pageUrl = `${baseUrl}${localePrefix}/games/sbti-test`;
 

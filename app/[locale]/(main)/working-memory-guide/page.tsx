@@ -48,7 +48,7 @@ export async function generateMetadata(
                 "@type": "Article",
                 "headline": t('metaTitle'),
                 "description": t('metaDescription'),
-                "image": "https://freefocusgames.com/og/oglogo.png",
+                "image": "https://www.freefocusgames.com/og/oglogo.png",
                 "datePublished": "2024-01-01",
                 "dateModified": CONTENT_LAST_UPDATED_ISO,
                 "author": {
@@ -60,7 +60,7 @@ export async function generateMetadata(
                     "name": "Free Focus Games",
                     "logo": {
                         "@type": "ImageObject",
-                        "url": "https://freefocusgames.com/logo.png"
+                        "url": "https://www.freefocusgames.com/logo.png"
                     }
                 }
             })

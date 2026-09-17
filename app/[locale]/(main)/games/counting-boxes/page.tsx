@@ -6,6 +6,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import { routing } from '@/i18n/routing';
+import { generateAlternates } from '@/lib/utils';
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -28,6 +29,7 @@ export async function generateMetadata(
             description: t('ogDescription'),
             images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
         },
+        alternates: generateAlternates(locale, 'games/counting-boxes'),
     };
 }
 

@@ -42,7 +42,7 @@ export async function generateMetadata(
 export default function SchultePage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://freefocusgames.com";
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.freefocusgames.com";
     const t = useTranslations('games');
     const tCommon = useTranslations('common');
     const benefitsT = useTranslations('games.schulteTable.benefits');

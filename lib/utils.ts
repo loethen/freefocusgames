@@ -13,20 +13,19 @@ export function cn(...inputs: ClassValue[]) {
  * @returns 包含canonical和languages的alternates对象
  */
 export function generateAlternates(locale: string, pagePath: string = '') {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3003";
-  
-  // 确保pagePath以/开头
-  const normalizePage = pagePath.startsWith('/') ? pagePath : `/${pagePath}`;
+  const baseUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.freefocusgames.com").replace(/\/+$/, '');
+  const cleanPath = pagePath.replace(/^\/+|\/+$/g, '');
+  const pathSuffix = cleanPath ? `/${cleanPath}` : '';
   
   // 为所有支持的语言创建备选语言链接
   const alternateLanguages = routing.locales.reduce((acc, lang) => {
-    acc[lang] = `${baseUrl}${lang === 'en' ? '' : `/${lang}`}${normalizePage}`;
+    acc[lang] = `${baseUrl}${lang === 'en' ? '' : `/${lang}`}${pathSuffix}`;
     return acc;
   }, {} as Record<string, string>);
-  alternateLanguages['x-default'] = `${baseUrl}${normalizePage}`;
+  alternateLanguages['x-default'] = `${baseUrl}${pathSuffix}`;
   
   return {
-    canonical: `${baseUrl}${locale === 'en' ? '' : `/${locale}`}${normalizePage}`,
+    canonical: `${baseUrl}${locale === 'en' ? '' : `/${locale}`}${pathSuffix}`,
     languages: alternateLanguages,
   };
 }
