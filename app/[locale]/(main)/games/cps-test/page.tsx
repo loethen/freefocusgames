@@ -9,6 +9,8 @@ import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
 
+const coverImage = '/games/cps-test-cover.png';
+
 // Generate static params for all locales
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -25,7 +27,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         openGraph: {
             title: t('metadata.ogTitle'),
             description: t('metadata.ogDescription'),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('title'),
+            }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('metadata.ogTitle'),
+            description: t('metadata.ogDescription'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/cps-test'),
     };
@@ -69,6 +82,7 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
             "name": t('title'),
             "description": t('metadata.description'),
             "url": `${baseUrl}/games/cps-test`,
+            "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "GameApplication",
             "operatingSystem": "Web Browser",
             "offers": {
@@ -152,7 +166,7 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
                 blogArticleTitle: t('science.blogArticleTitle'),
             }}
             faq={faq}
-            relatedGames={["spacebar-clicker", "reaction-time", "focus-reaction-test"]}
+            relatedGames={["spacebar-clicker", "reaction-time", "challenge10Seconds"]}
             hasLeaderboard={true}
             leaderboardFormatterType="cps"
             leaderboardMode="5s"

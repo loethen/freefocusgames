@@ -5,6 +5,8 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from '@/i18n/routing';
 import { generateAlternates } from '@/lib/utils';
 
+const coverImage = '/games/focus-sudoku-cover.png';
+
 // Generate static params for all locales
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -22,7 +24,13 @@ export async function generateMetadata(
         openGraph: {
             title: t('title'),
             description: t('subtitle'),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{ url: coverImage, width: 1200, height: 675, alt: t('title') }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('title'),
+            description: t('subtitle'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/focus-sudoku'),
     };

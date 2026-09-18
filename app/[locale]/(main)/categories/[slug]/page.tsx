@@ -90,11 +90,35 @@ export default async function CategoryPage({ params }: Props) {
 
   // 获取服务器端翻译
   const t = await getTranslations({ locale, namespace: 'categories' });
+  const allT = await getTranslations({ locale });
   const categoryName = t(`categoryNames.${category.id}`, { defaultMessage: category.name });
   const categoryDescription = t(`categoryDescriptions.${category.id}`, { defaultMessage: category.description });
   const categoryGamesHeading = t('categoryGamesHeading', { categoryName: categoryName });
   const categoriesTitle = t('title');
   const categoryIntro = t('categoryIntro', { categoryName });
+  const clusterLinks = category.id === 'reaction-time'
+    ? [
+        { href: '/games/challenge-10-seconds', label: allT('games.challenge10Seconds.title') },
+        { href: '/games/reaction-time', label: allT('games.reactionTime.title') },
+        { href: '/games/cps-test', label: allT('games.cpsTest.title') },
+        { href: '/games/spacebar-clicker', label: allT('games.spacebarClicker.title') },
+      ]
+    : category.id === 'working-memory'
+      ? [
+          { href: '/games/dual-n-back', label: allT('games.dualNBack.title') },
+          { href: '/games/free-short-term-memory-test', label: allT('games.freeShortTermMemoryTest.title') },
+          { href: '/working-memory-guide', label: allT('workingMemoryGuide.title') },
+        ]
+      : category.id === 'visual-tracking'
+        ? [
+            { href: '/games/schulte-table', label: allT('games.schulteTable.title') },
+            { href: '/games/rotating-schulte-table', label: allT('games.rotatingSchulteTable.title') },
+            {
+              href: '/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed',
+              label: allT('games.schulteTable.science.blogArticleTitle'),
+            },
+          ]
+        : [];
 
   return (
     <div className="max-w-7xl mx-auto py-8">
@@ -110,6 +134,30 @@ export default async function CategoryPage({ params }: Props) {
       </h1>
       <p className="mb-4 max-w-4xl mx-auto text-center leading-8 text-foreground/90">{categoryDescription}</p>
       <p className="mb-8 max-w-3xl mx-auto text-center text-sm text-muted-foreground leading-7">{categoryIntro}</p>
+
+      {clusterLinks.length > 0 && (
+        <section className="mx-auto mb-10 max-w-4xl rounded-2xl border border-border bg-muted/20 p-5 sm:p-6">
+          <h2 className="text-center text-xl font-semibold">{t('startHereTitle')}</h2>
+          <p className="mx-auto mt-2 max-w-2xl text-center text-sm leading-6 text-muted-foreground">
+            {t('startHereDescription', { categoryName })}
+          </p>
+          <nav className="mt-5" aria-label={t('startHereTitle')}>
+            <ul className="flex flex-wrap justify-center gap-3">
+              {clusterLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="inline-flex rounded-full border border-border bg-background px-4 py-2 text-sm font-medium transition-colors hover:border-primary/40 hover:text-primary"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </section>
+      )}
+
       <div className="mb-12 text-center">
         <Link href="/categories" className="text-sm text-primary hover:underline">
           {t('backToAll')}

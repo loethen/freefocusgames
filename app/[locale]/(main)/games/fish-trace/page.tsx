@@ -8,6 +8,8 @@ import { use } from 'react'
 import { routing } from '@/i18n/routing'
 import { generateAlternates } from '@/lib/utils'
 
+const coverImage = '/games/fish-trace-cover.png';
+
 // Generate static params for all locales
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -24,9 +26,37 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         openGraph: {
             title: t('metadata.ogTitle'),
             description: t('metadata.ogDescription'),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('title'),
+            }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('metadata.ogTitle'),
+            description: t('metadata.ogDescription'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/fish-trace'),
+        other: {
+            'script:ld+json': JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": t('title'),
+                "description": t('metadata.description'),
+                "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/fish-trace`,
+                "image": `https://www.freefocusgames.com${coverImage}`,
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Web Browser",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                }
+            })
+        },
     };
 }
 

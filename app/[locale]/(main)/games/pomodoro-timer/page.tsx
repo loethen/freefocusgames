@@ -8,6 +8,8 @@ import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
 import { routing } from '@/i18n/routing';
 
+const coverImage = '/games/pomodoro-timer-cover.png';
+
 // Generate static params for all locales
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -26,7 +28,18 @@ export async function generateMetadata(
         openGraph: {
             title: t('pomodoroTimer.ogTitle'),
             description: t('pomodoroTimer.ogDescription'),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('pomodoroTimer.title'),
+            }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('pomodoroTimer.ogTitle'),
+            description: t('pomodoroTimer.ogDescription'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/pomodoro-timer'),
     };

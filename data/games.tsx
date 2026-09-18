@@ -1,19 +1,14 @@
-import { GamePreview as SimonGamePreview } from "@/app/[locale]/(main)/games/block-memory-challenge/components/GamePreview";
-import { GamePreview as SchulteTableGamePreview } from "@/app/[locale]/(main)/games/schulte-table/components/GamePreview";
 import { CountingBoxesGamePreview } from "@/app/[locale]/(main)/games/counting-boxes/components/GamePreview";
-import { GamePreview as MemoryMatchingPreview } from "@/app/[locale]/(main)/games/memory-matching-game/components/GamePreview";
 import { GamePreview as ResonanceBreathingPreview } from "@/app/[locale]/(main)/games/resonance-breathing/GamePreview";
-import { GamePreview as SpacebarClickerPreview } from "@/app/[locale]/(main)/games/spacebar-clicker/components/GamePreview";
-import { GamePreview as FishTraceGamePreview } from "@/app/[locale]/(main)/games/fish-trace/components/GamePreview";
 import { ImagePreview } from "@/components/image-preview";
-import { PeripheralSpeedPreview } from "@/app/[locale]/(main)/games/double-decision/components/GamePreview";
 
 
 export type Game = {
   id: string;
   title: string;
   slug: string;
-  image?: string;
+  coverImage?: string;
+  coverFit?: "cover" | "contain";
   preview?: React.ReactNode;
   categories: string[];
 };
@@ -23,6 +18,7 @@ export const games: Game[] = [
     id: "resonance-breathing",
     title: "Resonance Breathing",
     slug: "resonance-breathing",
+    coverImage: "/games/resonance-breathing-person-cover.png",
     preview: <ResonanceBreathingPreview />,
     categories: ["sustained-attention", "relaxation"],
   },
@@ -30,6 +26,7 @@ export const games: Game[] = [
     id: "box-breathing",
     title: "Box Breathing",
     slug: "box-breathing",
+    coverImage: "/games/box-breathing-cover.png",
     preview: <ResonanceBreathingPreview />,
     categories: ["relaxation", "sustained-attention"],
   },
@@ -37,6 +34,7 @@ export const games: Game[] = [
     id: "478-breathing",
     title: "4-7-8 Breathing",
     slug: "478-breathing",
+    coverImage: "/games/478-breathing-cover.png",
     preview: <ResonanceBreathingPreview />,
     categories: ["relaxation"],
   },
@@ -44,7 +42,14 @@ export const games: Game[] = [
     id: "pomodoro-timer",
     title: "Pomodoro Timer",
     slug: "pomodoro-timer",
-    preview: <ImagePreview src="/games/pomodoro.png" />,
+    coverImage: "/games/pomodoro-timer-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/pomodoro-timer-cover.png"
+        alt="Pomodoro Timer preview"
+        fit="cover"
+      />
+    ),
     categories: ["sustained-attention"],
   },
   {
@@ -58,6 +63,7 @@ export const games: Game[] = [
     id: "free-short-term-memory-test",
     title: "Free Short Term Memory Test",
     slug: "free-short-term-memory-test",
+    coverImage: "/games/free-short-term-memory-test.png",
     preview: <ImagePreview src="/games/free-short-term-memory-test.png" />,
     categories: ["working-memory", "auditory-processing"],
   },
@@ -65,6 +71,7 @@ export const games: Game[] = [
     id: "challenge10Seconds",
     title: "Challenge 10 Seconds",
     slug: "challenge-10-seconds",
+    coverImage: "/games/challenge-10-seconds.png",
     preview: <ImagePreview src="/games/challenge-10-seconds.png" />,
     categories: ["focus-games", "reaction-time", "spring-festival", "for-fun"],
   },
@@ -72,9 +79,10 @@ export const games: Game[] = [
     id: "bamboo-cicada",
     title: "Bamboo Cicada",
     slug: "bamboo-cicada",
+    coverImage: "/games/bamboo-cicada-cover.png",
     preview: (
       <ImagePreview
-        src="/games/bamboo-cicada/preview.jpg"
+        src="/games/bamboo-cicada-cover.png"
         alt="Bamboo Cicada game preview"
         fit="cover"
       />
@@ -85,8 +93,13 @@ export const games: Game[] = [
     id: "baby-animal-matching",
     title: "Baby Animal Matching",
     slug: "baby-animal-matching",
+    coverImage: "/games/baby-animal-matching-cover.png",
     preview: (
-      <ImagePreview src="https://images.unsplash.com/photo-1583524505974-6facd53f4597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw2fHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" />
+      <ImagePreview
+        src="/games/baby-animal-matching-cover.png"
+        alt="Baby Animal Matching preview"
+        fit="cover"
+      />
     ),
     categories: ["working-memory", "visual-tracking", "brain-games-for-kids"],
   },
@@ -94,48 +107,91 @@ export const games: Game[] = [
     id: "memory-matching-game",
     title: "Memory Matching Game",
     slug: "memory-matching-game",
-    preview: <MemoryMatchingPreview />,
+    coverImage: "/games/memory-matching-game-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/memory-matching-game-cover.png"
+        alt="Memory Matching Game preview"
+        fit="cover"
+      />
+    ),
     categories: ["working-memory", "visual-tracking", "sustained-attention", "adhd-games"],
   },
   {
     id: "dual-n-back",
     title: "Dual N-Back",
     slug: "dual-n-back",
-    preview: <ImagePreview src="/games/dual-n-back.png" />,
+    coverImage: "/games/dual-n-back-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/dual-n-back-cover.png"
+        alt="Dual N-Back game preview"
+        fit="cover"
+      />
+    ),
     categories: ["working-memory", "divided-attention", "adhd-games"],
   },
   {
     id: "double-decision",
     title: "Double Decision Game",
     slug: "double-decision",
-    preview: <PeripheralSpeedPreview />,
+    coverImage: "/games/double-decision-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/double-decision-cover.png"
+        alt="Double Decision Game preview"
+        fit="cover"
+      />
+    ),
     categories: ["divided-attention", "visual-tracking", "reaction-time", "selective-attention"],
   },
   {
     id: "fish-trace",
     title: "Glowing Fish Trace",
     slug: "fish-trace",
-    preview: <FishTraceGamePreview />,
+    coverImage: "/games/fish-trace-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/fish-trace-cover.png"
+        alt="Glowing Fish Trace preview"
+        fit="cover"
+      />
+    ),
     categories: ["visual-tracking", "sustained-attention", "brain-games-for-kids", "adhd-games"],
   },
   {
     id: "frog-memory-leap",
     title: "Frog Memory Leap",
     slug: "frog-memory-leap",
-    preview: <ImagePreview src="/games/frog-memory-leap.png" />,
+    coverImage: "/games/frog-memory-leap-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/frog-memory-leap-cover.png"
+        alt="Frog Memory Leap preview"
+        fit="cover"
+      />
+    ),
     categories: ["working-memory", "visual-tracking", "brain-games-for-kids"],
   },
   {
     id: "larger-number",
     title: "Larger Number",
     slug: "larger-number",
-    preview: <ImagePreview src="/games/larger-number.png" />,
+    coverImage: "/games/larger-number-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/larger-number-cover.png"
+        alt="Larger Number Challenge preview"
+        fit="cover"
+      />
+    ),
     categories: ["reaction-time", "selective-attention", "brain-games-for-kids"],
   },
   {
     id: "mahjong-dual-n-back",
     title: "Mahjong Dual N-Back",
     slug: "mahjong-dual-n-back",
+    coverImage: "/games/mahjong-dual-n-back.png",
     preview: <ImagePreview src="/games/mahjong-dual-n-back.png" />,
     categories: [
       "working-memory",
@@ -148,20 +204,36 @@ export const games: Game[] = [
     id: "block-memory-challenge",
     title: "Block Memory Challenge",
     slug: "block-memory-challenge",
-    preview: <SimonGamePreview />,
+    coverImage: "/games/block-memory-challenge-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/block-memory-challenge-cover.png"
+        alt="Block Memory Challenge preview"
+        fit="cover"
+      />
+    ),
     categories: ["working-memory", "visual-tracking", "brain-games-for-kids", "adhd-games"],
   },
   {
     id: "schulte-table",
     title: "Schulte Table",
     slug: "schulte-table",
-    preview: <SchulteTableGamePreview />,
+    coverImage: "/games/schulte-table-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/schulte-table-cover.png"
+        alt="Schulte Table game preview"
+        fit="cover"
+      />
+    ),
     categories: ["selective-attention", "visual-tracking", "reaction-time", "adhd-games", "brain-games-for-kids"],
   },
   {
     id: "rotating-schulte-table",
     title: "Rotating Schulte Table",
     slug: "rotating-schulte-table",
+    coverImage: "/games/rotating-schulte-table.png",
+    coverFit: "contain",
     preview: (
       <ImagePreview
         src="/games/rotating-schulte-table.png"
@@ -176,6 +248,7 @@ export const games: Game[] = [
     id: "reaction-time",
     title: "Reaction Time Test",
     slug: "reaction-time",
+    coverImage: "/games/reaction-time.png",
     preview: <ImagePreview src="/games/reaction-time.png" />,
     categories: [
       "reaction-time",
@@ -188,7 +261,14 @@ export const games: Game[] = [
     id: "stroop-effect-test",
     title: "Stroop Effect Test",
     slug: "stroop-effect-test",
-    preview: <ImagePreview src="/games/stroop-effect.png" />,
+    coverImage: "/games/stroop-effect-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/stroop-effect-cover.png"
+        alt="Stroop Effect Test preview"
+        fit="cover"
+      />
+    ),
     categories: [
       "selective-attention",
       "cognitive-flexibility",
@@ -200,6 +280,7 @@ export const games: Game[] = [
     id: "focus-reaction-test",
     title: "Focus Reaction Test",
     slug: "focus-reaction-test",
+    coverImage: "/games/focus-reaction-test.png",
     preview: <ImagePreview src="/games/focus-reaction-test.png" />,
     categories: [
       "selective-attention",
@@ -212,7 +293,14 @@ export const games: Game[] = [
     id: "focus-sudoku",
     title: "Focus Sudoku",
     slug: "focus-sudoku",
-    preview: <ImagePreview src="/games/focus-sudoku.png" />,
+    coverImage: "/games/focus-sudoku-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/focus-sudoku-cover.png"
+        alt="Focus Sudoku game preview"
+        fit="cover"
+      />
+    ),
     categories: [
       "working-memory",
       "logic",
@@ -225,7 +313,14 @@ export const games: Game[] = [
     id: "cps-test",
     title: "CPS Test",
     slug: "cps-test",
-    preview: <ImagePreview src="/games/cps-test.png" />,
+    coverImage: "/games/cps-test-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/cps-test-cover.png"
+        alt="CPS Test preview"
+        fit="cover"
+      />
+    ),
     categories: [
       "reaction-time",
       "brain-games-for-kids",
@@ -235,7 +330,14 @@ export const games: Game[] = [
     id: "spacebar-clicker",
     title: "Spacebar Clicker Test",
     slug: "spacebar-clicker",
-    preview: <SpacebarClickerPreview />,
+    coverImage: "/games/spacebar-clicker-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/spacebar-clicker-cover.png"
+        alt="Spacebar Clicker Test preview"
+        fit="cover"
+      />
+    ),
     categories: [
       "reaction-time",
       "sustained-attention",
@@ -245,14 +347,12 @@ export const games: Game[] = [
     id: "sbti-test",
     title: "SBTI Personality Test",
     slug: "sbti-test",
+    coverImage: "/games/sbti-test-cover.png",
     preview: (
       <ImagePreview
-        src="/games/sbti-test/image/OJBK.png"
+        src="/games/sbti-test-cover.png"
         alt="SBTI preview"
-        fit="contain"
-        aspectClassName="aspect-[4/5]"
-        className="bg-white p-4 md:p-6"
-        sizes="(max-width: 768px) 60vw, 28vw"
+        fit="cover"
       />
     ),
     categories: [

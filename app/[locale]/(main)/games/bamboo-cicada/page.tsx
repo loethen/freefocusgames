@@ -9,6 +9,7 @@ import { generateAlternates } from '@/lib/utils';
 import { routing } from '@/i18n/routing';
 
 const UPSTREAM_URL = 'https://github.com/imsai-sh/zhuzhiliao';
+const coverImage = '/games/bamboo-cicada-cover.png';
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -32,9 +33,9 @@ export async function generateMetadata({
             type: 'website',
             locale: locale === 'zh' ? 'zh_CN' : 'en_US',
             images: [{
-                url: '/games/bamboo-cicada/preview.jpg',
+                url: coverImage,
                 width: 1200,
-                height: 630,
+                height: 675,
                 alt: t('heading'),
             }],
         },
@@ -42,7 +43,7 @@ export async function generateMetadata({
             card: 'summary_large_image',
             title: t('metadata.ogTitle'),
             description: t('metadata.ogDescription'),
-            images: ['/games/bamboo-cicada/preview.jpg'],
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/bamboo-cicada'),
     };
@@ -84,7 +85,7 @@ export default function BambooCicadaPage({
                 price: 0,
                 priceCurrency: 'USD',
             },
-            image: `${baseUrl}/games/bamboo-cicada/preview.jpg`,
+            image: `${baseUrl}${coverImage}`,
             isBasedOn: UPSTREAM_URL,
         },
         {

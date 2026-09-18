@@ -14,6 +14,8 @@ import { generateAlternates } from '@/lib/utils';
 import { routing } from '@/i18n/routing';
 import { RANKED_LEADERBOARD_MODE } from '@/lib/leaderboard-config';
 
+const coverImage = '/games/schulte-table-cover.png';
+
 // Generate static params for all locales
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -33,7 +35,18 @@ export async function generateMetadata(
         openGraph: {
             title: t('schulteTable.ogTitle'),
             description: t('schulteTable.ogDescription'),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('schulteTable.title'),
+            }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('schulteTable.ogTitle'),
+            description: t('schulteTable.ogDescription'),
+            images: [coverImage],
         },
         // 多语言替代版本
         alternates: generateAlternates(locale, 'games/schulte-table'),
@@ -45,7 +58,6 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
     setRequestLocale(locale);
     const baseUrl = SITE_BASE_URL;
     const t = useTranslations('games');
-    const tCommon = useTranslations('common');
     const benefitsT = useTranslations('games.schulteTable.benefits');
     const faqT = useTranslations('games.schulteTable.faq');
     const standardsT = useTranslations('games.schulteTable.speedStandards');
@@ -78,6 +90,7 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
             "name": t("schulteTable.title"),
             "description": t("schulteTable.metaDescription"),
             "url": `${baseUrl}/games/schulte-table`,
+            "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "EducationalApplication",
             "operatingSystem": "Web Browser",
             "offers": {
@@ -121,11 +134,11 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
             }
             howToPlay={
                 <>
-                    <Link href="/working-memory-guide" className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
+                    <Link href="/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed" className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
                         <div className="flex items-center gap-3">
                             <BookOpen className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
                             <span className="text-sm font-medium text-primary">
-                                {tCommon('learnMoreAboutWorkingMemory')}
+                                {t("schulteTable.science.blogArticleTitle")}
                             </span>
                         </div>
                     </Link>

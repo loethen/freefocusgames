@@ -24,16 +24,16 @@ interface InternalCardData {
   matched: boolean;
 }
 
-// Original animal definitions
+// Local animal illustrations keep the card set consistent and avoid relying on remote photos.
 const animals: AnimalData[] = [
-  { id: 0, url: "https://images.unsplash.com/photo-1497752531616-c3afd9760a11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxfHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" }, // Jaguar cub
-  { id: 1, url: "https://images.unsplash.com/photo-1578956919791-af7615c94b90?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwyfHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" }, // Duckling
-  { id: 2, url: "https://images.unsplash.com/photo-1526226060519-126d75eaa5e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwzfHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" }, // Baby Elephant
-  { id: 3, url: "https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw0fHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" }, // Monkey
-  { id: 4, url: "https://images.unsplash.com/photo-1535979863199-3c77338429a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw1fHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" }, // Lamb
-  { id: 5, url: "https://images.unsplash.com/photo-1583524505974-6facd53f4597?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw2fHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" }, // Kitten
-  { id: 6, url: "https://images.unsplash.com/photo-1583587067350-2c49115673c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHw5fHxiYWJ5JTIwYW5pbWFsfGVufDB8fHx8MTc0NDE3ODcwNXww&ixlib=rb-4.0.3&q=80&w=600" }, // Lion Cub
-  { id: 7, url: "https://images.unsplash.com/photo-1506099914961-765be7a97019?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Mjc2NjN8MHwxfHNlYXJjaHwxM3x8YmFieSUyMGFuaW1hbHxlbnwwfHx8fDE3NDQxNzg3MDV8MA&ixlib=rb-4.0.3&q=80&w=600" }, // Fawn/Deer
+  { id: 0, url: "/games/baby-animal-matching/animal-0.png" }, // Gray kitten
+  { id: 1, url: "/games/baby-animal-matching/animal-1.png" }, // Duckling
+  { id: 2, url: "/games/baby-animal-matching/animal-2.png" }, // Baby elephant
+  { id: 3, url: "/games/baby-animal-matching/animal-3.png" }, // Monkey
+  { id: 4, url: "/games/baby-animal-matching/animal-4.png" }, // Lamb
+  { id: 5, url: "/games/baby-animal-matching/animal-5.png" }, // Orange kitten
+  { id: 6, url: "/games/baby-animal-matching/animal-6.png" }, // Lion cub
+  { id: 7, url: "/games/baby-animal-matching/animal-7.png" }, // Fawn/deer
 ];
 
 // Define difficulty levels
@@ -43,6 +43,13 @@ const difficultySettings = [
   { level: 2, cols: 4, rows: 3, numPairs: 6, label: 'Hard (4x3)' },
   { level: 3, cols: 4, rows: 4, numPairs: 8, label: 'Expert (4x4)' },
 ];
+
+const gridLayouts = [
+  { maxWidth: 'max-w-lg', cardHeightClass: 'pb-[110%]' },
+  { maxWidth: 'max-w-2xl', cardHeightClass: 'pb-[110%]' },
+  { maxWidth: 'max-w-lg', cardHeightClass: 'pb-[105%]' },
+  { maxWidth: 'max-w-sm', cardHeightClass: 'pb-[100%]' },
+] as const;
 
 function shuffleArray<T>(array: T[]): T[] {
   const shuffledArray = [...array];
@@ -107,6 +114,7 @@ export default function GameClient() {
   const gridConfig = useMemo(() => {
       return difficultySettings[difficultyLevel];
   }, [difficultyLevel]);
+  const gridLayout = gridLayouts[difficultyLevel];
 
   // Load best time
   useEffect(() => {
@@ -291,7 +299,8 @@ export default function GameClient() {
         )}
 
         <div className={cn(
-            "grid gap-2 sm:gap-4 w-full max-w-3xl mb-6",
+            "grid gap-2 sm:gap-4 w-full mb-6",
+            gridLayout.maxWidth,
             gridConfig.cols === 3 && "grid-cols-3",
             gridConfig.cols === 4 && "grid-cols-4"
         )}> 
@@ -305,6 +314,7 @@ export default function GameClient() {
                 isGameOver={showResults}
                 onClick={handleCardClick}
                 isMatching={matchingCards.has(card.id)}
+                cardHeightClass={gridLayout.cardHeightClass}
             />
             ))}
         </div>
@@ -383,4 +393,4 @@ export default function GameClient() {
         />
     </div>
   );
-} 
+}

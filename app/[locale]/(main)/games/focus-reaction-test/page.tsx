@@ -119,6 +119,7 @@ export default function FocusReactionTestPage({ params }: { params: Promise<{ lo
                     answer: t('faq.realWorldApplications.answer'),
                 },
             ]}
+            relatedGames={["reaction-time", "stroop-effect-test", "double-decision"]}
         />
     );
 }

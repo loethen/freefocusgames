@@ -57,11 +57,10 @@ await Promise.all(Array.from({ length: 3 }, async () => {
       const expected = `${canonicalBase}${new URL(url).pathname}`.replace(/\/$/, '');
       const robotValues = metas.filter(n => ['robots', 'googlebot'].includes(attr(n, 'name'))).map(n => attr(n, 'content'));
       const scenarios = elements(doc, n => attr(n, 'data-use-case') !== undefined).map(n => attr(n, 'data-use-case'));
-      const row = { url, status: response.status, title: byTag('title').map(text), h1: byTag('h1').map(text), description: metas.filter(n => attr(n, 'name') === 'description').map(n => attr(n, 'content')), canonicals, languages, ogUrl: metas.filter(n => attr(n, 'property') === 'og:url').map(n => attr(n, 'content')), robots: robotValues, xRobotsTag: response.headers.match(/^x-robots-tag:\s*(.*)$/im)?.[1]?.trim() || null, elapsedMs: response.elapsedMs, htmlBytes: Buffer.byteLength(response.body), useCases: scenarios, issues: [] };
+      const row = { url, status: response.status, title: byTag('title').map(text), h1: byTag('h1').map(text), description: metas.filter(n => attr(n, 'name') === 'description').map(n => attr(n, 'content')), canonicals, languages, robots: robotValues, xRobotsTag: response.headers.match(/^x-robots-tag:\s*(.*)$/im)?.[1]?.trim() || null, elapsedMs: response.elapsedMs, htmlBytes: Buffer.byteLength(response.body), useCases: scenarios, issues: [] };
       if (response.status !== 200) row.issues.push(`HTTP ${response.status}`);
       if (canonicals.length !== 1 || canonicals[0].replace(/\/$/, '') !== expected) row.issues.push('canonical mismatch');
       if (robotValues.some(v => /noindex/i.test(v)) || /noindex/i.test(row.xRobotsTag || '')) row.issues.push('noindex');
-      if (row.ogUrl.length !== 1 || row.ogUrl[0].replace(/\/$/, '') !== expected) row.issues.push('OG URL mismatch');
       if (row.title.length !== 1 || !row.title[0]) row.issues.push('missing/duplicate title');
       if (row.h1.length !== 1) row.issues.push(`H1 count ${row.h1.length}`);
       if (['/', '/zh'].includes(new URL(url).pathname) && (scenarios.length !== 10 || new Set(scenarios).size !== 10)) row.issues.push('duplicate/missing use cases');

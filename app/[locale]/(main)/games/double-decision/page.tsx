@@ -11,6 +11,7 @@ import { PeripheralSpeedGame } from './components/PeripheralSpeedGame'
 
 const NEW_SCIENTIST_ARTICLE =
   'https://www.newscientist.com/article/2578806-game-that-reduces-dementia-risk-clears-amyloid-from-mens-brains/'
+const coverImage = '/games/double-decision-cover.png'
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -26,7 +27,6 @@ export async function generateMetadata({
     locale,
     namespace: 'games.doubleDecision',
   })
-
   return {
     title: t('metadata.title'),
     description: t('metadata.description'),
@@ -38,13 +38,18 @@ export async function generateMetadata({
       description: t('metadata.description'),
       type: 'website',
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
-      images: [{ url: '/og/oglogo.png', width: 1200, height: 630 }],
+      images: [{
+        url: coverImage,
+        width: 1200,
+        height: 675,
+        alt: t('title'),
+      }],
     },
     twitter: {
       card: 'summary_large_image',
       title: t('metadata.title'),
       description: t('metadata.description'),
-      images: ['/og/oglogo.png'],
+      images: [coverImage],
     },
     alternates: generateAlternates(locale, 'games/double-decision'),
   }
@@ -101,6 +106,7 @@ export default function DoubleDecisionPage({
       name: t('title'),
       description: t('metadata.description'),
       url: pageUrl,
+      image: `${baseUrl}${coverImage}`,
       applicationCategory: 'EducationalApplication',
       operatingSystem: 'Web Browser',
       offers: {
@@ -192,7 +198,7 @@ export default function DoubleDecisionPage({
         ],
       }}
       faq={faq}
-      relatedGames={['schulte-table', 'focus-reaction-test', 'dual-n-back']}
+      relatedGames={['reaction-time', 'rotating-schulte-table', 'schulte-table']}
       hasLeaderboard
       leaderboardTitle={t('leaderboard.title')}
       leaderboardIntro={t('leaderboard.description')}

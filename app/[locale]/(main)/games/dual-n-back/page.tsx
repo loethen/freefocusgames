@@ -17,6 +17,8 @@ import {
   DUAL_N_BACK_CLEAR_MIN_TRIALS,
 } from '@/lib/dual-n-back-clear-rules';
 
+const coverImage = '/games/dual-n-back-cover.png';
+
 // Generate static params for all locales
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -36,7 +38,13 @@ export async function generateMetadata(
     openGraph: {
       title: t('ogTitle'),
       description: t('ogDescription'),
-      images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+      images: [{ url: coverImage, width: 1200, height: 675, alt: t('title') }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('ogTitle'),
+      description: t('ogDescription'),
+      images: [coverImage],
     },
     alternates: generateAlternates(locale, 'games/dual-n-back'),
   };
@@ -125,6 +133,7 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
       url: pageUrl,
       applicationCategory: 'EducationalApplication',
       operatingSystem: 'Web Browser',
+      image: `${baseUrl}${coverImage}`,
       offers: {
         '@type': 'Offer',
         price: '0',
@@ -266,7 +275,7 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
         blogArticleTitle: t('science.blogArticleTitle'),
       }}
       faq={faq}
-      relatedGames={["mahjong-dual-n-back", "block-memory-challenge"]}
+      relatedGames={["free-short-term-memory-test", "mahjong-dual-n-back", "block-memory-challenge"]}
       leaderboardTitle={t('leaderboards.title')}
       leaderboardIntro={
         <p>

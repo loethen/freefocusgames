@@ -25,6 +25,8 @@ If you are searching for the benefits of Schulte Table practice, the research an
 
 These benefits are not magic, and they are not instant. They come from repeated practice that trains the same attention and scanning systems you rely on for reading, studying, and visually demanding work.
 
+After learning the standard grid, try the [Rotating Schulte Table](/games/rotating-schulte-table) for a moving visual-search challenge, or browse more [visual tracking games](/categories/visual-tracking) that use related attention skills.
+
 If your main question is whether you can get these gains from an online Schulte Table, the answer is yes in principle: the benefit comes from the visual search task itself, not from paper alone. What matters most is consistent practice, clear number sequencing, and paying attention to how efficiently you scan the grid.
 
 ## The Origins: From Clinical Assessment to Cognitive Enhancement

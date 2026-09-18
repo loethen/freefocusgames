@@ -9,6 +9,8 @@ import { generateAlternates } from '@/lib/utils';
 import Game from './components/Game';
 import SbtiTypeLeaderboard from './components/SbtiTypeLeaderboard';
 
+const coverImage = '/games/sbti-test-cover.png';
+
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
 }
@@ -24,7 +26,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         openGraph: {
             title: t('metadata.title'),
             description: t('metadata.description'),
-            images: [{ url: '/games/sbti-test/image/CTRL.png', width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('title'),
+            }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('metadata.title'),
+            description: t('metadata.description'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/sbti-test'),
     };
@@ -73,6 +86,7 @@ export default function SbtiTestPage({ params }: { params: Promise<{ locale: str
             name: t('title'),
             description: t('metadata.description'),
             url: pageUrl,
+            image: `${baseUrl}${coverImage}`,
             applicationCategory: 'GameApplication',
             operatingSystem: 'Web Browser',
             offers: {

@@ -72,6 +72,7 @@ export default async function WorkingMemoryGuide({ params }: { params: Promise<{
     const { locale } = await params;
     setRequestLocale(locale);
     const t = await getTranslations({ locale, namespace: 'workingMemoryGuide' });
+    const categoriesT = await getTranslations({ locale, namespace: 'categories' });
 
     const relatedGames = games.filter(game =>
         game.slug === 'dual-n-back' ||
@@ -83,6 +84,10 @@ export default async function WorkingMemoryGuide({ params }: { params: Promise<{
         <div className="min-h-screen">
             <nav className="max-w-7xl mx-auto px-4 py-4 text-sm text-muted-foreground">
                 <Link href="/" className="hover:text-foreground">{t('breadcrumbHome')}</Link>
+                <span className="mx-2">/</span>
+                <Link href="/categories/working-memory" className="hover:text-foreground">
+                    {categoriesT('categoryNames.working-memory')}
+                </Link>
                 <span className="mx-2">/</span>
                 <span>{t('breadcrumbCurrent')}</span>
             </nav>

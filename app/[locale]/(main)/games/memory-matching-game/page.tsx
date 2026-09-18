@@ -17,6 +17,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const { locale } = await params
     const t = await getTranslations({ locale, namespace: 'games.memoryMatchingGame' })
+    const coverImage = '/games/memory-matching-game-cover.png'
 
     return {
         title: t('metadata.title'),
@@ -25,9 +26,37 @@ export async function generateMetadata(
         openGraph: {
             title: t('metadata.ogTitle'),
             description: t('metadata.ogDescription'),
-            images: [{ url: '/og/oglogo.png', width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('title'),
+            }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('metadata.ogTitle'),
+            description: t('metadata.ogDescription'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/memory-matching-game'),
+        other: {
+            'script:ld+json': JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": t('title'),
+                "description": t('metadata.description'),
+                "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/memory-matching-game`,
+                "image": `https://www.freefocusgames.com${coverImage}`,
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Web Browser",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                }
+            })
+        },
     }
 }
 

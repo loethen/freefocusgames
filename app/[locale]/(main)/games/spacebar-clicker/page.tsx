@@ -9,6 +9,8 @@ import { routing } from '@/i18n/routing'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import Game from './components/Game'
 
+const coverImage = '/games/spacebar-clicker-cover.png';
+
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
 }
@@ -24,7 +26,18 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         openGraph: {
             title: t('metadata.ogTitle'),
             description: t('metadata.ogDescription'),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('title'),
+            }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('metadata.ogTitle'),
+            description: t('metadata.ogDescription'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/spacebar-clicker'),
     };
@@ -66,6 +79,7 @@ export default function SpacebarClickerPage({ params }: { params: Promise<{ loca
             "name": t('title'),
             "description": t('metadata.description'),
             "url": `${baseUrl}/games/spacebar-clicker`,
+            "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "GameApplication",
             "operatingSystem": "Web Browser",
             "offers": {

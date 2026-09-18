@@ -198,6 +198,8 @@
     "categoryOgDescription": "浏览免费的{categoryName}游戏和训练练习，用更集中的方式提升这项能力。",
     "categoryGamesHeading": "{categoryName}游戏",
     "categoryIntro": "这个分类收集了主要训练 {categoryName} 的游戏。相比直接浏览整个游戏库，它更适合你按一个明确目标来练。",
+    "startHereTitle": "建议从这些页面开始",
+    "startHereDescription": "先通过这些核心{categoryName}页面建立清晰的练习路径，再浏览下面的完整内容。",
     "backToAll": "查看全部分类"
   }
 }

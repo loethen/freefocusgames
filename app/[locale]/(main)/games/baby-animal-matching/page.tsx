@@ -8,6 +8,8 @@ import { use } from 'react';
 import { routing } from '@/i18n/routing';
 import { generateAlternates } from '@/lib/utils';
 
+const coverImage = '/games/baby-animal-matching-cover.png';
+
 // Define types for placeholders
 interface Benefit {
     icon: React.ReactNode;
@@ -43,14 +45,37 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
             title: t('ogTitle'),
             description: t('ogDescription'),
             type: "website",
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }], // Keep image URL static for now
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('title'),
+            }],
         },
         twitter: {
             card: "summary_large_image",
             title: t('twitterTitle'),
             description: t('twitterDescription'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/baby-animal-matching'),
+        other: {
+            'script:ld+json': JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": t('title'),
+                "description": description,
+                "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/baby-animal-matching`,
+                "image": `https://www.freefocusgames.com${coverImage}`,
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "Web Browser",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                }
+            })
+        },
     };
 }
 

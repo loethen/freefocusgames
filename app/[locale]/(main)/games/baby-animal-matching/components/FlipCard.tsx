@@ -22,6 +22,7 @@ interface FlipCardProps {
     isGameOver: boolean;
     onClick: (index: number) => void; // Removed event
     isMatching?: boolean; // Added isMatching prop
+    cardHeightClass?: 'pb-[110%]' | 'pb-[105%]' | 'pb-[100%]';
 }
 
 const FlipCard: React.FC<FlipCardProps> = ({
@@ -32,6 +33,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
     isGameOver,
     onClick,
     isMatching, // Destructure isMatching
+    cardHeightClass = 'pb-[120%]',
 }) => {
     const handleClick = () => { 
         // Prevent click if matching animation is running
@@ -54,7 +56,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
         >
             <div
                 className={cn(
-                    'relative w-full h-0 pb-[120%] transform-3d transition-transform duration-500',
+                    `relative w-full h-0 ${cardHeightClass} transform-3d transition-transform duration-500`,
                     // Apply hover only if NOT matching 
                     !isMatching && 'hover:scale-105', 
                     // Always rotate if flipped or matched, regardless of matching animation

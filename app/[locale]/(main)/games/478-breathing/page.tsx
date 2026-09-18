@@ -18,6 +18,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: 'games.478Breathing' });
+    const coverImage = '/games/478-breathing-cover.png';
 
     return {
         title: t('metadata.title'),
@@ -26,7 +27,18 @@ export async function generateMetadata(
         openGraph: {
             title: t('metadata.ogTitle'),
             description: t('metadata.ogDescription'),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t('title'),
+            }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: t('metadata.ogTitle'),
+            description: t('metadata.ogDescription'),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/478-breathing'),
         other: {
@@ -36,6 +48,7 @@ export async function generateMetadata(
                 "name": t('title'),
                 "description": t('metadata.description'),
                 "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/478-breathing`,
+                "image": `https://www.freefocusgames.com${coverImage}`,
                 "applicationCategory": "HealthApplication",
                 "operatingSystem": "Web Browser",
                 "offers": {

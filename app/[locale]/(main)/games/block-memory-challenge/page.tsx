@@ -13,6 +13,8 @@ import { use } from "react";
 import { routing } from '@/i18n/routing';
 import { generateAlternates } from "@/lib/utils";
 
+const coverImage = "/games/block-memory-challenge-cover.png";
+
 // Generate static params for all locales
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));
@@ -25,7 +27,6 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { locale } = await params;
     const t = await getTranslations({ locale, namespace: "games.blockMemoryChallenge" });
-
     return {
         title: t("metaTitle") || t("title"),
         description: t("metaDescription") || t("description"),
@@ -33,7 +34,18 @@ export async function generateMetadata({
         openGraph: {
             title: t("ogTitle") || `${t("title")} - ${t("subtitle")}`,
             description: t("ogDescription") || t("description"),
-            images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+            images: [{
+                url: coverImage,
+                width: 1200,
+                height: 675,
+                alt: t("title"),
+            }],
+        },
+        twitter: {
+            card: "summary_large_image",
+            title: t("ogTitle") || `${t("title")} - ${t("subtitle")}`,
+            description: t("ogDescription") || t("description"),
+            images: [coverImage],
         },
         alternates: generateAlternates(locale, "games/block-memory-challenge"),
     }
@@ -76,6 +88,7 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             "name": t("title"),
             "description": t("metaDescription"),
             "url": `${baseUrl}/games/block-memory-challenge`,
+            "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "EducationalApplication",
             "operatingSystem": "Web Browser",
             "offers": {

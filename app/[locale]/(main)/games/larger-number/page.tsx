@@ -8,6 +8,8 @@ import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
 import { routing } from '@/i18n/routing';
 
+const coverImage = '/games/larger-number-cover.png';
+
 // Generate static params for all locales
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -27,7 +29,13 @@ export async function generateMetadata(
     openGraph: {
       title: t('largerNumber.ogTitle'),
       description: t('largerNumber.ogDescription'),
-      images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
+      images: [{ url: coverImage, width: 1200, height: 675, alt: t('largerNumber.title') }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('largerNumber.ogTitle'),
+      description: t('largerNumber.ogDescription'),
+      images: [coverImage],
     },
     // 多语言替代版本
     alternates: generateAlternates(locale, 'games/larger-number'),

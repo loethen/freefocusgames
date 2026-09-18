@@ -198,6 +198,8 @@
     "categoryOgDescription": "Browse free {categoryName} games and brain training exercises designed to strengthen this skill with repeatable practice.",
     "categoryGamesHeading": "{categoryName} Games Online",
     "categoryIntro": "This category groups together games that mainly train {categoryName}. Use it when you want a more focused practice path instead of browsing the entire library.",
+    "startHereTitle": "Start with these pages",
+    "startHereDescription": "Use these core {categoryName} pages as a focused path, then browse the full collection below.",
     "backToAll": "See all categories"
   }
 }
