@@ -1,11 +1,11 @@
 {
   "sbtiTest": {
     "title": "SBTI 人格测试",
-    "subtitle": "最近很火的 SBTI 人格测试，直接开玩，几分钟就能拿到结果。",
+    "subtitle": "回答 31 道题，在约 3 分钟内获得 27 种梗系人格之一。",
     "metadata": {
-      "title": "SBTI 测试在线玩：免费热门人格测试",
-      "description": "免费在线玩 SBTI 测试，几分钟生成可分享的人格结果，并了解它与 MBTI 风格测试的区别。",
-      "keywords": "SBTI人格测试, SBTI测试, SBTI人格测试入口, SBTI测试入口, SBTI在线测试, SBTI是什么, 人格测试, 性格测试, 在线人格测试, 免费人格测试, 娱乐人格测试, MBTI风格测试, MBTI人格测试, SBTI结果"
+      "title": "SBTI 测试：31 题爆款网络梗图性格测试",
+      "description": "在线免费体验爆款 SBTI 测试。回答 31 道趣味题目，解锁 27 种梗图人格结果，约 3 分钟即可完成并分享。",
+      "keywords": "SBTI测试, SBTI人格测试, 31题性格测试, SBTI测试入口, 梗图人格测试, 爆款性格测试, 免费人格测试, SBTI是什么"
     },
     "structuredData": {
       "featureList": [
@@ -112,7 +112,7 @@
     "gameUI": {
       "introEyebrow": "最近很火的人格测试",
       "introTitle": "MBTI 已经过时，SBTI 来了。",
-      "introDescription": "31 道题，带隐藏分支和 27 种结果人格。一路做完，看看互联网最后会把你判成什么类型。",
+      "introDescription": "31 道题、一个隐藏分支和 27 种结果人格。约 3 分钟完成，看看你的答案会匹配哪种 SBTI 类型。",
       "stats": {
         "questions": "题，含隐藏分支",
         "types": "种人格结果",

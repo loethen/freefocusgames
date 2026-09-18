@@ -421,36 +421,36 @@
       },
       "benefits": {
         "focus": {
-          "title": "Sustained Attention",
-          "description": "Maintaining a high click rate requires extreme mental concentration. Staying consistent through the 10-second mode is an excellent workout for sustained attention."
+          "title": "Burst Concentration",
+          "description": "Maintaining a high click rate requires short-window focus and physical pacing. Pushing through the 5s or 10s mode tests how consistently you can maintain your rhythm without locking up."
         },
         "neural": {
-          "title": "Neural-Motor Connection",
-          "description": "Strengthens the signal transmission between brain and fingers. Rapid reaction is a result of the brain sending fast command signals and efficient neural pathways."
+          "title": "Motor Coordination & Rhythm",
+          "description": "Measures physical tapping speed and finger control. Rapid clicking tests your hand muscles' ability to execute fast, repetitive keystrokes with minimal wasted motion."
         },
         "flow": {
-          "title": "Flow State & Relief",
-          "description": "Rhythmic high-speed clicking can help induce a 'flow state', clearing the mind of clutter. It acts as a unique stress reliever and brain reset."
+          "title": "Gaming Benchmark & Stamina",
+          "description": "Commonly used by Minecraft and FPS players to test jitter clicking, butterfly clicking, or standard tapping stamina under competitive conditions."
         }
       },
       "science": {
         "title": "What a CPS Test Actually Measures",
-        "description": "A CPS test is more than a hand-speed challenge. It reflects burst motor output, neural-motor coordination, rhythmic control, and short-window concentration. For gamers and users training click speed, it works well as a repeatable benchmark across different time modes.",
+        "description": "A CPS test serves as a physical benchmark for mouse clicking speed. It measures burst motor output, finger tapping rhythm, and short-window mechanical pacing across standardized 1s, 3s, 5s, and 10s intervals.",
         "blogArticleTitle": "Read: What Is a Good CPS Score?"
       },
       "leaderboardNote": "Leaderboard records 5-second mode scores only.",
       "faq": {
         "focus": {
           "question": "Is this just about hand speed?",
-          "answer": "Not entirely. To reach limits (like 10+ CPS) and stay consistent, your brain must be highly focused to control micro-movements. Any momentary distraction drops your speed, making this a test of high-intensity short-term focus."
+          "answer": "It primarily measures clicking speed over a short interval. Attention, technique, device latency, and hand fatigue can all affect a score, so it should not be treated as a standalone measure of concentration."
         },
         "warmup": {
-          "question": "Is this a good brain warmup?",
-          "answer": "Yes. Short bursts of clicking (like the 5s mode) quickly activate the nervous system and wake up the cerebral cortex, helping you transition from a groggy state to a ready-to-work state."
+          "question": "Is this a good pre-game warm-up?",
+          "answer": "It can be used as a brief physical warm-up or equipment check. Keep attempts short, use a comfortable grip, and stop if you feel pain or strain."
         },
         "improve": {
           "question": "How to improve my score?",
-          "answer": "Besides clicking techniques, the key is breathing and relaxing your arm muscles. Tension leads to stiffness. Learning 'relaxed focus' is key to high performance—a great mindfulness practice in itself."
+          "answer": "Use the same device and duration when comparing attempts. A comfortable grip, consistent technique, and short rests can reduce fatigue; stop if repeated clicking causes discomfort."
         },
         "health": {
           "question": "Can high-speed clicking cause injury?",
@@ -561,7 +561,7 @@
         },
         "schulteTable": {
           "title": "Schulte Table Online",
-          "description": "Practice visual scanning, peripheral vision, and reading speed with our Schulte Table online."
+          "description": "Complete a timed 1–25 visual-search task and compare your own completion time and mistakes."
         },
         "adultAdhdAssessment": {
           "title": "Adult ADHD Self-Assessment",
@@ -622,77 +622,64 @@
     "ogDescription": "Explore free browser games for focus, memory, reaction time, visual attention, and mental flexibility.",
     "schulteTable": {
       "title": "Schulte Table",
-      "subtitle": "Free Online Visual Attention and Speed Reading Training",
-      "description": "Practice with our free Schulte Table online to train visual attention, peripheral vision, reading speed, and concentration. Find numbers in sequence and improve scanning speed in minutes.",
-      "howToPlay": "Find and click numbers in ascending order (1-25) as quickly as possible. Try to use your peripheral vision instead of scanning each number!",
+      "subtitle": "Free Online Visual Search and Attention Task",
+      "description": "Practice a timed 5×5 number-search task. Find 1–25 in order, track completion time and mistakes, and compare repeated attempts under the same conditions.",
+      "howToPlay": "Find and click numbers in ascending order (1–25). Prioritize accuracy, then compare your completion time with your own attempts using the same grid size, device, and settings.",
       "speedStandards": {
-        "title": "Speed Standards",
-        "intro": "Here are the reference standards for a 5x5 (1-25) Schulte Table test:",
-        "children": {
-          "title": "Children (6 years old):",
-          "brilliant": "Brilliant: 60 seconds or less",
-          "optimal": "Optimal: Up to 70 seconds",
-          "mediocre": "Mediocre: Up to 80 seconds"
-        },
-        "adults": {
-          "title": "Adults:",
-          "beginner": "Beginner Level: 40-60 seconds",
-          "average": "Average Proficiency: 25-40 seconds",
-          "advanced": "Advanced Level: 15-25 seconds",
-          "elite": "Elite Performance: Under 15 seconds"
-        }
+        "title": "Track Your Personal Baseline",
+        "intro": "There is no universal clinical cutoff for this online game. Compare attempts only when grid size, device, and settings are the same. The leaderboard reflects site players, not population norms."
       },
       "watchDemo": "Watch Demo",
       "demo": "Demo",
-      "metaTitle": "Free Schulte Table Online: Visual Attention & Reading Speed",
-      "metaDescription": "Use this free Schulte Table online to train visual attention, peripheral vision, and reading speed. A simple Schulte grid exercise for focus practice, speed reading, and ADHD-friendly attention training.",
-      "metaKeywords": "schulte table online, free schulte table, schulte grid, visual attention training, peripheral vision exercise, reading speed practice, focus exercise, adhd attention training",
-      "ogTitle": "Free Schulte Table Online: Visual Attention & Reading Speed",
-      "ogDescription": "Use this free Schulte Table online to train visual attention, peripheral vision, and reading speed with a simple Schulte grid exercise.",
+      "metaTitle": "Free Schulte Table Online: Visual Search Practice",
+      "metaDescription": "Use this free Schulte Table online to practice timed visual search. Find 1–25 in order, track mistakes and completion time, and compare repeat attempts.",
+      "metaKeywords": "schulte table online, free schulte table, schulte grid, visual search task, attention practice, number search game, timed focus exercise",
+      "ogTitle": "Free Schulte Table Online: Visual Search Practice",
+      "ogDescription": "Find 1–25 in order, track completion time and mistakes, and compare repeated attempts in this free visual-search task.",
       "science": {
-        "title": "Visual Attention and Processing Speed Enhancement",
-        "description": "The Schulte Table is a well-established neuropsychological tool used to assess and train visual attention, processing speed, and executive function. Research shows that regular practice strengthens neural networks responsible for visual scanning, selective attention, and information processing speed - skills crucial for reading, driving, and academic performance.",
-        "blogArticleTitle": "Schulte Table Benefits: 7 Science-Backed Gains for Visual Attention and Reading Speed",
+        "title": "What the Schulte Table Measures",
+        "description": "A Schulte Table is a timed visual-search task. Completing it involves visual search, short-term sequence tracking, and attention control. Research can describe those processes during the task, but it does not establish that practice treats ADHD or reliably transfers to reading comprehension.",
+        "blogArticleTitle": "Schulte Table Benefits: Evidence, Limits & How to Practice",
         "authorityLinks": {
-          "neuropsychology": "Schulte Tables in neuropsychological assessment and rehabilitation",
-          "attention": "Visual attention and selective attention research overview",
-          "speedReading": "Scientific evidence for peripheral vision training and reading improvement"
+          "neuropsychology": "A peer-reviewed study measuring cortical activity during a Schulte Table task",
+          "attention": "A foundational review of attention systems, included as background rather than proof of training effects",
+          "speedReading": "A peer-reviewed review of eye movements in reading, which does not test Schulte training"
         }
       },
       "benefits": {
         "visualProcessing": {
-          "title": "Visual Processing",
-          "description": "Improve your ability to quickly process visual information and expand your field of vision."
+          "title": "Visual Search Practice",
+          "description": "Practice locating numbered targets among distractors and following a fixed sequence under time pressure."
         },
         "focusTraining": {
-          "title": "Focus Training",
-          "description": "Enhance concentration and attention span through systematic visual search exercises."
+          "title": "Attention to a Sequence",
+          "description": "Stay with one ordered task while tracking the next target and avoiding premature clicks."
         },
         "readingSpeed": {
-          "title": "Reading Speed",
-          "description": "Develop faster reading skills by training your eyes to capture more information at once."
+          "title": "Transfer Limits",
+          "description": "Faster grid times show improvement on this task; they should not be treated as proof of faster reading or broad cognitive change."
         }
       },
       "faq": {
         "howItWorks": {
           "question": "How does the Schulte Table work?",
-          "answer": "The Schulte Table trains your brain to process visual information more efficiently by forcing you to maintain focus while using peripheral vision to locate numbers quickly."
+          "answer": "The task asks you to find 1–25 in order while recording completion time and mistakes. It combines visual search, sequence tracking, and goal-directed attention."
         },
         "bestPractice": {
           "question": "What is the best way to practice?",
-          "answer": "Try to keep your eyes fixed on the center of the table and use your peripheral vision to spot numbers. Practice daily for 10-15 minutes for best results."
+          "answer": "Prioritize accuracy and compare your own attempts under the same conditions. A central gaze can be tried as a search strategy, but there is no universal schedule or performance cutoff for this online game."
         },
         "readingHelp": {
           "question": "How does this help with reading speed?",
-          "answer": "By training your peripheral vision, you can perceive more text at once while reading. This reduces the number of eye movements needed, allowing you to process information faster and read more efficiently."
+          "answer": "Visual number search and reading are different tasks. Eye-movement research explains how reading works, but it does not show that Schulte practice reliably improves reading speed or comprehension."
         },
         "research": {
           "question": "Is this exercise backed by research?",
-          "answer": "Yes, the Schulte Table has been used in cognitive psychology for decades. Research shows it effectively improves visual attention, processing speed, and can help with conditions like ADHD by strengthening attention networks."
+          "answer": "Research can measure attention and brain activity during Schulte-style tasks. That does not prove that repeated practice treats ADHD, prevents cognitive decline, or produces broad cognitive improvement."
         },
         "peripheralVision": {
           "question": "What is peripheral vision and why is it important?",
-          "answer": "Peripheral vision is your ability to perceive information at the edges of your visual field without looking directly at it. It's crucial in daily life for activities like driving (noticing surrounding vehicles), reading (capturing more text at once), and sports (being aware of teammates' positions). Strong peripheral vision improves your spatial awareness, reaction time, and ability to distribute attention effectively."
+          "answer": "Peripheral vision is information perceived outside the point you are directly looking at. You may use it to notice candidate cells, but the game does not measure the physical size of your visual field or diagnose visual ability."
         }
       },
       "gameUI": {
@@ -2579,11 +2566,11 @@
   },
   "about": {
     "title": "About FreeFocusGames",
-    "metaTitle": "About FreeFocusGames | Free Brain Training Games",
-    "metaDescription": "FreeFocusGames offers free, science-based brain training games to help improve your memory, attention, and focus. Created by someone who believes everyone deserves access to cognitive training.",
+    "metaTitle": "About FreeFocusGames",
+    "metaDescription": "Learn why FreeFocusGames was created and how we turn classic focus, memory, visual-search, and reaction-time tasks into free browser games.",
     "content": {
       "paragraph1": "Hi there! I'm the creator of FreeFocusGames. I built this website because I got frustrated with constantly running into paywalls and those outdated, cumbersome website experiences when searching for quality brain training games. I firmly believe everyone should be able to freely access these tools without being blocked by subscription barriers.",
-      "paragraph2": "Every single game here is grounded in cognitive science research - things like working memory training, attention exercises, and processing speed challenges. I've carefully designed them to be both effective and truly enjoyable. Whether you're a student hoping to boost focus, an adult concerned about memory health, or simply a friend curious about brain training, this place is prepared just for you.",
+      "paragraph2": "The games here are inspired by classic paradigms from cognitive psychology and neuropsychology—such as working memory training, visual search grids, reaction speed tasks, and executive attention challenges. I've carefully adapted them to be clean, fast, and accessible on modern devices without downloads or paywalls.",
       "paragraph3": "I hope these games prove helpful and bring you joy. There's no pressure here - just choose whatever games spark your interest and enjoy the process. Even playing for just a few minutes each day is a beneficial mental workout.",
       "paragraph4": "If you have any feedback or suggestions, I'd be delighted to hear from you.",
       "paragraph5": "Contact: contact@freefocusgames.com"
@@ -3422,7 +3409,7 @@
   },
   "home": {
     "title": "Free Focus Games Online for Adults, Kids, and ADHD",
-    "subtitle": "Play quick science-based focus games online for free. Train attention, working memory, reaction time, and concentration in just 5 minutes a day.",
+    "subtitle": "Choose a quick challenge for attention, working memory, reaction time, or concentration—many inspired by classic cognitive tasks, all free to play in your browser.",
     "heroImageAlt": "Free Focus Games Platform - Play brain training games to improve concentration and memory",
     "heroFeatures": [
       "No Download Required",
@@ -3554,16 +3541,16 @@
       }
     },
     "metaTitle": "Free Focus Games Online for Adults, Kids & ADHD",
-    "metaDescription": "Play free focus games online to train attention, concentration, reaction time, and working memory. Science-based brain training for adults, kids, and ADHD. No download required.",
+    "metaDescription": "Play free focus games inspired by classic cognitive tasks for attention, working memory, reaction time, and concentration. No download required.",
     "metaKeywords": "focus games, free focus games, focus games online, adhd games online free, attention games, concentration games, memory games, brain training games, reaction time games",
     "ogTitle": "Free Focus Games Online for Adults, Kids & ADHD",
-    "ogDescription": "Play free focus games online for attention, working memory, reaction time, and ADHD-friendly brain training. No download required.",
+    "ogDescription": "Play free focus games inspired by classic cognitive tasks for attention, working memory, and reaction time. No download required.",
     "scienceBehind": {
-      "title": "Why These Games Work",
-      "subtitle": "Our games are based on classic attention, memory, and reaction-time tasks from cognitive science.",
-      "description": "Learn how working memory, visual attention, and repeated short practice connect to better focus and more consistent training habits.",
+      "title": "How These Tasks Are Chosen",
+      "subtitle": "Many games are inspired by classic attention, memory, and reaction-time tasks from cognitive science.",
+      "description": "Learn how each task was adapted, what it measures, and how to make sense of your results across repeated sessions.",
       "cta": "Read the Working Memory Guide",
-      "tag": "Neuroscience"
+      "tag": "Evidence Guide"
     },
     "trustpilot": {
       "badge": "Verified Reviews",
@@ -3712,11 +3699,11 @@
   },
   "sbtiTest": {
     "title": "SBTI Personality Test",
-    "subtitle": "Take the viral SBTI personality test and get a chaotic meme-style result in minutes.",
+    "subtitle": "Answer 31 questions, discover one of 27 meme-style personality types, and get your result in about 3 minutes.",
     "metadata": {
-      "title": "SBTI Test Online – Free Viral Personality Test",
-      "description": "Take the viral SBTI test online for free, get a shareable personality result in minutes, and compare it with MBTI-style quizzes.",
-      "keywords": "sbti personality test, sbti test, sbti mbti, sbti personality, viral personality test, free online personality test, mbti test, meme personality quiz, sbti.unun.dev"
+      "title": "SBTI Test: 31-Question Viral Personality Quiz",
+      "description": "Take the free SBTI test online. Answer 31 questions, discover one of 27 meme-style personality types, and get your result in about 3 minutes.",
+      "keywords": "sbti test, sbti personality test, 31 question personality test, viral personality test, meme personality quiz, sbti quiz, free personality test"
     },
     "structuredData": {
       "featureList": [
@@ -3823,7 +3810,7 @@
     "gameUI": {
       "introEyebrow": "Trending personality quiz",
       "introTitle": "MBTI is old news. SBTI is here.",
-      "introDescription": "31 questions, one hidden branch, and 27 possible result types. Tap through and see which SBTI label the internet assigns you.",
+      "introDescription": "31 questions, one hidden branch, and 27 possible result types. Finish in about 3 minutes and see which SBTI label fits your answers.",
       "stats": {
         "questions": "questions including the hidden branch",
         "types": "possible result types",
@@ -4255,9 +4242,9 @@
         "benefit4": "Multitasking Optimized"
       },
       "schulte": {
-        "description": "Visual attention training based on the Walter Schulte neuropsychological method. Develops peripheral vision to increase reading speed by 28% and attention span by 47%.",
-        "benefit1": "+28% Reading Speed",
-        "benefit2": "+47% Attention Span",
+        "description": "A timed visual-search task that records completion time and mistakes while you locate numbered targets in sequence.",
+        "benefit1": "Visual Search Speed",
+        "benefit2": "Peripheral Scanning",
         "benefit3": "Extended Focus Time",
         "benefit4": "Peripheral Vision Dev."
       },
@@ -4312,9 +4299,9 @@
         "difficulty": "Intermediate"
       },
       "article2": {
-        "title": "The Science of Schulte Tables: The Neural Basis of Visual Attention Training",
-        "description": "Based on Posner's attention network theory and 50 years of neuropsychological research, this article explains how Schulte Tables increase reading speed by 28% and attention span by 47% through peripheral vision training.",
-        "highlights": "Posner's Network Theory,+28% Reading Speed,Peripheral Vision Dev.,Clinical Applications",
+        "title": "Schulte Tables: Evidence, Limits & Visual Search",
+        "description": "This evidence review explains what Schulte Tables directly measure, how attention and eye-movement research provide context, and where transfer claims exceed the evidence.",
+        "highlights": "Direct Measures,Visual Search,Reading Evidence,Transfer Boundaries",
         "tag": "Visual Attention",
         "readTime": "12 min read",
         "difficulty": "Intermediate"
@@ -4329,10 +4316,10 @@
       }
     },
     "schulte": {
-      "title": "👁️ Schulte Table Training: The Scientific Reinforcement of Visual Attention",
+      "title": "👁️ Schulte Table Practice: Evidence and Limits",
       "posnerTheory": {
         "title": "The Science of Visual Attention: Posner's Trinity of Attention Networks",
-        "p1": "Cognitive neuroscientist Michael Posner discovered that the human attention system consists of three independent but collaborative networks. Schulte Table training can simultaneously strengthen all three networks, achieving a comprehensive improvement in visual attention.",
+        "p1": "Posner's attention framework describes alerting, orienting, and executive-control systems. It provides useful background for attention tasks, but it was not a Schulte intervention study and does not show that grid practice strengthens these networks.",
         "card1": {
           "title": "Alerting Network",
           "p": "Maintains a state of alertness, ready to respond to stimuli.",
@@ -4350,23 +4337,23 @@
         }
       },
       "readingSpeed": {
-        "title": "Improving Reading Speed: Empirical Research Data",
-        "p1": "Multiple studies have confirmed that Schulte Table training significantly improves reading speed. The core mechanism is the expansion of the effective visual field and the optimization of eye movement patterns.",
+        "title": "Visual Scanning & Reading Mechanics: Evidence & Limits",
+        "p1": "Eye-movement research describes how fixations, saccades, perceptual span, and language processing contribute to reading. It does not establish that Schulte practice expands reading span or reduces regressions.",
         "russiaStudy": {
-          "title": "📈 Data from a Russian Study (8-week training)",
+          "title": "👁️ Visual Search & Attention Mechanisms",
           "visual": {
-            "title": "Visual Attention Improvement:",
-            "list": "<li>• <strong>47%</strong> increase in visual attention span</li><li>• <strong>32%</strong> improvement in visual processing speed</li><li>• <strong>28%</strong> enhancement in selective attention accuracy</li>"
+            "title": "Key Attentional Gains:",
+            "list": "<li>• Locate numbered targets among competing cells</li><li>• Track the next target in a fixed sequence</li><li>• Compare completion time and mistakes across matched attempts</li>"
           },
           "reading": {
-            "title": "Reading Performance Boost:",
-            "list": "<li>• Average reading speed increased by <strong>28%</strong></li><li>• Comprehension accuracy maintained at <strong>95%+</strong></li><li>• Eye regression count decreased by <strong>40%</strong></li>"
+            "title": "Reading Mechanics vs. Comprehension:",
+            "list": "<li>• Number search and reading are different tasks</li><li>• Better grid times do not prove faster reading or comprehension</li><li>• Reading outcomes should be measured directly</li>"
           }
         },
         "psychologyStudy": {
-          "title": "🎓 Educational Psychology Study (200 middle school students)",
-          "p1": "Results from an experiment integrating Schulte Table training into daily curriculum:",
-          "list": "<li>• Significant improvement in reading fluency, averaging a 1.5 grade level increase.</li><li>• Comprehensive improvement in academic performance, with average scores in all subjects increasing by 15-20 points.</li><li>• Extended attention duration, with a 60% improvement in classroom focus.</li>"
+          "title": "🎯 Structured Focus & Study Recommendations",
+          "p1": "Practical observations on integrating structured grid exercises into study routines:",
+          "list": "<li>• Use it as an optional short activity, not a treatment.</li><li>• Keep grid size, device, and settings consistent.</li><li>• Track time and mistakes as a personal task benchmark.</li>"
         }
       }
     },

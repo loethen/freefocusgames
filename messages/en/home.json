@@ -1,7 +1,7 @@
 {
   "home": {
     "title": "Free Focus Games Online for Adults, Kids, and ADHD",
-    "subtitle": "Play quick science-based focus games online for free. Train attention, working memory, reaction time, and concentration in just 5 minutes a day.",
+    "subtitle": "Choose a quick challenge for attention, working memory, reaction time, or concentration—many inspired by classic cognitive tasks, all free to play in your browser.",
     "heroImageAlt": "Free Focus Games Platform - Play brain training games to improve concentration and memory",
     "heroFeatures": [
       "No Download Required",
@@ -133,16 +133,16 @@
       }
     },
     "metaTitle": "Free Focus Games Online for Adults, Kids & ADHD",
-    "metaDescription": "Play free focus games online to train attention, concentration, reaction time, and working memory. Science-based brain training for adults, kids, and ADHD. No download required.",
+    "metaDescription": "Play free focus games inspired by classic cognitive tasks for attention, working memory, reaction time, and concentration. No download required.",
     "metaKeywords": "focus games, free focus games, focus games online, adhd games online free, attention games, concentration games, memory games, brain training games, reaction time games",
     "ogTitle": "Free Focus Games Online for Adults, Kids & ADHD",
-    "ogDescription": "Play free focus games online for attention, working memory, reaction time, and ADHD-friendly brain training. No download required.",
+    "ogDescription": "Play free focus games inspired by classic cognitive tasks for attention, working memory, and reaction time. No download required.",
     "scienceBehind": {
-      "title": "Why These Games Work",
-      "subtitle": "Our games are based on classic attention, memory, and reaction-time tasks from cognitive science.",
-      "description": "Learn how working memory, visual attention, and repeated short practice connect to better focus and more consistent training habits.",
+      "title": "How These Tasks Are Chosen",
+      "subtitle": "Many games are inspired by classic attention, memory, and reaction-time tasks from cognitive science.",
+      "description": "Learn how each task was adapted, what it measures, and how to make sense of your results across repeated sessions.",
       "cta": "Read the Working Memory Guide",
-      "tag": "Neuroscience"
+      "tag": "Evidence Guide"
     },
     "trustpilot": {
       "badge": "Verified Reviews",

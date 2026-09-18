@@ -26,36 +26,36 @@
             },
             "benefits": {
                 "focus": {
-                    "title": "Sustained Attention",
-                    "description": "Maintaining a high click rate requires extreme mental concentration. Staying consistent through the 10-second mode is an excellent workout for sustained attention."
+                    "title": "Burst Concentration",
+                    "description": "Maintaining a high click rate requires short-window focus and physical pacing. Pushing through the 5s or 10s mode tests how consistently you can maintain your rhythm without locking up."
                 },
                 "neural": {
-                    "title": "Neural-Motor Connection",
-                    "description": "Strengthens the signal transmission between brain and fingers. Rapid reaction is a result of the brain sending fast command signals and efficient neural pathways."
+                    "title": "Motor Coordination & Rhythm",
+                    "description": "Measures physical tapping speed and finger control. Rapid clicking tests your hand muscles' ability to execute fast, repetitive keystrokes with minimal wasted motion."
                 },
                 "flow": {
-                    "title": "Flow State & Relief",
-                    "description": "Rhythmic high-speed clicking can help induce a 'flow state', clearing the mind of clutter. It acts as a unique stress reliever and brain reset."
+                    "title": "Gaming Benchmark & Stamina",
+                    "description": "Commonly used by Minecraft and FPS players to test jitter clicking, butterfly clicking, or standard tapping stamina under competitive conditions."
                 }
             },
             "science": {
                 "title": "What a CPS Test Actually Measures",
-                "description": "A CPS test is more than a hand-speed challenge. It reflects burst motor output, neural-motor coordination, rhythmic control, and short-window concentration. For gamers and users training click speed, it works well as a repeatable benchmark across different time modes.",
+                "description": "A CPS test serves as a physical benchmark for mouse clicking speed. It measures burst motor output, finger tapping rhythm, and short-window mechanical pacing across standardized 1s, 3s, 5s, and 10s intervals.",
                 "blogArticleTitle": "Read: What Is a Good CPS Score?"
             },
             "leaderboardNote": "Leaderboard records 5-second mode scores only.",
             "faq": {
                 "focus": {
                     "question": "Is this just about hand speed?",
-                    "answer": "Not entirely. To reach limits (like 10+ CPS) and stay consistent, your brain must be highly focused to control micro-movements. Any momentary distraction drops your speed, making this a test of high-intensity short-term focus."
+                    "answer": "It primarily measures clicking speed over a short interval. Attention, technique, device latency, and hand fatigue can all affect a score, so it should not be treated as a standalone measure of concentration."
                 },
                 "warmup": {
-                    "question": "Is this a good brain warmup?",
-                    "answer": "Yes. Short bursts of clicking (like the 5s mode) quickly activate the nervous system and wake up the cerebral cortex, helping you transition from a groggy state to a ready-to-work state."
+                    "question": "Is this a good pre-game warm-up?",
+                    "answer": "It can be used as a brief physical warm-up or equipment check. Keep attempts short, use a comfortable grip, and stop if you feel pain or strain."
                 },
                 "improve": {
                     "question": "How to improve my score?",
-                    "answer": "Besides clicking techniques, the key is breathing and relaxing your arm muscles. Tension leads to stiffness. Learning 'relaxed focus' is key to high performance—a great mindfulness practice in itself."
+                    "answer": "Use the same device and duration when comparing attempts. A comfortable grip, consistent technique, and short rests can reduce fatigue; stop if repeated clicking causes discomfort."
                 },
                 "health": {
                     "question": "Can high-speed clicking cause injury?",

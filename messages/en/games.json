@@ -67,7 +67,7 @@
         },
         "schulteTable": {
           "title": "Schulte Table Online",
-          "description": "Practice visual scanning, peripheral vision, and reading speed with our Schulte Table online."
+          "description": "Complete a timed 1–25 visual-search task and compare your own completion time and mistakes."
         },
         "adultAdhdAssessment": {
           "title": "Adult ADHD Self-Assessment",
@@ -128,77 +128,64 @@
     "ogDescription": "Explore free browser games for focus, memory, reaction time, visual attention, and mental flexibility.",
     "schulteTable": {
       "title": "Schulte Table",
-      "subtitle": "Free Online Visual Attention and Speed Reading Training",
-      "description": "Practice with our free Schulte Table online to train visual attention, peripheral vision, reading speed, and concentration. Find numbers in sequence and improve scanning speed in minutes.",
-      "howToPlay": "Find and click numbers in ascending order (1-25) as quickly as possible. Try to use your peripheral vision instead of scanning each number!",
+      "subtitle": "Free Online Visual Search and Attention Task",
+      "description": "Practice a timed 5×5 number-search task. Find 1–25 in order, track completion time and mistakes, and compare repeated attempts under the same conditions.",
+      "howToPlay": "Find and click numbers in ascending order (1–25). Prioritize accuracy, then compare your completion time with your own attempts using the same grid size, device, and settings.",
       "speedStandards": {
-        "title": "Speed Standards",
-        "intro": "Here are the reference standards for a 5x5 (1-25) Schulte Table test:",
-        "children": {
-          "title": "Children (6 years old):",
-          "brilliant": "Brilliant: 60 seconds or less",
-          "optimal": "Optimal: Up to 70 seconds",
-          "mediocre": "Mediocre: Up to 80 seconds"
-        },
-        "adults": {
-          "title": "Adults:",
-          "beginner": "Beginner Level: 40-60 seconds",
-          "average": "Average Proficiency: 25-40 seconds",
-          "advanced": "Advanced Level: 15-25 seconds",
-          "elite": "Elite Performance: Under 15 seconds"
-        }
+        "title": "Track Your Personal Baseline",
+        "intro": "There is no universal clinical cutoff for this online game. Compare attempts only when grid size, device, and settings are the same. The leaderboard reflects site players, not population norms."
       },
       "watchDemo": "Watch Demo",
       "demo": "Demo",
-      "metaTitle": "Free Schulte Table Online: Visual Attention & Reading Speed",
-      "metaDescription": "Use this free Schulte Table online to train visual attention, peripheral vision, and reading speed. A simple Schulte grid exercise for focus practice, speed reading, and ADHD-friendly attention training.",
-      "metaKeywords": "schulte table online, free schulte table, schulte grid, visual attention training, peripheral vision exercise, reading speed practice, focus exercise, adhd attention training",
-      "ogTitle": "Free Schulte Table Online: Visual Attention & Reading Speed",
-      "ogDescription": "Use this free Schulte Table online to train visual attention, peripheral vision, and reading speed with a simple Schulte grid exercise.",
+      "metaTitle": "Free Schulte Table Online: Visual Search Practice",
+      "metaDescription": "Use this free Schulte Table online to practice timed visual search. Find 1–25 in order, track mistakes and completion time, and compare repeat attempts.",
+      "metaKeywords": "schulte table online, free schulte table, schulte grid, visual search task, attention practice, number search game, timed focus exercise",
+      "ogTitle": "Free Schulte Table Online: Visual Search Practice",
+      "ogDescription": "Find 1–25 in order, track completion time and mistakes, and compare repeated attempts in this free visual-search task.",
       "science": {
-        "title": "Visual Attention and Processing Speed Enhancement",
-        "description": "The Schulte Table is a well-established neuropsychological tool used to assess and train visual attention, processing speed, and executive function. Research shows that regular practice strengthens neural networks responsible for visual scanning, selective attention, and information processing speed - skills crucial for reading, driving, and academic performance.",
-        "blogArticleTitle": "Schulte Table Benefits: 7 Science-Backed Gains for Visual Attention and Reading Speed",
+        "title": "What the Schulte Table Measures",
+        "description": "A Schulte Table is a timed visual-search task. Completing it involves visual search, short-term sequence tracking, and attention control. Research can describe those processes during the task, but it does not establish that practice treats ADHD or reliably transfers to reading comprehension.",
+        "blogArticleTitle": "Schulte Table Benefits: Evidence, Limits & How to Practice",
         "authorityLinks": {
-          "neuropsychology": "Schulte Tables in neuropsychological assessment and rehabilitation",
-          "attention": "Visual attention and selective attention research overview",
-          "speedReading": "Scientific evidence for peripheral vision training and reading improvement"
+          "neuropsychology": "A peer-reviewed study measuring cortical activity during a Schulte Table task",
+          "attention": "A foundational review of attention systems, included as background rather than proof of training effects",
+          "speedReading": "A peer-reviewed review of eye movements in reading, which does not test Schulte training"
         }
       },
       "benefits": {
         "visualProcessing": {
-          "title": "Visual Processing",
-          "description": "Improve your ability to quickly process visual information and expand your field of vision."
+          "title": "Visual Search Practice",
+          "description": "Practice locating numbered targets among distractors and following a fixed sequence under time pressure."
         },
         "focusTraining": {
-          "title": "Focus Training",
-          "description": "Enhance concentration and attention span through systematic visual search exercises."
+          "title": "Attention to a Sequence",
+          "description": "Stay with one ordered task while tracking the next target and avoiding premature clicks."
         },
         "readingSpeed": {
-          "title": "Reading Speed",
-          "description": "Develop faster reading skills by training your eyes to capture more information at once."
+          "title": "Transfer Limits",
+          "description": "Faster grid times show improvement on this task; they should not be treated as proof of faster reading or broad cognitive change."
         }
       },
       "faq": {
         "howItWorks": {
           "question": "How does the Schulte Table work?",
-          "answer": "The Schulte Table trains your brain to process visual information more efficiently by forcing you to maintain focus while using peripheral vision to locate numbers quickly."
+          "answer": "The task asks you to find 1–25 in order while recording completion time and mistakes. It combines visual search, sequence tracking, and goal-directed attention."
         },
         "bestPractice": {
           "question": "What is the best way to practice?",
-          "answer": "Try to keep your eyes fixed on the center of the table and use your peripheral vision to spot numbers. Practice daily for 10-15 minutes for best results."
+          "answer": "Prioritize accuracy and compare your own attempts under the same conditions. A central gaze can be tried as a search strategy, but there is no universal schedule or performance cutoff for this online game."
         },
         "readingHelp": {
           "question": "How does this help with reading speed?",
-          "answer": "By training your peripheral vision, you can perceive more text at once while reading. This reduces the number of eye movements needed, allowing you to process information faster and read more efficiently."
+          "answer": "Visual number search and reading are different tasks. Eye-movement research explains how reading works, but it does not show that Schulte practice reliably improves reading speed or comprehension."
         },
         "research": {
           "question": "Is this exercise backed by research?",
-          "answer": "Yes, the Schulte Table has been used in cognitive psychology for decades. Research shows it effectively improves visual attention, processing speed, and can help with conditions like ADHD by strengthening attention networks."
+          "answer": "Research can measure attention and brain activity during Schulte-style tasks. That does not prove that repeated practice treats ADHD, prevents cognitive decline, or produces broad cognitive improvement."
         },
         "peripheralVision": {
           "question": "What is peripheral vision and why is it important?",
-          "answer": "Peripheral vision is your ability to perceive information at the edges of your visual field without looking directly at it. It's crucial in daily life for activities like driving (noticing surrounding vehicles), reading (capturing more text at once), and sports (being aware of teammates' positions). Strong peripheral vision improves your spatial awareness, reaction time, and ability to distribute attention effectively."
+          "answer": "Peripheral vision is information perceived outside the point you are directly looking at. You may use it to notice candidate cells, but the game does not measure the physical size of your visual field or diagnose visual ability."
         }
       },
       "gameUI": {

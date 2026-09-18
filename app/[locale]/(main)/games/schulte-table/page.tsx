@@ -99,12 +99,12 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
                 "priceCurrency": "USD"
             },
             "featureList": [
-                "5x5 Schulte Table training",
+                "Timed 5x5 number-search task",
                 "Adjusted-time leaderboard with mistake penalties",
-                "Peripheral vision practice",
-                "Speed reading support"
+                "Completion-time and mistake tracking",
+                "Personal baseline for repeated attempts"
             ],
-            "educationalUse": "Attention Training",
+            "educationalUse": "Visual Search Practice",
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"
         },
@@ -146,30 +146,7 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
 
                     <div className="mt-4 p-4 bg-muted/50 rounded-lg">
                         <h4 className="font-medium mb-2">{standardsT("title")}</h4>
-                        <p className="text-sm text-muted-foreground mb-2">{standardsT("intro")}</p>
-
-                        <div className="grid gap-4 md:grid-cols-2">
-                            {/* 儿童标准 */}
-                            <div className="space-y-1">
-                                <p className="text-sm font-medium">{standardsT("children.title")}</p>
-                                <ul className="text-sm space-y-1 list-disc pl-5">
-                                    <li>{standardsT("children.brilliant")}</li>
-                                    <li>{standardsT("children.optimal")}</li>
-                                    <li>{standardsT("children.mediocre")}</li>
-                                </ul>
-                            </div>
-
-                            {/* 成人标准 */}
-                            <div className="space-y-1">
-                                <p className="text-sm font-medium">{standardsT("adults.title")}</p>
-                                <ul className="text-sm space-y-1 list-disc pl-5">
-                                    <li>{standardsT("adults.beginner")}</li>
-                                    <li>{standardsT("adults.average")}</li>
-                                    <li>{standardsT("adults.advanced")}</li>
-                                    <li>{standardsT("adults.elite")}</li>
-                                </ul>
-                            </div>
-                        </div>
+                        <p className="text-sm text-muted-foreground">{standardsT("intro")}</p>
                     </div>
 
                     <Dialog>
@@ -210,18 +187,18 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
                 blogArticleTitle: t('schulteTable.science.blogArticleTitle'),
                 authorityLinks: [
                     {
-                        title: "Schulte Tables in Neuropsychology",
-                        url: "https://en.wikipedia.org/wiki/Schulte_table",
+                        title: "Cortical Activity During a Schulte Table Task",
+                        url: "https://pubmed.ncbi.nlm.nih.gov/34577225/",
                         description: t('schulteTable.science.authorityLinks.neuropsychology')
                     },
                     {
-                        title: "Visual Attention Research - Wikipedia",
-                        url: "https://en.wikipedia.org/wiki/Visual_attention",
+                        title: "The Attention System of the Human Brain",
+                        url: "https://doi.org/10.1146/annurev.ne.13.030190.000325",
                         description: t('schulteTable.science.authorityLinks.attention')
                     },
                     {
-                        title: "Speed Reading and Peripheral Vision",
-                        url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3447823/",
+                        title: "Eye Movements in Reading and Information Processing",
+                        url: "https://pubmed.ncbi.nlm.nih.gov/9849112/",
                         description: t('schulteTable.science.authorityLinks.speedReading')
                     }
                 ]

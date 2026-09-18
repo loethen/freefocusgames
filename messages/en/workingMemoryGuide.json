@@ -341,9 +341,9 @@
         "benefit4": "Multitasking Optimized"
       },
       "schulte": {
-        "description": "Visual attention training based on the Walter Schulte neuropsychological method. Develops peripheral vision to increase reading speed by 28% and attention span by 47%.",
-        "benefit1": "+28% Reading Speed",
-        "benefit2": "+47% Attention Span",
+        "description": "A timed visual-search task that records completion time and mistakes while you locate numbered targets in sequence.",
+        "benefit1": "Visual Search Speed",
+        "benefit2": "Peripheral Scanning",
         "benefit3": "Extended Focus Time",
         "benefit4": "Peripheral Vision Dev."
       },
@@ -398,9 +398,9 @@
         "difficulty": "Intermediate"
       },
       "article2": {
-        "title": "The Science of Schulte Tables: The Neural Basis of Visual Attention Training",
-        "description": "Based on Posner's attention network theory and 50 years of neuropsychological research, this article explains how Schulte Tables increase reading speed by 28% and attention span by 47% through peripheral vision training.",
-        "highlights": "Posner's Network Theory,+28% Reading Speed,Peripheral Vision Dev.,Clinical Applications",
+        "title": "Schulte Tables: Evidence, Limits & Visual Search",
+        "description": "This evidence review explains what Schulte Tables directly measure, how attention and eye-movement research provide context, and where transfer claims exceed the evidence.",
+        "highlights": "Direct Measures,Visual Search,Reading Evidence,Transfer Boundaries",
         "tag": "Visual Attention",
         "readTime": "12 min read",
         "difficulty": "Intermediate"
@@ -415,10 +415,10 @@
       }
     },
     "schulte": {
-      "title": "👁️ Schulte Table Training: The Scientific Reinforcement of Visual Attention",
+      "title": "👁️ Schulte Table Practice: Evidence and Limits",
       "posnerTheory": {
         "title": "The Science of Visual Attention: Posner's Trinity of Attention Networks",
-        "p1": "Cognitive neuroscientist Michael Posner discovered that the human attention system consists of three independent but collaborative networks. Schulte Table training can simultaneously strengthen all three networks, achieving a comprehensive improvement in visual attention.",
+        "p1": "Posner's attention framework describes alerting, orienting, and executive-control systems. It provides useful background for attention tasks, but it was not a Schulte intervention study and does not show that grid practice strengthens these networks.",
         "card1": {
           "title": "Alerting Network",
           "p": "Maintains a state of alertness, ready to respond to stimuli.",
@@ -436,23 +436,23 @@
         }
       },
       "readingSpeed": {
-        "title": "Improving Reading Speed: Empirical Research Data",
-        "p1": "Multiple studies have confirmed that Schulte Table training significantly improves reading speed. The core mechanism is the expansion of the effective visual field and the optimization of eye movement patterns.",
+        "title": "Visual Scanning & Reading Mechanics: Evidence & Limits",
+        "p1": "Eye-movement research describes how fixations, saccades, perceptual span, and language processing contribute to reading. It does not establish that Schulte practice expands reading span or reduces regressions.",
         "russiaStudy": {
-          "title": "📈 Data from a Russian Study (8-week training)",
+          "title": "👁️ Visual Search & Attention Mechanisms",
           "visual": {
-            "title": "Visual Attention Improvement:",
-            "list": "<li>• <strong>47%</strong> increase in visual attention span</li><li>• <strong>32%</strong> improvement in visual processing speed</li><li>• <strong>28%</strong> enhancement in selective attention accuracy</li>"
+            "title": "Key Attentional Gains:",
+            "list": "<li>• Locate numbered targets among competing cells</li><li>• Track the next target in a fixed sequence</li><li>• Compare completion time and mistakes across matched attempts</li>"
           },
           "reading": {
-            "title": "Reading Performance Boost:",
-            "list": "<li>• Average reading speed increased by <strong>28%</strong></li><li>• Comprehension accuracy maintained at <strong>95%+</strong></li><li>• Eye regression count decreased by <strong>40%</strong></li>"
+            "title": "Reading Mechanics vs. Comprehension:",
+            "list": "<li>• Number search and reading are different tasks</li><li>• Better grid times do not prove faster reading or comprehension</li><li>• Reading outcomes should be measured directly</li>"
           }
         },
         "psychologyStudy": {
-          "title": "🎓 Educational Psychology Study (200 middle school students)",
-          "p1": "Results from an experiment integrating Schulte Table training into daily curriculum:",
-          "list": "<li>• Significant improvement in reading fluency, averaging a 1.5 grade level increase.</li><li>• Comprehensive improvement in academic performance, with average scores in all subjects increasing by 15-20 points.</li><li>• Extended attention duration, with a 60% improvement in classroom focus.</li>"
+          "title": "🎯 Structured Focus & Study Recommendations",
+          "p1": "Practical observations on integrating structured grid exercises into study routines:",
+          "list": "<li>• Use it as an optional short activity, not a treatment.</li><li>• Keep grid size, device, and settings consistent.</li><li>• Track time and mistakes as a personal task benchmark.</li>"
         }
       }
     },

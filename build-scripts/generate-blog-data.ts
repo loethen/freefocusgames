@@ -8,17 +8,30 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
+interface BlogSource {
+    title: string;
+    url?: string;
+    authors?: string;
+    year?: string | number;
+    publisher?: string;
+}
+
 interface BlogPost {
     slug: string;
     title: string;
+    seoTitle?: string;
+    metaDescription?: string;
     date: string;
-  updatedAt?: string;
+    updatedAt?: string;
     excerpt: string;
     coverImage?: string;
     keywords?: string;
+    sources?: BlogSource[];
     author: {
         name: string;
+        type?: 'Person' | 'Organization';
         picture?: string;
+        url?: string;
     };
     content: string;
 }
@@ -50,14 +63,19 @@ function processMarkdownFiles(dir: string): BlogPost[] {
             return {
                 slug,
                 title: data.title || '',
+                ...(data.seoTitle ? { seoTitle: data.seoTitle } : {}),
+                ...(data.metaDescription ? { metaDescription: data.metaDescription } : {}),
                 date: data.date || '',
-        ...(data.updatedAt ? { updatedAt: data.updatedAt } : {}),
+                ...(data.updatedAt ? { updatedAt: data.updatedAt } : {}),
                 excerpt: data.excerpt || '',
                 coverImage: data.coverImage,
                 keywords: data.keywords || '',
+                ...(Array.isArray(data.sources) && data.sources.length > 0 ? { sources: data.sources } : {}),
                 author: {
                     name: data.author?.name || 'Anonymous',
+                    ...(data.author?.type ? { type: data.author.type } : {}),
                     picture: data.author?.picture,
+                    ...(data.author?.url ? { url: data.author.url } : {}),
                 },
                 content,
             };
@@ -96,17 +114,30 @@ function main() {
 import enPosts from './blog-en.json';
 import zhPosts from './blog-zh.json';
 
+export interface BlogSource {
+  title: string;
+  url?: string;
+  authors?: string;
+  year?: string | number;
+  publisher?: string;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
+  seoTitle?: string;
+  metaDescription?: string;
   date: string;
   updatedAt?: string;
   excerpt: string;
   coverImage?: string;
   keywords?: string;
+  sources?: BlogSource[];
   author: {
     name: string;
+    type?: 'Person' | 'Organization';
     picture?: string;
+    url?: string;
   };
   content: string;
 }

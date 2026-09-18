@@ -1,13 +1,16 @@
 // Blog data access layer
 // Uses pre-generated JSON data for Cloudflare edge runtime compatibility
 
-import { blogData, BlogPost } from '@/data/generated';
+import { blogData } from '@/data/generated';
+import type { BlogPost } from '@/data/generated';
 
-export type { BlogPost } from '@/data/generated';
+export type { BlogPost, BlogSource } from '@/data/generated';
 
 export interface BlogAuthor {
   name: string;
+  type?: 'Person' | 'Organization';
   picture?: string;
+  url?: string;
 }
 
 export interface PostNavigation {

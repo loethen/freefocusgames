@@ -9,6 +9,8 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { PostNavigation } from '@/components/post-navigation';
 import { ShareButton } from '@/components/share-button';
 import { routing } from '@/i18n/routing';
+import { Link } from '@/i18n/navigation';
+import { SITE_BASE_URL } from '@/lib/site-constants';
 
 async function getLocalizedPost(slug: string, locale: string) {
   const post = await getBlogPost(slug, locale);
@@ -40,14 +42,17 @@ export async function generateMetadata(
   setRequestLocale(locale);
   const post = await getLocalizedPost(slug, locale);
 
+  const pageTitle = post.seoTitle || post.title;
+  const pageDescription = post.metaDescription || post.excerpt;
+
   return {
-    title: post.title,
-    description: post.excerpt,
+    title: pageTitle,
+    description: pageDescription,
     keywords: post.keywords,
     openGraph: {
       images: post.coverImage || "/og/blog.jpg",
-      title: post.title,
-      description: post.excerpt,
+      title: pageTitle,
+      description: pageDescription,
       type: 'article',
       publishedTime: post.date,
       modifiedTime: post.updatedAt || post.date,
@@ -66,8 +71,50 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
 
   const navigation = await getPostNavigation(slug, locale);
 
+  const baseUrl = SITE_BASE_URL;
+  const localePrefix = locale === 'en' ? '' : `/${locale}`;
+  const pageUrl = `${baseUrl}${localePrefix}/blog/${slug}`;
+  const authorHref = post.author.url || '/about';
+  const authorUrl = authorHref.startsWith('http')
+    ? authorHref
+    : `${baseUrl}${localePrefix}${authorHref.startsWith('/') ? authorHref : `/${authorHref}`}`;
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.title,
+    description: post.metaDescription || post.excerpt,
+    image: post.coverImage
+      ? (post.coverImage.startsWith('http') ? post.coverImage : `${baseUrl}${post.coverImage}`)
+      : `${baseUrl}/og/blog.jpg`,
+    datePublished: post.date,
+    dateModified: post.updatedAt || post.date,
+    author: {
+      '@type': post.author.type || 'Person',
+      name: post.author.name,
+      url: authorUrl,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'FreeFocusGames',
+      url: baseUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/og/oglogo.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': pageUrl,
+    },
+  };
+
   return (
     <div className="container mx-auto px-4 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       <div className="max-w-3xl mx-auto">
         <Breadcrumb
           items={[
@@ -93,9 +140,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               </div>
             )}
             <div>
-              <div className="font-medium">{post.author.name}</div>
+              <div className="font-medium">
+                {authorHref.startsWith('http') ? (
+                  <a href={authorHref} target="_blank" rel="noopener noreferrer" className="hover:underline text-foreground">
+                    {post.author.name}
+                  </a>
+                ) : (
+                  <Link href={authorHref} className="hover:underline text-foreground">
+                    {post.author.name}
+                  </Link>
+                )}
+              </div>
               <div className="text-sm text-muted-foreground">
-                {formatDate(post.date, locale)}
+                <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
                 {post.updatedAt && (
                   <span> · {locale === 'zh' ? '更新于' : 'Updated'} <time dateTime={post.updatedAt}>{formatDate(post.updatedAt, locale)}</time></span>
                 )}
@@ -122,6 +179,39 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <div className="prose prose-lg dark:prose-invert max-w-none post-ul-list">
             <Markdown content={post.content} />
           </div>
+
+          {post.sources && post.sources.length > 0 && (
+            <section
+              id="references"
+              aria-labelledby="references-heading"
+              className="mt-12 pt-8 border-t border-border"
+            >
+              <h2 id="references-heading" className="text-2xl font-bold mb-4">
+                {locale === 'zh' ? '参考文献与权威来源' : 'References & Sources'}
+              </h2>
+              <ol className="list-decimal pl-5 space-y-2 text-sm text-muted-foreground">
+                {post.sources.map((source, index) => (
+                  <li key={index}>
+                    {source.authors && <span className="font-medium text-foreground">{source.authors} </span>}
+                    {source.year && <span>({source.year}). </span>}
+                    {source.url ? (
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:underline"
+                      >
+                        {source.title}
+                      </a>
+                    ) : (
+                      <span className="text-foreground italic">{source.title}</span>
+                    )}
+                    {source.publisher && <span>. {source.publisher}</span>}
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
         </article>
 
         <PostNavigation
