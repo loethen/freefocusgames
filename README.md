@@ -46,8 +46,14 @@ A millisecond-precision test to measure your reaction speed. Click as fast as yo
 *   **Keywords**: *Reaction Time, Reflex Test, Speed Test, Response Time, Human Benchmark*
 
 ### 5. Other Cognitive Tasks
-*   **Pomodoro Timer**: Focus timer based on the Pomodoro Technique.
-*   **Block Memory Challenge**: Spatial working memory exercise.
+
+*   **[Pomodoro Timer](/app/[locale]/(main)/games/pomodoro-timer)**: Focus timer based on the Pomodoro Technique.
+*   **[Block Memory Challenge](/app/[locale]/(main)/games/block-memory-challenge)**: Free online sequence memory test with forward and backward recall, adjustable practice, and separate challenge leaderboards.
+
+## 🎉 For Fun
+
+*   **[SBTI Test](https://www.freefocusgames.com/games/sbti-test)**: A playful, meme-style personality quiz with a shareable result poster.
+*   **[10-Second Challenge](https://www.freefocusgames.com/games/challenge-10-seconds)**: Stop the timer as close to 10 seconds as possible, with visible and hidden timer modes.
 
 ## 🛠️ Tech Stack
 
