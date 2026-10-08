@@ -51,7 +51,10 @@
       "unitCps": "CPS",
       "unitLevel": "第{score}关",
       "unitPercent": "%",
-      "unitWahTurns": "哇了 {score} 圈"
+      "unitWahTurns": "哇了 {score} 圈",
+      "unitSteps": "{score} 步",
+      "sequenceLength": "最长序列",
+      "averageSequenceLength": "平均序列长度"
     },
     "progressShare": {
       "title": "进步卡片",

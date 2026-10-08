@@ -7,7 +7,7 @@ import { DEFAULT_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
 import { getPublicLeaderboardUrl } from "@/lib/leaderboard-public";
 import { compareScores, hasTargetScore, isHigherScoreBetter } from "@/lib/leaderboard-snapshots";
 
-export type FormatterType = 'ms' | 'sec3' | 'sec4' | 'cps' | 'pts' | 'levels' | 'schulte' | 'percent' | 'wahs' | 'default';
+export type FormatterType = 'ms' | 'sec3' | 'sec4' | 'cps' | 'pts' | 'levels' | 'steps' | 'schulte' | 'percent' | 'wahs' | 'default';
 export type LeaderboardDetailsType = 'double-decision';
 
 export interface LeaderboardDisplayProps {
@@ -119,6 +119,7 @@ export function LeaderboardDisplay({
             case 'cps': return `${Number(s.toFixed(1))} ${t('unitCps')}`;
             case 'pts': return `${rounded} ${t('unitPts')}`;
             case 'levels': return t('unitLevel', { score: rounded.toString() });
+            case 'steps': return t('unitSteps', { score: Number(s.toFixed(1)).toString() });
             case 'schulte': return `${(s / 1000).toFixed(1)} ${t('unitSec')}`;
             case 'percent': return `${rounded}${t('unitPercent')}`;
             case 'wahs': return t('unitWahTurns', { score: rounded.toString() });
@@ -273,7 +274,7 @@ export function LeaderboardDisplay({
                         <TrendingUp className="w-4 h-4 text-emerald-500" />
                         <div className="text-sm">
                             <span className="font-semibold block">{formatScore(averageScore)}</span>
-                            <span className="text-muted-foreground text-xs">{t('averageScore')}</span>
+                            <span className="text-muted-foreground text-xs">{t(formatterType === 'steps' ? 'averageSequenceLength' : 'averageScore')}</span>
                         </div>
                     </div>
                 </div>
@@ -322,12 +323,15 @@ export function LeaderboardDisplay({
                                         </th>
                                     </>
                                 )}
-                                <th className="text-right font-medium p-4 text-muted-foreground">{t('score')}</th>
+                                <th className="text-right font-medium p-4 text-muted-foreground">{t(formatterType === 'steps' ? 'sequenceLength' : 'score')}</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y">
                             {top20.map((record, index) => {
                                 const isMe = mySessionDetail && record.playerName === mySessionDetail.playerName;
+                                const rank = formatterType === 'steps'
+                                    ? top20.findIndex((entry) => compareScores(gameId, entry.score, record.score) === 0) + 1
+                                    : index + 1;
                                 return (
                                     <tr
                                         key={index}
@@ -335,7 +339,7 @@ export function LeaderboardDisplay({
                                     >
                                         <td className="p-4">
                                             <div className="flex items-center justify-center w-6 h-6 rounded-full font-bold bg-muted text-muted-foreground text-xs">
-                                                {index + 1}
+                                                {rank}
                                             </div>
                                         </td>
                                         <td className="p-4 font-medium flex items-center gap-2">

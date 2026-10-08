@@ -51,7 +51,10 @@
       "unitCps": "CPS",
       "unitLevel": "Level {score}",
       "unitPercent": "%",
-      "unitWahTurns": "{score} wah turns"
+      "unitWahTurns": "{score} wah turns",
+      "unitSteps": "{score} steps",
+      "sequenceLength": "Longest Sequence",
+      "averageSequenceLength": "Average Sequence Length"
     },
     "progressShare": {
       "title": "Progress Card",

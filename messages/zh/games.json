@@ -1230,7 +1230,7 @@
     },
     "blockMemoryChallenge": {
       "title": "方块记忆挑战",
-      "description": "通过回忆越来越复杂的方块顺序来测试你的视觉记忆。",
+      "description": "按顺序复现闪烁的方块序列，测试视觉记忆，并在挑战排行榜比较最长成功完成的序列。",
       "subtitle": "训练你的视觉记忆和模式识别能力",
       "metaTitle": "方块记忆挑战：视觉序列与工作记忆游戏",
       "metaDescription": "通过回忆越来越复杂的方块序列来测试您的视觉记忆容量。这项脑力训练挑战有助于提高短期记忆、模式识别和认知可塑性。",
@@ -1238,11 +1238,11 @@
       "ogTitle": "方块记忆挑战：视觉序列与工作记忆游戏",
       "ogDescription": "通过回忆越来越复杂的方块序列来测试您的视觉记忆容量。这项脑力训练挑战有助于提高短期记忆、模式识别和认知可塑性。",
       "howToPlay": {
-        "intro": "在这个挑战性的记忆游戏中记忆并重新创建闪烁的方块序列：",
+        "intro": "记住方块闪烁的顺序，再按相同顺序点击。",
         "step1": "方块会按照特定顺序逐个高亮显示",
         "step2": "仔细观察并记住方块高亮的顺序",
         "step3": "序列展示完毕后，按照相同顺序点击方块",
-        "step4": "随着级别提升，序列会变得更长且更难记忆",
+        "step4": "每完成一轮增加一步，点错即结束。",
         "watchDemo": "观看演示",
         "demo": "演示"
       },
@@ -1292,8 +1292,8 @@
         "level": "级别",
         "score": "得分",
         "bestScore": "最佳",
-        "bestRankedLevel": "最佳排位关卡",
-        "bestPracticeScore": "最佳练习分数",
+        "bestRankedLevel": "最佳挑战序列",
+        "bestPracticeScore": "最佳练习序列",
         "time": "时间",
         "startGame": "开始游戏",
         "starting": "准备中...",
@@ -1307,17 +1307,44 @@
         "wellDone": "做得好！",
         "personalBest": "个人最佳",
         "yourTurn": "轮到你了...",
-        "startLevelLabel": "从 {count} 步序列开始",
-        "rankedMode": "排位",
+        "startLevelLabel": "起始步数",
+        "decreaseStartLevel": "减少起始序列长度",
+        "increaseStartLevel": "增加起始序列长度",
+        "rankedMode": "挑战",
         "practiceMode": "练习",
-        "rankedDescription": "固定起始难度。排行榜只比较你完成的最高关卡。",
-        "practiceDescription": "你可以自由选择起始序列长度。练习成绩只保存在本地，不影响排行榜。",
-        "leaderboardDescription": "排行榜只比较总分。你可以自己选择起始阶数，起点越高，每关分值也越高。",
-        "rankedResult": "排位结果",
-        "highestLevelReached": "最高完成关卡",
-        "noLevelCompleted": "还没有完成任何关卡",
+        "rankedDescription": "从 3 步开始",
+        "practiceDescription": "仅练习，不计排名",
+        "leaderboardDescription": "挑战从 3 步开始，按最长完成序列排名，相同步数并列。",
+        "rankedResult": "挑战结果",
+        "highestLevelReached": "最长序列",
+        "noLevelCompleted": "尚未完成任何序列",
         "practiceScoresStayLocal": "练习模式的成绩只保存在当前设备，不会提交到排行榜。",
-        "totalPoints": "总分"
+        "totalPoints": "总分",
+        "modeLabel": "游戏模式",
+        "sequenceLength": "{count} 步",
+        "completedSequence": "已完成：{count} 步",
+        "blockLabel": "方块 {count}",
+        "changeMode": "切换模式",
+        "practiceResult": "练习结果",
+        "result": {
+          "firstRound": {
+            "title": "慢慢来，没关系",
+            "description": "先看清每一步，再按自己的节奏回忆。准备好了再试一次。"
+          },
+          "newBest": {
+            "title": "刷新个人最佳！",
+            "description": "你记住了比之前更长的序列，做得好。"
+          },
+          "completed": {
+            "title": "这轮做得不错",
+            "description": "更长的序列需要练习。歇一会儿，准备好了再继续。"
+          }
+        },
+        "wrongChoice": "你点错的方块",
+        "correctChoice": "这一步应点的方块",
+        "nextRound": "下一轮",
+        "getReady": "准备开始",
+        "countdown": "{count} 秒后开始"
       }
     },
     "reactionTime": {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { BLOCK_MEMORY_LEADERBOARD_MODE, validateBlockMemorySubmission } from "@/lib/block-memory-game";
 import {
     DEFAULT_LEADERBOARD_MODE,
 } from "@/lib/leaderboard-config";
@@ -61,6 +62,7 @@ type LeaderboardSubmissionDetails = {
     rulesVersion?: unknown;
     startingDisplayMs?: unknown;
     startingFieldLevel?: unknown;
+    startingLength?: unknown;
     totalTrials?: unknown;
     trialInterval?: unknown;
     trainingMode?: unknown;
@@ -479,10 +481,7 @@ function validateScore(
         case "fish-trace":
             return score > 50000 ? "Score rejected" : null;
         case "block-memory-challenge":
-            if (!Number.isInteger(score) || score < 1 || score > 50000) {
-                return "Score rejected (Invalid score)";
-            }
-            return null;
+            return validateBlockMemorySubmission(score, mode, details);
         case "schulte-table":
         case "rotating-schulte-table":
             if (score < 3000 || score > 180000) {
@@ -540,6 +539,10 @@ export async function GET(req: NextRequest) {
 
         if (!gameId) {
             return NextResponse.json({ error: "Missing or invalid parameters" }, { status: 400 });
+        }
+
+        if (gameId === "block-memory-challenge" && mode !== BLOCK_MEMORY_LEADERBOARD_MODE) {
+            return NextResponse.json({ error: "Legacy points leaderboard has been retired" }, { status: 410 });
         }
 
         const { db, bucket } = await getCloudflareBindings();

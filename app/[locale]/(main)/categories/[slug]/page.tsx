@@ -1,6 +1,6 @@
 import { getCategoryBySlug, categories } from "@/data/categories";
 import { getGamesByCategory } from "@/data/games";
-import GameCard from "@/components/game-card";
+import GamesLibraryCard from "@/components/games-library-card";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -87,6 +87,7 @@ export default async function CategoryPage({ params }: Props) {
   }
 
   const games = getGamesByCategory(category.id);
+  const categoryById = new Map(categories.map((item) => [item.id, item]));
 
   // 获取服务器端翻译
   const t = await getTranslations({ locale, namespace: 'categories' });
@@ -164,10 +165,26 @@ export default async function CategoryPage({ params }: Props) {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {games.map((game) => (
-          <GameCard key={game.id} game={game} preview={game.preview} />
-        ))}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+        {games.map((game) => {
+          const titleKey = game.id
+            .replace(/-([a-z])/g, (_, char: string) => char.toUpperCase())
+            .replace(/-/g, "");
+          const primaryCategory = game.categories
+            .map((categoryId) => categoryById.get(categoryId))
+            .find(Boolean);
+
+          return (
+            <GamesLibraryCard
+              key={game.id}
+              game={game}
+              title={allT(`games.${titleKey}.title`)}
+              description={allT(`games.${titleKey}.description`)}
+              category={primaryCategory ? t(`categoryNames.${primaryCategory.slug}`) : undefined}
+              playLabel={allT("games.play")}
+            />
+          );
+        })}
       </div>
     </div>
   );

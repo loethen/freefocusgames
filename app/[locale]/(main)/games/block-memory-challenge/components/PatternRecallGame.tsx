@@ -1,377 +1,282 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect, useReducer, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { PlayCircle, Trophy, Loader2 } from 'lucide-react'
-import { ShareModal } from '@/components/ui/ShareModal'
+import { PlayCircle, Trophy, Loader2, Minus, Plus, Check, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Label } from '@/components/ui/label'
-import { Slider } from '@/components/ui/slider'
-import { useTimeout } from '@/hooks/useTimeout'
 import { submitScoreToLeaderboard } from '@/lib/leaderboard'
+import {
+    BLOCK_MEMORY_CHALLENGE_START,
+    BLOCK_MEMORY_PRACTICE_MIN,
+    BLOCK_MEMORY_PRACTICE_MAX,
+    BLOCK_MEMORY_LEADERBOARD_MODE,
+    BLOCK_MEMORY_RULES_VERSION,
+    blockMemoryReducer,
+    generateBlockMemoryPattern,
+    initialBlockMemoryState,
+    type BlockMemoryMode,
+} from '@/lib/block-memory-game'
 
-interface Block {
-    id: number
-    isHighlighted: boolean
-    isError: boolean
-    isCorrect: boolean
+const BEST_KEYS = {
+    challenge: 'memoryBlocksBestSequence.challenge.v1',
+    practice: 'memoryBlocksBestSequence.practice.v1',
 }
-
-const START_LEVEL = 3
-const MAX_START_LEVEL = 20
-const BEST_SCORE_KEY = 'memoryBlocksBestScore'
 
 export function PatternRecallGame() {
     const t = useTranslations('games.blockMemoryChallenge.gameUI')
-    const [gameState, setGameState] = useState<'idle' | 'showing' | 'guessing' | 'complete' | 'failed'>('idle')
-    const [level, setLevel] = useState(START_LEVEL)
-    const [startLevel, setStartLevel] = useState(START_LEVEL)
-    const [blocks, setBlocks] = useState<Block[]>(createInitialBlocks())
-    const [pattern, setPattern] = useState<number[]>([])
-    const [userPattern, setUserPattern] = useState<number[]>([])
-    const [score, setScore] = useState(0)
-    const [bestScore, setBestScore] = useState(0)
-    const [roundStartTime, setRoundStartTime] = useState(0)
-    const [showResults, setShowResults] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
-    const [showShareModal, setShowShareModal] = useState(false)
-    const [blockToAnimate, setBlockToAnimate] = useState<number | null>(null)
-    const [animateError, setAnimateError] = useState<number | null>(null)
-
-    useTimeout(() => {
-        if (blockToAnimate === null) {
-            return
-        }
-
-        setBlocks((currentBlocks) => currentBlocks.map((block) => ({ ...block, isCorrect: false })))
-
-        if (userPattern.length === pattern.length) {
-            const levelScore = calculateLevelScore(level, roundStartTime)
-            const newTotalScore = score + levelScore
-            const nextLevel = level + 1
-            const nextPattern = generatePattern(nextLevel)
-
-            setScore(newTotalScore)
-            updateBestScore(newTotalScore)
-            setGameState('complete')
-
-            setTimeout(() => {
-                setLevel(nextLevel)
-                setPattern(nextPattern)
-                resetBlocks()
-                void showPattern(nextPattern)
-            }, 500)
-        }
-
-        setBlockToAnimate(null)
-    }, blockToAnimate !== null ? 300 : null)
-
-    useTimeout(() => {
-        if (animateError === null) {
-            return
-        }
-
-        setBlocks((currentBlocks) =>
-            currentBlocks.map((block) => ({
-                ...block,
-                isError: false,
-                isCorrect: false,
-            }))
-        )
-        setAnimateError(null)
-        setShowResults(true)
-    }, animateError !== null ? 600 : null)
+    const [game, dispatch] = useReducer(blockMemoryReducer, initialBlockMemoryState)
+    const [mode, setMode] = useState<BlockMemoryMode>('challenge')
+    const [startLength, setStartLength] = useState(BLOCK_MEMORY_CHALLENGE_START)
+    const [bestLengths, setBestLengths] = useState({ challenge: 0, practice: 0 })
+    const submitted = useRef(false)
+    const bestBeforeRun = useRef(0)
+    const resultHeading = useRef<HTMLHeadingElement>(null)
+    const isIdle = game.status === 'idle'
+    const isStarting = game.status === 'starting'
+    const activeMode = isIdle ? mode : game.mode
+    const bestLength = bestLengths[activeMode]
+    const resultKind = game.completedLength === 0
+        ? 'firstRound'
+        : game.completedLength > bestBeforeRun.current ? 'newBest' : 'completed'
 
     useEffect(() => {
-        const savedBestScore = localStorage.getItem(BEST_SCORE_KEY)
+        if (game.status === 'failed') resultHeading.current?.focus({ preventScroll: true })
+    }, [game.status])
 
-        if (savedBestScore) {
-            setBestScore(parseInt(savedBestScore, 10))
+    useEffect(() => {
+        try {
+            localStorage.removeItem('memoryBlocksBestScore')
+            const readBest = (key: string) => {
+                const value = Number(localStorage.getItem(key))
+                return Number.isInteger(value) && value > 0 ? value : 0
+            }
+            setBestLengths({ challenge: readBest(BEST_KEYS.challenge), practice: readBest(BEST_KEYS.practice) })
+        } catch {
+            // A blocked localStorage must not prevent playing.
         }
     }, [])
 
-    const updateBestScore = useCallback((newScore: number) => {
-        if (newScore > bestScore) {
-            setBestScore(newScore)
-            localStorage.setItem(BEST_SCORE_KEY, newScore.toString())
+    useEffect(() => {
+        if (game.completedLength <= bestLengths[game.mode]) return
+        const nextBest = game.completedLength
+        setBestLengths((current) => ({ ...current, [game.mode]: Math.max(current[game.mode], nextBest) }))
+        try {
+            localStorage.setItem(BEST_KEYS[game.mode], String(nextBest))
+        } catch {
+            // Keep the best result for this session when storage is unavailable.
         }
-    }, [bestScore])
+    }, [game.completedLength, game.mode, bestLengths])
 
-    const resetBlocks = useCallback(() => {
-        setBlocks((currentBlocks) =>
-            currentBlocks.map((block) => ({
-                ...block,
-                isHighlighted: false,
-                isError: false,
-                isCorrect: false,
-            }))
-        )
-        setBlockToAnimate(null)
-        setAnimateError(null)
-    }, [])
-
-    const showPattern = useCallback(async (nextPattern: number[]) => {
-        setGameState('showing')
-        setUserPattern([])
-
-        for (const blockId of nextPattern) {
-            setBlocks((currentBlocks) =>
-                currentBlocks.map((block) => ({
-                    ...block,
-                    isHighlighted: block.id === blockId,
-                    isCorrect: false,
-                }))
-            )
-
-            await wait(800)
-
-            setBlocks((currentBlocks) =>
-                currentBlocks.map((block) => ({
-                    ...block,
-                    isHighlighted: false,
-                }))
-            )
-
-            await wait(200)
+    // Every phase owns one cancellable timer. Restarting or unmounting clears it.
+    useEffect(() => {
+        let timer: ReturnType<typeof setTimeout> | undefined
+        switch (game.status) {
+            case 'starting':
+                timer = setTimeout(() => dispatch({ type: 'ready' }), 300)
+                break
+            case 'preparing':
+                timer = setTimeout(() => dispatch({ type: 'prepare-tick', remaining: game.prepareSeconds }), 1000)
+                break
+            case 'showing':
+            case 'gap':
+                timer = setTimeout(() => dispatch({ type: 'display-tick' }), game.status === 'showing' ? 800 : 200)
+                break
+            case 'correct':
+                timer = setTimeout(() => dispatch({ type: 'feedback-end' }), 180)
+                break
+            case 'guessing':
+                if (game.selectedBlock !== null) {
+                    timer = setTimeout(() => dispatch({ type: 'clear-selection', inputIndex: game.inputIndex }), 180)
+                }
+                break
+            case 'complete':
+                timer = setTimeout(() => dispatch({ type: 'next-round', pattern: generateBlockMemoryPattern(game.length + 1) }), 500)
+                break
         }
+        return () => clearTimeout(timer)
+    }, [game.status, game.displayIndex, game.inputIndex, game.length, game.selectedBlock, game.prepareSeconds])
 
-        resetBlocks()
-        setGameState('guessing')
-        setRoundStartTime(Date.now())
-    }, [resetBlocks])
+    useEffect(() => {
+        if (game.status !== 'failed' || game.mode !== 'challenge' || game.completedLength === 0 || submitted.current) return
+        submitted.current = true
+        void submitScoreToLeaderboard('block-memory-challenge', game.completedLength, {
+            mode: BLOCK_MEMORY_LEADERBOARD_MODE,
+            details: { startingLength: BLOCK_MEMORY_CHALLENGE_START, rulesVersion: BLOCK_MEMORY_RULES_VERSION },
+        })
+    }, [game.status, game.mode, game.completedLength])
 
-    const startGame = useCallback(() => {
-        const initialLevel = startLevel
+    const startGame = () => {
+        if (game.status !== 'idle' && game.status !== 'failed') return
+        submitted.current = false
+        const nextMode = isIdle ? mode : game.mode
+        bestBeforeRun.current = bestLengths[nextMode]
+        const length = nextMode === 'challenge' ? BLOCK_MEMORY_CHALLENGE_START : startLength
+        dispatch({ type: 'start', mode: nextMode, pattern: generateBlockMemoryPattern(length) })
+    }
 
-        setIsLoading(true)
-        setGameState('idle')
-        setLevel(initialLevel)
-        setPattern([])
-        setUserPattern([])
-        setScore(0)
-        setShowResults(false)
-        resetBlocks()
-
-        setTimeout(() => {
-            const nextPattern = generatePattern(initialLevel)
-
-            setIsLoading(false)
-            setPattern(nextPattern)
-            void showPattern(nextPattern)
-        }, 1000)
-    }, [resetBlocks, showPattern, startLevel])
-
-    const handleFailure = useCallback(() => {
-        setGameState('failed')
-
-        if (score > 0) {
-            void submitScoreToLeaderboard('block-memory-challenge', score)
-        }
-    }, [score])
-
-    const handleBlockClick = useCallback((blockId: number) => {
-        if (gameState !== 'guessing') {
-            return
-        }
-
-        if (blockToAnimate !== null || animateError !== null) {
-            return
-        }
-
-        const nextUserPattern = [...userPattern, blockId]
-        const currentIndex = userPattern.length
-        const isCorrect = pattern[currentIndex] === blockId
-
-        setUserPattern(nextUserPattern)
-
-        if (isCorrect) {
-            setBlocks((currentBlocks) =>
-                currentBlocks.map((block) =>
-                    block.id === blockId ? { ...block, isCorrect: true } : block
-                )
-            )
-            setBlockToAnimate(blockId)
-            return
-        }
-
-        setBlocks((currentBlocks) =>
-            currentBlocks.map((block) =>
-                block.id === blockId
-                    ? { ...block, isError: true, isCorrect: false }
-                    : block.id === pattern[currentIndex]
-                        ? { ...block, isCorrect: true, isError: false }
-                        : block
-            )
-        )
-        setAnimateError(blockId)
-        handleFailure()
-    }, [animateError, blockToAnimate, gameState, handleFailure, pattern, userPattern])
+    const statusText = game.status === 'showing' || game.status === 'gap'
+        ? t('watchSequence')
+        : game.status === 'guessing' || game.status === 'correct'
+            ? t('repeatSequence')
+            : game.status === 'complete' ? t('wellDone') : ''
+    const isFinished = game.status === 'failed'
 
     return (
-        <div className="space-y-8 max-w-md mx-auto py-4">
-            {gameState !== 'idle' && !showResults && (
-                <div className="flex justify-between items-center">
+        <div className="space-y-6 max-w-md mx-auto py-4">
+            {!isIdle && !isStarting && (
+                <div className="flex flex-wrap justify-between items-center gap-2" aria-live="polite">
                     <div className="flex gap-4 items-center">
-                        <div className="text-lg font-medium">
-                            {t('level')}: {level}
-                        </div>
-                        <div className="flex items-center gap-1">
-                            <Trophy className="w-4 h-4" />
-                            <span>{score}</span>
+                        <div className="text-lg font-medium">{t('sequenceLength', { count: game.length })}</div>
+                        <div className="flex items-center gap-1 text-sm text-muted-foreground">
+                            <Trophy className="w-4 h-4" aria-hidden="true" />
+                            <span>{t('completedSequence', { count: game.completedLength })}</span>
                         </div>
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                        {gameState === 'showing'
-                            ? t('watchSequence')
-                            : gameState === 'guessing'
-                                ? t('repeatSequence')
-                                : gameState === 'complete'
-                                    ? t('wellDone')
-                                    : ''}
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <span>
+                            {isFinished && bestLength > 0
+                                ? `${t('personalBest')}: ${t('sequenceLength', { count: bestLength })}`
+                                : statusText}
+                        </span>
                     </div>
                 </div>
             )}
 
-            <div className="relative">
+            <div className={cn('relative', (isIdle || isStarting) && 'min-h-[400px]')}>
                 <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
-                    {blocks.map((block) => (
-                        <div
-                            key={block.id}
-                            onClick={() => handleBlockClick(block.id)}
-                            className={cn(
-                                'aspect-square rounded-lg transition-all duration-150',
-                                'flex items-center justify-center',
-                                gameState === 'guessing' ? 'cursor-pointer bg-foreground/5' : 'cursor-not-allowed bg-foreground/5',
-                                block.isHighlighted && 'bg-primary scale-95 cursor-default',
-                                block.isCorrect && 'bg-success scale-95 cursor-default',
-                                block.isError && 'bg-destructive/30 scale-95 cursor-default',
-                                gameState !== 'guessing' && !block.isHighlighted && !block.isCorrect && !block.isError && 'opacity-75',
-                            )}
-                        />
-                    ))}
+                    {Array.from({ length: 9 }, (_, blockId) => {
+                        const isHighlighted = game.status === 'showing' && game.pattern[game.displayIndex] === blockId
+                        const isError = isFinished && game.selectedBlock === blockId
+                        const isCorrectTarget = isFinished && game.pattern[game.inputIndex] === blockId
+                        return (
+                            <button
+                                key={blockId}
+                                type="button"
+                                aria-label={`${t('blockLabel', { count: blockId + 1 })}${isError ? `: ${t('wrongChoice')}` : isCorrectTarget ? `: ${t('correctChoice')}` : ''}`}
+                                aria-disabled={game.status !== 'guessing'}
+                                tabIndex={['guessing', 'correct'].includes(game.status) ? 0 : -1}
+                                onClick={() => dispatch({ type: 'select', blockId })}
+                                className={cn(
+                                    'aspect-square rounded-lg bg-foreground/5 transition-[background-color,transform] duration-150 ease-out motion-reduce:transition-none touch-manipulation select-none [-webkit-tap-highlight-color:transparent]',
+                                    'flex items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+                                    game.status === 'guessing'
+                                        ? 'cursor-pointer active:scale-[0.98] active:bg-black active:duration-75 motion-reduce:active:scale-100'
+                                        : 'cursor-default',
+                                    isHighlighted && 'bg-primary',
+                                    isCorrectTarget && 'bg-black',
+                                    isError && 'bg-destructive/30',
+                                )}
+                            >
+                                {isError && <X className="h-6 w-6 text-destructive" aria-hidden="true" />}
+                                {isCorrectTarget && <Check className="h-6 w-6 text-white" aria-hidden="true" />}
+                            </button>
+                        )
+                    })}
                 </div>
 
-                {gameState === 'idle' && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-primary/5 rounded-lg backdrop-blur-xs p-4">
-                        {bestScore > 0 && (
-                            <div className="text-center mb-2">
-                                <div className="text-sm text-muted-foreground">
-                                    {t('bestScore')}
-                                </div>
-                                <div className="text-2xl font-bold">
-                                    {bestScore}
+                {game.status === 'preparing' && (
+                    <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 rounded-lg bg-background/90" role="status" aria-live="polite">
+                        <p className="text-sm text-muted-foreground">{t(game.completedLength > 0 ? 'nextRound' : 'getReady')}</p>
+                        <p className="text-5xl font-semibold tabular-nums" aria-label={t('countdown', { count: game.prepareSeconds })}>
+                            {game.prepareSeconds}
+                        </p>
+                    </div>
+                )}
+
+                {(isIdle || isStarting) && bestLength > 0 && (
+                    <div className="absolute right-4 top-4 z-10 flex items-center gap-2 text-sm">
+                        <span className="text-muted-foreground">{t('personalBest')}</span>
+                        <span className="font-semibold tabular-nums">{t('sequenceLength', { count: bestLength })}</span>
+                    </div>
+                )}
+
+                {(isIdle || isStarting) && (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-background/95 rounded-lg p-4">
+                        <div className="flex w-full max-w-[280px] rounded-lg bg-foreground/10 p-1" role="group" aria-label={t('modeLabel')}>
+                            {(['challenge', 'practice'] as const).map((option) => (
+                                <Button
+                                    key={option}
+                                    type="button"
+                                    variant="ghost"
+                                    aria-pressed={activeMode === option}
+                                    disabled={isStarting}
+                                    onClick={() => setMode(option)}
+                                    className={cn('flex-1 h-10 shadow-none', activeMode === option && 'bg-background hover:bg-background')}
+                                >
+                                    {t(option === 'challenge' ? 'rankedMode' : 'practiceMode')}
+                                </Button>
+                            ))}
+                        </div>
+                        <p className="max-w-[280px] text-center text-sm text-muted-foreground">
+                            {t(activeMode === 'challenge' ? 'rankedDescription' : 'practiceDescription')}
+                        </p>
+                        {activeMode === 'practice' && (
+                            <div className="flex w-full max-w-[280px] flex-col items-center gap-2">
+                                <Label htmlFor="start-level" className="text-center text-sm text-muted-foreground">
+                                    {t('startLevelLabel')}
+                                </Label>
+                                <div className="flex items-center overflow-hidden rounded-lg border border-border bg-background">
+                                    <Button
+                                        type="button" variant="ghost" className="h-11 w-11 rounded-none p-0"
+                                        aria-label={t('decreaseStartLevel')}
+                                        onClick={() => setStartLength((current) => Math.max(BLOCK_MEMORY_PRACTICE_MIN, current - 1))}
+                                        disabled={isStarting || startLength <= BLOCK_MEMORY_PRACTICE_MIN}
+                                    ><Minus className="h-4 w-4" /></Button>
+                                    <output
+                                        id="start-level"
+                                        className="flex h-11 w-16 items-center justify-center border-x border-border text-lg font-semibold tabular-nums"
+                                    >
+                                        {startLength}
+                                    </output>
+                                    <Button
+                                        type="button" variant="ghost" className="h-11 w-11 rounded-none p-0"
+                                        aria-label={t('increaseStartLevel')}
+                                        onClick={() => setStartLength((current) => Math.min(BLOCK_MEMORY_PRACTICE_MAX, current + 1))}
+                                        disabled={isStarting || startLength >= BLOCK_MEMORY_PRACTICE_MAX}
+                                    ><Plus className="h-4 w-4" /></Button>
                                 </div>
                             </div>
                         )}
-
-                        <div className="flex w-4/5 flex-col items-center gap-3">
-                            <Label htmlFor="start-level-slider">
-                                {t('startLevelLabel', { count: startLevel })}
-                            </Label>
-                            <Slider
-                                id="start-level-slider"
-                                min={START_LEVEL}
-                                max={MAX_START_LEVEL}
-                                step={1}
-                                value={[startLevel]}
-                                onValueChange={(value) => setStartLevel(value[0] ?? START_LEVEL)}
-                                className="w-full"
-                                disabled={isLoading}
-                            />
-                        </div>
-
-                        <Button
-                            size="lg"
-                            onClick={startGame}
-                            className="gap-2"
-                            disabled={isLoading}
-                        >
-                            {isLoading ? (
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                            ) : (
-                                <PlayCircle className="w-5 h-5" />
-                            )}
-                            {isLoading ? t('starting') : t('startGame')}
+                        <Button size="lg" onClick={startGame} className="w-full max-w-[280px] gap-2 shadow-none" disabled={isStarting}>
+                            {isStarting ? <Loader2 className="w-5 h-5 animate-spin" /> : <PlayCircle className="w-5 h-5" />}
+                            {isStarting ? t('starting') : t('startGame')}
                         </Button>
                     </div>
                 )}
 
-                {showResults && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-background/90 backdrop-blur-sm rounded-lg overflow-y-auto">
-                        <div className="bg-background p-6 rounded-xl shadow-lg space-y-4 text-center w-11/12 max-w-sm my-4">
-                            <h3 className="text-2xl font-bold mb-4">
-                                {t('gameOver')}
-                            </h3>
-                            <div className="space-y-2 text-left w-full">
-                                <p className="flex justify-between gap-4">
-                                    <span>{t('finalScore')}:</span>
-                                    <span className="font-bold">{score}</span>
-                                </p>
-                                <p className="flex justify-between gap-4">
-                                    <span>{t('bestScore')}:</span>
-                                    <span className="font-bold">{bestScore}</span>
+                {game.status === 'failed' && (
+                    <div
+                        role="dialog"
+                        aria-modal="false"
+                        aria-labelledby="block-memory-result-title"
+                        aria-describedby="block-memory-result-description"
+                        className="absolute inset-0 flex flex-col overflow-y-auto rounded-lg bg-background/90 p-4"
+                    >
+                        <div className="my-auto mx-auto w-full max-w-sm shrink-0 space-y-4 text-center">
+                            <div>
+                                <p className="text-sm text-muted-foreground">{t('highestLevelReached')}</p>
+                                <p className="mt-1 text-4xl font-semibold tabular-nums">
+                                    {t('sequenceLength', { count: game.completedLength })}
                                 </p>
                             </div>
-
-                            <div className="flex gap-2 justify-center mt-6">
-                                <Button onClick={startGame}>{t('playAgain')}</Button>
-                                <Button
-                                    variant="outline"
-                                    onClick={() => setShowShareModal(true)}
-                                >
-                                    {t('share')}
-                                </Button>
+                            <div className="space-y-2">
+                                <h3 id="block-memory-result-title" ref={resultHeading} tabIndex={-1} className="text-xl font-semibold outline-none">
+                                    {t(`result.${resultKind}.title`)}
+                                </h3>
+                                <p id="block-memory-result-description" className="text-sm leading-relaxed text-muted-foreground">
+                                    {t(`result.${resultKind}.description`)}
+                                </p>
+                            </div>
+                            <div className="flex flex-wrap justify-center gap-2">
+                                <Button onClick={startGame} className="shadow-none">{t('playAgain')}</Button>
+                                <Button variant="ghost" onClick={() => dispatch({ type: 'reset' })}>{t('changeMode')}</Button>
                             </div>
                         </div>
                     </div>
                 )}
             </div>
-
-            <ShareModal
-                isOpen={showShareModal}
-                onClose={() => setShowShareModal(false)}
-            />
         </div>
     )
-}
-
-function calculateLevelScore(currentLevel: number, roundStartTime: number) {
-    const baseScore = currentLevel * 10
-    const speedBonus = roundStartTime && Date.now() - roundStartTime <= 3000 ? 10 : 0
-
-    return baseScore + speedBonus
-}
-
-function createInitialBlocks(): Block[] {
-    return Array.from({ length: 9 }, (_, i) => ({
-        id: i,
-        isHighlighted: false,
-        isError: false,
-        isCorrect: false,
-    }))
-}
-
-function generatePattern(length: number): number[] {
-    const pattern: number[] = []
-
-    while (pattern.length < length) {
-        pattern.push(generateNextBlockId(pattern.at(-1)))
-    }
-
-    return pattern
-}
-
-function generateNextBlockId(previousBlockId?: number) {
-    let nextBlockId = Math.floor(Math.random() * 9)
-
-    while (nextBlockId === previousBlockId) {
-        nextBlockId = Math.floor(Math.random() * 9)
-    }
-
-    return nextBlockId
-}
-
-function wait(ms: number) {
-    return new Promise((resolve) => setTimeout(resolve, ms))
 }

@@ -12,6 +12,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { routing } from '@/i18n/routing';
 import { generateAlternates } from "@/lib/utils";
+import { BLOCK_MEMORY_LEADERBOARD_MODE } from "@/lib/block-memory-game";
 
 const coverImage = "/games/block-memory-challenge-cover.png";
 
@@ -97,9 +98,9 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
                 "priceCurrency": "USD"
             },
             "featureList": [
-                "Single-mode score attack gameplay",
-                "Adjustable starting sequence length",
-                "Score-based leaderboard",
+                "Challenge mode starting with a 3-step sequence",
+                "Practice mode with adjustable starting sequence length",
+                "Leaderboard ranked by longest completed sequence",
                 "Visual working memory training"
             ],
             "educationalUse": "Working Memory Training",
@@ -128,30 +129,22 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             gameComponent={<PatternRecallGame />}
             howToPlay={
                 <>
-                    <Link href="/working-memory-guide" className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
-                        <div className="flex items-center gap-3">
-                            <Brain className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                            <span className="text-sm font-medium text-primary">
-                                {tCommon("learnMoreAboutWorkingMemory")}
-                            </span>
-                        </div>
-                    </Link>
                     <p>{howToPlayT("intro")}</p>
-                    <ul className="list-disc pl-5 mt-2 space-y-1">
-                        <li>{howToPlayT("step1")}</li>
-                        <li>{howToPlayT("step2")}</li>
-                        <li>{howToPlayT("step3")}</li>
-                        <li>{howToPlayT("step4")}</li>
-                    </ul>
-                    <Dialog>
-                        <DialogTrigger asChild>
-                            <Button variant="outline" className="mt-4">{howToPlayT("watchDemo")}</Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
-                            <DialogTitle>{howToPlayT("demo")}</DialogTitle>
-                            <GamePreview />
-                        </DialogContent>
-                    </Dialog>
+                    <p>{howToPlayT("step4")}</p>
+                    <div className="flex flex-wrap items-center gap-4 pt-2">
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button variant="outline">{howToPlayT("watchDemo")}</Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogTitle>{howToPlayT("demo")}</DialogTitle>
+                                <GamePreview />
+                            </DialogContent>
+                        </Dialog>
+                        <Link href="/working-memory-guide" className="text-sm underline underline-offset-4 hover:text-foreground">
+                            {tCommon("learnMoreAboutWorkingMemory")}
+                        </Link>
+                    </div>
                 </>
             }
             leaderboardIntro={<p>{t("gameUI.leaderboardDescription")}</p>}
@@ -198,7 +191,8 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             faq={faq}
             relatedGames={["frog-memory-leap", "schulte-table"]}
             hasLeaderboard={true}
-            leaderboardFormatterType="pts"
+            leaderboardFormatterType="steps"
+            leaderboardMode={BLOCK_MEMORY_LEADERBOARD_MODE}
             structuredData={structuredData}
         />
     );

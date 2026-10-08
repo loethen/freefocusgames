@@ -1385,19 +1385,19 @@
     },
     "blockMemoryChallenge": {
       "title": "Block Memory Challenge",
-      "description": "Test your visual memory by recalling increasingly complex block sequences.",
-      "subtitle": "Train your visual memory and pattern recognition",
-      "metaTitle": "Block Memory Challenge: Visual Sequence & Working Memory Game",
-      "metaDescription": "Test your visual memory capacity by recalling increasingly complex block sequences. This brain-training challenge helps improve short-term memory, pattern recognition, and cognitive plasticity.",
-      "metaKeywords": "visual memory sequence test online, spatial recall training games, working memory improvement, pattern recognition test, brain plasticity exercises, short-term memory practice",
-      "ogTitle": "Block Memory Challenge: Visual Sequence & Working Memory Game",
-      "ogDescription": "Test your visual memory capacity by recalling increasingly complex block sequences. This brain-training challenge helps improve short-term memory, pattern recognition, and cognitive plasticity.",
+      "description": "Take a sequence memory test online, recall flashing blocks in order, and compare your longest completed sequence on the challenge leaderboard.",
+      "subtitle": "Sequence memory test for visual recall and pattern recognition",
+      "metaTitle": "Sequence Memory Test Online | Block Memory Challenge",
+      "metaDescription": "Take a free sequence memory test online. Recall flashing blocks in order and use your longest completed sequence as a personal sequence memory benchmark.",
+      "metaKeywords": "sequence memory test, sequence memory test online, sequence memory benchmark, visual memory sequence test online, spatial recall training games, working memory improvement, pattern recognition test, brain plasticity exercises, short-term memory practice",
+      "ogTitle": "Sequence Memory Test Online | Block Memory Challenge",
+      "ogDescription": "Take a free sequence memory test online. Recall flashing blocks in order and use your longest completed sequence as a personal sequence memory benchmark.",
       "howToPlay": {
-        "intro": "Memorize and recreate flashing block sequences in this challenging memory game:",
+        "intro": "Take this sequence memory test online: watch the flashing blocks, then click them in the same order.",
         "step1": "Blocks will light up one by one in a specific sequence",
         "step2": "Carefully observe and remember the order of highlighted blocks",
         "step3": "After the sequence is shown, click the blocks in the same order",
-        "step4": "As levels increase, sequences become longer and more difficult to remember",
+        "step4": "Each completed round adds one step. A wrong click ends the run.",
         "watchDemo": "Watch Demo",
         "demo": "Demo"
       },
@@ -1447,8 +1447,8 @@
         "level": "Level",
         "score": "Score",
         "bestScore": "Best",
-        "bestRankedLevel": "Best Ranked Level",
-        "bestPracticeScore": "Best Practice Score",
+        "bestRankedLevel": "Best Challenge Sequence",
+        "bestPracticeScore": "Best Practice Sequence",
         "time": "Time",
         "startGame": "Start Game",
         "starting": "Starting...",
@@ -1462,17 +1462,44 @@
         "wellDone": "Well done!",
         "personalBest": "Personal Best",
         "yourTurn": "Your turn...",
-        "startLevelLabel": "Start with a {count}-step sequence",
-        "rankedMode": "Ranked",
+        "startLevelLabel": "Starting length",
+        "decreaseStartLevel": "Decrease starting sequence length",
+        "increaseStartLevel": "Increase starting sequence length",
+        "rankedMode": "Challenge",
         "practiceMode": "Practice",
-        "rankedDescription": "Fixed start level. Leaderboard tracks the highest completed level.",
-        "practiceDescription": "Choose any starting sequence length. Practice runs stay local and do not affect the leaderboard.",
-        "leaderboardDescription": "The leaderboard compares total score. You can choose your starting level, and higher levels are worth more points.",
-        "rankedResult": "Ranked Result",
-        "highestLevelReached": "Highest Level Reached",
-        "noLevelCompleted": "No level completed yet",
+        "rankedDescription": "Starts with 3 steps",
+        "practiceDescription": "Practice only · Unranked",
+        "leaderboardDescription": "Sequence memory benchmark: longest completed challenge sequence. Challenge starts at 3 steps; equal lengths share a rank.",
+        "rankedResult": "Challenge Result",
+        "highestLevelReached": "Longest Sequence",
+        "noLevelCompleted": "No sequence completed yet",
         "practiceScoresStayLocal": "Practice scores stay on this device and are not submitted to the leaderboard.",
-        "totalPoints": "Total Points"
+        "totalPoints": "Total Points",
+        "modeLabel": "Game mode",
+        "sequenceLength": "{count} steps",
+        "completedSequence": "Completed: {count} steps",
+        "blockLabel": "Block {count}",
+        "changeMode": "Change mode",
+        "practiceResult": "Practice Result",
+        "result": {
+          "firstRound": {
+            "title": "Take your time",
+            "description": "A missed sequence is okay. Watch each block and try again at your own pace."
+          },
+          "newBest": {
+            "title": "A new personal best!",
+            "description": "You remembered a longer sequence than before. Nicely done."
+          },
+          "completed": {
+            "title": "Nice effort!",
+            "description": "Longer sequences take practice. Take a breather and come back when you are ready."
+          }
+        },
+        "wrongChoice": "Your incorrect choice",
+        "correctChoice": "The correct next block",
+        "nextRound": "Next round",
+        "getReady": "Get ready",
+        "countdown": "{count, plural, one {Starts in # second} other {Starts in # seconds}}"
       }
     },
     "reactionTime": {
@@ -3082,7 +3109,10 @@
       "unitCps": "CPS",
       "unitLevel": "Level {score}",
       "unitPercent": "%",
-      "unitWahTurns": "{score} wah turns"
+      "unitWahTurns": "{score} wah turns",
+      "unitSteps": "{score} steps",
+      "sequenceLength": "Longest Sequence",
+      "averageSequenceLength": "Average Sequence Length"
     },
     "progressShare": {
       "title": "Progress Card",
