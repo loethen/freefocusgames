@@ -11,32 +11,35 @@ import {
     BLOCK_MEMORY_CHALLENGE_START,
     BLOCK_MEMORY_PRACTICE_MIN,
     BLOCK_MEMORY_PRACTICE_MAX,
-    BLOCK_MEMORY_LEADERBOARD_MODE,
+    blockMemoryLeaderboardMode,
+    blockMemoryBestKey,
+    blockMemoryExpectedBlock,
     BLOCK_MEMORY_RULES_VERSION,
     blockMemoryReducer,
     generateBlockMemoryPattern,
     initialBlockMemoryState,
     type BlockMemoryMode,
 } from '@/lib/block-memory-game'
+import { RecallDirectionToggle, useRecallDirection } from './RecallDirection'
 
-const BEST_KEYS = {
-    challenge: 'memoryBlocksBestSequence.challenge.v1',
-    practice: 'memoryBlocksBestSequence.practice.v1',
-}
+const BEST_KEYS = ['challenge', 'practice'].flatMap((mode) =>
+    (['forward', 'backward'] as const).map((direction) => blockMemoryBestKey(mode as BlockMemoryMode, direction)))
 
 export function PatternRecallGame() {
     const t = useTranslations('games.blockMemoryChallenge.gameUI')
     const [game, dispatch] = useReducer(blockMemoryReducer, initialBlockMemoryState)
     const [mode, setMode] = useState<BlockMemoryMode>('challenge')
+    const { direction } = useRecallDirection()
     const [startLength, setStartLength] = useState(BLOCK_MEMORY_CHALLENGE_START)
-    const [bestLengths, setBestLengths] = useState({ challenge: 0, practice: 0 })
+    const [bestLengths, setBestLengths] = useState<Record<string, number>>({})
     const submitted = useRef(false)
     const bestBeforeRun = useRef(0)
     const resultHeading = useRef<HTMLHeadingElement>(null)
     const isIdle = game.status === 'idle'
     const isStarting = game.status === 'starting'
     const activeMode = isIdle ? mode : game.mode
-    const bestLength = bestLengths[activeMode]
+    const activeDirection = isIdle ? direction : game.direction
+    const bestLength = bestLengths[blockMemoryBestKey(activeMode, activeDirection)] ?? 0
     const resultKind = game.completedLength === 0
         ? 'firstRound'
         : game.completedLength > bestBeforeRun.current ? 'newBest' : 'completed'
@@ -52,22 +55,23 @@ export function PatternRecallGame() {
                 const value = Number(localStorage.getItem(key))
                 return Number.isInteger(value) && value > 0 ? value : 0
             }
-            setBestLengths({ challenge: readBest(BEST_KEYS.challenge), practice: readBest(BEST_KEYS.practice) })
+            setBestLengths(Object.fromEntries(BEST_KEYS.map((key) => [key, readBest(key)])))
         } catch {
             // A blocked localStorage must not prevent playing.
         }
     }, [])
 
     useEffect(() => {
-        if (game.completedLength <= bestLengths[game.mode]) return
+        const key = blockMemoryBestKey(game.mode, game.direction)
+        if (game.completedLength <= (bestLengths[key] ?? 0)) return
         const nextBest = game.completedLength
-        setBestLengths((current) => ({ ...current, [game.mode]: Math.max(current[game.mode], nextBest) }))
+        setBestLengths((current) => ({ ...current, [key]: Math.max(current[key] ?? 0, nextBest) }))
         try {
-            localStorage.setItem(BEST_KEYS[game.mode], String(nextBest))
+            localStorage.setItem(key, String(nextBest))
         } catch {
             // Keep the best result for this session when storage is unavailable.
         }
-    }, [game.completedLength, game.mode, bestLengths])
+    }, [game.completedLength, game.mode, game.direction, bestLengths])
 
     // Every phase owns one cancellable timer. Restarting or unmounting clears it.
     useEffect(() => {
@@ -102,24 +106,25 @@ export function PatternRecallGame() {
         if (game.status !== 'failed' || game.mode !== 'challenge' || game.completedLength === 0 || submitted.current) return
         submitted.current = true
         void submitScoreToLeaderboard('block-memory-challenge', game.completedLength, {
-            mode: BLOCK_MEMORY_LEADERBOARD_MODE,
-            details: { startingLength: BLOCK_MEMORY_CHALLENGE_START, rulesVersion: BLOCK_MEMORY_RULES_VERSION },
+            mode: blockMemoryLeaderboardMode(game.direction),
+            details: { startingLength: BLOCK_MEMORY_CHALLENGE_START, rulesVersion: BLOCK_MEMORY_RULES_VERSION, direction: game.direction },
         })
-    }, [game.status, game.mode, game.completedLength])
+    }, [game.status, game.mode, game.direction, game.completedLength])
 
     const startGame = () => {
         if (game.status !== 'idle' && game.status !== 'failed') return
         submitted.current = false
         const nextMode = isIdle ? mode : game.mode
-        bestBeforeRun.current = bestLengths[nextMode]
+        const nextDirection = isIdle ? direction : game.direction
+        bestBeforeRun.current = bestLengths[blockMemoryBestKey(nextMode, nextDirection)] ?? 0
         const length = nextMode === 'challenge' ? BLOCK_MEMORY_CHALLENGE_START : startLength
-        dispatch({ type: 'start', mode: nextMode, pattern: generateBlockMemoryPattern(length) })
+        dispatch({ type: 'start', mode: nextMode, direction: nextDirection, pattern: generateBlockMemoryPattern(length) })
     }
 
     const statusText = game.status === 'showing' || game.status === 'gap'
         ? t('watchSequence')
         : game.status === 'guessing' || game.status === 'correct'
-            ? t('repeatSequence')
+            ? t(game.direction === 'backward' ? 'repeatBackward' : 'repeatSequence')
             : game.status === 'complete' ? t('wellDone') : ''
     const isFinished = game.status === 'failed'
 
@@ -149,7 +154,7 @@ export function PatternRecallGame() {
                     {Array.from({ length: 9 }, (_, blockId) => {
                         const isHighlighted = game.status === 'showing' && game.pattern[game.displayIndex] === blockId
                         const isError = isFinished && game.selectedBlock === blockId
-                        const isCorrectTarget = isFinished && game.pattern[game.inputIndex] === blockId
+                        const isCorrectTarget = isFinished && blockMemoryExpectedBlock(game) === blockId
                         return (
                             <button
                                 key={blockId}
@@ -212,26 +217,27 @@ export function PatternRecallGame() {
                         <p className="max-w-[280px] text-center text-sm text-muted-foreground">
                             {t(activeMode === 'challenge' ? 'rankedDescription' : 'practiceDescription')}
                         </p>
+                        <RecallDirectionToggle disabled={isStarting} />
                         {activeMode === 'practice' && (
-                            <div className="flex w-full max-w-[280px] flex-col items-center gap-2">
-                                <Label htmlFor="start-level" className="text-center text-sm text-muted-foreground">
+                            <div className="flex w-full max-w-[280px] items-center justify-between gap-3">
+                                <Label htmlFor="start-level" className="text-sm font-normal text-muted-foreground">
                                     {t('startLevelLabel')}
                                 </Label>
                                 <div className="flex items-center overflow-hidden rounded-lg border border-border bg-background">
                                     <Button
-                                        type="button" variant="ghost" className="h-11 w-11 rounded-none p-0"
+                                        type="button" variant="ghost" className="h-10 w-10 rounded-none p-0"
                                         aria-label={t('decreaseStartLevel')}
                                         onClick={() => setStartLength((current) => Math.max(BLOCK_MEMORY_PRACTICE_MIN, current - 1))}
                                         disabled={isStarting || startLength <= BLOCK_MEMORY_PRACTICE_MIN}
                                     ><Minus className="h-4 w-4" /></Button>
                                     <output
                                         id="start-level"
-                                        className="flex h-11 w-16 items-center justify-center border-x border-border text-lg font-semibold tabular-nums"
+                                        className="flex h-10 w-12 items-center justify-center border-x border-border text-base font-semibold tabular-nums"
                                     >
                                         {startLength}
                                     </output>
                                     <Button
-                                        type="button" variant="ghost" className="h-11 w-11 rounded-none p-0"
+                                        type="button" variant="ghost" className="h-10 w-10 rounded-none p-0"
                                         aria-label={t('increaseStartLevel')}
                                         onClick={() => setStartLength((current) => Math.min(BLOCK_MEMORY_PRACTICE_MAX, current + 1))}
                                         disabled={isStarting || startLength >= BLOCK_MEMORY_PRACTICE_MAX}
@@ -256,7 +262,7 @@ export function PatternRecallGame() {
                     >
                         <div className="my-auto mx-auto w-full max-w-sm shrink-0 space-y-4 text-center">
                             <div>
-                                <p className="text-sm text-muted-foreground">{t('highestLevelReached')}</p>
+                                <p className="text-sm text-muted-foreground">{t(game.direction)} · {t('highestLevelReached')}</p>
                                 <p className="mt-1 text-4xl font-semibold tabular-nums">
                                     {t('sequenceLength', { count: game.completedLength })}
                                 </p>

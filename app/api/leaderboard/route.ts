@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
-import { BLOCK_MEMORY_LEADERBOARD_MODE, validateBlockMemorySubmission } from "@/lib/block-memory-game";
+import { isBlockMemoryLeaderboardMode, validateBlockMemorySubmission } from "@/lib/block-memory-game";
 import {
     DEFAULT_LEADERBOARD_MODE,
 } from "@/lib/leaderboard-config";
@@ -63,6 +63,7 @@ type LeaderboardSubmissionDetails = {
     startingDisplayMs?: unknown;
     startingFieldLevel?: unknown;
     startingLength?: unknown;
+    direction?: unknown;
     totalTrials?: unknown;
     trialInterval?: unknown;
     trainingMode?: unknown;
@@ -541,7 +542,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: "Missing or invalid parameters" }, { status: 400 });
         }
 
-        if (gameId === "block-memory-challenge" && mode !== BLOCK_MEMORY_LEADERBOARD_MODE) {
+        if (gameId === "block-memory-challenge" && !isBlockMemoryLeaderboardMode(mode)) {
             return NextResponse.json({ error: "Legacy points leaderboard has been retired" }, { status: 410 });
         }
 

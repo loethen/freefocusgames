@@ -1230,20 +1230,20 @@
     },
     "blockMemoryChallenge": {
       "title": "方块记忆挑战",
-      "description": "按顺序复现闪烁的方块序列，测试视觉记忆，并在挑战排行榜比较最长成功完成的序列。",
-      "subtitle": "训练你的视觉记忆和模式识别能力",
-      "metaTitle": "方块记忆挑战：视觉序列与工作记忆游戏",
-      "metaDescription": "通过回忆越来越复杂的方块序列来测试您的视觉记忆容量。这项脑力训练挑战有助于提高短期记忆、模式识别和认知可塑性。",
-      "metaKeywords": "在线视觉记忆序列测试, 空间回忆训练游戏, 提高工作记忆, 模式识别测试, 大脑可塑性练习, 短期记忆练习",
-      "ogTitle": "方块记忆挑战：视觉序列与工作记忆游戏",
-      "ogDescription": "通过回忆越来越复杂的方块序列来测试您的视觉记忆容量。这项脑力训练挑战有助于提高短期记忆、模式识别和认知可塑性。",
+      "description": "受 Corsi 方块敲击测验启发的序列记忆游戏，支持正序和倒序回忆，按最长完成序列比较挑战成绩。",
+      "subtitle": "受 Corsi 测验启发的正序与倒序记忆挑战",
+      "metaTitle": "Corsi 序列记忆测试：正序与倒序方块挑战",
+      "metaDescription": "免费在线序列记忆游戏，受 Corsi block-tapping test 启发。支持正序与倒序回忆，挑战从 3 步开始，两种玩法独立记录个人最佳和排行榜。",
+      "metaKeywords": "在线视觉记忆序列测试, 空间回忆训练游戏, 提高工作记忆, 模式识别测试, 大脑可塑性练习, 短期记忆练习, Corsi test, Corsi block-tapping test, Corsi 方块敲击测验, 倒序 Corsi 测试, 在线序列记忆测试, 空间记忆测试",
+      "ogTitle": "Corsi 序列记忆测试：正序与倒序方块挑战",
+      "ogDescription": "免费在线序列记忆游戏，受 Corsi block-tapping test 启发。支持正序与倒序回忆，挑战从 3 步开始，两种玩法独立记录个人最佳和排行榜。",
       "howToPlay": {
-        "intro": "记住方块闪烁的顺序，再按相同顺序点击。",
+        "intro": "记住方块闪烁的顺序。正序按原顺序点击，倒序从最后一步开始点击。",
         "step1": "方块会按照特定顺序逐个高亮显示",
         "step2": "仔细观察并记住方块高亮的顺序",
-        "step3": "序列展示完毕后，按照相同顺序点击方块",
+        "step3": "序列展示完毕后，按所选的正序或倒序点击方块。",
         "step4": "每完成一轮增加一步，点错即结束。",
-        "watchDemo": "观看演示",
+        "watchDemo": "正序演示",
         "demo": "演示"
       },
       "benefits": {
@@ -1261,13 +1261,14 @@
         }
       },
       "science": {
-        "title": "视觉工作记忆与序列回忆",
-        "description": "方块序列回忆任务常用于训练视觉工作记忆、顺序保持和模式编码能力。持续练习会迫使大脑在更短时间内保留更多信息、快速更新顺序，并减少干扰对回忆的影响。",
+        "title": "Corsi 方块敲击测验与空间记忆",
+        "description": "Corsi block-tapping test 是一种空间序列回忆任务：正序复现展示顺序，倒序反向复现。本游戏借鉴这两种玩法，采用规则的 3×3 棋盘，挑战从 3 步开始，点错一次即结束。",
         "blogArticleTitle": "如何提升工作记忆",
         "authorityLinks": {
           "workingMemory": "从科学角度解释工作记忆如何支持学习与专注",
           "shortTermMemory": "通过训练改善短期记忆的实用方法",
-          "visualMemory": "关于视觉空间工作记忆和模式回忆研究的背景资料"
+          "visualMemory": "关于视觉空间工作记忆和模式回忆研究的背景资料",
+          "corsi": "了解 Corsi 方块敲击测验及其正序、倒序玩法"
         }
       },
       "faq": {
@@ -1286,6 +1287,14 @@
         "children": {
           "question": "这个游戏适合儿童吗？",
           "answer": "当然！这个游戏对发展中的大脑非常有益。视觉记忆对阅读、数学和许多其他学术技能至关重要。渐进式的难度确保随着技能提高，游戏仍然具有挑战性。"
+        },
+        "corsi": {
+          "question": "这是 Corsi test 吗？",
+          "answer": "这是受 Corsi 方块敲击测验（Corsi block-tapping test）启发的记忆游戏。本游戏的规则 3×3 棋盘、3 步起始挑战和一次错误即结束，与标准化 Corsi 流程不同。成绩用于比较游戏表现，不对应临床 Corsi 常模。"
+        },
+        "backward": {
+          "question": "倒序 Corsi 风格玩法怎么玩？",
+          "answer": "照常观察序列，然后从最后一步往前点击，例如 A → B → C 要按 C → B → A 复现。挑战和练习都支持正序与倒序，两种方向分别保存个人最佳，挑战排行榜也分开计分。"
         }
       },
       "gameUI": {
@@ -1314,7 +1323,7 @@
         "practiceMode": "练习",
         "rankedDescription": "从 3 步开始",
         "practiceDescription": "仅练习，不计排名",
-        "leaderboardDescription": "挑战从 3 步开始，按最长完成序列排名，相同步数并列。",
+        "leaderboardDescription": "挑战从 3 步开始，按最长完成序列排名，相同步数并列。正序与倒序分别排名。",
         "rankedResult": "挑战结果",
         "highestLevelReached": "最长序列",
         "noLevelCompleted": "尚未完成任何序列",
@@ -1344,7 +1353,11 @@
         "correctChoice": "这一步应点的方块",
         "nextRound": "下一轮",
         "getReady": "准备开始",
-        "countdown": "{count} 秒后开始"
+        "countdown": "{count} 秒后开始",
+        "forward": "正序",
+        "backward": "倒序",
+        "directionLabel": "回忆顺序",
+        "repeatBackward": "倒序点击"
       }
     },
     "reactionTime": {

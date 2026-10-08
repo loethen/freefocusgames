@@ -12,7 +12,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
 import { routing } from '@/i18n/routing';
 import { generateAlternates } from "@/lib/utils";
-import { BLOCK_MEMORY_LEADERBOARD_MODE } from "@/lib/block-memory-game";
+import { BlockMemoryLeaderboard, RecallDirectionProvider } from "./components/RecallDirection";
 
 const coverImage = "/games/block-memory-challenge-cover.png";
 
@@ -65,6 +65,14 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
 
     const faq = [
         {
+            question: faqT("corsi.question"),
+            answer: faqT("corsi.answer")
+        },
+        {
+            question: faqT("backward.question"),
+            answer: faqT("backward.answer")
+        },
+        {
             question: faqT("dailyLife.question"),
             answer: faqT("dailyLife.answer")
         },
@@ -100,7 +108,8 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             "featureList": [
                 "Challenge mode starting with a 3-step sequence",
                 "Practice mode with adjustable starting sequence length",
-                "Leaderboard ranked by longest completed sequence",
+                "Forward and backward sequence recall inspired by the Corsi block-tapping test",
+                "Separate forward and backward leaderboards ranked by longest completed sequence",
                 "Visual working memory training"
             ],
             "educationalUse": "Working Memory Training",
@@ -122,6 +131,7 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
     ];
 
     return (
+        <RecallDirectionProvider>
         <GamePageTemplate
             gameId="block-memory-challenge"
             title={t("title")}
@@ -172,9 +182,9 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
                 blogArticleTitle: scienceT("blogArticleTitle"),
                 authorityLinks: [
                     {
-                        title: "How to Improve Working Memory",
-                        url: "/blog/how-to-improve-working-memory",
-                        description: scienceT("authorityLinks.workingMemory")
+                        title: "Corsi Block-Tapping Test",
+                        url: "https://en.wikipedia.org/wiki/Corsi_block-tapping_test",
+                        description: scienceT("authorityLinks.corsi")
                     },
                     {
                         title: "How to Improve Short-Term Memory",
@@ -192,8 +202,9 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             relatedGames={["frog-memory-leap", "schulte-table"]}
             hasLeaderboard={true}
             leaderboardFormatterType="steps"
-            leaderboardMode={BLOCK_MEMORY_LEADERBOARD_MODE}
+            leaderboardComponent={<BlockMemoryLeaderboard />}
             structuredData={structuredData}
         />
+        </RecallDirectionProvider>
     );
 }

@@ -12,8 +12,8 @@ new Function('exports', compiled)(rules);
 const { blockMemoryReducer: reduce, initialBlockMemoryState: initial, generateBlockMemoryPattern: generate,
     validateBlockMemorySubmission: validate, BLOCK_MEMORY_LEADERBOARD_MODE: mode } = rules;
 
-function start(pattern = [0, 1, 2], gameMode = 'challenge') {
-    return reduce(initial, { type: 'start', mode: gameMode, pattern });
+function start(pattern = [0, 1, 2], gameMode = 'challenge', direction = 'forward') {
+    return reduce(initial, { type: 'start', mode: gameMode, direction, pattern });
 }
 function play(state) {
     state = reduce(state, { type: 'ready' });
@@ -28,7 +28,8 @@ function prepare(state) {
     return state;
 }
 function complete(state) {
-    for (const blockId of state.pattern) {
+    const inputs = state.direction === 'backward' ? [...state.pattern].reverse() : state.pattern;
+    for (const blockId of inputs) {
         state = reduce(state, { type: 'select', blockId });
         state = reduce(state, { type: 'feedback-end' });
     }
@@ -180,4 +181,58 @@ test('generated sequences stay within the grid and never repeat adjacent blocks'
             if (index > 0) assert.notEqual(block, pattern[index - 1]);
         });
     }
+});
+
+test('backward recall displays the original sequence and accepts rapid reversed input', () => {
+    let state = start([0, 1, 2], 'challenge', 'backward');
+    state = prepare(reduce(state, { type: 'ready' }));
+    assert.equal(state.pattern[state.displayIndex], 0);
+    state = play(state);
+    for (const blockId of [2, 1, 0]) state = reduce(state, { type: 'select', blockId });
+    assert.equal(state.status, 'correct');
+    assert.equal(state.completedLength, 3);
+    assert.deepEqual(state.pattern, [0, 1, 2]);
+});
+
+test('backward failure identifies the correct reversed target and locks the board', () => {
+    let state = play(start([0, 1, 2], 'challenge', 'backward'));
+    state = reduce(state, { type: 'select', blockId: 2 });
+    state = reduce(state, { type: 'select', blockId: 0 });
+    assert.equal(state.status, 'failed');
+    assert.equal(state.selectedBlock, 0);
+    assert.equal(rules.blockMemoryExpectedBlock(state), 1);
+    assert.equal(state.completedLength, 0);
+    assert.equal(reduce(state, { type: 'select', blockId: 1 }), state);
+    const wrongOrder = reduce(play(start([0, 1, 2], 'challenge', 'backward')), { type: 'select', blockId: 0 });
+    assert.equal(wrongOrder.status, 'failed');
+    assert.equal(rules.blockMemoryExpectedBlock(wrongOrder), 2);
+});
+
+test('backward direction persists into new rounds and supports single-block practice', () => {
+    let state = complete(play(start([0, 1, 2], 'challenge', 'backward')));
+    state = reduce(state, { type: 'next-round', pattern: [2, 3, 4, 5] });
+    assert.equal(state.direction, 'backward');
+    assert.equal(state.status, 'preparing');
+    state = complete(play(state));
+    assert.equal(state.completedLength, 4);
+    assert.equal(complete(play(start([5], 'practice', 'backward'))).completedLength, 1);
+    assert.equal(reduce(state, { type: 'reset' }).direction, 'forward');
+});
+
+test('API keeps direction-specific boards separate and retains compatible forward submissions', () => {
+    const details = { startingLength: 3, rulesVersion: 1 };
+    const backwardMode = rules.BLOCK_MEMORY_BACKWARD_LEADERBOARD_MODE;
+    assert.equal(validate(5, mode, details), null);
+    assert.equal(validate(5, mode, { ...details, direction: 'forward' }), null);
+    assert.equal(validate(5, backwardMode, { ...details, direction: 'backward' }), null);
+    assert.ok(validate(5, backwardMode, details));
+    assert.ok(validate(5, backwardMode, { ...details, direction: 'forward' }));
+    assert.ok(validate(5, mode, { ...details, direction: 'backward' }));
+    assert.ok(validate(5, mode, { ...details, direction: 'invalid' }));
+    assert.equal(rules.isBlockMemoryLeaderboardMode(backwardMode), true);
+    assert.equal(rules.isBlockMemoryLeaderboardMode('standard'), false);
+    const keys = ['challenge', 'practice'].flatMap((gameMode) =>
+        ['forward', 'backward'].map((direction) => rules.blockMemoryBestKey(gameMode, direction)));
+    assert.equal(new Set(keys).size, 4);
+    assert.equal(keys[0], 'memoryBlocksBestSequence.challenge.v1');
 });

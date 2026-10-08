@@ -2,15 +2,31 @@ export const BLOCK_MEMORY_CHALLENGE_START = 3;
 export const BLOCK_MEMORY_PRACTICE_MIN = 1;
 export const BLOCK_MEMORY_PRACTICE_MAX = 20;
 export const BLOCK_MEMORY_LEADERBOARD_MODE = "sequence-v1";
+export const BLOCK_MEMORY_BACKWARD_LEADERBOARD_MODE = "sequence-backward-v1";
 export const BLOCK_MEMORY_RULES_VERSION = 1;
 export const BLOCK_MEMORY_PREPARE_SECONDS = 2;
 
 export type BlockMemoryMode = "challenge" | "practice";
+export type BlockMemoryDirection = "forward" | "backward";
+
+export function blockMemoryLeaderboardMode(direction: BlockMemoryDirection) {
+    return direction === "backward" ? BLOCK_MEMORY_BACKWARD_LEADERBOARD_MODE : BLOCK_MEMORY_LEADERBOARD_MODE;
+}
+
+export function isBlockMemoryLeaderboardMode(mode: string) {
+    return mode === BLOCK_MEMORY_LEADERBOARD_MODE || mode === BLOCK_MEMORY_BACKWARD_LEADERBOARD_MODE;
+}
+
+export function blockMemoryBestKey(mode: BlockMemoryMode, direction: BlockMemoryDirection) {
+    // Preserve existing forward records and isolate backward results.
+    return `memoryBlocksBestSequence.${mode}${direction === "backward" ? ".backward" : ""}.v1`;
+}
 export type BlockMemoryStatus = "idle" | "starting" | "preparing" | "showing" | "gap" | "guessing" | "correct" | "complete" | "failed";
 
 export interface BlockMemoryState {
     status: BlockMemoryStatus;
     mode: BlockMemoryMode;
+    direction: BlockMemoryDirection;
     length: number;
     pattern: number[];
     displayIndex: number;
@@ -23,6 +39,7 @@ export interface BlockMemoryState {
 export const initialBlockMemoryState: BlockMemoryState = {
     status: "idle",
     mode: "challenge",
+    direction: "forward",
     length: BLOCK_MEMORY_CHALLENGE_START,
     pattern: [],
     displayIndex: 0,
@@ -33,7 +50,7 @@ export const initialBlockMemoryState: BlockMemoryState = {
 };
 
 type Action =
-    | { type: "start"; mode: BlockMemoryMode; pattern: number[] }
+    | { type: "start"; mode: BlockMemoryMode; direction?: BlockMemoryDirection; pattern: number[] }
     | { type: "ready" }
     | { type: "prepare-tick"; remaining: number }
     | { type: "display-tick" }
@@ -50,7 +67,7 @@ export function blockMemoryReducer(state: BlockMemoryState, action: Action): Blo
             if (state.status !== "idle" && state.status !== "failed") return state;
             if (action.pattern.length < 1 || (action.mode === "challenge" && action.pattern.length !== BLOCK_MEMORY_CHALLENGE_START)) return state;
             if (action.mode === "practice" && action.pattern.length > BLOCK_MEMORY_PRACTICE_MAX) return state;
-            return { ...initialBlockMemoryState, status: "starting", mode: action.mode, pattern: action.pattern, length: action.pattern.length };
+            return { ...initialBlockMemoryState, status: "starting", mode: action.mode, direction: action.direction ?? "forward", pattern: action.pattern, length: action.pattern.length };
         case "ready":
             return state.status === "starting" ? { ...state, status: "preparing", prepareSeconds: BLOCK_MEMORY_PREPARE_SECONDS } : state;
         case "prepare-tick":
@@ -69,7 +86,7 @@ export function blockMemoryReducer(state: BlockMemoryState, action: Action): Blo
             // Generated sequences never repeat adjacent blocks. Ignore a quick
             // duplicate activation of the last accepted block during its feedback.
             if (action.blockId === state.selectedBlock) return state;
-            if (action.blockId !== state.pattern[state.inputIndex]) {
+            if (action.blockId !== blockMemoryExpectedBlock(state)) {
                 return { ...state, status: "failed", selectedBlock: action.blockId };
             }
             const inputIndex = state.inputIndex + 1;
@@ -96,6 +113,11 @@ export function blockMemoryReducer(state: BlockMemoryState, action: Action): Blo
     }
 }
 
+export function blockMemoryExpectedBlock(state: BlockMemoryState): number | undefined {
+    const index = state.direction === "backward" ? state.pattern.length - 1 - state.inputIndex : state.inputIndex;
+    return state.pattern[index];
+}
+
 export function generateBlockMemoryPattern(length: number, random = Math.random): number[] {
     const pattern: number[] = [];
     for (let index = 0; index < length; index += 1) {
@@ -106,8 +128,10 @@ export function generateBlockMemoryPattern(length: number, random = Math.random)
     return pattern;
 }
 
-export function validateBlockMemorySubmission(score: number, mode: string, details: { startingLength?: unknown; rulesVersion?: unknown } | null) {
-    if (mode !== BLOCK_MEMORY_LEADERBOARD_MODE) return "Score rejected (Unsupported sequence memory mode)";
+export function validateBlockMemorySubmission(score: number, mode: string, details: { startingLength?: unknown; rulesVersion?: unknown; direction?: unknown } | null) {
+    if (!isBlockMemoryLeaderboardMode(mode)) return "Score rejected (Unsupported sequence memory mode)";
+    const direction = details?.direction ?? "forward";
+    if ((direction !== "forward" && direction !== "backward") || blockMemoryLeaderboardMode(direction) !== mode) return "Score rejected (Invalid recall direction)";
     if (!Number.isInteger(score) || score < BLOCK_MEMORY_CHALLENGE_START || score > 50000) return "Score rejected (Invalid completed sequence length)";
     if (details?.startingLength !== BLOCK_MEMORY_CHALLENGE_START || details?.rulesVersion !== BLOCK_MEMORY_RULES_VERSION) return "Score rejected (Invalid challenge rules)";
     return null;

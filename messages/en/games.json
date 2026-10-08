@@ -891,20 +891,20 @@
     },
     "blockMemoryChallenge": {
       "title": "Block Memory Challenge",
-      "description": "Take a sequence memory test online, recall flashing blocks in order, and compare your longest completed sequence on the challenge leaderboard.",
-      "subtitle": "Sequence memory test for visual recall and pattern recognition",
-      "metaTitle": "Sequence Memory Test Online | Block Memory Challenge",
-      "metaDescription": "Take a free sequence memory test online. Recall flashing blocks in order and use your longest completed sequence as a personal sequence memory benchmark.",
-      "metaKeywords": "sequence memory test, sequence memory test online, sequence memory benchmark, visual memory sequence test online, spatial recall training games, working memory improvement, pattern recognition test, brain plasticity exercises, short-term memory practice",
-      "ogTitle": "Sequence Memory Test Online | Block Memory Challenge",
-      "ogDescription": "Take a free sequence memory test online. Recall flashing blocks in order and use your longest completed sequence as a personal sequence memory benchmark.",
+      "description": "A Corsi-inspired sequence memory test online. Recall flashing blocks forward or backward and compare your longest completed challenge sequence.",
+      "subtitle": "A Corsi-inspired sequence memory test: forward or backward",
+      "metaTitle": "Sequence Memory Test Online | Corsi-Inspired Game",
+      "metaDescription": "A free sequence memory test online inspired by the Corsi block-tapping test. Play forward or backward and compare your sequence memory benchmark.",
+      "metaKeywords": "sequence memory test, sequence memory test online, sequence memory benchmark, visual memory sequence test online, spatial recall training games, working memory improvement, pattern recognition test, brain plasticity exercises, short-term memory practice, Corsi test, Corsi test online, Corsi block-tapping test, Corsi block tapping test online, backward Corsi test, spatial memory test",
+      "ogTitle": "Sequence Memory Test Online | Corsi-Inspired Game",
+      "ogDescription": "A free sequence memory test online inspired by the Corsi block-tapping test. Play forward or backward and compare your sequence memory benchmark.",
       "howToPlay": {
-        "intro": "Take this sequence memory test online: watch the flashing blocks, then click them in the same order.",
+        "intro": "Watch the flashing blocks. Forward: repeat the same order. Backward: repeat from last to first.",
         "step1": "Blocks will light up one by one in a specific sequence",
         "step2": "Carefully observe and remember the order of highlighted blocks",
-        "step3": "After the sequence is shown, click the blocks in the same order",
+        "step3": "After the sequence is shown, repeat it in the selected direction.",
         "step4": "Each completed round adds one step. A wrong click ends the run.",
-        "watchDemo": "Watch Demo",
+        "watchDemo": "Forward Demo",
         "demo": "Demo"
       },
       "benefits": {
@@ -922,13 +922,14 @@
         }
       },
       "science": {
-        "title": "Visual Working Memory and Pattern Recall",
-        "description": "Block sequence recall tasks are widely used to train visual working memory, sequence retention, and pattern encoding. Regular practice challenges the brain to hold more items in mind, update them quickly, and resist interference from distractions.",
+        "title": "The Corsi Block-Tapping Test and Spatial Memory",
+        "description": "The Corsi block-tapping test is a spatial sequence recall task. Forward recall repeats the presented order; backward recall reverses it. This game adapts those ideas to a regular 3×3 grid, with a 3-step challenge start and one mistake ending the run.",
         "blogArticleTitle": "How to Improve Working Memory",
         "authorityLinks": {
           "workingMemory": "A science-backed guide to how working memory supports learning and focus",
           "shortTermMemory": "Practical strategies for improving short-term memory through training",
-          "visualMemory": "Background on visuospatial working memory and pattern recall research"
+          "visualMemory": "Background on visuospatial working memory and pattern recall research",
+          "corsi": "Background on the Corsi block-tapping test and its forward and backward variants"
         }
       },
       "faq": {
@@ -947,6 +948,14 @@
         "children": {
           "question": "Is this game suitable for children?",
           "answer": "Absolutely! This game is excellent for developing minds. Visual memory is crucial for reading, mathematics, and many other academic skills. The progressive difficulty ensures it remains challenging as skills improve."
+        },
+        "corsi": {
+          "question": "Is this a Corsi test?",
+          "answer": "This is a game inspired by the Corsi block-tapping test, which asks you to remember a sequence of tapped blocks. Our regular 3×3 grid, 3-step challenge start and one-mistake rule differ from standardized Corsi procedures. Scores are game benchmarks, not clinical Corsi norms."
+        },
+        "backward": {
+          "question": "How does the backward Corsi-style mode work?",
+          "answer": "Watch the sequence as usual, then click the blocks in reverse order: A → B → C becomes C → B → A. Forward and backward recall are available in both Challenge and Practice. Personal bests and challenge leaderboards are kept separate by direction."
         }
       },
       "gameUI": {
@@ -975,7 +984,7 @@
         "practiceMode": "Practice",
         "rankedDescription": "Starts with 3 steps",
         "practiceDescription": "Practice only · Unranked",
-        "leaderboardDescription": "Sequence memory benchmark: longest completed challenge sequence. Challenge starts at 3 steps; equal lengths share a rank.",
+        "leaderboardDescription": "Sequence memory benchmark: longest completed challenge sequence, ranked separately for forward and backward recall. Challenges start at 3 steps; equal lengths share a rank.",
         "rankedResult": "Challenge Result",
         "highestLevelReached": "Longest Sequence",
         "noLevelCompleted": "No sequence completed yet",
@@ -1005,7 +1014,11 @@
         "correctChoice": "The correct next block",
         "nextRound": "Next round",
         "getReady": "Get ready",
-        "countdown": "{count, plural, one {Starts in # second} other {Starts in # seconds}}"
+        "countdown": "{count, plural, one {Starts in # second} other {Starts in # seconds}}",
+        "forward": "Forward",
+        "backward": "Backward",
+        "directionLabel": "Recall order",
+        "repeatBackward": "Repeat in reverse"
       }
     },
     "reactionTime": {
