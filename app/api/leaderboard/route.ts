@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { isDigitSpanLeaderboardMode, validateDigitSpanSubmission, type DigitSpanSubmissionDetails } from "@/lib/digit-span";
 import { isBlockMemoryLeaderboardMode, validateBlockMemorySubmission } from "@/lib/block-memory-game";
 import {
     DEFAULT_LEADERBOARD_MODE,
@@ -51,7 +52,7 @@ type D1DatabaseBinding = {
     prepare: (query: string) => D1PreparedStatement;
 };
 
-type LeaderboardSubmissionDetails = {
+type LeaderboardSubmissionDetails = DigitSpanSubmissionDetails & {
     accuracy?: unknown;
     correctCount?: unknown;
     durationMs?: unknown;
@@ -481,6 +482,8 @@ function validateScore(
         case "frog-memory-leap":
         case "fish-trace":
             return score > 50000 ? "Score rejected" : null;
+        case "digit-span-test":
+            return validateDigitSpanSubmission(score, mode, details);
         case "block-memory-challenge":
             return validateBlockMemorySubmission(score, mode, details);
         case "schulte-table":
@@ -544,6 +547,10 @@ export async function GET(req: NextRequest) {
 
         if (gameId === "block-memory-challenge" && !isBlockMemoryLeaderboardMode(mode)) {
             return NextResponse.json({ error: "Legacy points leaderboard has been retired" }, { status: 410 });
+        }
+
+        if (gameId === "digit-span-test" && !isDigitSpanLeaderboardMode(mode)) {
+            return NextResponse.json({ error: "Unsupported digit span mode" }, { status: 400 });
         }
 
         const { db, bucket } = await getCloudflareBindings();

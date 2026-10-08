@@ -34,6 +34,7 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
   const common = useTranslations('common');
 
   const tests = [
+    { id: 'digit-span-test', href: '/games/digit-span-test', icon: <Brain className="w-8 h-8" />, title: locale === 'zh' ? '数字广度测试' : 'Digit Span Test', description: locale === 'zh' ? '正背与倒背数字回忆，提供试次回顾。' : 'Forward and backward digit recall with a review of each attempt.', duration: locale === 'zh' ? '输入不限时' : 'Untimed input', color: 'from-neutral-600 to-neutral-700' },
     {
       id: 'cognitive-assessment',
       href: '/get-started',

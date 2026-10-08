@@ -1,5 +1,6 @@
 "use client";
 
+import { gameTabClass, gameTabsClass } from '@/lib/game-tab-styles'
 import { Button } from "@/components/ui/button";
 import { analytics } from "@/lib/analytics";
 import { calculateTypingMetrics } from "@/lib/career-test-scenarios";
@@ -176,7 +177,7 @@ export default function DispatcherTypingTest() {
 
         <fieldset className="mt-7">
           <legend className="text-sm font-medium">Choose a test length</legend>
-          <div className="mt-3 grid max-w-xl grid-cols-3 gap-1.5 rounded-2xl bg-muted/55 p-1.5">
+          <div className={`mt-3 grid max-w-xl grid-cols-3 gap-1.5 rounded-2xl p-1.5 ${gameTabsClass}`}>
             {DURATION_OPTIONS.map((seconds) => (
               <button
                 key={seconds}
@@ -186,7 +187,7 @@ export default function DispatcherTypingTest() {
                   setRemaining(seconds);
                 }}
                 aria-pressed={duration === seconds}
-                className={`relative rounded-xl px-2 py-4 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-3 ${duration === seconds ? "bg-background text-foreground shadow-sm ring-1 ring-border/60" : "text-muted-foreground hover:bg-background/50 hover:text-foreground"}`}
+                className={`relative rounded-xl px-2 py-4 text-center transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:px-3 ${gameTabClass(duration === seconds)}`}
               >
                 {duration === seconds && (
                   <span className="absolute right-2.5 top-2.5 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600 text-white">

@@ -1,5 +1,6 @@
 'use client';
 
+import { gameTabClass, gameTabsClass } from '@/lib/game-tab-styles'
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Share, MousePointer2 } from "lucide-react";
 import { useTranslations } from 'next-intl';
@@ -154,14 +155,15 @@ export default function CPSTestGame() {
     return (
         <div className="w-full max-w-4xl mx-auto flex flex-col items-center gap-8">
             {/* Mode Selection */}
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className={`flex flex-wrap gap-1 justify-center rounded-lg p-1 ${gameTabsClass}`}>
                 {(['1s', '3s', '5s', '10s'] as TimeMode[]).map((m) => (
                     <Button
                         key={m}
-                        variant={mode === m ? "default" : "outline"}
+                        variant="ghost"
+                        aria-pressed={mode === m}
                         onClick={() => handleModeChange(m)}
                         disabled={gameState === 'RUNNING'}
-                        className="w-16"
+                        className={`w-16 ${gameTabClass(mode === m)}`}
                     >
                         {m}
                     </Button>

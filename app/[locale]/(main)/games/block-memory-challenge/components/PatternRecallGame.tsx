@@ -1,5 +1,6 @@
 'use client'
 
+import { gameTabClass, gameTabsClass } from '@/lib/game-tab-styles'
 import { useState, useEffect, useReducer, useRef } from 'react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -149,7 +150,7 @@ export function PatternRecallGame() {
                 </div>
             )}
 
-            <div className={cn('relative', (isIdle || isStarting) && 'min-h-[400px]')}>
+            <div className={cn('relative', (isIdle || isStarting) && 'min-h-[440px]')}>
                 <div className="grid grid-cols-3 gap-4 max-w-md mx-auto">
                     {Array.from({ length: 9 }, (_, blockId) => {
                         const isHighlighted = game.status === 'showing' && game.pattern[game.displayIndex] === blockId
@@ -198,57 +199,63 @@ export function PatternRecallGame() {
                 )}
 
                 {(isIdle || isStarting) && (
-                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-background/95 rounded-lg p-4">
-                        <div className="flex w-full max-w-[280px] rounded-lg bg-foreground/10 p-1" role="group" aria-label={t('modeLabel')}>
-                            {(['challenge', 'practice'] as const).map((option) => (
-                                <Button
-                                    key={option}
-                                    type="button"
-                                    variant="ghost"
-                                    aria-pressed={activeMode === option}
-                                    disabled={isStarting}
-                                    onClick={() => setMode(option)}
-                                    className={cn('flex-1 h-10 shadow-none', activeMode === option && 'bg-background hover:bg-background')}
-                                >
-                                    {t(option === 'challenge' ? 'rankedMode' : 'practiceMode')}
-                                </Button>
-                            ))}
-                        </div>
-                        <p className="max-w-[280px] text-center text-sm text-muted-foreground">
-                            {t(activeMode === 'challenge' ? 'rankedDescription' : 'practiceDescription')}
-                        </p>
-                        <RecallDirectionToggle disabled={isStarting} />
-                        {activeMode === 'practice' && (
-                            <div className="flex w-full max-w-[280px] items-center justify-between gap-3">
-                                <Label htmlFor="start-level" className="text-sm font-normal text-muted-foreground">
-                                    {t('startLevelLabel')}
-                                </Label>
-                                <div className="flex items-center overflow-hidden rounded-lg border border-border bg-background">
-                                    <Button
-                                        type="button" variant="ghost" className="h-10 w-10 rounded-none p-0"
-                                        aria-label={t('decreaseStartLevel')}
-                                        onClick={() => setStartLength((current) => Math.max(BLOCK_MEMORY_PRACTICE_MIN, current - 1))}
-                                        disabled={isStarting || startLength <= BLOCK_MEMORY_PRACTICE_MIN}
-                                    ><Minus className="h-4 w-4" /></Button>
-                                    <output
-                                        id="start-level"
-                                        className="flex h-10 w-12 items-center justify-center border-x border-border text-base font-semibold tabular-nums"
-                                    >
-                                        {startLength}
-                                    </output>
-                                    <Button
-                                        type="button" variant="ghost" className="h-10 w-10 rounded-none p-0"
-                                        aria-label={t('increaseStartLevel')}
-                                        onClick={() => setStartLength((current) => Math.min(BLOCK_MEMORY_PRACTICE_MAX, current + 1))}
-                                        disabled={isStarting || startLength >= BLOCK_MEMORY_PRACTICE_MAX}
-                                    ><Plus className="h-4 w-4" /></Button>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center rounded-lg bg-background/95 px-6 pb-6 pt-16">
+                        <div className="w-full max-w-[320px] space-y-6">
+                            <div className="space-y-3">
+                                <div className={cn("flex w-full rounded-lg p-1", gameTabsClass)} role="group" aria-label={t('modeLabel')}>
+                                    {(['challenge', 'practice'] as const).map((option) => (
+                                        <Button
+                                            key={option}
+                                            type="button"
+                                            variant="ghost"
+                                            aria-pressed={activeMode === option}
+                                            disabled={isStarting}
+                                            onClick={() => setMode(option)}
+                                            className={cn('flex-1 h-12 shadow-none', gameTabClass(activeMode === option))}
+                                        >
+                                            {t(option === 'challenge' ? 'rankedMode' : 'practiceMode')}
+                                        </Button>
+                                    ))}
                                 </div>
+                                <p className="text-center text-sm text-muted-foreground">
+                                    {t(activeMode === 'challenge' ? 'rankedDescription' : 'practiceDescription')}
+                                </p>
                             </div>
-                        )}
-                        <Button size="lg" onClick={startGame} className="w-full max-w-[280px] gap-2 shadow-none" disabled={isStarting}>
-                            {isStarting ? <Loader2 className="w-5 h-5 animate-spin" /> : <PlayCircle className="w-5 h-5" />}
-                            {isStarting ? t('starting') : t('startGame')}
-                        </Button>
+                            <div className="space-y-5">
+                                <RecallDirectionToggle disabled={isStarting} variant="radio" />
+                                {activeMode === 'practice' && (
+                                    <div className="flex w-full items-center justify-between gap-3">
+                                        <Label htmlFor="start-level" className="text-sm font-normal text-muted-foreground">
+                                            {t('startLevelLabel')}
+                                        </Label>
+                                        <div className="flex items-center overflow-hidden rounded-lg border border-border bg-background">
+                                            <Button
+                                                type="button" variant="ghost" className="h-11 w-11 rounded-none p-0"
+                                                aria-label={t('decreaseStartLevel')}
+                                                onClick={() => setStartLength((current) => Math.max(BLOCK_MEMORY_PRACTICE_MIN, current - 1))}
+                                                disabled={isStarting || startLength <= BLOCK_MEMORY_PRACTICE_MIN}
+                                            ><Minus className="h-4 w-4" /></Button>
+                                            <output
+                                                id="start-level"
+                                                className="flex h-11 w-12 items-center justify-center border-x border-border text-base font-semibold tabular-nums"
+                                            >
+                                                {startLength}
+                                            </output>
+                                            <Button
+                                                type="button" variant="ghost" className="h-11 w-11 rounded-none p-0"
+                                                aria-label={t('increaseStartLevel')}
+                                                onClick={() => setStartLength((current) => Math.min(BLOCK_MEMORY_PRACTICE_MAX, current + 1))}
+                                                disabled={isStarting || startLength >= BLOCK_MEMORY_PRACTICE_MAX}
+                                            ><Plus className="h-4 w-4" /></Button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <Button size="lg" onClick={startGame} className="h-12 w-full gap-2 shadow-none" disabled={isStarting}>
+                                {isStarting ? <Loader2 className="w-5 h-5 animate-spin" /> : <PlayCircle className="w-5 h-5" />}
+                                {isStarting ? t('starting') : t('startGame')}
+                            </Button>
+                        </div>
                     </div>
                 )}
 

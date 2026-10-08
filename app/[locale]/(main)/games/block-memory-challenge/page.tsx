@@ -1,6 +1,5 @@
 import { SITE_BASE_URL } from "@/lib/site-constants";
 import { Metadata } from "next";
-import { Link } from "@/i18n/navigation";
 import { PatternRecallGame } from "./components/PatternRecallGame";
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Grid, Brain, Eye } from 'lucide-react'
@@ -57,38 +56,15 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
     setRequestLocale(locale);
     const baseUrl = SITE_BASE_URL;
     const t = useTranslations("games.blockMemoryChallenge");
-    const tCommon = useTranslations("common");
     const benefitsT = useTranslations("games.blockMemoryChallenge.benefits");
     const howToPlayT = useTranslations("games.blockMemoryChallenge.howToPlay");
     const faqT = useTranslations("games.blockMemoryChallenge.faq");
     const scienceT = useTranslations("games.blockMemoryChallenge.science");
 
-    const faq = [
-        {
-            question: faqT("corsi.question"),
-            answer: faqT("corsi.answer")
-        },
-        {
-            question: faqT("backward.question"),
-            answer: faqT("backward.answer")
-        },
-        {
-            question: faqT("dailyLife.question"),
-            answer: faqT("dailyLife.answer")
-        },
-        {
-            question: faqT("learning.question"),
-            answer: faqT("learning.answer")
-        },
-        {
-            question: faqT("practice.question"),
-            answer: faqT("practice.answer")
-        },
-        {
-            question: faqT("children.question"),
-            answer: faqT("children.answer")
-        }
-    ];
+    const faq = ["online", "backward", "corsi", "corsiSpan"].map((key) => ({
+        question: faqT(`${key}.question`),
+        answer: faqT(`${key}.answer`)
+    }));
 
     const structuredData = [
         {
@@ -96,6 +72,7 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             "@type": "WebApplication",
             "name": t("title"),
             "description": t("metaDescription"),
+            "keywords": t("metaKeywords").split(",").map(keyword => keyword.trim()),
             "url": `${baseUrl}/games/block-memory-challenge`,
             "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "EducationalApplication",
@@ -151,9 +128,6 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
                                 <GamePreview />
                             </DialogContent>
                         </Dialog>
-                        <Link href="/working-memory-guide" className="text-sm underline underline-offset-4 hover:text-foreground">
-                            {tCommon("learnMoreAboutWorkingMemory")}
-                        </Link>
                     </div>
                 </>
             }

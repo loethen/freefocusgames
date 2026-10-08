@@ -52,6 +52,7 @@
       "unitLevel": "第{score}关",
       "unitPercent": "%",
       "unitWahTurns": "哇了 {score} 圈",
+      "unitDigits": "{score} 位",
       "unitSteps": "{score} 步",
       "sequenceLength": "最长序列",
       "averageSequenceLength": "平均序列长度"

@@ -1385,15 +1385,15 @@
     },
     "blockMemoryChallenge": {
       "title": "Block Memory Challenge",
-      "description": "A Corsi-inspired sequence memory test online. Recall flashing blocks forward or backward and compare your longest completed challenge sequence.",
-      "subtitle": "A Corsi-inspired sequence memory test: forward or backward",
-      "metaTitle": "Sequence Memory Test Online | Corsi-Inspired Game",
-      "metaDescription": "A free sequence memory test online inspired by the Corsi block-tapping test. Play forward or backward and compare your sequence memory benchmark.",
-      "metaKeywords": "sequence memory test, sequence memory test online, sequence memory benchmark, visual memory sequence test online, spatial recall training games, working memory improvement, pattern recognition test, brain plasticity exercises, short-term memory practice, Corsi test, Corsi test online, Corsi block-tapping test, Corsi block tapping test online, backward Corsi test, spatial memory test",
-      "ogTitle": "Sequence Memory Test Online | Corsi-Inspired Game",
-      "ogDescription": "A free sequence memory test online inspired by the Corsi block-tapping test. Play forward or backward and compare your sequence memory benchmark.",
+      "description": "Play a free sequence memory game online. Watch flashing blocks, recall them forward or backward, and use your longest completed sequence as a memory benchmark.",
+      "subtitle": "Sequence memory test online with forward and backward recall",
+      "metaTitle": "Sequence Memory Test Online | Block Memory Challenge",
+      "metaDescription": "Take a free sequence memory test online. Recall flashing blocks forward or backward and track your longest completed sequence as your sequence memory benchmark.",
+      "metaKeywords": "sequence memory test, sequence memory test online, sequence memory game, sequence memory game online, sequence memory benchmark, backward sequence memory test, visual memory test, spatial memory test, Corsi test, Corsi block tapping test, Corsi block-tapping test, Corsi block tapping task, Corsi block tapping test online, Corsi block tapping test online free, Corsi block test online, Corsi block span",
+      "ogTitle": "Sequence Memory Test Online | Block Memory Challenge",
+      "ogDescription": "Take a free sequence memory test online. Recall flashing blocks forward or backward and track your longest completed sequence as your sequence memory benchmark.",
       "howToPlay": {
-        "intro": "Watch the flashing blocks. Forward: repeat the same order. Backward: repeat from last to first.",
+        "intro": "Watch the flashing blocks in this sequence memory test. Forward repeats the same order; Backward reverses it.",
         "step1": "Blocks will light up one by one in a specific sequence",
         "step2": "Carefully observe and remember the order of highlighted blocks",
         "step3": "After the sequence is shown, repeat it in the selected direction.",
@@ -1417,7 +1417,7 @@
       },
       "science": {
         "title": "The Corsi Block-Tapping Test and Spatial Memory",
-        "description": "The Corsi block-tapping test is a spatial sequence recall task. Forward recall repeats the presented order; backward recall reverses it. This game adapts those ideas to a regular 3×3 grid, with a 3-step challenge start and one mistake ending the run.",
+        "description": "The Corsi block-tapping test, also called the Corsi block tapping task, asks you to remember a sequence of block locations. Forward recall repeats the presented order; backward recall reverses it. This sequence memory game adapts those ideas to a regular 3×3 grid, with a 3-step challenge start and one mistake ending the run.",
         "blogArticleTitle": "How to Improve Working Memory",
         "authorityLinks": {
           "workingMemory": "A science-backed guide to how working memory supports learning and focus",
@@ -1427,29 +1427,21 @@
         }
       },
       "faq": {
-        "dailyLife": {
-          "question": "How does visual pattern memory help in daily life?",
-          "answer": "Visual pattern memory is essential for navigation, recognizing faces, learning new information through diagrams or charts, and many professional skills from reading X-rays to architectural design."
-        },
-        "learning": {
-          "question": "Can this improve my ability to learn new things?",
-          "answer": "Yes! Strong visual memory helps you retain information presented in visual formats, which is how much of our learning occurs. This skill transfers to academic learning, professional development, and acquiring new hobbies."
-        },
-        "practice": {
-          "question": "How often should I practice?",
-          "answer": "For best results, practice for 10-15 minutes daily. Consistent, regular practice is more effective than occasional longer sessions."
-        },
-        "children": {
-          "question": "Is this game suitable for children?",
-          "answer": "Absolutely! This game is excellent for developing minds. Visual memory is crucial for reading, mathematics, and many other academic skills. The progressive difficulty ensures it remains challenging as skills improve."
-        },
-        "corsi": {
-          "question": "Is this a Corsi test?",
-          "answer": "This is a game inspired by the Corsi block-tapping test, which asks you to remember a sequence of tapped blocks. Our regular 3×3 grid, 3-step challenge start and one-mistake rule differ from standardized Corsi procedures. Scores are game benchmarks, not clinical Corsi norms."
+        "online": {
+          "question": "Can I play this sequence memory game online for free?",
+          "answer": "Yes. This free sequence memory test runs in your browser without an account. Challenge starts at 3 steps and adds one step after each completed round. Practice lets you choose a starting length from 1 to 20 steps. Both modes offer forward and backward recall."
         },
         "backward": {
-          "question": "How does the backward Corsi-style mode work?",
-          "answer": "Watch the sequence as usual, then click the blocks in reverse order: A → B → C becomes C → B → A. Forward and backward recall are available in both Challenge and Practice. Personal bests and challenge leaderboards are kept separate by direction."
+          "question": "How does a backward sequence memory test work?",
+          "answer": "Watch the blocks as usual, then click them from last to first: A → B → C becomes C → B → A. Forward and backward recall have separate personal bests and challenge leaderboards. Practice results stay on your device."
+        },
+        "corsi": {
+          "question": "Can I try a Corsi block tapping test online for free?",
+          "answer": "You can play this free Corsi-inspired sequence memory game online. The Corsi block test asks you to remember tapped block locations. Our regular 3×3 grid, 3-step challenge start and one-mistake rule differ from standardized Corsi procedures, so results are game benchmarks rather than clinical Corsi scores."
+        },
+        "corsiSpan": {
+          "question": "What does Corsi block span mean?",
+          "answer": "Corsi block span refers to the longest block sequence recalled correctly under a particular Corsi block task’s scoring rules. Here, Longest Sequence counts a fully completed round: recalling only part of a longer round does not increase your score. Forward and backward results are kept separate."
         }
       },
       "gameUI": {
@@ -2499,6 +2491,132 @@
       "description": "Play the viral SBTI personality test online and get a shareable result poster in minutes. A fast meme-style quiz for people searching sbti test, sbti mbti, and personality test trends.",
       "featuredDescription": "Take the viral SBTI test and get your result in minutes. A fast personality quiz built for quick sharing with friends."
     },
+    "digitSpanTest": {
+      "title": "Digit Span Test",
+      "description": "Recall digits forward or backward and review your longest successful span.",
+      "subtitle": "Free forward and backward digit recall",
+      "metaTitle": "Digit Span Test – Free Forward & Backward",
+      "metaDescription": "Take a free digit span test online with forward and backward recall. See your longest span, or print a practice worksheet and save it as PDF. No sign-up.",
+      "howToPlay": {
+        "choose": "Choose Forward or Backward. Watch the digits one at a time, then enter the full sequence with your keyboard or the on-screen keypad. Input is untimed.",
+        "progress": "Start at 3 digits. A correct answer advances immediately; after an incorrect answer, retry once with a new sequence at the same length. Two incorrect answers at that length end the test.",
+        "interruption": "Examples are unscored. Keep the page active while digits appear; an interrupted trial is void and can be restarted."
+      },
+      "faq": {
+        "modes": {
+          "question": "What is the difference between forward and backward digit span?",
+          "answer": "Forward repeats the original order; backward (reverse digit span) reverses it. For 4 → 1 → 8, enter 418 in Forward and 814 in Backward. Switching modes starts a fresh session."
+        },
+        "scoring": {
+          "question": "How is my digit span score calculated?",
+          "answer": "Your score is the longest sequence recalled exactly. Repeated digits and leading zeros count: 007 is three digits. Each length allows at most two attempts: a correct first answer advances immediately, while a first error allows one retry. Two errors at the same length end the test. There is no preset length limit. No correct trial means no successful 3-digit span yet. Results include correct counts per length and each attempt."
+        },
+        "meaning": {
+          "question": "What does my score mean?",
+          "answer": "The score describes your longest successful recall in this visual practice task. It is not an IQ score or clinical result. Compare results only within the same mode and presentation rules."
+        },
+        "free": {
+          "question": "Is the digit span test free?",
+          "answer": "Yes. Both Forward and Backward are free and require no account. You can review each attempt after finishing a test."
+        },
+        "print": {
+          "question": "How can I save a digit span forward and backward test PDF?",
+          "answer": "Yes. Use Print / PDF beside Share, then print or save as PDF in your browser. The worksheet is for a host to read digits one at a time while keeping the sequences and answers hidden from the participant. It starts at 3 digits and defaults to a maximum of 10, adjustable up to 100, for both modes; the online test has no preset length limit. Spoken paper practice differs from the visual online test, and paper results are not submitted to the leaderboards."
+        }
+      },
+      "game": {
+        "modeLabel": "Recall mode",
+        "forward": "Forward",
+        "backward": "Backward",
+        "readyTitle": "Remember the digits",
+        "forwardInstruction": "Recall the digits in the same order.",
+        "backwardInstruction": "Recall the digits in reverse order.",
+        "start": "Start test",
+        "tryExample": "Try example",
+        "example": "Example · unscored",
+        "trialStatus": "{length} digits · Attempt {trial} of up to 2",
+        "bestSpan": "Best: {count}",
+        "watch": "Watch the digits",
+        "presentation": "Digit presentation",
+        "enterForward": "Enter all {count} digits in the same order",
+        "enterBackward": "Enter all {count} digits in reverse order",
+        "delete": "Delete last digit",
+        "submit": "Submit",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "expectedAnswer": "Expected: {answer}",
+        "yourAnswer": "Your answer: {answer}",
+        "finishExample": "Finish example",
+        "nextTrial": "Next trial",
+        "interrupted": "Presentation was interrupted. This trial was not scored; restart it when ready.",
+        "restartTrial": "Restart trial",
+        "longestSpan": "Longest successful span",
+        "span": "{count} digits",
+        "noSuccessfulSpan": "No successful 3-digit span yet",
+        "tryAgain": "Try again",
+        "changeMode": "Change mode",
+        "trialReview": "Trial review",
+        "lengthResult": "{length} digits: {correct}/{total} correct",
+        "review": {
+          "length": "Length",
+          "shown": "Shown",
+          "answer": "Answer",
+          "result": "Result"
+        },
+        "leaderboardModeLabel": "Leaderboard recall mode"
+      },
+      "science": {
+        "title": "What digit span measures",
+        "task": "A digit span task is a common way to explore short-term sequence memory: digits appear one at a time and are recalled in order. Forward recall keeps the original order; backward recall also requires mentally rearranging it.",
+        "limitations": "Presentation method, speed, distraction and repeated practice can affect results. This visual digit span memory test uses fixed practice rules, so its score should not be treated as a clinical assessment or IQ measure.",
+        "reference": "An overview of memory span and forward and backward digit recall."
+      },
+      "leaderboardIntro": "Forward and Backward rank separately by longest correctly recalled sequence.",
+      "seoKeywords": [
+        "digit span test",
+        "digit span task",
+        "digit span memory test",
+        "forward digit span test",
+        "backward digit span test",
+        "digit span test example",
+        "digit span forward and backward test pdf",
+        "digit span test pdf",
+        "printable digit span worksheet"
+      ],
+      "features": [
+        "Forward and backward digit recall",
+        "Unscored example",
+        "Longest successful span score",
+        "Separate forward and backward leaderboards",
+        "Printable forward and backward worksheet with browser Save as PDF"
+      ],
+      "worksheet": {
+        "title": "Forward & backward digit span worksheet",
+        "intro": "Print forward and backward practice, starting at 3 digits. Review or save as PDF in your browser’s print dialog.",
+        "print": "Print worksheet / Save as PDF",
+        "hostInstructions": "Host only: keep this sheet out of the participant’s view. Read each digit separately at a steady pace of about one digit per second. Do not read the answer or show the full sequence.",
+        "forwardInstructions": "Forward: ask the participant to repeat the digits in the same order.",
+        "backwardInstructions": "Backward: ask the participant to repeat the digits in reverse order.",
+        "rules": "Start at {min} digits. Read A first: if correct, skip B and advance. If A is incorrect, read B at the same length. Advance if B is correct; end the run if both are incorrect. Record the longest correct length.",
+        "range": "This worksheet covers {min}–{max} digits. If the final length is passed, record “at least {max} (worksheet limit)”.",
+        "columns": {
+          "length": "Digits",
+          "attempt": "Trial",
+          "sequence": "Read aloud",
+          "answer": "Host answer",
+          "response": "Participant response",
+          "correct": "Correct?"
+        },
+        "recordFields": "Participant: ____________________  Date: __________  Longest correct length: ______",
+        "paperLimitations": "Original practice questions, not a clinical test. Spoken paper practice differs from the visual online task; paper results are not uploaded to the leaderboards.",
+        "source": "FreeFocusGames worksheet source",
+        "button": "Print / PDF",
+        "maxLength": "Maximum digit length",
+        "lengthHelp": "Default: 10 digits. Enter a whole number from 3 to 100.",
+        "decreaseLength": "Decrease maximum length",
+        "increaseLength": "Increase maximum length"
+      }
+    },
     "spacebarClicker": {
       "title": "Spacebar Clicker Test",
       "subtitle": "A clean online spacebar speed test built for short keyboard tapping rounds, quick score checks, and low-friction replay",
@@ -3123,6 +3241,7 @@
       "unitLevel": "Level {score}",
       "unitPercent": "%",
       "unitWahTurns": "{score} wah turns",
+      "unitDigits": "{score} digits",
       "unitSteps": "{score} steps",
       "sequenceLength": "Longest Sequence",
       "averageSequenceLength": "Average Sequence Length"

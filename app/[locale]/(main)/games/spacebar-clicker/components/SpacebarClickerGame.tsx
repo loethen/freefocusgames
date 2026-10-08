@@ -1,5 +1,6 @@
 'use client';
 
+import { gameTabClass, gameTabsClass } from '@/lib/game-tab-styles'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Keyboard, RotateCcw, TimerReset } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -265,14 +266,15 @@ export default function SpacebarClickerGame() {
     return (
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-5 px-2 py-2">
             <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex flex-wrap gap-2">
+                <div className={`flex flex-wrap gap-1 rounded-lg p-1 ${gameTabsClass}`}>
                     {(['5s', '10s', '30s'] as TimeMode[]).map((candidate) => (
                         <Button
                             key={candidate}
-                            variant={mode === candidate ? 'default' : 'outline'}
+                            variant="ghost"
+                            aria-pressed={mode === candidate}
                             onClick={() => handleModeChange(candidate)}
                             disabled={gameState === 'RUNNING'}
-                            className="min-w-20"
+                            className={`min-w-20 ${gameTabClass(mode === candidate)}`}
                         >
                             {tModes(candidate)}
                         </Button>

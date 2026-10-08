@@ -1,5 +1,6 @@
 'use client';
 
+import { gameTabClass, gameTabsClass } from '@/lib/game-tab-styles'
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Button } from "@/components/ui/button";
@@ -203,12 +204,12 @@ export default function Challenge10Seconds() {
 
             <fieldset className="text-center space-y-3" disabled={gameState === 'RUNNING'}>
                 <legend className="sr-only">{t('gameUI.modes.label')}</legend>
-                <div role="tablist" aria-label={t('gameUI.modes.label')} className="inline-flex rounded-xl bg-muted p-1 gap-1 ring-1 ring-border/50">
+                <div role="tablist" aria-label={t('gameUI.modes.label')} className={`inline-flex rounded-xl p-1 gap-1 ring-1 ring-border/50 ${gameTabsClass}`}>
                     {(['standard', 'hidden'] as const).map((option) => (
                         <button key={option} type="button" role="tab" id={`timing-tab-${option}`}
                             aria-selected={mode === option} aria-controls="timing-panel"
                             tabIndex={mode === option ? 0 : -1}
-                            className={`min-h-11 rounded-lg px-5 sm:px-6 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${mode === option ? 'bg-background text-foreground shadow-sm ring-1 ring-border/50' : 'text-muted-foreground hover:text-foreground hover:bg-background/50'}`}
+                            className={`min-h-11 rounded-lg px-5 sm:px-6 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${gameTabClass(mode === option)}`}
                             onKeyDown={(event) => {
                                 if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
                                 event.preventDefault();

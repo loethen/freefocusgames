@@ -53,6 +53,7 @@ interface GamePageTemplateProps {
     gameComponent: React.ReactNode;
     howToPlay: React.ReactNode;
     additionalContent?: React.ReactNode;
+    shareActions?: React.ReactNode;
     benefits?: BenefitItem[];
     benefitsTitle?: React.ReactNode;
     science?: ScienceInfo;
@@ -77,6 +78,7 @@ export function GamePageTemplate({
     gameComponent,
     howToPlay,
     additionalContent,
+    shareActions,
     benefits,
     benefitsTitle,
     science,
@@ -133,8 +135,9 @@ export function GamePageTemplate({
 
             {/* 分享部分 */}
             <section className="max-w-6xl mx-auto mb-12">
-                <div className="flex space-x-2">
+                <div className="flex flex-wrap items-center gap-2">
                     <ShareButton title={title} />
+                    {shareActions}
                 </div>
             </section>
 

@@ -1724,15 +1724,15 @@
     },
     "blockMemoryChallenge": {
       "title": "方块记忆挑战",
-      "description": "受 Corsi 方块敲击测验启发的序列记忆游戏，支持正序和倒序回忆，按最长完成序列比较挑战成绩。",
-      "subtitle": "受 Corsi 测验启发的正序与倒序记忆挑战",
-      "metaTitle": "Corsi 序列记忆测试：正序与倒序方块挑战",
-      "metaDescription": "免费在线序列记忆游戏，受 Corsi block-tapping test 启发。支持正序与倒序回忆，挑战从 3 步开始，两种玩法独立记录个人最佳和排行榜。",
-      "metaKeywords": "在线视觉记忆序列测试, 空间回忆训练游戏, 提高工作记忆, 模式识别测试, 大脑可塑性练习, 短期记忆练习, Corsi test, Corsi block-tapping test, Corsi 方块敲击测验, 倒序 Corsi 测试, 在线序列记忆测试, 空间记忆测试",
-      "ogTitle": "Corsi 序列记忆测试：正序与倒序方块挑战",
-      "ogDescription": "免费在线序列记忆游戏，受 Corsi block-tapping test 启发。支持正序与倒序回忆，挑战从 3 步开始，两种玩法独立记录个人最佳和排行榜。",
+      "description": "免费在线序列记忆游戏：观察闪烁的方块，按正序或倒序复现，用最长成功完成的序列检验自己的记忆表现。",
+      "subtitle": "免费在线序列记忆测试，支持正序与倒序回忆",
+      "metaTitle": "在线序列记忆测试 | 方块记忆挑战",
+      "metaDescription": "免费在线序列记忆测试，支持正序和倒序方块回忆。挑战从 3 步开始，按最长成功完成序列分别排名；练习可调整起始步数，随时检验自己的序列记忆表现。",
+      "metaKeywords": "序列记忆测试, 在线序列记忆测试, 免费序列记忆游戏, 倒序记忆测试, sequence memory test, sequence memory test online, sequence memory game, sequence memory game online, sequence memory benchmark, Corsi test, Corsi block tapping test, Corsi block-tapping test, Corsi block tapping task, Corsi block tapping test online, Corsi block tapping test online free, Corsi block test online, Corsi block span",
+      "ogTitle": "在线序列记忆测试 | 方块记忆挑战",
+      "ogDescription": "免费在线序列记忆测试，支持正序和倒序方块回忆。挑战从 3 步开始，按最长成功完成序列分别排名；练习可调整起始步数，随时检验自己的序列记忆表现。",
       "howToPlay": {
-        "intro": "记住方块闪烁的顺序。正序按原顺序点击，倒序从最后一步开始点击。",
+        "intro": "观察并记住方块闪烁的顺序。正序按原顺序点击，倒序从最后一步开始点击。",
         "step1": "方块会按照特定顺序逐个高亮显示",
         "step2": "仔细观察并记住方块高亮的顺序",
         "step3": "序列展示完毕后，按所选的正序或倒序点击方块。",
@@ -1756,7 +1756,7 @@
       },
       "science": {
         "title": "Corsi 方块敲击测验与空间记忆",
-        "description": "Corsi block-tapping test 是一种空间序列回忆任务：正序复现展示顺序，倒序反向复现。本游戏借鉴这两种玩法，采用规则的 3×3 棋盘，挑战从 3 步开始，点错一次即结束。",
+        "description": "Corsi 方块敲击测验（Corsi block-tapping test，也称 Corsi block tapping task）要求记住方块位置的顺序。正序复现展示顺序，倒序反向复现。本序列记忆游戏借鉴这两种玩法，采用规则的 3×3 棋盘，挑战从 3 步开始，点错一次即结束。",
         "blogArticleTitle": "如何提升工作记忆",
         "authorityLinks": {
           "workingMemory": "从科学角度解释工作记忆如何支持学习与专注",
@@ -1766,29 +1766,21 @@
         }
       },
       "faq": {
-        "dailyLife": {
-          "question": "视觉模式记忆如何帮助日常生活？",
-          "answer": "视觉模式记忆对导航、识别面孔、通过图表学习新信息以及从阅读X光片到建筑设计等许多专业技能都至关重要。"
-        },
-        "learning": {
-          "question": "这能提高我学习新事物的能力吗？",
-          "answer": "是的！强大的视觉记忆力帮助你保留以视觉格式呈现的信息，这是我们学习的主要方式。这种技能可以转移到学术学习、专业发展和培养新爱好中。"
-        },
-        "practice": {
-          "question": "我应该多久练习一次？",
-          "answer": "为了获得最佳效果，每天练习10-15分钟。持续、定期的练习比偶尔的长时间练习更有效。"
-        },
-        "children": {
-          "question": "这个游戏适合儿童吗？",
-          "answer": "当然！这个游戏对发展中的大脑非常有益。视觉记忆对阅读、数学和许多其他学术技能至关重要。渐进式的难度确保随着技能提高，游戏仍然具有挑战性。"
-        },
-        "corsi": {
-          "question": "这是 Corsi test 吗？",
-          "answer": "这是受 Corsi 方块敲击测验（Corsi block-tapping test）启发的记忆游戏。本游戏的规则 3×3 棋盘、3 步起始挑战和一次错误即结束，与标准化 Corsi 流程不同。成绩用于比较游戏表现，不对应临床 Corsi 常模。"
+        "online": {
+          "question": "可以免费在线玩序列记忆游戏吗？",
+          "answer": "可以。本序列记忆测试直接在浏览器运行，无需注册。挑战从 3 步开始，每完成一轮增加一步；练习可选择 1 至 20 步的起始长度。两种模式都支持正序与倒序回忆。"
         },
         "backward": {
-          "question": "倒序 Corsi 风格玩法怎么玩？",
-          "answer": "照常观察序列，然后从最后一步往前点击，例如 A → B → C 要按 C → B → A 复现。挑战和练习都支持正序与倒序，两种方向分别保存个人最佳，挑战排行榜也分开计分。"
+          "question": "倒序序列记忆测试怎么玩？",
+          "answer": "照常观察方块，然后从最后一步往前点击，例如 A → B → C 要按 C → B → A 复现。正序与倒序分别保存个人最佳，挑战排行榜也分开计分。练习成绩只保存在当前设备。"
+        },
+        "corsi": {
+          "question": "可以免费在线体验 Corsi block tapping test 吗？",
+          "answer": "可以免费体验本游戏借鉴的 Corsi 玩法。Corsi 方块测验要求记住被敲击的方块位置顺序。本游戏的规则 3×3 棋盘、3 步起始挑战和一次错误即结束，与标准化 Corsi 流程不同，成绩用于比较游戏表现，不对应临床 Corsi 分数。"
+        },
+        "corsiSpan": {
+          "question": "Corsi block span 是什么意思？",
+          "answer": "Corsi block span 指在某个 Corsi 方块任务的计分规则下，成功回忆的最长方块序列。本游戏的“最长序列”只计算完整成功的回合，部分复现更长序列不会增加成绩；正序和倒序分别记录。"
         }
       },
       "gameUI": {
@@ -2499,6 +2491,132 @@
       "description": "免费在线玩最近很火的 SBTI 人格测试，几分钟就能拿到结果图，看看你会被分到哪种人格。",
       "featuredDescription": "最近很火的 SBTI 人格测试，几分钟就能测出结果，看看你会被分到哪种人格。"
     },
+    "digitSpanTest": {
+      "title": "数字广度测试",
+      "description": "正背或倒背数字，查看最长成功长度。",
+      "subtitle": "免费正背与倒背数字回忆",
+      "metaTitle": "数字广度测试 – 免费正背与倒背",
+      "metaDescription": "免费在线数字广度测试，支持正背与倒背，查看最长正确位数。也可打印练习表或通过浏览器保存为 PDF，无需注册。",
+      "howToPlay": {
+        "choose": "选择正背或倒背，逐个观察数字，再用键盘或屏幕数字键盘输入完整序列。输入不限时。",
+        "progress": "从 3 位开始。答对立即升级；首次答错后，以新序列在同长度重试一次。同长度两次都错则结束。",
+        "interruption": "例题不计分。呈现数字时保持页面在前台；中断的试次作废，可重新开始。"
+      },
+      "faq": {
+        "modes": {
+          "question": "正背与倒背数字广度有什么区别？",
+          "answer": "正背复述原顺序，倒背将顺序反转。例如 4 → 1 → 8，正背输入 418，倒背输入 814。切换模式会重置本轮。"
+        },
+        "scoring": {
+          "question": "数字广度成绩如何计算？",
+          "answer": "成绩是完全正确回忆的最长序列。允许重复数字和前导零，007 算三位。每个长度最多两次：首次答对立即升级，首次答错可重试一次，同长度两次都错则结束。不预设长度上限。没有答对时显示“尚未完成 3 位”。结果包含各长度正确题数和每次作答。"
+        },
+        "meaning": {
+          "question": "成绩意味着什么？",
+          "answer": "成绩描述你在此视觉练习中正确回忆的最长序列，不是 IQ 分数或临床结果。应仅比较相同模式和呈现规则的成绩。"
+        },
+        "free": {
+          "question": "数字广度测试免费吗？",
+          "answer": "是的，正背和倒背均免费，无需账号。完成测试后可查看每次作答。"
+        },
+        "print": {
+          "question": "可以将正背与倒背数字广度练习表打印或保存为 PDF 吗？",
+          "answer": "可以，点击分享右侧的“打印 / PDF”，然后在浏览器中打印或保存为 PDF。练习表供主持者逐个朗读数字，须将序列与答案藏在参与者视线之外。练习纸默认包含正背和倒背各 3–10 位题目，最大位数可调至 100；在线测试不预设长度上限。纸上朗读与线上视觉呈现不同，纸上成绩不上传排行榜。"
+        }
+      },
+      "game": {
+        "modeLabel": "回忆模式",
+        "forward": "正背",
+        "backward": "倒背",
+        "readyTitle": "记住数字",
+        "forwardInstruction": "按原顺序回忆数字。",
+        "backwardInstruction": "按相反顺序回忆数字。",
+        "start": "开始测试",
+        "tryExample": "试试例题",
+        "example": "例题 · 不计分",
+        "trialStatus": "{length} 位 · 第 {trial} 次（最多 2 次）",
+        "bestSpan": "最长：{count}",
+        "watch": "留意数字",
+        "presentation": "数字呈现",
+        "enterForward": "按原顺序输入全部 {count} 位数字",
+        "enterBackward": "按倒序输入全部 {count} 位数字",
+        "delete": "删除最后一位",
+        "submit": "提交",
+        "correct": "正确",
+        "incorrect": "错误",
+        "expectedAnswer": "正确答案：{answer}",
+        "yourAnswer": "你的答案：{answer}",
+        "finishExample": "完成例题",
+        "nextTrial": "下一题",
+        "interrupted": "数字呈现被中断，本题未计分。准备好后重做本题。",
+        "restartTrial": "重做本题",
+        "longestSpan": "最长成功长度",
+        "span": "{count} 位",
+        "noSuccessfulSpan": "尚未完成 3 位",
+        "tryAgain": "再试一次",
+        "changeMode": "更换模式",
+        "trialReview": "试次回顾",
+        "lengthResult": "{length} 位：{correct}/{total} 题正确",
+        "review": {
+          "length": "长度",
+          "shown": "序列",
+          "answer": "答案",
+          "result": "结果"
+        },
+        "leaderboardModeLabel": "排行榜回忆模式"
+      },
+      "science": {
+        "title": "数字广度测量什么",
+        "task": "数字广度任务是探索短时顺序记忆的常见方式：数字逐个呈现，之后按顺序回忆。正背保留原顺序，倒背还需要在脑中重新排列顺序。",
+        "limitations": "呈现方式、速度、分心和重复练习都会影响结果。本站数字广度记忆测试使用视觉呈现和固定练习规则，其成绩不应作为临床评估或 IQ 指标。",
+        "reference": "介绍记忆广度，以及正背与倒背数字回忆。"
+      },
+      "leaderboardIntro": "正背与倒背分别按最长正确回忆长度排名。",
+      "seoKeywords": [
+        "数字广度测试",
+        "数字广度任务",
+        "数字广度记忆测试",
+        "正背数字广度测试",
+        "倒背数字广度测试",
+        "数字广度测试例题",
+        "正背倒背数字广度测试 PDF",
+        "数字广度测试 PDF",
+        "可打印数字广度练习表"
+      ],
+      "features": [
+        "正背与倒背数字回忆",
+        "不计分例题",
+        "最长成功广度成绩",
+        "正背与倒背独立排行榜",
+        "正背与倒背练习表打印及浏览器保存为 PDF"
+      ],
+      "worksheet": {
+        "title": "正背与倒背数字广度练习表",
+        "intro": "默认打印正背与倒背练习，从 3 位开始。在浏览器打印窗口中预览或保存为 PDF。",
+        "print": "打印练习表 / 保存为 PDF",
+        "hostInstructions": "仅供主持者使用：将此表藏在参与者视线之外，按约每秒一位的稳定节奏逐个朗读数字。不要读答案或展示完整序列。",
+        "forwardInstructions": "正背：请参与者按原顺序复述数字。",
+        "backwardInstructions": "倒背：请参与者按相反顺序复述数字。",
+        "rules": "从 {min} 位开始，先读 A。A 答对则跳过 B、直接升级；A 答错才读同长度的 B。B 答对升级，两组都错则结束。记录最长正确长度。",
+        "range": "本练习表包含 {min}–{max} 位。最后一组通过时，记录“至少 {max} 位（练习纸上限）”。",
+        "columns": {
+          "length": "位数",
+          "attempt": "题组",
+          "sequence": "朗读序列",
+          "answer": "主持者答案",
+          "response": "参与者作答",
+          "correct": "正确？"
+        },
+        "recordFields": "参与者：____________________  日期：__________  最长正确长度：______",
+        "paperLimitations": "原创练习题，非临床测试。纸上朗读与线上视觉任务不同，纸上成绩不上传排行榜。",
+        "source": "FreeFocusGames 练习表来源",
+        "button": "打印 / PDF",
+        "maxLength": "最大位数",
+        "lengthHelp": "默认 10 位，可输入 3–100 之间的整数。",
+        "decreaseLength": "减少最大位数",
+        "increaseLength": "增加最大位数"
+      }
+    },
     "spacebarClicker": {
       "title": "空格键连点测试",
       "subtitle": "一款干净、简洁的在线空格键速度测试，用短回合统计你的键盘敲击速度，并支持快速重复挑战",
@@ -3123,6 +3241,7 @@
       "unitLevel": "第{score}关",
       "unitPercent": "%",
       "unitWahTurns": "哇了 {score} 圈",
+      "unitDigits": "{score} 位",
       "unitSteps": "{score} 步",
       "sequenceLength": "最长序列",
       "averageSequenceLength": "平均序列长度"

@@ -77,7 +77,7 @@ export default async function WorkingMemoryGuide({ params }: { params: Promise<{
     const relatedGames = games.filter(game =>
         game.slug === 'dual-n-back' ||
         game.slug === 'schulte-table' ||
-        game.slug === 'free-short-term-memory-test'
+        game.slug === 'free-short-term-memory-test' || game.slug === 'digit-span-test'
     );
 
     return (
@@ -96,7 +96,8 @@ export default async function WorkingMemoryGuide({ params }: { params: Promise<{
                 <main className="max-w-none">
                     <HeroSection t={t} />
                     <ContentSections t={t} />
-                    <RelatedGamesSection t={t} games={relatedGames} />
+                    <p className="mb-6 text-muted-foreground"><Link href="/games/digit-span-test" className="underline">{locale === 'zh' ? '数字广度测试' : 'Digit Span Test'}</Link>{locale === 'zh' ? '通过正背与倒背回忆数字序列，提供另一种有明确规则的工作记忆练习。' : ' offers forward and backward digit-sequence recall with a transparent practice protocol.'}</p>
+            <RelatedGamesSection t={t} games={relatedGames} />
                     <ClusterArticlesSection t={t} />
                 </main>
             </div>

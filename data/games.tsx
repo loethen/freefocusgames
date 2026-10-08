@@ -15,6 +15,19 @@ export type Game = {
 
 export const games: Game[] = [
   {
+    id: "digit-span-test",
+    title: "Digit Span Test",
+    slug: "digit-span-test",
+    coverImage: "/games/digit-span-test-cover-v2.png",
+    preview: (
+      <ImagePreview
+        src="/games/digit-span-test-cover-v2.png"
+        alt="Remember a digit sequence and type it back"
+      />
+    ),
+    categories: ["working-memory"],
+  },
+  {
     id: "resonance-breathing",
     title: "Resonance Breathing",
     slug: "resonance-breathing",
@@ -411,6 +424,7 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
+    'digit-span-test',
     'rotating-schulte-table', // Rotating Schulte Table - Newest
     'double-decision', // Double Decision Game - Newest
     'sbti-test',        // SBTI Test - Trending

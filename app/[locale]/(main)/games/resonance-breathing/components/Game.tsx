@@ -1,5 +1,6 @@
 'use client';
 
+import { gameTabClass, gameTabsClass } from '@/lib/game-tab-styles'
 import { useState, useEffect, useRef, useCallback } from 'react';
 import LotusFlower, { BreathingPhase } from './LotusFlower';
 import { useTranslations } from 'next-intl';
@@ -206,14 +207,11 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
         <div className="flex flex-col items-center justify-center min-h-[600px]">
 
             {/* Mode Selector */}
-            <div className="relative z-10 flex flex-wrap justify-center gap-2 mb-8">
+            <div className={`relative z-10 flex flex-wrap justify-center gap-1 rounded-full p-1 mb-8 ${gameTabsClass}`}>
                 {modeButtons.map(({ key, label }) => {
                     const isActive = mode === key;
                     const baseClass = `px-4 py-2 text-xs font-medium tracking-wide rounded-full transition-all
-                        ${isActive
-                            ? 'bg-black text-white shadow-md'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                        }
+                        ${gameTabClass(isActive)}
                         ${isRunning ? 'opacity-50 pointer-events-none' : 'cursor-pointer'}
                     `;
 
@@ -224,6 +222,7 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
                                 key={key}
                                 onClick={() => handleModeChange(key)}
                                 disabled={isRunning}
+                                aria-pressed={isActive}
                                 className={baseClass}
                             >
                                 {label}
@@ -233,7 +232,7 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
 
                     // Preset modes → always render as link (avoids hydration mismatch)
                     return (
-                        <a key={key} href={MODE_ROUTES[key]} className={baseClass}>
+                        <a key={key} href={MODE_ROUTES[key]} aria-current={isActive ? "page" : undefined} className={baseClass}>
                             {label}
                         </a>
                     );

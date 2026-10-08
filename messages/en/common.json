@@ -52,6 +52,7 @@
       "unitLevel": "Level {score}",
       "unitPercent": "%",
       "unitWahTurns": "{score} wah turns",
+      "unitDigits": "{score} digits",
       "unitSteps": "{score} steps",
       "sequenceLength": "Longest Sequence",
       "averageSequenceLength": "Average Sequence Length"

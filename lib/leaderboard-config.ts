@@ -17,6 +17,7 @@ export const LEADERBOARD_GAME_CONFIG: Record<string, LeaderboardSortConfig> = {
   "spacebar-clicker": { primary: "DESC" },
   "frog-memory-leap": { primary: "DESC" },
   "fish-trace": { primary: "DESC" },
+  "digit-span-test": { primary: "DESC" },
   "block-memory-challenge": { primary: "DESC" },
   "schulte-table": { primary: "ASC" },
   "rotating-schulte-table": { primary: "ASC" },
