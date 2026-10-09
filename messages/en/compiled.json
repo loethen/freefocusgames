@@ -2514,7 +2514,7 @@
         },
         "meaning": {
           "question": "What does my score mean?",
-          "answer": "The score describes your longest successful recall in this visual practice task. It is not an IQ score or clinical result. Compare results only within the same mode and presentation rules."
+          "answer": "Your score is the longest digit sequence you recalled correctly in a completed round. Forward and Backward use different recall rules, so compare results within the same mode and presentation timing. Review your attempts to see whether digits were missed or entered in the wrong order."
         },
         "free": {
           "question": "Is the digit span test free?",
@@ -2567,10 +2567,11 @@
         "leaderboardModeLabel": "Leaderboard recall mode"
       },
       "science": {
-        "title": "What digit span measures",
-        "task": "A digit span task is a common way to explore short-term sequence memory: digits appear one at a time and are recalled in order. Forward recall keeps the original order; backward recall also requires mentally rearranging it.",
-        "limitations": "Presentation method, speed, distraction and repeated practice can affect results. This visual digit span memory test uses fixed practice rules, so its score should not be treated as a clinical assessment or IQ measure.",
-        "reference": "An overview of memory span and forward and backward digit recall."
+        "title": "The science behind digit span practice",
+        "task": "A digit span task uses short-term sequence memory: digits appear one at a time and are recalled afterward. Forward recall preserves the original order. Backward recall adds the challenge of holding the sequence in mind while mentally rearranging it.",
+        "limitations": "Presentation speed, distractions and memory strategies can affect your span. Compare rounds within the same mode and timing rules, and use a quiet setting to make your own results easier to compare.",
+        "reference": "An overview of memory span and forward and backward digit recall.",
+        "practice": "Try grouping digits and silently rehearsing them. For example, hold a six-digit verification code as two groups of three. Use progressively longer rounds and your attempt review to explore which memory strategies work for you."
       },
       "leaderboardIntro": "Forward and Backward rank separately by longest correctly recalled sequence.",
       "seoKeywords": [
@@ -2609,13 +2610,148 @@
           "correct": "Correct?"
         },
         "recordFields": "Participant: ____________________  Date: __________  Longest correct length: ______",
-        "paperLimitations": "Original practice questions, not a clinical test. Spoken paper practice differs from the visual online task; paper results are not uploaded to the leaderboards.",
+        "paperLimitations": "Original practice questions. Spoken paper practice differs from the visual online task; paper results are recorded separately and are not uploaded to the leaderboards.",
         "source": "FreeFocusGames worksheet source",
         "button": "Print / PDF",
         "maxLength": "Maximum digit length",
         "lengthHelp": "Default: 10 digits. Enter a whole number from 3 to 100.",
         "decreaseLength": "Decrease maximum length",
         "increaseLength": "Increase maximum length"
+      },
+      "benefits": {
+        "title": "Practice benefits & everyday uses",
+        "memory": {
+          "title": "Short-term memory",
+          "description": "Practice holding a short sequence in mind before entering it. You use short-term memory when remembering a verification code, a phone-number fragment or a brief instruction."
+        },
+        "workingMemory": {
+          "title": "Working memory",
+          "description": "Backward recall asks you to remember information and change its order at the same time. Working memory also supports mental arithmetic, comparing prices and keeping track of steps in a recipe."
+        },
+        "attention": {
+          "title": "Focused attention",
+          "description": "Follow each digit without losing your place. Staying with a stream of information also matters when listening to directions, checking details or copying numbers accurately."
+        }
+      }
+    },
+    "trailMakingTest": {
+      "title": "Trail Making Test",
+      "subtitle": "Connect numbers in Part A and alternate numbers and letters in Part B. Play free online, or print worksheets and save as PDF.",
+      "description": "Connect numbers and letters in order. Try Parts A and B online or print a practice worksheet.",
+      "metaTitle": "Trail Making Test A and B – Free Online",
+      "metaDescription": "Take the Trail Making Test A and B online for free. Track time and errors, or print practice worksheets and save as PDF. No sign-up needed.",
+      "seoKeywords": [
+        "trail making test",
+        "trail making test online",
+        "trail making test a and b",
+        "trail making test parts a and b",
+        "trail making test part a",
+        "trail making test part b",
+        "trail making test pdf",
+        "trail making test a and b pdf",
+        "trail making test a and b pdf free",
+        "printable trail making test worksheet"
+      ],
+      "features": [
+        "25-point Part A and Part B",
+        "Short practice for each part",
+        "Separate completion time and error count for A and B",
+        "A and B leaderboard ranked by combined completion time",
+        "Original printable A and B worksheets with browser Save as PDF"
+      ],
+      "leaderboard": {
+        "title": "A & B Leaderboard",
+        "description": "Complete both parts to rank by total A + B time. The break is excluded; the timer continues through mistakes."
+      },
+      "howToPlay": {
+        "choose": "Choose A & B for both parts, or select Part A or Part B. Try a short practice first if needed.",
+        "progress": "Part A: connect 1–25 in order. Part B: connect 1–A–2–B and continue to 12–L–13. Click or tap each circle; you do not need to drag.",
+        "interruption": "The timer starts when the board appears. A wrong circle does not advance the path, and the timer keeps running. Changing the board size or leaving the page interrupts the current part."
+      },
+      "science": {
+        "title": "The science behind Trail Making Test practice",
+        "task": "The Trail Making Test (TMT) involves visual search, attention and sequencing. Part B also draws on working memory to track two sequences and cognitive flexibility to switch between numbers and letters.",
+        "limitations": "Screen size, input method and the random layout can affect your time. When comparing rounds, use the same device and consider both completion time and errors.",
+        "reference": "Background on Parts A and B and the original paper task.",
+        "practice": "Each connection follows a simple cycle: find the target, act, then update the next step. Try the same deliberate approach when working through a checklist or a set of instructions. In the game, aim for fewer mistakes as well as a faster time."
+      },
+      "faq": {
+        "parts": {
+          "question": "What is the difference between Trail Making Test Parts A and B?",
+          "answer": "Part A has 25 circles numbered 1–25. Part B has 25 circles: numbers 1–13 and letters A–L. Connect Part B as 1–A–2–B…12–L–13. You can do either part alone or complete A followed by B; the break between parts is not timed."
+        },
+        "scoring": {
+          "question": "How are time and mistakes recorded?",
+          "answer": "Each part starts timing when its board appears and ends when you connect its last circle. Wrong selections add to the error count without advancing the path; the timer continues. Results show time and errors separately for each part. The five-circle practice does not count toward your result."
+        },
+        "meaning": {
+          "question": "What does my Trail Making Test result mean?",
+          "answer": "Your results show how long you took to complete each part and how many wrong circles you selected. Look at time and errors together: a faster round with more mistakes is a different result from a slower, accurate one. Device, layout and familiarity can also affect your time."
+        },
+        "mobile": {
+          "question": "Can I take this free TMT test on a phone?",
+          "answer": "Yes. Tap the circles on a phone or click on a computer. Both use all 25 circles. Keep the screen orientation and board size unchanged during a part. Part B uses Latin letters A–L, so you need to know their alphabetical order."
+        },
+        "print": {
+          "question": "Can I get a Trail Making Test A and B PDF for free?",
+          "answer": "Yes. Click Print / PDF beside Share to open your browser’s print preview, then print or choose Save as PDF. You get two original practice worksheets, one for Part A and one for Part B, with space to record time and errors."
+        }
+      },
+      "worksheet": {
+        "button": "Print / PDF",
+        "title": "Trail Making Test practice worksheet",
+        "partA": "Part A · Numbers",
+        "partB": "Part B · Numbers & letters",
+        "instructionsA": "Draw one continuous line connecting the circles from 1 to 25 in order. Work as quickly and accurately as you can.",
+        "instructionsB": "Draw one continuous line alternating numbers and letters: 1–A–2–B…12–L–13. Work as quickly and accurately as you can.",
+        "timing": "Begin timing when the participant starts. Correct mistakes while the timer continues; finish at the last circle.",
+        "record": "Name: ____________________  Date: __________  Time: ______ seconds  Errors: ______",
+        "limitations": "Original practice layout. Draw lines on paper; click or tap circles online. These different controls can affect completion time.",
+        "source": "Practice source",
+        "start": "START",
+        "end": "END"
+      },
+      "game": {
+        "modeLabel": "Test mode",
+        "both": "A & B",
+        "a": "Part A",
+        "b": "Part B",
+        "practice": "Practice",
+        "progress": "{count}/{total} connected",
+        "runningTime": "{time} s",
+        "resultSummary": "{time} s · {errors} errors",
+        "pointLabel": "Point {label}",
+        "instructionA": "Connect 1–25 in order.",
+        "instructionB": "Alternate numbers and letters: 1–A–2–B…12–L–13.",
+        "interrupted": "This part was interrupted. Restart when ready.",
+        "restart": "Restart test",
+        "start": "Start test",
+        "tryPractice": "Try 5-point practice",
+        "practiceComplete": "Practice complete",
+        "practiceUnscored": "Practice is not included in your results.",
+        "changeMode": "Change mode",
+        "partAComplete": "Part A complete",
+        "complete": "Test complete",
+        "betweenParts": "Start Part B when ready. This pause is not timed.",
+        "combined": "A + B total",
+        "startPartB": "Start Part B",
+        "tryAgain": "Try again",
+        "errors": "{count} errors"
+      },
+      "benefits": {
+        "title": "Practice benefits & everyday uses",
+        "search": {
+          "title": "Visual search & attention",
+          "description": "Find the next target among scattered circles. Visual search is also what you use to locate an item in a list, a number in a spreadsheet or an option in a menu."
+        },
+        "switching": {
+          "title": "Cognitive flexibility",
+          "description": "Switch between number and letter rules in Part B. Cognitive flexibility is also useful when moving between work steps, applying a changed instruction or returning to a task after an interruption."
+        },
+        "tracking": {
+          "title": "Working memory & sequencing",
+          "description": "Remember where you are in both sequences and what comes next. Keeping track of progress also matters when following a recipe, assembling something or completing a series of instructions."
+        }
       }
     },
     "spacebarClicker": {

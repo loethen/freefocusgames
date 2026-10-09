@@ -10,7 +10,9 @@ const COMPILED_MESSAGES = {
 } as const;
 
 async function loadMessages(locale: string) {
-    const cachedMessages = messageCache.get(locale);
+    // Development reloads must pick up edits to the compiled translations.
+    const cacheMessages = process.env.NODE_ENV === "production";
+    const cachedMessages = cacheMessages ? messageCache.get(locale) : undefined;
     if (cachedMessages) {
         return cachedMessages;
     }
@@ -18,7 +20,9 @@ async function loadMessages(locale: string) {
     const loader = COMPILED_MESSAGES[locale as keyof typeof COMPILED_MESSAGES] ?? COMPILED_MESSAGES[routing.defaultLocale];
     const messages = (await loader()).default as Record<string, unknown>;
 
-    messageCache.set(locale, messages);
+    if (cacheMessages) {
+        messageCache.set(locale, messages);
+    }
     return messages;
 }
 

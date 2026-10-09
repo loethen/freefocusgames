@@ -3,6 +3,7 @@ import { validateRotatingSchulteScore, isRotatingSchulteSessionTimingValid } fro
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { isDigitSpanLeaderboardMode, validateDigitSpanSubmission, type DigitSpanSubmissionDetails } from "@/lib/digit-span";
 import { isBlockMemoryLeaderboardMode, validateBlockMemorySubmission } from "@/lib/block-memory-game";
+import { TRAIL_LEADERBOARD_MODE, validateTrailSubmission, type TrailSubmissionDetails } from "@/lib/trail-making";
 import {
     DEFAULT_LEADERBOARD_MODE,
 } from "@/lib/leaderboard-config";
@@ -53,7 +54,7 @@ type D1DatabaseBinding = {
     prepare: (query: string) => D1PreparedStatement;
 };
 
-type LeaderboardSubmissionDetails = DigitSpanSubmissionDetails & {
+type LeaderboardSubmissionDetails = DigitSpanSubmissionDetails & TrailSubmissionDetails & {
     sessionId?: unknown;
     rawTimeMs?: unknown;
     mistakes?: unknown;
@@ -489,6 +490,8 @@ function validateScore(
             return score > 50000 ? "Score rejected" : null;
         case "digit-span-test":
             return validateDigitSpanSubmission(score, mode, details);
+        case "trail-making-test":
+            return validateTrailSubmission(score, mode, details);
         case "block-memory-challenge":
             return validateBlockMemorySubmission(score, mode, details);
         case "schulte-table":
@@ -557,6 +560,10 @@ export async function GET(req: NextRequest) {
 
         if (gameId === "digit-span-test" && !isDigitSpanLeaderboardMode(mode)) {
             return NextResponse.json({ error: "Unsupported digit span mode" }, { status: 400 });
+        }
+
+        if (gameId === "trail-making-test" && mode !== TRAIL_LEADERBOARD_MODE) {
+            return NextResponse.json({ error: "Unsupported Trail Making mode" }, { status: 400 });
         }
 
         const { db, bucket } = await getCloudflareBindings();

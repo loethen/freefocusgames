@@ -15,6 +15,15 @@ export type Game = {
 
 export const games: Game[] = [
   {
+    id: "trail-making-test",
+    title: "Trail Making Test",
+    slug: "trail-making-test",
+    coverImage: "/games/trail-making-test-cover-v2.png",
+    coverFit: "contain",
+    preview: <ImagePreview src="/games/trail-making-test-cover-v2.png" alt="Trail Making Test: connect 1–A–2–B–3 in order" fit="contain" />,
+    categories: ["visual-tracking", "cognitive-flexibility"],
+  },
+  {
     id: "digit-span-test",
     title: "Digit Span Test",
     slug: "digit-span-test",
@@ -424,6 +433,7 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
+    'trail-making-test',
     'digit-span-test',
     'rotating-schulte-table', // Rotating Schulte Table - Newest
     'double-decision', // Double Decision Game - Newest

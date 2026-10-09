@@ -112,6 +112,7 @@ export default function StroopEffectTestPage({ params }: { params: Promise<{ loc
                     answer: t('faq.realWorldApps.answer'),
                 },
             ]}
+            relatedGames={["trail-making-test", "schulte-table", "digit-span-test"]}
             hasLeaderboard={true}
             leaderboardFormatterType="sec3"
         />

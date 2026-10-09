@@ -1,13 +1,13 @@
 import { Metadata } from "next";
-import { Brain, Shuffle, Focus } from "lucide-react";
+import { Eye, Shuffle, Brain } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { GamePageTemplate } from "@/components/GamePageTemplate";
 import { generateAlternates } from "@/lib/utils";
 import { SITE_BASE_URL } from "@/lib/site-constants";
 import { routing } from "@/i18n/routing";
-import DigitSpanGame from "./Game";
-import DigitSpanLeaderboard from "./Leaderboard";
-import DigitSpanWorksheet from "./Worksheet";
+import TrailMakingGame from "./Game";
+import TrailMakingWorksheet from "./Worksheet";
+import { TRAIL_LEADERBOARD_MODE } from "@/lib/trail-making";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -19,21 +19,21 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "games.digitSpanTest" });
+  const t = await getTranslations({ locale, namespace: "games.trailMakingTest" });
   const title = t("metaTitle");
   const description = t("metaDescription");
   return {
     title,
     description,
     keywords: t.raw("seoKeywords") as string[],
-    alternates: generateAlternates(locale, "games/digit-span-test"),
+    alternates: generateAlternates(locale, "games/trail-making-test"),
     openGraph: {
       title,
       description,
-      url: generateAlternates(locale, "games/digit-span-test").canonical,
+      url: generateAlternates(locale, "games/trail-making-test").canonical,
       images: [
         {
-          url: "/games/digit-span-test-cover-v2.png",
+          url: "/games/trail-making-test-cover-v2.png",
           width: 1200,
           height: 675,
           alt: t("title"),
@@ -44,7 +44,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title,
       description,
-      images: ["/games/digit-span-test-cover-v2.png"],
+      images: ["/games/trail-making-test-cover-v2.png"],
     },
   };
 }
@@ -56,21 +56,21 @@ export default async function Page({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations({ locale, namespace: "games.digitSpanTest" });
+  const t = await getTranslations({ locale, namespace: "games.trailMakingTest" });
   const common = await getTranslations({ locale, namespace: "common" });
   const base = SITE_BASE_URL;
   const prefix = locale === "en" ? "" : `/${locale}`;
-  const url = `${base}${prefix}/games/digit-span-test`;
-  const faq = ["modes", "scoring", "meaning", "free", "print"].map((key) => ({
+  const url = `${base}${prefix}/games/trail-making-test`;
+  const faq = ["parts", "scoring", "meaning", "mobile", "print"].map((key) => ({
     question: t(`faq.${key}.question`),
     answer: t(`faq.${key}.answer`),
   }));
   return (
     <GamePageTemplate
-      gameId="digit-span-test"
+      gameId="trail-making-test"
       title={t("title")}
       subtitle={t("subtitle")}
-      gameComponent={<DigitSpanGame />}
+      gameComponent={<TrailMakingGame />}
       howToPlay={
         <>
           <ol className="list-decimal pl-5 space-y-2">
@@ -80,15 +80,17 @@ export default async function Page({
           </ol>
         </>
       }
-      shareActions={<DigitSpanWorksheet sourceUrl={url} />}
-      hasLeaderboard={true}
-      leaderboardIntro={<p>{t("leaderboardIntro")}</p>}
-      leaderboardComponent={<DigitSpanLeaderboard />}
+      shareActions={<TrailMakingWorksheet sourceUrl={url} />}
+      hasLeaderboard
+      leaderboardTitle={t("leaderboard.title")}
+      leaderboardIntro={t("leaderboard.description")}
+      leaderboardMode={TRAIL_LEADERBOARD_MODE}
+      leaderboardFormatterType="sec3"
       benefitsTitle={t("benefits.title")}
       benefits={[
-        { icon: <Brain className="h-10 w-10" />, title: t("benefits.memory.title"), description: t("benefits.memory.description") },
-        { icon: <Shuffle className="h-10 w-10" />, title: t("benefits.workingMemory.title"), description: t("benefits.workingMemory.description") },
-        { icon: <Focus className="h-10 w-10" />, title: t("benefits.attention.title"), description: t("benefits.attention.description") },
+        { icon: <Eye className="h-10 w-10" />, title: t("benefits.search.title"), description: t("benefits.search.description") },
+        { icon: <Shuffle className="h-10 w-10" />, title: t("benefits.switching.title"), description: t("benefits.switching.description") },
+        { icon: <Brain className="h-10 w-10" />, title: t("benefits.tracking.title"), description: t("benefits.tracking.description") },
       ]}
       science={{
         title: t("science.title"),
@@ -101,17 +103,17 @@ export default async function Page({
         ),
         authorityLinks: [
           {
-            title: "Wikipedia: Memory span",
-            url: "https://en.wikipedia.org/wiki/Memory_span#Digit-span",
+            title: "Wikipedia: Trail Making Test",
+            url: "https://en.wikipedia.org/wiki/Trail_Making_Test",
             description: t("science.reference"),
           },
         ],
       }}
       faq={faq}
       relatedGames={[
-        "dual-n-back",
-        "free-short-term-memory-test",
-        "block-memory-challenge",
+        "schulte-table",
+        "stroop-effect-test",
+        "digit-span-test",
       ]}
       structuredData={[
         {

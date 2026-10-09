@@ -34,6 +34,7 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
   const common = useTranslations('common');
 
   const tests = [
+    { id: 'trail-making-test', href: '/games/trail-making-test', icon: <Target className="w-8 h-8" />, title: locale === 'zh' ? '连线测试' : 'Trail Making Test', description: locale === 'zh' ? '连接数字与字母，分别记录 A/B 用时与错误数。' : 'Connect numbers and letters, with separate time and errors for Parts A and B.', duration: locale === 'zh' ? '按部分计时' : 'Timed by part', color: 'from-neutral-600 to-neutral-700' },
     { id: 'digit-span-test', href: '/games/digit-span-test', icon: <Brain className="w-8 h-8" />, title: locale === 'zh' ? '数字广度测试' : 'Digit Span Test', description: locale === 'zh' ? '正背与倒背数字回忆，提供试次回顾。' : 'Forward and backward digit recall with a review of each attempt.', duration: locale === 'zh' ? '输入不限时' : 'Untimed input', color: 'from-neutral-600 to-neutral-700' },
     {
       id: 'cognitive-assessment',
