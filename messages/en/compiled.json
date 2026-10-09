@@ -846,7 +846,8 @@
         "share": "Share",
         "restart": "Restart",
         "endGame": "End Game",
-        "gameComplete": "Game Complete!"
+        "gameComplete": "Game Complete!",
+        "rankedUnavailable": "Leaderboard unavailable. You can still play, but this run will not be submitted."
       }
     },
     "dualNBack": {

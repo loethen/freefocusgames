@@ -5,7 +5,7 @@ export interface LeaderboardSubmissionOptions {
     details?: Record<string, boolean | number | string | null | undefined>;
 }
 
-function getLeaderboardPlayerId() {
+export function getLeaderboardPlayerId() {
     const existingId = localStorage.getItem(PLAYER_ID_KEY);
     if (existingId) {
         return existingId;

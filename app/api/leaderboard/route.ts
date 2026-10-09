@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { validateRotatingSchulteScore, isRotatingSchulteSessionTimingValid } from '@/lib/rotating-schulte-rules';
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { isDigitSpanLeaderboardMode, validateDigitSpanSubmission, type DigitSpanSubmissionDetails } from "@/lib/digit-span";
 import { isBlockMemoryLeaderboardMode, validateBlockMemorySubmission } from "@/lib/block-memory-game";
@@ -53,6 +54,10 @@ type D1DatabaseBinding = {
 };
 
 type LeaderboardSubmissionDetails = DigitSpanSubmissionDetails & {
+    sessionId?: unknown;
+    rawTimeMs?: unknown;
+    mistakes?: unknown;
+    clickTimes?: unknown;
     accuracy?: unknown;
     correctCount?: unknown;
     durationMs?: unknown;
@@ -487,11 +492,12 @@ function validateScore(
         case "block-memory-challenge":
             return validateBlockMemorySubmission(score, mode, details);
         case "schulte-table":
-        case "rotating-schulte-table":
             if (score < 3000 || score > 180000) {
                 return "Score rejected (Outside expected completion range)";
             }
             return null;
+        case "rotating-schulte-table":
+            return validateRotatingSchulteScore(score, mode, details);
         case "stroop-effect-test":
             if (score < 200 || score > 15000) {
                 return "Score rejected (Outside expected performance range)";
@@ -736,6 +742,20 @@ export async function POST(req: NextRequest) {
 
         const { db, bucket } = await getCloudflareBindings();
         const playerName = await generateStableName(playerId);
+        if (gameId === 'rotating-schulte-table') {
+            const now = Date.now();
+            // DELETE ... RETURNING atomically consumes the credential; concurrent replays cannot both succeed.
+            const session = await db.prepare(`
+                DELETE FROM rotating_schulte_sessions
+                WHERE player_id = ? AND session_id = ?
+                RETURNING started_at
+            `).bind(playerId, details?.sessionId).first();
+            if (!session || !isRotatingSchulteSessionTimingValid(
+                Number(session.started_at), now, details?.rawTimeMs as number
+            )) {
+                return NextResponse.json({ error: 'Score rejected (Invalid, expired or reused game session)' }, { status: 400 });
+            }
+        }
         const nowIso = new Date().toISOString();
         const isDualNBackClear =
             gameId === "dual-n-back" && mode === "standard-clear";

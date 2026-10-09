@@ -846,7 +846,8 @@
         "share": "分享",
         "restart": "重新开始",
         "endGame": "结束游戏",
-        "gameComplete": "游戏完成！"
+        "gameComplete": "游戏完成！",
+        "rankedUnavailable": "排行榜暂时不可用。仍可继续游戏，但本局成绩不会提交。"
       }
     },
     "dualNBack": {
