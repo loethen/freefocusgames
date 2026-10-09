@@ -1,87 +1,77 @@
-# Brain Training Games
+# FreeFocusGames — Brain Training Games & Focus Tools
 
-[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL_3.0-blue.svg)](https://opensource.org/licenses/AGPL-3.0)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL_3.0-blue.svg)](https://www.gnu.org/licenses/agpl-3.0.html)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fwww.freefocusgames.com)](https://www.freefocusgames.com)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue)](https://www.typescriptlang.org/)
 
-> **Open Source Cognitive Training Collection**
->
-> A curated collection of brain training games, with a primary focus on **attention and concentration improvement**. Built from the ground up using Next.js 15, TypeScript, and Tailwind CSS, featuring transparent implementations of scientific cognitive paradigms.
+FreeFocusGames is an open-source collection of browser games and tools for practicing attention, memory, visual search, and reaction speed. Play online, explore the source code, or run the project locally. The site supports English and Chinese.
 
-## 👉 [Play Online](https://www.freefocusgames.com) 👈
+**[Play online](https://www.freefocusgames.com) · [Browse all games](https://www.freefocusgames.com/games) · [中文版](https://www.freefocusgames.com/zh)**
 
-Experience the full-featured, optimized version of these games on our official website.
+## 🧠 About This Project
 
----
+This repository contains the source code for [FreeFocusGames](https://www.freefocusgames.com). It brings together interactive versions of tasks such as Dual N-Back, the Stroop task, and Schulte tables, alongside focus timers and casual games.
 
-## 🧠 Why This Project?
-
-This repository contains the source code for [FreeFocusGames.com](https://www.freefocusgames.com), a collection of cognitive exercises designed to improve:
-*   **Working Memory**
-*   **Attention Span**
-*   **Processing Speed**
-*   **Cognitive Flexibility**
-
-Unlike many proprietary brain training apps, this project provides transparent, scientific implementations of classic cognitive psychology paradigms.
+The source is available for studying how the games generate stimuli, handle input, calculate scores, and display results.
 
 ## 🎮 Included Games & Algorithms
 
-This repository features production-ready implementations of the following cognitive tasks:
+A selection of the games and tools available on the site. Each name links directly to the playable page.
 
-### 1. [Dual N-Back](/app/[locale]/(main)/games/dual-n-back)
-The gold standard for working memory training. Based on the research by Susanne Jaeggi, this task requires users to simultaneously track visual and auditory stimuli sequences.
-*   **Keywords**: *Fluid Intelligence, Working Memory, Jaime Jaeggi, N-Back Algorithm*
+| Game or tool | How it works |
+| --- | --- |
+| [Dual N-Back](https://www.freefocusgames.com/games/dual-n-back) | Track visual positions and sounds, then identify matches with the stimuli presented N steps earlier. |
+| [Schulte Table](https://www.freefocusgames.com/games/schulte-table) | Find and select the numbers in a shuffled grid in ascending order while tracking completion time and mistakes. |
+| [Rotating Schulte Table](https://www.freefocusgames.com/games/rotating-schulte-table) | Find numbers 1–42 across three independently rotating rings. Each incorrect click adds two seconds to the final time. |
+| [Stroop Effect Test](https://www.freefocusgames.com/games/stroop-effect-test) | Respond to a word's ink color while ignoring its meaning, then compare response times for matching and conflicting word–color pairs. |
+| [Reaction Time Test](https://www.freefocusgames.com/games/reaction-time) | Wait for the screen to change color, then click or tap. Results show the response time recorded by your browser. |
+| [Digit Span Test](https://www.freefocusgames.com/games/digit-span-test) | Recall visually presented digit sequences in forward or backward order as sequence length increases. |
+| [Block Memory Challenge](https://www.freefocusgames.com/games/block-memory-challenge) | Recall sequences of highlighted blocks in forward or backward order, with adjustable practice and separate challenge leaderboards. |
+| [Pomodoro Timer](https://www.freefocusgames.com/games/pomodoro-timer) | Alternate focused work sessions with breaks using a Pomodoro-style timer. |
 
-### 2. [Schulte Table](/app/[locale]/(main)/games/schulte-table)
-A grid of randomly distributed numbers used for speed reading development and peripheral vision training.
-*   **Keywords**: *Speed Reading, Attention Control, Peripheral Vision, Focus Grid*
-
-### 3. [Stroop Effect Test](/app/[locale]/(main)/games/stroop-effect-test)
-A neuropsychological test demonstrating the reaction time delay between congruent and incongruent stimuli. Measures cognitive flexibility and executive function.
-*   **Keywords**: *Selective Attention, Cognitive Flexibility, Executive Function, Inhibition Control*
-
-### 4. [Reaction Time Test](/app/[locale]/(main)/games/reaction-time)
-A millisecond-precision test to measure your reaction speed. Click as fast as you can when the screen changes color. Widely used in sports science and cognitive research.
-*   **Keywords**: *Reaction Time, Reflex Test, Speed Test, Response Time, Human Benchmark*
-
-### 5. Other Cognitive Tasks
-
-*   **[Pomodoro Timer](/app/[locale]/(main)/games/pomodoro-timer)**: Focus timer based on the Pomodoro Technique.
-*   **[Block Memory Challenge](/app/[locale]/(main)/games/block-memory-challenge)**: Free online sequence memory test with forward and backward recall, adjustable practice, and separate challenge leaderboards.
+Explore the [full game collection](https://www.freefocusgames.com/games) for more memory games, attention tasks, puzzles, and focus tools.
 
 ## 🎉 For Fun
 
-*   **[SBTI Test](https://www.freefocusgames.com/games/sbti-test)**: A playful, meme-style personality quiz with a shareable result poster.
-*   **[10-Second Challenge](https://www.freefocusgames.com/games/challenge-10-seconds)**: Stop the timer as close to 10 seconds as possible, with visible and hidden timer modes.
+- **[SBTI Test](https://www.freefocusgames.com/games/sbti-test)**: A playful, meme-style personality quiz with a shareable result poster.
+- **[10-Second Challenge](https://www.freefocusgames.com/games/challenge-10-seconds)**: Stop the timer as close to 10 seconds as possible, with visible and hidden timer modes.
 
 ## 🛠️ Tech Stack
 
-*   **Framework**: [Next.js 15](https://nextjs.org/) (App Directory)
-*   **Language**: [TypeScript](https://www.typescriptlang.org/)
-*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-*   **UI Components**: [Radix UI](https://www.radix-ui.com/) & [Shadcn/ui](https://ui.shadcn.com/)
-*   **Animations**: Framer Motion & Canvas Confetti
-*   **Internationalization**: next-intl
+- **Framework**: [Next.js 15](https://nextjs.org/) with the App Router and React 19
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI components**: [Radix UI](https://www.radix-ui.com/) and [shadcn/ui](https://ui.shadcn.com/)
+- **Animation**: Motion and Canvas Confetti
+- **Internationalization**: next-intl, with English and Chinese translations
+- **Hosting and storage**: Cloudflare Workers, D1, and R2 via the OpenNext Cloudflare adapter
 
 ## 🚀 Getting Started
 
-To run this project locally for development or educational purposes:
+Use **Node.js 20 or later** and npm.
 
 ```bash
-# 1. Clone the repository
+# Clone the repository and enter the project directory
 git clone https://github.com/loethen/freefocusgames.git
+cd freefocusgames
 
-# 2. Install dependencies
-npm install
-# or
-yarn install
+# Install dependencies from the lockfile
+npm ci
 
-# 3. Run the development server
+# Start the development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3003](http://localhost:3003).
+
+The development command starts Next.js with Turbopack. Most gameplay runs in the browser; leaderboard features also need the D1 schema and Cloudflare bindings configured in `wrangler.jsonc`. Database migrations are stored in `drizzle/`. Configure your own Cloudflare resources before deploying a fork.
+
+To check TypeScript types:
+
+```bash
+npm run typecheck
+```
 
 ## 📄 License
 
