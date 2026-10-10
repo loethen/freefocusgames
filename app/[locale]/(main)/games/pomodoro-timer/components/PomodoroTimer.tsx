@@ -68,7 +68,6 @@ export default function PomodoroTimer() {
     totalFocusTime: 0
   });
 
-  // const intervalRef = useRef<number | null>(null); // Removed interval ref
   const originalTitleRef = useRef<string>('');
 
   // Load saved data and settings
@@ -115,7 +114,6 @@ export default function PomodoroTimer() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  /* Moved switchMode above handleTimerComplete */
   const switchMode = useCallback((newMode: TimerMode) => {
     setMode(newMode);
     setIsRunning(false);
@@ -205,54 +203,45 @@ export default function PomodoroTimer() {
 
   // Web Worker Ref
   const workerRef = useRef<Worker | null>(null);
+  const handleTimerCompleteRef = useRef(handleTimerComplete);
+
+  useEffect(() => {
+    handleTimerCompleteRef.current = handleTimerComplete;
+  }, [handleTimerComplete]);
 
   // Initialize Web Worker
   useEffect(() => {
-    workerRef.current = new Worker(new URL('./pomodoro.worker.ts', import.meta.url));
+    const worker = new Worker(new URL('./pomodoro.worker.ts', import.meta.url));
+    workerRef.current = worker;
 
-    workerRef.current.onmessage = (event) => {
+    worker.onmessage = (event) => {
       const { type, timeLeft } = event.data;
       if (type === 'TICK') {
         setTimeLeft(timeLeft);
       } else if (type === 'COMPLETE') {
-        handleTimerComplete();
+        handleTimerCompleteRef.current();
       }
     };
 
     return () => {
-      workerRef.current?.terminate();
+      worker.terminate();
+      workerRef.current = null;
     };
-  }, [handleTimerComplete]); // handleTimerComplete is stable due to useCallback
-
-  // Request Notification Permission on mount or interaction
-
+  }, []);
 
   // Timer logic - controlled by worker now
   useEffect(() => {
     if (workerRef.current) {
       if (isRunning) {
-        // If starting from a paused state (timeLeft < full duration), pass current timeLeft
-        // The worker needs to know if it's a "resume" or "start fresh". 
-        // My worker implementation takes 'duration' on START.
-        // If I just paused, timeLeft is say 100. If I start again, I want to resume from 100.
-        // My worker logic: "if duration provided, set timeLeft = duration".
-        // So if I pass timeLeft, it resumes correctly.
+        // Start the new mode or resume the current countdown.
         workerRef.current.postMessage({ type: 'START', duration: timeLeft });
       } else {
         workerRef.current.postMessage({ type: 'PAUSE' });
       }
     }
+    // Each tick updates timeLeft without restarting the worker's interval.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isRunning]); // Only trigger on running state change. Note: adding timeLeft here would cause loop? No, handled by worker.
-  // Actually, if we add timeLeft to dependency, every tick updates it. We don't want to re-send START on every tick.
-  // So strictly [isRunning]. 
-  // Wait, if I change modes, timeLeft changes. I need to sync that to worker too?
-  // yes, when mode changes, I setTimeLeft, but isRunning becomes false.
-  // So worker receives PAUSE.
-  // Then when I click start, isRunning=true, and we send START with the NEW timeLeft. 
-  // Correct.
-
-  /* Removed old interval logic */
+  }, [isRunning, mode]); // Auto-start also needs to run when the mode changes while running.
 
   // Update tab title with countdown
   useEffect(() => {
