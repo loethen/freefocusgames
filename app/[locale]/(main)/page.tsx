@@ -28,7 +28,7 @@ import {
 import TrustpilotSection from "@/components/trustpilot-section";
 
 export const dynamic = "force-static";
-export const revalidate = 86400;
+export const revalidate = false;
 
 // 为首页定义特定的元数据
 export async function generateMetadata(

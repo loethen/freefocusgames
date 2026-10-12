@@ -10,7 +10,7 @@ import { generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 
 export const dynamic = "force-static";
-export const revalidate = 86400;
+export const revalidate = false;
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>

@@ -19,7 +19,7 @@ import { routing } from "@/i18n/routing";
 type TWorkingMemoryT = ReturnType<typeof useTranslations<"workingMemoryGuide">>;
 
 export const dynamic = "force-static";
-export const revalidate = 86400;
+export const revalidate = false;
 
 export function generateStaticParams() {
     return routing.locales.map((locale) => ({ locale }));

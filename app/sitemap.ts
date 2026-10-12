@@ -7,7 +7,7 @@ import { getBlogLocales } from '@/lib/blog'
 import { PAGE_UPDATED_AT } from '@/lib/page-updates'
 
 const LOCALES = ['en', 'zh'] // 支持的语言列表
-export const revalidate = 86400
+export const revalidate = false
 
 function lastModified(path: string): Date | undefined {
   return PAGE_UPDATED_AT[path] ? new Date(PAGE_UPDATED_AT[path]) : undefined;

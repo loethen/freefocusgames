@@ -8,7 +8,7 @@ import { Breadcrumb } from '@/components/breadcrumb';
 import { generateAlternates } from '@/lib/utils';
 
 export const dynamic = "force-static";
-export const revalidate = 86400;
+export const revalidate = false;
 
 export async function generateMetadata({
     params,

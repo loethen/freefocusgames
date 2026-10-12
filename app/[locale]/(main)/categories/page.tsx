@@ -8,7 +8,7 @@ import { categories } from "@/data/categories";
 import { Link } from "@/i18n/navigation";
 
 export const dynamic = "force-static";
-export const revalidate = 86400;
+export const revalidate = false;
 
 // 使用动态生成元数据替代静态元数据
 export async function generateMetadata(

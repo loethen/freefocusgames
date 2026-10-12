@@ -22,7 +22,7 @@ async function getLocalizedPost(slug: string, locale: string) {
 }
 
 export const dynamic = "force-static";
-export const revalidate = 86400;
+export const revalidate = false;
 
 export async function generateStaticParams() {
   const params = [];

@@ -23,9 +23,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: |
-          npm run build
-          npx opennextjs-cloudflare build
+        run: npx opennextjs-cloudflare build
         env:
           NEXT_PUBLIC_SITE_URL: "https://www.freefocusgames.com"
 
@@ -34,8 +32,8 @@ jobs:
           # Cloudflare bindings are handled by wrangler deploy, but build vars need to be here if used at build time
 
       - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+        # OpenNext copies the prerender cache into Workers Static Assets first.
+        run: npx opennextjs-cloudflare deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

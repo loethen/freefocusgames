@@ -14,7 +14,8 @@ import { SITE_BASE_URL } from "@/lib/site-constants";
 import { getTranslations, getMessages, setRequestLocale } from 'next-intl/server';
 
 export const dynamic = "force-static";
-export const revalidate = 86400;
+// Content is refreshed by deployments, matching the read-only OpenNext cache.
+export const revalidate = false;
 
 // Generate static params for all locales
 export function generateStaticParams() {

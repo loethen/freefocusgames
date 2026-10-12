@@ -2,7 +2,7 @@ import React from 'react';
 import { setRequestLocale } from 'next-intl/server';
 
 export const dynamic = "force-static";
-export const revalidate = 86400;
+export const revalidate = false;
 
 interface GamesLayoutProps {
   children: React.ReactNode;

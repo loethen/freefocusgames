@@ -73,6 +73,13 @@ To check TypeScript types:
 npm run typecheck
 ```
 
+To build and deploy to Cloudflare, use `npm run deploy`. CI also uses the
+OpenNext deployment command so the prerender cache is included in Workers
+Static Assets. Pages and the sitemap are cached from the build and refreshed
+on each deployment; leaderboard and speech API routes remain dynamic. This
+avoids rendering static content on each request without adding a cache bucket
+or a revalidation queue. `npm run preview` populates the same cache locally.
+
 ## 📄 License
 
 This project is licensed under the **AGPL-3.0 License** - see the [LICENSE](LICENSE) file for details.
