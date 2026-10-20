@@ -59,7 +59,6 @@ function generateGameRoutes(locale: string): MetadataRoute.Sitemap {
 
 function generateEnglishOnlyRoutes(): MetadataRoute.Sitemap {
   return [
-    '/partnerships',
     '/career-tests',
     '/career-tests/criticall-practice-test',
     '/career-tests/911-dispatcher-typing-test',

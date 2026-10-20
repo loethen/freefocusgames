@@ -10,6 +10,11 @@
       "paragraph4": "If you have any feedback or suggestions, I'd be delighted to hear from you.",
       "paragraph5": "Contact: contact@freefocusgames.com"
     },
+    "otherProject": {
+      "intro": "I also built <website>CaptionCat</website>.",
+      "description": "A little pixel cat that lives on your YouTube captions and keeps you company while you watch.",
+      "source": "Open source: <github>GitHub repository</github>."
+    },
     "support": {
       "text": "If you enjoy the site and want to support it, you can do so here."
     }

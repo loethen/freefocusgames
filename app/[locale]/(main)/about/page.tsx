@@ -9,6 +9,8 @@ import { Coffee } from 'lucide-react';
 import './style.css';
 
 const KOFI_URL = "https://ko-fi.com/freefocusgames";
+const CAPTIONCAT_URL = "https://captioncat.app/";
+const CAPTIONCAT_SOURCE_URL = "https://github.com/loethen/captioncat";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -28,6 +30,7 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
   setRequestLocale(locale);
   const t = useTranslations('about');
   const tCommon = useTranslations('common');
+  const captionCatUrl = locale === 'zh' ? `${CAPTIONCAT_URL}zh/` : CAPTIONCAT_URL;
 
   return (
     <div className="container max-w-4xl mx-auto py-8 px-4">
@@ -46,6 +49,27 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
             <p className="handwriting-text">{t('content.paragraph1')}</p>
             <p className="handwriting-text">{t('content.paragraph2')}</p>
             <p className="handwriting-text">{t('content.paragraph3')}</p>
+            <div className="handwriting-text space-y-1">
+              <p>
+                {t.rich('otherProject.intro', {
+                  website: (chunks) => (
+                    <a href={captionCatUrl} className="underline underline-offset-4 hover:text-muted-foreground">
+                      {chunks}
+                    </a>
+                  ),
+                })}
+              </p>
+              <p>{t('otherProject.description')}</p>
+              <p>
+                {t.rich('otherProject.source', {
+                  github: (chunks) => (
+                    <a href={CAPTIONCAT_SOURCE_URL} className="underline underline-offset-4 hover:text-muted-foreground">
+                      {chunks}
+                    </a>
+                  ),
+                })}
+              </p>
+            </div>
             <p className="handwriting-text">{t('content.paragraph4')}</p>
             <div className="support-note">
               <p className="handwriting-text !mb-4">{t('support.text')}</p>

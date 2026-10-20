@@ -76,7 +76,8 @@ for (const [pathname, headers, expected] of [
   ['/en/games/cps-test?utm_source=seo-week1', [], 307],
   ['/games/cps-test/?utm_source=seo-week1', [], 308],
   ['/zh/career-tests?utm_source=seo-week1', [], 301],
-  ['/zh/partnerships?utm_source=seo-week1', [], 301],
+  ['/partnerships', [], 404],
+  ['/zh/partnerships?utm_source=seo-week1', [], 404],
   ['/de/games/cps-test?utm_source=seo-week1', [], 301]
 ]) {
   const r = await request(`${base}${pathname}`, headers);
