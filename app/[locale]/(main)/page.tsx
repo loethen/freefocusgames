@@ -204,7 +204,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             />
             <div>
                 {/* Hero Section */}
-                <section className="max-w-[1600px] mx-auto rounded-3xl sm:p-6 md:p-12 mb-16 dark:from-transparent dark:to-transparent">
+                <section className="max-w-7xl mx-auto rounded-3xl sm:p-6 md:p-12 mb-16 dark:from-transparent dark:to-transparent">
                     <div className="flex flex-col-reverse md:flex-row items-center gap-8">
                         <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
                             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6 leading-tight">
@@ -257,14 +257,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </section>
 
                 {/* Popular games */}
-                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                     <FeaturedBentoGrid />
                 </section>
 
                 {/* Goal-based navigation */}
                 <section
                     aria-labelledby="training-goals-title"
-                    className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6"
+                    className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6"
                 >
                     <div className="rounded-2xl bg-secondary/20 px-4 py-7 sm:rounded-3xl sm:p-10 lg:p-12">
                         <div className="mb-8 max-w-2xl sm:mb-10">
@@ -330,17 +330,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </section>
 
                 {/* Discovery Section - Rotating selection of fun games */}
-                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                     <TryYourLuck />
                 </section>
 
                 {/* Latest Games */}
-                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                     <LatestGames />
                 </section>
 
                 {/* Breathing break: a quiet pause between game sections */}
-                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                     <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-teal-50 via-emerald-50/50 to-transparent px-6 py-12 dark:from-teal-950/40 dark:via-emerald-950/20 sm:px-12 sm:py-14">
                         <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/20" />
                         <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-emerald-100/40 blur-3xl dark:bg-emerald-900/20" />
@@ -368,7 +368,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
                 {/* For Fun */}
                 {games.filter(g => g.categories.includes('for-fun')).length > 0 && (
-                    <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                    <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                         <div className="mb-6 flex items-center gap-2 sm:mb-8">
                             <Gamepad2 className="h-6 w-6" />
                             <h2 className="text-2xl font-semibold">
@@ -393,7 +393,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 )}
 
                 {/* Featured Guides */}
-                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                     <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
                         <div>
                             <h2 className="text-3xl font-bold mb-3">

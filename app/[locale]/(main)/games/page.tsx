@@ -162,7 +162,7 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
     ];
 
     return (
-        <div className="mx-auto max-w-[1600px]">
+        <div className="mx-auto max-w-7xl">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
