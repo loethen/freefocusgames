@@ -6,6 +6,7 @@ import { getGame, Game } from "@/data/games";
 import { useTranslations } from "next-intl";
 import {
     ArrowRight,
+    Blocks,
     Grid3x3,
     Orbit,
     Palette,
@@ -26,6 +27,7 @@ const POPULAR_GAMES: { id: string; icon: LucideIcon }[] = [
     { id: 'dual-n-back', icon: Grid3x3 },
     { id: 'reaction-time', icon: Zap },
     { id: 'stroop-effect-test', icon: Palette },
+    { id: 'block-memory-challenge', icon: Blocks },
 ];
 
 export default function FeaturedBentoGrid() {
@@ -90,7 +92,7 @@ export default function FeaturedBentoGrid() {
                     </span>
                 </Link>
 
-                <ul className="flex flex-col divide-y divide-border overflow-hidden rounded-[2rem] border border-border bg-card">
+                <ul className="flex flex-col overflow-hidden rounded-[2rem] bg-muted/50 p-2">
                     {popularGames.map(({ game, icon }) => (
                         <li key={game.id} className="flex flex-1">
                             <PopularGameRow game={game} icon={icon} />
@@ -109,9 +111,9 @@ function PopularGameRow({ game, icon: Icon }: { game: Game; icon: LucideIcon }) 
     return (
         <Link
             href={`/games/${game.slug}`}
-            className="group flex w-full items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/40 focus-visible:bg-muted/40 focus-visible:outline-none sm:px-6"
+            className="group flex w-full items-center gap-4 rounded-2xl px-4 py-3.5 transition-colors hover:bg-background/80 focus-visible:bg-background/80 focus-visible:outline-none sm:px-5"
         >
-            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-muted/70 text-foreground/70 transition-colors group-hover:text-foreground">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-background text-foreground/70 shadow-sm transition-colors group-hover:text-foreground">
                 <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
