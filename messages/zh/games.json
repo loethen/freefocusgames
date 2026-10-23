@@ -1440,11 +1440,12 @@
         "reflexAnalysis": {
           "title": "反应时间分析",
           "description": "你的表现处于什么水平？",
-          "godlike": "超神！- 电竞职业水平",
-          "excellent": "优秀！- 远超常人",
-          "good": "良好 - 高于平均水平",
-          "average": "一般 - 正常反应速度",
-          "slow": "较慢 - 需要多加练习"
+          "godlike": "超快 - 玩家中的前 5%",
+          "excellent": "优秀 - 玩家中的前 25%",
+          "good": "良好 - 比大多数玩家快",
+          "average": "正常 - 处在中间水平",
+          "slow": "还有提升空间 - 试试用鼠标、安静时再测",
+          "fasterThan": "快过 {percent}% 的玩家"
         }
       },
       "ratings": {

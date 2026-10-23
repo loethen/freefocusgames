@@ -1101,11 +1101,12 @@
         "reflexAnalysis": {
           "title": "Reaction Time Analysis",
           "description": "How does your performance compare?",
-          "godlike": "Godlike! - Esports Pro Level",
-          "excellent": "Excellent! - Way Above Average",
-          "good": "Good - Above Average",
-          "average": "Average Response Time",
-          "slow": "Slow - Keep Practicing"
+          "godlike": "Exceptional - top 5% of players",
+          "excellent": "Excellent - top 25% of players",
+          "good": "Good - faster than most players",
+          "average": "Typical - right in the middle",
+          "slow": "Room to improve - try a mouse and a quiet moment",
+          "fasterThan": "Faster than {percent}% of players"
         }
       },
       "ratings": {

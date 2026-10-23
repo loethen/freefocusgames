@@ -8,6 +8,7 @@ import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
+import { reactionFasterThanPercent, reactionRating } from '@/lib/reaction-time-benchmarks';
 import {
   getProgressInsights,
   ProgressCardData,
@@ -67,14 +68,6 @@ export default function ReactionTimeGame() {
     if (results.length === 0) return 0;
     const sum = results.reduce((acc, curr) => acc + curr, 0);
     return Math.round(sum / results.length);
-  };
-
-  const getReflexAnalysisKey = (ms: number) => {
-    if (ms < 200) return 'godlike';
-    if (ms < 250) return 'excellent';
-    if (ms < 300) return 'good';
-    if (ms < 400) return 'average';
-    return 'slow';
   };
 
   const clearTimeout = () => {
@@ -364,7 +357,10 @@ export default function ReactionTimeGame() {
                   <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm mt-1">
                     <p className="text-xs text-blue-200 uppercase tracking-wider mb-1">{t('reflexAnalysis.title')}</p>
                     <p className="text-sm md:text-base font-bold text-yellow-300">
-                      {t(`reflexAnalysis.${getReflexAnalysisKey(getAverageTime(results))}`)}
+                      {t(`reflexAnalysis.${reactionRating(getAverageTime(results))}`)}
+                    </p>
+                    <p className="mt-1 text-xs md:text-sm text-white/90">
+                      {t('reflexAnalysis.fasterThan', { percent: reactionFasterThanPercent(getAverageTime(results)) })}
                     </p>
                   </div>
 
