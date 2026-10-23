@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
 import LinkClickTracker from '@/components/link-click-tracker';
+import { TestsTrailIllustration } from '@/components/tests-trail-illustration';
 import { ArrowRight, Baby, BriefcaseBusiness, Hash, ListChecks, Route, UserRound, Zap, type LucideIcon } from 'lucide-react';
 import { use } from 'react';
 
@@ -54,6 +55,9 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
   setRequestLocale(locale);
   const t = useTranslations('tests');
 
+  // Rows rise in one after another across all sections.
+  let rowIndex = 0;
+
   const sections = [
     { id: 'cognitive', items: COGNITIVE_TESTS },
     { id: 'adhd', items: ADHD_TESTS, note: t('screeningNote') },
@@ -66,6 +70,7 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
       <Breadcrumbs items={[{ label: t('title') }]} />
 
       <header className="mx-auto mt-10 mb-12 max-w-2xl text-center">
+        <TestsTrailIllustration className="mx-auto mb-6 h-16 w-auto sm:h-20" />
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t('title')}</h1>
         <p className="mt-4 leading-7 text-muted-foreground">{t('subtitle')}</p>
       </header>
@@ -78,12 +83,12 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
             </h2>
             <ul className="flex flex-col gap-1 rounded-[2rem] bg-muted/50 p-2">
               {section.items.map(({ id, href, icon: Icon }) => (
-                <li key={id}>
+                <li key={id} className="tests-rise" style={{ animationDelay: `${(0.08 * rowIndex++).toFixed(2)}s` }}>
                   <Link
                     href={href}
                     className="group flex items-center gap-4 rounded-2xl px-4 py-3.5 transition-colors hover:bg-background/80 focus-visible:bg-background/80 focus-visible:outline-none sm:px-5"
                   >
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-background text-foreground/70 shadow-sm transition-colors group-hover:text-foreground">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-background text-foreground/70 shadow-sm transition-[color,transform] duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:text-foreground motion-reduce:transition-none motion-reduce:group-hover:transform-none">
                       <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
                     </span>
                     <span className="flex min-w-0 flex-1 flex-col gap-0.5">
