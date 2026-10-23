@@ -12,8 +12,8 @@ import { Button } from "@/components/ui/button";
 
 
 // Select specific games for the bento grid
-const FEATURED_GAME_ID = 'rotating-schulte-table';
-const SECONDARY_GAME_IDS = ['dual-n-back', 'sbti-test', 'reaction-time', 'stroop-effect-test', 'block-memory-challenge'];
+const FEATURED_GAME_ID = 'challenge10Seconds';
+const SECONDARY_GAME_IDS = ['reaction-time', 'cps-test', 'dual-n-back', 'schulte-table', 'double-decision'];
 
 export default function FeaturedBentoGrid() {
     const t = useTranslations("home");
@@ -27,6 +27,7 @@ export default function FeaturedBentoGrid() {
     if (!featuredGame) return null;
 
     const featuredGameIdKey = getGameIdKey(featuredGame.id);
+    const featuredCategory = featuredGame.categories.find(id => categoriesT.has(`categoryNames.${id}`));
     const featuredDescriptionKey = `${featuredGameIdKey}.featuredDescription`;
     const featuredDescription = gamesT.has(featuredDescriptionKey)
         ? gamesT(featuredDescriptionKey)
@@ -57,7 +58,7 @@ export default function FeaturedBentoGrid() {
                                 01
                             </span>
                             <span className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                                {categoriesT(`categoryNames.${featuredGame.categories[0]}`)}
+                                {featuredCategory && categoriesT(`categoryNames.${featuredCategory}`)}
                             </span>
                         </div>
 

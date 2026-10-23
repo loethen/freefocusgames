@@ -14,6 +14,8 @@
       "title": "Interactive Dual N-Back Tutorial",
       "description": "Experience the game mechanics firsthand with our step-by-step interactive tutorial. This hands-on approach is the fastest way to understand how dual n-back works.",
       "buttonText": "Start Interactive Tutorial"
-    }
+    },
+    "guidesPrompt": "Want a structured start?",
+    "guidesLink": "Read the Working Memory Training Guide"
   }
 }

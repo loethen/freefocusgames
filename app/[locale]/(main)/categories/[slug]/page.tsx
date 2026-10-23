@@ -8,6 +8,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from "@/i18n/routing";
 import { generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
+import { ArrowRight, Play } from "lucide-react";
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -20,6 +21,17 @@ export function generateStaticParams() {
     }))
   );
 }
+
+function gameTitleKey(id: string) {
+  return id.replace(/-([a-z])/g, (_, char: string) => char.toUpperCase()).replace(/-/g, "");
+}
+
+// The game a visitor should land in first; other categories use their most popular game.
+const PRIMARY_GAME_BY_CATEGORY: Record<string, string> = {
+  "reaction-time": "reaction-time",
+  "working-memory": "dual-n-back",
+  "visual-tracking": "schulte-table",
+};
 
 type Props = {
   params: Promise<{ slug: string; locale: string }>;
@@ -87,6 +99,7 @@ export default async function CategoryPage({ params }: Props) {
   }
 
   const games = getGamesByCategory(category.id);
+  const primaryGame = games.find((game) => game.id === PRIMARY_GAME_BY_CATEGORY[category.id]) ?? games[0];
   const categoryById = new Map(categories.map((item) => [item.id, item]));
 
   // 获取服务器端翻译
@@ -136,6 +149,25 @@ export default async function CategoryPage({ params }: Props) {
       <p className="mb-4 max-w-4xl mx-auto text-center leading-8 text-foreground/90">{categoryDescription}</p>
       <p className="mb-8 max-w-3xl mx-auto text-center text-sm text-muted-foreground leading-7">{categoryIntro}</p>
 
+      {primaryGame && (
+        <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Link
+            href={`/games/${primaryGame.slug}`}
+            className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+          >
+            <Play className="h-5 w-5" fill="currentColor" aria-hidden="true" />
+            {t('playNow', { game: allT(`games.${gameTitleKey(primaryGame.id)}.title`) })}
+          </Link>
+          <Link
+            href="/get-started"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+          >
+            {t('notSure')}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </div>
+      )}
+
       {clusterLinks.length > 0 && (
         <section className="mx-auto mb-10 max-w-4xl rounded-2xl border border-border bg-muted/20 p-5 sm:p-6">
           <h2 className="text-center text-xl font-semibold">{t('startHereTitle')}</h2>
@@ -167,9 +199,7 @@ export default async function CategoryPage({ params }: Props) {
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5 lg:grid-cols-3">
         {games.map((game) => {
-          const titleKey = game.id
-            .replace(/-([a-z])/g, (_, char: string) => char.toUpperCase())
-            .replace(/-/g, "");
+          const titleKey = gameTitleKey(game.id);
           const primaryCategory = game.categories
             .map((categoryId) => categoryById.get(categoryId))
             .find(Boolean);

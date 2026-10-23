@@ -62,7 +62,18 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
       description: t('adultAdhd.description'),
       duration: t('adultAdhd.duration'),
       color: 'from-green-500 to-emerald-500'
-    }
+    },
+    ...(locale === 'en'
+      ? [{
+        id: 'career-tests',
+        href: '/career-tests',
+        icon: <Clock className="w-8 h-8" />,
+        title: t('career.title'),
+        description: t('career.description'),
+        duration: t('career.duration'),
+        color: 'from-amber-500 to-orange-500'
+      }]
+      : [])
   ];
 
   return (

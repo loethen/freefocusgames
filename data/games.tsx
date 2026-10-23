@@ -397,8 +397,50 @@ export function getGameBySlug(slug: string): Game | undefined {
   return games.find(game => game.slug === slug);
 }
 
+// Most-played games first; drives library, category and recommendation order.
+export const GAME_POPULARITY_ORDER = [
+  "challenge10Seconds",
+  "reaction-time",
+  "cps-test",
+  "dual-n-back",
+  "schulte-table",
+  "double-decision",
+  "spacebar-clicker",
+  "stroop-effect-test",
+  "digit-span-test",
+  "trail-making-test",
+  "rotating-schulte-table",
+  "memory-matching-game",
+  "block-memory-challenge",
+  "focus-reaction-test",
+  "frog-memory-leap",
+  "mahjong-dual-n-back",
+  "counting-boxes",
+  "free-short-term-memory-test",
+  "fish-trace",
+  "larger-number",
+  "focus-sudoku",
+  "pomodoro-timer",
+  "sbti-test",
+  "bamboo-cicada",
+  "baby-animal-matching",
+  "resonance-breathing",
+  "box-breathing",
+  "478-breathing",
+];
+
+const popularityRank = new Map(GAME_POPULARITY_ORDER.map((id, index) => [id, index]));
+
+export function sortGamesByPopularity(list: Game[]): Game[] {
+  return [...list].sort(
+    (a, b) =>
+      (popularityRank.get(a.id) ?? Number.MAX_SAFE_INTEGER) -
+      (popularityRank.get(b.id) ?? Number.MAX_SAFE_INTEGER)
+  );
+}
+
 export function getGamesByCategory(categoryId: string): Game[] {
-  return games.filter(game => game.categories.includes(categoryId));
+  return sortGamesByPopularity(games.filter(game => game.categories.includes(categoryId)));
 }
 
 export function getGameCategories(gameId: string): string[] {

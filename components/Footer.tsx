@@ -16,6 +16,20 @@ export function Footer() {
         <span>2026</span>
         <span>•</span>
         <Link
+          href="/categories"
+          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
+        >
+          {t('categories')}
+        </Link>
+        <span>•</span>
+        <Link
+          href="/guides"
+          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
+        >
+          {t('guides')}
+        </Link>
+        <span>•</span>
+        <Link
           href="/about"
           className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
         >

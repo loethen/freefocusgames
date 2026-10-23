@@ -3120,7 +3120,9 @@
       "title": "Interactive Dual N-Back Tutorial",
       "description": "Experience the game mechanics firsthand with our step-by-step interactive tutorial. This hands-on approach is the fastest way to understand how dual n-back works.",
       "buttonText": "Start Interactive Tutorial"
-    }
+    },
+    "guidesPrompt": "Want a structured start?",
+    "guidesLink": "Read the Working Memory Training Guide"
   },
   "buttons": {
     "startPlaying": "Start Training for Free",
@@ -3328,7 +3330,9 @@
     "categoryIntro": "This category groups together games that mainly train {categoryName}. Use it when you want a more focused practice path instead of browsing the entire library.",
     "startHereTitle": "Start with these pages",
     "startHereDescription": "Use these core {categoryName} pages as a focused path, then browse the full collection below.",
-    "backToAll": "See all categories"
+    "backToAll": "See all categories",
+    "playNow": "Play {game}",
+    "notSure": "Not sure? Get 3 game picks"
   },
   "common": {
     "home": "Home",
@@ -3414,26 +3418,21 @@
       "correctResponses": "Correct responses",
       "standardMode": "Standard dual mode",
       "customSession": "Custom session"
-    }
+    },
+    "learn": "Learn"
   },
   "getStarted": {
     "meta": {
-      "title": "Get Started - Find Your Perfect Brain Training Game",
-      "description": "Take our 2-minute cognitive assessment to discover personalized brain training games that match your goals. Start your journey to better focus and memory today.",
+      "title": "Not Sure What to Play? Get 3 Brain Game Picks",
+      "description": "Pick a goal, take an optional 30-second check, and get three free brain games to try next for focus, memory, reaction time, or relaxation.",
       "keywords": "brain training assessment, cognitive test, personalized brain games, focus training, memory improvement, cognitive test online, free cognitive test, cognitive test example, focus training app, focus training exercises, cogmed working memory training, working memory test, working memory test free",
-      "ogTitle": "Start Your Brain Training Journey - Personalized Assessment",
-      "ogDescription": "Discover the perfect brain training games for you with our quick 2-minute assessment. Improve focus, memory, and cognitive abilities."
+      "ogTitle": "Not Sure What to Play? Get 3 Brain Game Picks",
+      "ogDescription": "Pick a goal and take an optional 30-second check to get three free brain games to try next."
     },
-    "title": "Let's find your perfect brain game!",
-    "stepTitle": "Step {step} of 3",
-    "steps": {
-      "goalSetting": "What matters to you?",
-      "quickAssessment": "Quick Assessment",
-      "recommendation": "Your recommendation"
-    },
+    "title": "Not sure what to play?",
     "goalSetting": {
-      "title": "Where would you like to start?",
-      "subtitle": "Don't worry, there's no wrong answer! Just pick what feels right for you:",
+      "title": "What do you want to practice?",
+      "subtitle": "There is no wrong answer. Pick the one that sounds right today.",
       "goals": {
         "focus": {
           "title": "Improve my focus for work/study",
@@ -3447,89 +3446,15 @@
           "title": "Boost my reaction time",
           "subtitle": "Think and respond faster"
         },
-        "general": {
-          "title": "Just looking for a fun mental challenge",
-          "subtitle": "Brain games for the joy of it!"
-        }
-      },
-      "selected": "✓ Selected: {goal}"
-    },
-    "assessment": {
-      "title": "Quick Assessment",
-      "description": "Here we will show 3 mini-games (placeholder content):",
-      "tests": {
-        "focus": "• Focus test (e.g.: click when you see green circle)",
-        "memory": "• Memory test (e.g.: click squares in sequence)",
-        "reaction": "• Reaction speed test (e.g.: click when it turns green)"
-      },
-      "placeholder": "(Will be filled with actual mini-games later)"
-    },
-    "recommendation": {
-      "title": "Your Recommendation",
-      "description": "Here will be shown personalized recommendations based on your choices and test results.",
-      "example": "Example: We recommend you start your training journey with {gameName}!",
-      "startButton": "Start Training",
-      "placeholder": "(Future dynamic recommendations based on actual test results)",
-      "yourChoice": "Your Choice",
-      "weRecommend": "We Recommend",
-      "whyThisGame": "Why This Game?",
-      "reasons": {
-        "focus": "Perfect entry-level game for focus training",
-        "memory": "Classic memory training game",
-        "speed": "Professional reaction speed testing tool",
-        "general": "Most challenging cognitive training game"
-      },
-      "descriptions": {
-        "focus": "Through visual search training, quickly improve attention concentration and anti-interference ability. It's the golden entry choice for focus training.",
-        "memory": "By memorizing and reproducing sequence patterns, effectively exercise working memory, widely used in cognitive enhancement training.",
-        "speed": "Accurately measure your reaction time, significantly improve brain processing speed and reaction agility through continuous practice.",
-        "general": "Combining visual and auditory dual challenges, comprehensively exercise brain multitasking capabilities, considered one of the most effective cognitive training methods."
-      },
-      "benefits": {
-        "focus": {
-          "1": "Rapidly improve visual attention and search abilities",
-          "2": "Significantly enhance reading speed and comprehension",
-          "3": "Increase sustained attention duration during work and study"
+        "relax": {
+          "title": "Calm down and reset",
+          "subtitle": "Guided breathing for a short break"
         },
-        "memory": {
-          "1": "Effectively improve short-term and working memory capacity",
-          "2": "Enhance memory performance in daily life",
-          "3": "Build solid foundation for advanced cognitive training"
-        },
-        "speed": {
-          "1": "Accurately understand current reaction speed level",
-          "2": "Significantly improve processing speed through practice",
-          "3": "Enhance athletic performance and daily reaction abilities"
-        },
-        "general": {
-          "1": "Comprehensively exercise multiple cognitive abilities",
-          "2": "Improve brain multitasking efficiency",
-          "3": "Enjoy challenging and fun brain training"
+        "justPlay": {
+          "title": "Just give me something fun",
+          "subtitle": "Skip the check and jump into a popular game"
         }
       }
-    },
-    "buttons": {
-      "startAssessment": "Start Assessment"
-    },
-    "processingSpeedTest": {
-      "title": "Number Comparison Test",
-      "subtitle": "Test your processing speed",
-      "challengeGoals": "Challenge Goals:",
-      "timeLimit": "Time Limit: 10 seconds",
-      "minComparisons": "Complete at least 12 comparisons",
-      "accuracyTarget": "Achieve 90%+ accuracy",
-      "instructions": "Quickly select the larger number and complete as many comparisons as possible within the time limit.",
-      "clickLarger": "Click the larger number",
-      "completed": "Completed",
-      "questionsLabel": "questions",
-      "challengeCompleted": "Challenge goal achieved!",
-      "stillNeeded": "Still needed",
-      "targetAccuracy": "Target accuracy",
-      "testCompleted": "Number Comparison Test Complete!",
-      "questionsCompleted": "Questions Completed",
-      "processingSpeedScore": "Processing Speed Score",
-      "viewRecommendation": "View Recommendation",
-      "points": "points"
     },
     "reactionTimeTest": {
       "title": "Reaction Speed Test",
@@ -3546,7 +3471,7 @@
       "averageReactionTime": "Average Reaction Time",
       "testComplete": "Reaction Speed Test Complete!",
       "milliseconds": "milliseconds",
-      "nextTest": "Next Test"
+      "nextTest": "See my game picks"
     },
     "memoryTest": {
       "title": "Sequence Memory Test",
@@ -3569,59 +3494,7 @@
       "excellentMemory": "🎉 Excellent! You have strong working memory",
       "goodMemory": "👍 Good! Keep practicing to improve more",
       "keepPracticing": "💪 Keep trying! Working memory can be trained",
-      "continueNext": "Continue Next"
-    },
-    "wordMemoryTest": {
-      "title": "Word Memory Test",
-      "subtitle": "Test your short-term memory",
-      "instructions": "Remember the words that will appear",
-      "startButton": "Start Test",
-      "testFlow": "Test Process",
-      "step1": "Remember the upcoming 6 words",
-      "step2": "8 seconds memory time",
-      "step3": "Recall and enter all words",
-      "memoryTime": "Memory time: 8 seconds",
-      "rememberWords": "Please remember these words",
-      "rememberCarefully": "Carefully remember these words...",
-      "recallTest": "Recall Test",
-      "enterWords": "Please enter the words you just saw",
-      "hint": "💡 Tip: No need to fill in original order, any order is fine",
-      "wordPlaceholder": "Word",
-      "submitAnswer": "Submit Answer",
-      "testComplete": "Word Memory Test Complete!",
-      "accuracy": "Accuracy",
-      "wordsRecalled": "Words recalled",
-      "correctWords": "Correctly recalled words",
-      "word": "word",
-      "words": "words",
-      "missedWords": "Missed words",
-      "continueNext": "Continue Next",
-      "wordBank": [
-        "camera",
-        "book",
-        "phone",
-        "laptop",
-        "bottle",
-        "chair",
-        "lamp",
-        "wallet",
-        "mirror",
-        "clock",
-        "knife",
-        "spoon",
-        "plate",
-        "cup",
-        "pillow",
-        "towel",
-        "shoes",
-        "keys",
-        "glasses",
-        "watch",
-        "bicycle",
-        "flower",
-        "music",
-        "school"
-      ]
+      "continueNext": "See my game picks"
     },
     "stroopTest": {
       "title": "Cognitive Flexibility Test",
@@ -3634,7 +3507,7 @@
       "testComplete": "Cognitive Flexibility Test Complete!",
       "accuracy": "Accuracy",
       "averageReactionTime": "Average Reaction Time",
-      "nextTest": "Next Test",
+      "nextTest": "See my game picks",
       "colors": {
         "red": "Red",
         "blue": "Blue",
@@ -3642,56 +3515,37 @@
         "yellow": "Yellow"
       }
     },
-    "gameRecommendations": {
-      "testComplete": "Test Complete!",
-      "personalizedRecommendation": "Personalized game recommendation for you",
-      "startTraining": "Start Training",
-      "basedOnResults": "Based on your test results",
-      "recommendStart": "We recommend you start with",
-      "analysisIntro": "Through the tests just now,",
-      "gameNames": {
-        "dualNBack": "Dual N-Back Training",
-        "stroopEffect": "Stroop Effect Test",
-        "largerNumber": "Number Comparison",
-        "frogMemoryLeap": "Frog Memory Leap",
-        "reactionTime": "Reaction Time Training",
-        "schulteTable": "Schulte Grid"
-      },
-      "recommendations": {
-        "dualNBack": "Perfect for challenging your working memory limits",
-        "stroopEffect": "Great for improving cognitive speed and conflict resolution",
-        "largerNumber": "Ideal for basic processing speed training",
-        "frogMemoryLeap": "Fun memory training game to start with",
-        "reactionTime": "Basic reaction training foundation",
-        "schulteTable": "Excellent for visual attention training"
+    "intro": "Pick what you want to practice. Take an optional 30-second check, then get three games to try.",
+    "check": {
+      "hint": "Quick check, about 30 seconds. It only helps pick your games.",
+      "skip": "Skip the check and show my games",
+      "back": "Choose a different goal"
+    },
+    "results": {
+      "title": "Your game picks",
+      "topPick": "Top pick",
+      "alsoTry": "Also try",
+      "startOver": "Choose a different goal",
+      "browseCategory": "Browse all {category} games",
+      "disclaimer": "This quick check is for picking games only. It is not a medical or cognitive diagnosis.",
+      "summary": {
+        "reaction": {
+          "strong": "Your average reaction time was {value} ms, which is quick. These picks add more challenge.",
+          "building": "Your average reaction time was {value} ms. Start with focused reaction practice, then build up."
+        },
+        "memory": "Picked for practicing working memory.",
+        "stroop": {
+          "strong": "You scored {value}% on the color-word check. These picks push your attention control further.",
+          "building": "You scored {value}% on the color-word check. Start with steady visual search practice."
+        },
+        "focus": "Picked for practicing focus and ignoring distractions.",
+        "speed": "Picked for practicing reaction speed.",
+        "relax": "Short guided breathing exercises for a calm break.",
+        "justPlay": "Our most played games. Pick one and start."
       }
     },
-    "testAnalysis": {
-      "testNames": {
-        "reactionSpeed": "reaction speed test",
-        "numberComparison": "number comparison test",
-        "sequenceMemory": "sequence memory test",
-        "attentionControl": "attention control test",
-        "wordMemory": "word memory test"
-      },
-      "performances": {
-        "reactionFast": "your reaction is very fast",
-        "reactionSlow": "reaction speed has room for improvement",
-        "reactionNormal": "reaction speed is normal",
-        "processingGood": "processing speed is quite good",
-        "processingPoor": "processing speed needs strengthening",
-        "processingAverage": "processing speed is average",
-        "memoryStrong": "memory is very strong",
-        "memoryWeak": "memory needs improvement",
-        "memoryAverage": "memory performance is average",
-        "attentionExcellent": "attention control ability is excellent",
-        "attentionPoor": "attention control needs practice",
-        "attentionAverage": "attention control is average",
-        "wordMemoryStrong": "word memory ability is very strong",
-        "wordMemoryWeak": "word memory needs training",
-        "wordMemoryAverage": "word memory is average"
-      }
-    }
+    "browseAllPrefix": "Already know what you want?",
+    "browseAll": "Browse all games"
   },
   "guides": {
     "metaTitle": "Free Brain Training Guides: Working Memory & Focus",
@@ -3720,18 +3574,11 @@
       "Free to Play",
       "Adults, Kids, and ADHD-Friendly"
     ],
-    "ctaButton": "Start with a Quick Quiz",
+    "ctaButton": "Play the 10 Second Challenge",
     "popularGames": "Popular Games",
     "featuredGames": "Popular Games",
     "latestGames": "Recently Added",
-    "tryLuck": {
-      "title": "Try Your Luck",
-      "subtitle": "Not sure what to play? Discover a different fun focus game each time.",
-      "refresh": "Try another set",
-      "refreshAriaLabel": "Show another set of games"
-    },
     "springFestivalSpecial": "Spring Festival Special",
-    "breathingZone": "Breathing Exercises and Relaxation",
     "forFun": "Just for Fun",
     "latestPosts": "Latest Posts",
     "featuredResources": {
@@ -3791,71 +3638,11 @@
     "personalGrowthDesc": "Practice the mental skills behind reading fluency, visual scanning, memory, and reaction speed while keeping sessions short enough to repeat.",
     "dailyPractice": "A few short sessions each week are enough to notice which skills you want to build.",
     "benefitsConclusion": "Start small and stay consistent.",
-    "testimonialsTitle": "How People Use These Games",
-    "testimonials": {
-      "sarah": {
-        "name": "Writers",
-        "username": "Deep focus",
-        "body": "Some people use a short session before writing so it is easier to settle in and stay with the draft."
-      },
-      "mike": {
-        "name": "Students",
-        "username": "Homework warm-up",
-        "body": "A quick game can work as a transition before homework, revision, or any task that needs steady concentration."
-      },
-      "emma": {
-        "name": "Readers",
-        "username": "Visual attention",
-        "body": "Visual search and Schulte-style practice can be a simple way to work on reading flow and attention span."
-      },
-      "sophia": {
-        "name": "Parents",
-        "username": "Short routines",
-        "body": "Parents often use these games as short, structured activities before homework or quiet study time."
-      },
-      "liam": {
-        "name": "Adults with ADHD",
-        "username": "Attention reset",
-        "body": "Short sessions can be useful as an attention reset before work, study, or other tasks that are easy to avoid."
-      },
-      "tom": {
-        "name": "Gamers",
-        "username": "Reaction time",
-        "body": "Reaction and timing games give players a lightweight way to practice visual speed and response control."
-      },
-      "lisa": {
-        "name": "Busy adults",
-        "username": "Quick daily practice",
-        "body": "The sessions are short enough to fit between meetings, after school, or whenever you want a focused mental reset."
-      },
-      "david": {
-        "name": "Athletes and hobbyists",
-        "username": "Visual speed",
-        "body": "Some people use visual attention and reaction drills alongside sports, music, or other skill-based hobbies."
-      },
-      "olivia": {
-        "name": "Homeschool and study plans",
-        "username": "Structured practice",
-        "body": "These games can slot into a weekly routine when you want short practice blocks instead of long training sessions."
-      },
-      "ethan": {
-        "name": "Curious beginners",
-        "username": "Start simple",
-        "body": "Many people start here because they want an easy, low-pressure way to explore focus and memory training."
-      }
-    },
     "metaTitle": "Free Focus Games Online for Adults, Kids & ADHD",
     "metaDescription": "Play free focus games inspired by classic cognitive tasks for attention, working memory, reaction time, and concentration. No download required.",
     "metaKeywords": "focus games, free focus games, focus games online, adhd games online free, attention games, concentration games, memory games, brain training games, reaction time games",
     "ogTitle": "Free Focus Games Online for Adults, Kids & ADHD",
     "ogDescription": "Play free focus games inspired by classic cognitive tasks for attention, working memory, and reaction time. No download required.",
-    "scienceBehind": {
-      "title": "How These Tasks Are Chosen",
-      "subtitle": "Many games are inspired by classic attention, memory, and reaction-time tasks from cognitive science.",
-      "description": "Learn how each task was adapted, what it measures, and how to make sense of your results across repeated sessions.",
-      "cta": "Read the Working Memory Guide",
-      "tag": "Evidence Guide"
-    },
     "trustpilot": {
       "badge": "Verified Reviews",
       "title": "What Players Are Saying",
@@ -3863,7 +3650,8 @@
       "ctaBody": "Tried one of our games? We'd love to hear about your experience.",
       "ctaNote": "Your feedback helps us improve and reach more people who need better focus tools.",
       "ctaButton": "Leave a Review on Trustpilot"
-    }
+    },
+    "ctaSecondary": "Not sure what to play? Get 3 picks"
   },
   "legal": {
     "privacy": {
@@ -4165,9 +3953,9 @@
     "title": "Assessment Tests",
     "subtitle": "Discover your cognitive strengths and areas for improvement with our scientifically-designed assessment tests.",
     "cognitive": {
-      "title": "Cognitive Assessment",
-      "description": "Quick evaluation of your working memory, attention, and cognitive abilities. Get personalized game recommendations based on your results.",
-      "duration": "2 minutes"
+      "title": "Not Sure What to Play?",
+      "description": "Pick a goal, take an optional 30-second check, and get three games to try next.",
+      "duration": "About 30 seconds"
     },
     "adhd": {
       "title": "Children's ADHD Assessment",
@@ -4182,6 +3970,11 @@
     "whyTest": {
       "title": "Why Take These Tests?",
       "description": "Our assessment tests are designed by cognitive scientists to provide accurate insights into your mental abilities. Use the results to choose the most effective brain training games for your needs and track your cognitive improvement over time."
+    },
+    "career": {
+      "title": "Career Practice Tests",
+      "description": "Practice 911 dispatcher typing and CritiCall-style tests before a real job assessment.",
+      "duration": "Varies by test"
     }
   },
   "typesOfGames": {

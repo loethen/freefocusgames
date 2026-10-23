@@ -14,6 +14,8 @@
       "title": "交互式双重N-Back教程",
       "description": "通过我们循序渐进的交互式教程亲身体验游戏机制。这种实操方法是理解双重n-back工作原理的最快方式。",
       "buttonText": "开始交互式教程"
-    }
+    },
+    "guidesPrompt": "想系统地开始？",
+    "guidesLink": "阅读工作记忆训练指南"
   }
 }

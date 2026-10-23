@@ -3117,7 +3117,9 @@
       "title": "交互式双重N-Back教程",
       "description": "通过我们循序渐进的交互式教程亲身体验游戏机制。这种实操方法是理解双重n-back工作原理的最快方式。",
       "buttonText": "开始交互式教程"
-    }
+    },
+    "guidesPrompt": "想系统地开始？",
+    "guidesLink": "阅读工作记忆训练指南"
   },
   "buttons": {
     "startPlaying": "开始免费训练",
@@ -3325,7 +3327,9 @@
     "categoryIntro": "这个分类收集了主要训练 {categoryName} 的游戏。相比直接浏览整个游戏库，它更适合你按一个明确目标来练。",
     "startHereTitle": "建议从这些页面开始",
     "startHereDescription": "先通过这些核心{categoryName}页面建立清晰的练习路径，再浏览下面的完整内容。",
-    "backToAll": "查看全部分类"
+    "backToAll": "查看全部分类",
+    "playNow": "开始玩{game}",
+    "notSure": "不知道玩什么？获取 3 个推荐"
   },
   "common": {
     "home": "首页",
@@ -3411,26 +3415,21 @@
       "correctResponses": "正确反应",
       "standardMode": "标准双模式",
       "customSession": "自定义训练"
-    }
+    },
+    "learn": "学习"
   },
   "getStarted": {
     "meta": {
-      "title": "开始测试 - 找到最适合你的脑力训练游戏",
-      "description": "通过我们的2分钟认知测评，发现专为你量身定制的脑力训练游戏。立即开始提升专注力和记忆力的旅程。",
+      "title": "不知道玩什么？3 个脑力游戏推荐",
+      "description": "选择一个练习目标，可选做 30 秒小测，马上获得 3 个适合你的免费专注力、记忆力、反应速度或放松游戏。",
       "keywords": "脑力训练测评, 认知测试, 个性化脑力游戏, 专注力训练, 记忆力提升, 在线认知测试, 免费认知测试, 认知测试示例, 专注力训练app, 专注力训练练习, 工作记忆训练, 工作记忆测试, 免费工作记忆测试",
-      "ogTitle": "开始你的脑力训练之旅 - 个性化测评",
-      "ogDescription": "通过我们快速的2分钟测评，发现最适合你的脑力训练游戏。提升专注力、记忆力和认知能力。"
+      "ogTitle": "不知道玩什么？3 个脑力游戏推荐",
+      "ogDescription": "选择目标，可选做 30 秒小测，获得 3 个接下来可以玩的免费脑力游戏。"
     },
-    "title": "让我们找到最适合你的脑力游戏！",
-    "stepTitle": "第 {step} 步，共 3 步",
-    "steps": {
-      "goalSetting": "你想改善什么？",
-      "quickAssessment": "快速评估",
-      "recommendation": "为你推荐"
-    },
+    "title": "不知道玩什么？",
     "goalSetting": {
-      "title": "你想先从哪方面开始？",
-      "subtitle": "别担心，没有标准答案！选择你觉得最需要的就好：",
+      "title": "你想练什么？",
+      "subtitle": "没有标准答案，选今天最想练的就好。",
       "goals": {
         "focus": {
           "title": "提升我工作/学习的专注力",
@@ -3444,89 +3443,15 @@
           "title": "加快我的反应速度",
           "subtitle": "思考和反应更迅速"
         },
-        "general": {
-          "title": "我只是想找个好玩的大脑挑战",
-          "subtitle": "纯粹为了乐趣的脑力游戏！"
-        }
-      },
-      "selected": "✓ 已选择：{goal}"
-    },
-    "assessment": {
-      "title": "快速能力评估",
-      "description": "这里将展示3个极简小游戏的占位内容：",
-      "tests": {
-        "focus": "• 专注力测试（如：看到绿色圆形时点击）",
-        "memory": "• 记忆力测试（如：按顺序点击亮起的方块）",
-        "reaction": "• 反应速度测试（如：变绿时点击）"
-      },
-      "placeholder": "（后续将填充具体小游戏）"
-    },
-    "recommendation": {
-      "title": "为你推荐",
-      "description": "这里将展示基于你的选择和测试结果的个性化推荐。",
-      "example": "示例：我们推荐你从 {gameName} 开始你的训练之旅！",
-      "startButton": "立即开始",
-      "placeholder": "（后续将根据实际测试结果动态推荐）",
-      "yourChoice": "你的选择",
-      "weRecommend": "我们为你推荐",
-      "whyThisGame": "为什么推荐这个游戏？",
-      "reasons": {
-        "focus": "最适合训练专注力的入门游戏",
-        "memory": "经典的记忆力训练游戏",
-        "speed": "专业的反应速度测试工具",
-        "general": "最具挑战性的认知训练游戏"
-      },
-      "descriptions": {
-        "focus": "通过视觉搜索训练，快速提升注意力集中度和抗干扰能力，是专注力训练的黄金入门选择。",
-        "memory": "通过记忆和重现序列模式，有效锻炼工作记忆，被广泛用于认知能力提升训练。",
-        "speed": "精确测量你的反应时间，通过持续练习显著提升大脑处理速度和反应敏捷度。",
-        "general": "结合视觉和听觉的双重挑战，全面锻炼大脑多任务处理能力，被认为是最有效的认知训练方法之一。"
-      },
-      "benefits": {
-        "focus": {
-          "1": "快速提升视觉注意力和搜索能力",
-          "2": "显著改善阅读速度和理解力",
-          "3": "增强工作和学习时的专注持续时间"
+        "relax": {
+          "title": "放松一下",
+          "subtitle": "跟着引导做几分钟呼吸练习"
         },
-        "memory": {
-          "1": "有效提升短期记忆和工作记忆容量",
-          "2": "改善日常生活中的记忆表现",
-          "3": "为更高级的认知训练打下坚实基础"
-        },
-        "speed": {
-          "1": "准确了解当前反应速度水平",
-          "2": "通过练习显著提升处理速度",
-          "3": "改善运动表现和日常反应能力"
-        },
-        "general": {
-          "1": "全面锻炼多种认知能力",
-          "2": "提升大脑的多任务处理效率",
-          "3": "享受充满挑战的脑力训练乐趣"
+        "justPlay": {
+          "title": "随便玩玩",
+          "subtitle": "跳过小测，直接玩热门游戏"
         }
       }
-    },
-    "buttons": {
-      "startAssessment": "开始评估"
-    },
-    "processingSpeedTest": {
-      "title": "数字比较测试",
-      "subtitle": "测试你的处理速度",
-      "challengeGoals": "挑战目标：",
-      "timeLimit": "时间限制：10秒",
-      "minComparisons": "至少完成12组比较",
-      "accuracyTarget": "正确率达到90%以上",
-      "instructions": "快速选择较大的数字，在时间内完成尽可能多的比较。",
-      "clickLarger": "点击较大的数字",
-      "completed": "完成",
-      "questionsLabel": "题",
-      "challengeCompleted": "已达成挑战目标！",
-      "stillNeeded": "还需",
-      "targetAccuracy": "目标正确率",
-      "testCompleted": "数字比较测试 完成!",
-      "questionsCompleted": "完成题数",
-      "processingSpeedScore": "处理速度得分",
-      "viewRecommendation": "查看推荐",
-      "points": "分"
     },
     "reactionTimeTest": {
       "title": "反应速度测试",
@@ -3543,7 +3468,7 @@
       "averageReactionTime": "平均反应时间",
       "testComplete": "反应速度测试 完成!",
       "milliseconds": "毫秒",
-      "nextTest": "下一个测试"
+      "nextTest": "查看推荐游戏"
     },
     "memoryTest": {
       "title": "序列记忆测试",
@@ -3566,59 +3491,7 @@
       "excellentMemory": "🎉 优秀！你的工作记忆能力很强",
       "goodMemory": "👍 不错！继续练习可以提升更多",
       "keepPracticing": "💪 继续努力！工作记忆是可以训练的",
-      "continueNext": "继续下一步"
-    },
-    "wordMemoryTest": {
-      "title": "词汇记忆测试",
-      "subtitle": "测试你的短期记忆能力",
-      "instructions": "记住即将出现的词汇",
-      "startButton": "开始测试",
-      "testFlow": "测试流程",
-      "step1": "记住即将出现的 6个词汇",
-      "step2": "8秒 记忆时间",
-      "step3": "回忆并输入所有词汇",
-      "memoryTime": "记忆时间：8秒",
-      "rememberWords": "请记住这些词汇",
-      "rememberCarefully": "仔细记住这些词汇...",
-      "recallTest": "回忆测试",
-      "enterWords": "请输入你刚才看到的词汇",
-      "hint": "💡 提示：不需要按照原来的顺序填写，任意顺序都可以",
-      "wordPlaceholder": "词汇",
-      "submitAnswer": "提交答案",
-      "testComplete": "词汇记忆测试完成!",
-      "accuracy": "正确率",
-      "wordsRecalled": "回忆词汇",
-      "correctWords": "回忆正确的词汇",
-      "word": "个",
-      "words": "个",
-      "missedWords": "遗漏的词汇",
-      "continueNext": "继续下一步",
-      "wordBank": [
-        "苹果",
-        "汽车",
-        "房子",
-        "音乐",
-        "学校",
-        "手机",
-        "咖啡",
-        "花朵",
-        "月亮",
-        "书籍",
-        "电脑",
-        "游戏",
-        "朋友",
-        "家庭",
-        "工作",
-        "旅行",
-        "食物",
-        "天空",
-        "海洋",
-        "森林",
-        "城市",
-        "动物",
-        "运动",
-        "艺术"
-      ]
+      "continueNext": "查看推荐游戏"
     },
     "stroopTest": {
       "title": "认知灵活性测试",
@@ -3631,7 +3504,7 @@
       "testComplete": "认知灵活性测试 完成!",
       "accuracy": "准确率",
       "averageReactionTime": "平均反应时间",
-      "nextTest": "下一个测试",
+      "nextTest": "查看推荐游戏",
       "colors": {
         "red": "红色",
         "blue": "蓝色",
@@ -3639,56 +3512,37 @@
         "yellow": "黄色"
       }
     },
-    "gameRecommendations": {
-      "testComplete": "测试完成！",
-      "personalizedRecommendation": "为你推荐最适合的训练游戏",
-      "startTraining": "开始训练",
-      "basedOnResults": "基于你的测试结果定制",
-      "recommendStart": "推荐你可以先从",
-      "analysisIntro": "通过刚才的测试，",
-      "gameNames": {
-        "dualNBack": "双N-back训练",
-        "stroopEffect": "Stroop效应测试",
-        "largerNumber": "数字大小比较",
-        "frogMemoryLeap": "青蛙记忆跳跃",
-        "reactionTime": "反应时间训练",
-        "schulteTable": "舒尔特方格"
-      },
-      "recommendations": {
-        "dualNBack": "挑战工作记忆极限的理想选择",
-        "stroopEffect": "提升认知速度和冲突处理能力",
-        "largerNumber": "建议从基础的处理速度训练开始",
-        "frogMemoryLeap": "建议从趣味记忆游戏开始训练",
-        "reactionTime": "建议从基础反应训练开始",
-        "schulteTable": "建议从注意力基础训练开始"
+    "intro": "选一个你想练的方向，可选做 30 秒小测，然后获得 3 个推荐游戏。",
+    "check": {
+      "hint": "快速小测，约 30 秒，只用于挑选游戏。",
+      "skip": "跳过小测，直接看推荐",
+      "back": "换个目标"
+    },
+    "results": {
+      "title": "为你推荐的游戏",
+      "topPick": "首选",
+      "alsoTry": "也可以试试",
+      "startOver": "换个目标",
+      "browseCategory": "查看全部{category}游戏",
+      "disclaimer": "小测只用于推荐游戏，不构成任何医学或认知诊断。",
+      "summary": {
+        "reaction": {
+          "strong": "你的平均反应时间是 {value} 毫秒，反应很快。下面的游戏难度更高。",
+          "building": "你的平均反应时间是 {value} 毫秒。先从基础反应练习开始，再逐步提高。"
+        },
+        "memory": "适合练习工作记忆。",
+        "stroop": {
+          "strong": "你在颜色文字小测中得了 {value}%。这些游戏能进一步挑战注意力控制。",
+          "building": "你在颜色文字小测中得了 {value}%。先从稳定的视觉搜索练习开始。"
+        },
+        "focus": "适合练习专注、排除干扰。",
+        "speed": "适合练习反应速度。",
+        "relax": "几分钟的引导呼吸练习，帮你放松。",
+        "justPlay": "最多人玩的游戏，挑一个开始吧。"
       }
     },
-    "testAnalysis": {
-      "testNames": {
-        "reactionSpeed": "反应速度测试",
-        "numberComparison": "数字比较测试",
-        "sequenceMemory": "序列记忆测试",
-        "attentionControl": "注意力控制测试",
-        "wordMemory": "词汇记忆测试"
-      },
-      "performances": {
-        "reactionFast": "你的反应很快",
-        "reactionSlow": "反应速度有提升空间",
-        "reactionNormal": "反应速度表现正常",
-        "processingGood": "处理速度很不错",
-        "processingPoor": "处理速度需要加强",
-        "processingAverage": "处理速度表现一般",
-        "memoryStrong": "记忆力很强",
-        "memoryWeak": "记忆力有待提升",
-        "memoryAverage": "记忆力表现中等",
-        "attentionExcellent": "注意力控制能力优秀",
-        "attentionPoor": "注意力控制需要练习",
-        "attentionAverage": "注意力控制表现中等",
-        "wordMemoryStrong": "词汇记忆能力很强",
-        "wordMemoryWeak": "词汇记忆需要训练",
-        "wordMemoryAverage": "词汇记忆表现中等"
-      }
-    }
+    "browseAllPrefix": "已经知道想玩什么？",
+    "browseAll": "浏览全部游戏"
   },
   "guides": {
     "metaTitle": "免费大脑训练指南：工作记忆与专注力",
@@ -3717,18 +3571,11 @@
       "免费开始练习",
       "适合成人、儿童与 ADHD 用户"
     ],
-    "ctaButton": "从快速测验开始",
+    "ctaButton": "玩 10 秒挑战",
     "popularGames": "热门游戏",
     "featuredGames": "热门游戏",
     "latestGames": "最近加入的游戏",
-    "tryLuck": {
-      "title": "试试手气",
-      "subtitle": "不知道玩什么？换一组轻松有趣的专注力小游戏，看看今天会遇到哪一款。",
-      "refresh": "换一组",
-      "refreshAriaLabel": "换一组推荐游戏"
-    },
     "springFestivalSpecial": "春节专区",
-    "breathingZone": "呼吸练习与放松",
     "forFun": "轻松玩一玩",
     "latestPosts": "最新文章",
     "featuredResources": {
@@ -3788,71 +3635,11 @@
     "personalGrowthDesc": "在保持单次练习足够短的同时，训练阅读流畅度、视觉扫描、记忆力和反应速度等能力。",
     "dailyPractice": "每周做几次短练习，就足以帮助你发现自己最想提升的是哪一类能力。",
     "benefitsConclusion": "从小处开始，稳定练习。",
-    "testimonialsTitle": "人们通常怎么用这些游戏",
-    "testimonials": {
-      "sarah": {
-        "name": "写作者",
-        "username": "进入深度专注",
-        "body": "有些人会在写作前先做一个短练习，帮助自己更快坐下来并把注意力留在草稿上。"
-      },
-      "mike": {
-        "name": "学生",
-        "username": "作业前热身",
-        "body": "快速玩一局，可以当作写作业、复习或开始需要持续专注任务前的过渡。"
-      },
-      "emma": {
-        "name": "阅读练习者",
-        "username": "视觉注意力",
-        "body": "视觉搜索和舒尔特表格练习，常被用来配合阅读流畅度和注意力持续训练。"
-      },
-      "sophia": {
-        "name": "家长",
-        "username": "短时结构化练习",
-        "body": "有些家长会把这些游戏放在作业前或安静学习前，作为简短而可预期的训练活动。"
-      },
-      "liam": {
-        "name": "ADHD 成人用户",
-        "username": "注意力重置",
-        "body": "短练习常被当作开始工作、学习或进入容易拖延任务前的注意力重置方式。"
-      },
-      "tom": {
-        "name": "玩家",
-        "username": "反应速度",
-        "body": "反应和节奏类游戏能提供一种轻量方式，用来练视觉速度和反应控制。"
-      },
-      "lisa": {
-        "name": "忙碌的大人",
-        "username": "日常短练习",
-        "body": "单次时间足够短，适合安排在会议之间、放学后或任何想做专注重置的时候。"
-      },
-      "david": {
-        "name": "运动与兴趣爱好者",
-        "username": "视觉速度训练",
-        "body": "有些人会把视觉注意力和反应训练，作为运动、音乐或其他技能型兴趣的补充练习。"
-      },
-      "olivia": {
-        "name": "家庭学习计划",
-        "username": "固定训练节奏",
-        "body": "如果你喜欢短而稳定的训练块，这些游戏很容易插入每周的学习或练习安排里。"
-      },
-      "ethan": {
-        "name": "刚入门的人",
-        "username": "从简单开始",
-        "body": "很多人是因为想先用一种轻松、无压力的方式接触专注力和记忆训练而来到这里。"
-      }
-    },
     "metaTitle": "免费在线专注力游戏：适合成人、儿童与 ADHD",
     "metaDescription": "免费体验受经典认知任务启发的在线专注力游戏，练习注意力、工作记忆、反应速度与专注任务，无需下载。",
     "metaKeywords": "专注力游戏, 免费专注力游戏, 在线专注力游戏, adhd 游戏, 注意力游戏, 记忆力游戏, 脑力训练, 反应速度游戏",
     "ogTitle": "免费在线专注力游戏：适合成人、儿童与 ADHD",
     "ogDescription": "免费体验受经典认知任务启发的专注力游戏，练习注意力、工作记忆与反应时间，无需下载。",
-    "scienceBehind": {
-      "title": "这些任务如何选取",
-      "subtitle": "许多游戏的设计灵感来自认知科学中的经典注意、记忆与反应时间任务。",
-      "description": "了解每项任务如何改编、主要测量什么，以及怎样理解多次练习后的成绩变化。",
-      "cta": "阅读工作记忆指南",
-      "tag": "证据说明"
-    },
     "trustpilot": {
       "badge": "用户真实评价",
       "title": "玩家都在说什么",
@@ -3860,7 +3647,8 @@
       "ctaBody": "体验过我们的游戏了吗？很想听听你的感受。",
       "ctaNote": "你的反馈能帮助我们改进，也能让更多需要专注训练工具的人找到我们。",
       "ctaButton": "在 Trustpilot 留下评价"
-    }
+    },
+    "ctaSecondary": "不知道玩什么？获取 3 个推荐"
   },
   "legal": {
     "privacy": {
@@ -4162,9 +3950,9 @@
     "title": "评估测试",
     "subtitle": "通过我们基于科学设计的评估测试，发现您的认知优势和改进空间。",
     "cognitive": {
-      "title": "认知能力评估",
-      "description": "快速评估您的工作记忆、注意力和认知能力。根据结果获得个性化的游戏推荐。",
-      "duration": "2分钟"
+      "title": "不知道玩什么？",
+      "description": "选一个目标，可选做 30 秒小测，获得 3 个推荐游戏。",
+      "duration": "约 30 秒"
     },
     "adhd": {
       "title": "儿童ADHD评估",

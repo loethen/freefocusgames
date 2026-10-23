@@ -37,7 +37,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
   const commonT = await getTranslations({ locale, namespace: 'common' });
-  const posts = await getBlogPosts(locale);
+  const posts = (await getBlogPosts(locale)).filter((post) => !post.noindex);
   
   return (
       <div className="container mx-auto px-4 py-8">
@@ -51,7 +51,13 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           />
           
           <h1 className="text-3xl font-bold mb-6">{t('title')}</h1>
-          <p className="text-muted-foreground mb-8">{t('description')}</p>
+          <p className="text-muted-foreground mb-6">{t('description')}</p>
+          <p className="mb-8 rounded-lg bg-muted/50 px-4 py-3 text-sm">
+            {t('guidesPrompt')}{' '}
+            <Link href="/working-memory-guide" className="font-medium text-primary hover:underline">
+              {t('guidesLink')}
+            </Link>
+          </p>
           
           <div className="grid gap-8">
             {posts.map((post) => (

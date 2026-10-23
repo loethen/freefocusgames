@@ -6,9 +6,9 @@
     "title": "Assessment Tests",
     "subtitle": "Discover your cognitive strengths and areas for improvement with our scientifically-designed assessment tests.",
     "cognitive": {
-      "title": "Cognitive Assessment",
-      "description": "Quick evaluation of your working memory, attention, and cognitive abilities. Get personalized game recommendations based on your results.",
-      "duration": "2 minutes"
+      "title": "Not Sure What to Play?",
+      "description": "Pick a goal, take an optional 30-second check, and get three games to try next.",
+      "duration": "About 30 seconds"
     },
     "adhd": {
       "title": "Children's ADHD Assessment",
@@ -23,6 +23,11 @@
     "whyTest": {
       "title": "Why Take These Tests?",
       "description": "Our assessment tests are designed by cognitive scientists to provide accurate insights into your mental abilities. Use the results to choose the most effective brain training games for your needs and track your cognitive improvement over time."
+    },
+    "career": {
+      "title": "Career Practice Tests",
+      "description": "Practice 911 dispatcher typing and CritiCall-style tests before a real job assessment.",
+      "duration": "Varies by test"
     }
   }
 }

@@ -1,14 +1,11 @@
-import { Button } from "@/components/ui/button";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
-import { SingleTrackMarquee } from "@/components/magicui/marquee";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from "next";
 import { getBlogPosts } from "@/lib/blog";
 import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
-import TryYourLuck from "@/components/try-your-luck";
 import Image from "next/image";
 import { games } from "@/data/games";
 import {
@@ -20,10 +17,8 @@ import {
     Check,
     Focus,
     Gamepad2,
-    Play,
     ScanEye,
-    Timer,
-    Wind
+    Timer
 } from "lucide-react";
 import TrustpilotSection from "@/components/trustpilot-section";
 
@@ -59,7 +54,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const { locale } = await params;
     setRequestLocale(locale);
     const t = await getTranslations({ locale });
-    const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
     const guidesT = await getTranslations({ locale, namespace: 'guides' });
     const posts = await getBlogPosts(locale);
     const postsBySlug = new Map(posts.map((post) => [post.slug, post]));
@@ -98,74 +92,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         "url": "https://www.freefocusgames.com",
         "description": t("home.metaDescription")
     };
-
-    // 第一组评价
-    const firstRowReviews = [
-        {
-            name: testimonials('sarah.name'),
-            username: testimonials('sarah.username'),
-            body: testimonials('sarah.body'),
-            gradient: "from-blue-400 to-cyan-500",
-        },
-        {
-            name: testimonials('mike.name'),
-            username: testimonials('mike.username'),
-            body: testimonials('mike.body'),
-            gradient: "from-purple-400 to-pink-500",
-        },
-        {
-            name: testimonials('emma.name'),
-            username: testimonials('emma.username'),
-            body: testimonials('emma.body'),
-            gradient: "from-green-400 to-emerald-500",
-        },
-        {
-            name: testimonials('sophia.name'),
-            username: testimonials('sophia.username'),
-            body: testimonials('sophia.body'),
-            gradient: "from-rose-400 to-pink-500",
-        },
-        {
-            name: testimonials('liam.name'),
-            username: testimonials('liam.username'),
-            body: testimonials('liam.body'),
-            gradient: "from-sky-400 to-blue-500",
-        },
-    ];
-
-    // 第二组评价
-    const secondRowReviews = [
-        {
-            name: testimonials('tom.name'),
-            username: testimonials('tom.username'),
-            body: testimonials('tom.body'),
-            gradient: "from-orange-400 to-red-500",
-        },
-        {
-            name: testimonials('lisa.name'),
-            username: testimonials('lisa.username'),
-            body: testimonials('lisa.body'),
-            gradient: "from-yellow-400 to-amber-500",
-        },
-        {
-            name: testimonials('david.name'),
-            username: testimonials('david.username'),
-            body: testimonials('david.body'),
-            gradient: "from-indigo-400 to-violet-500",
-        },
-        {
-            name: testimonials('olivia.name'),
-            username: testimonials('olivia.username'),
-            body: testimonials('olivia.body'),
-            gradient: "from-teal-400 to-cyan-500",
-        },
-        {
-            name: testimonials('ethan.name'),
-            username: testimonials('ethan.username'),
-            body: testimonials('ethan.body'),
-            gradient: "from-amber-400 to-orange-500",
-        },
-    ];
 
     const quickStartLinks = [
         {
@@ -215,11 +141,18 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             <p className="sm:text-xl lg:text-2xl mb-8">
                                 {t("home.subtitle")}
                             </p>
-                            <div className="mb-4">
-                                <Link href="/get-started">
+                            <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row md:items-start md:justify-start">
+                                <Link href="/games/challenge-10-seconds">
                                     <InteractiveHoverButton>
                                         {t("home.ctaButton")}
                                     </InteractiveHoverButton>
+                                </Link>
+                                <Link
+                                    href="/get-started"
+                                    className="inline-flex items-center gap-1.5 text-base font-medium text-primary underline-offset-4 hover:underline sm:self-center"
+                                >
+                                    {t("home.ctaSecondary")}
+                                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
                                 </Link>
                             </div>
 
@@ -249,6 +182,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             />
                         </div>
                     </div>
+                </section>
+
+                {/* Popular games */}
+                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
+                    <FeaturedBentoGrid />
                 </section>
 
                 {/* Goal-based navigation */}
@@ -319,98 +257,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </section>
 
-                {/* Games Section - Featured Bento Grid */}
-                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
-                    <FeaturedBentoGrid />
-                </section>
-
-                {/* Discovery Section - Rotating selection of fun games */}
-                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
-                    <TryYourLuck />
-                </section>
-
                 {/* Latest Games */}
                 <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
                     <LatestGames />
-                </section>
-
-                {/* Breathing Zone - Bento Layout */}
-                <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
-                    <div className="mb-6 flex items-center gap-2 sm:mb-8">
-                        <Wind className="h-6 w-6 text-teal-500" />
-                        <h2 className="text-2xl font-semibold">
-                            {t("home.breathingZone")}
-                        </h2>
-                    </div>
-                    {(() => {
-                        const breathingGames = games.filter(g => g.categories.includes('relaxation'));
-                        const mainGame = breathingGames.find(g => g.id === 'box-breathing') || breathingGames[0];
-                        const sideGames = breathingGames.filter(g => g.id !== mainGame?.id);
-                        if (!mainGame) return null;
-                        return (
-                            <div className="grid grid-cols-1 gap-4 no-ads-inside sm:gap-6 lg:grid-cols-3">
-                                {/* Main Featured Breathing Game */}
-                                <div className="lg:col-span-2 relative group overflow-hidden rounded-3xl bg-gray-50 dark:bg-zinc-900 border border-border transition-all hover:shadow-xl">
-                                    <div className="flex flex-col-reverse md:flex-row h-full">
-                                        <div className="relative z-10 flex flex-1 flex-col justify-center gap-4 bg-white/50 p-5 backdrop-blur-sm dark:bg-black/20 sm:p-8 md:bg-transparent md:backdrop-blur-none">
-                                            <div>
-                                                <h3 className="text-3xl md:text-4xl font-bold mb-3">
-                                                    {t(`games.${getIdKey(mainGame.id)}.title`)}
-                                                </h3>
-                                                <p className="text-muted-foreground text-lg line-clamp-3">
-                                                    {t(`games.${getIdKey(mainGame.id)}.homeDescription`)}
-                                                </p>
-                                            </div>
-                                            <Button asChild size="lg" className="h-12 w-full rounded-full px-8 text-base md:w-auto">
-                                                <Link href={`/games/${mainGame.slug}`}>
-                                                    <Play className="mr-2 h-5 w-5" fill="currentColor" />
-                                                    {t("buttons.start")}
-                                                </Link>
-                                            </Button>
-                                        </div>
-                                        <div className="flex-1 min-h-[250px] md:min-h-[300px] flex items-center justify-center relative">
-                                            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl transform scale-75 opacity-50" />
-                                            <div className="relative z-0">
-                                                {mainGame.preview}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Side Breathing Cards */}
-                                <div className="grid h-full grid-rows-2 gap-4 sm:gap-6">
-                                    {sideGames.map(game => (
-                                        <Link
-                                            key={game.id}
-                                            href={`/games/${game.slug}`}
-                                            className="relative group overflow-hidden rounded-3xl bg-secondary/30 border border-border hover:bg-secondary/50 transition-colors min-h-[180px]"
-                                        >
-                                            <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6">
-                                                <div className="flex justify-between items-start">
-                                                    <div className="w-12 h-12 rounded-2xl bg-background shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                        <Wind className="h-6 w-6 text-teal-500" />
-                                                    </div>
-                                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
-                                                        <div className="bg-background rounded-full p-2 shadow-sm">
-                                                            <ArrowRight className="h-4 w-4" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h3 className="font-bold text-lg mb-1 line-clamp-1">
-                                                        {t(`games.${getIdKey(game.id)}.title`)}
-                                                    </h3>
-                                                    <p className="text-sm text-muted-foreground line-clamp-2">
-                                                        {t(`games.${getIdKey(game.id)}.description`)}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-                    })()}
                 </section>
 
                 {/* For Fun */}
@@ -563,93 +412,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     </div>
                 </section>
 
-
-                {/* Science Behind Section */}
-                <section className="mb-20 max-w-4xl mx-auto px-2 text-center sm:mb-24 sm:px-6">
-                    <div className="rounded-2xl border border-border bg-muted/30 p-5 py-7 dark:bg-muted/10 sm:rounded-3xl sm:p-12">
-                        <span className="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-foreground uppercase bg-muted rounded-full">
-                            {t("home.scienceBehind.tag")}
-                        </span>
-                        <h2 className="text-3xl font-bold mb-4 text-foreground">
-                            {t("home.scienceBehind.title")}
-                        </h2>
-                        <p className="text-xl font-medium text-foreground mb-4">
-                            {t("home.scienceBehind.subtitle")}
-                        </p>
-                        <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-                            {t("home.scienceBehind.description")}
-                        </p>
-                        <Link href="/working-memory-guide">
-                            <InteractiveHoverButton className="w-full sm:w-auto">
-                                {t("home.scienceBehind.cta")}
-                            </InteractiveHoverButton>
-                        </Link>
-                    </div>
-                </section>
-
-                {/* Testimonials Section */}
-                <section className="mb-20 max-w-7xl mx-auto sm:mb-24">
-                    <h2 className="mb-8 px-4 text-center text-3xl font-bold sm:mb-12 sm:px-0">
-                        {t("home.testimonialsTitle")}
-                    </h2>
-
-                    <div className="relative px-2 sm:px-6">
-                        <SingleTrackMarquee pauseOnHover duration={20} trackClassName="gap-8 sm:gap-12" className="mb-8">
-                            {firstRowReviews.map((review) => (
-                                <article
-                                    key={review.username}
-                                    data-use-case={review.name}
-                                    className="w-72 shrink-0 rounded-xl border border-border bg-background/80 p-5 transition-colors hover:bg-border/10 sm:p-6"
-                                >
-                                    <div className="flex h-full flex-col gap-4">
-                                        <div className="flex items-center gap-3">
-                                            <div
-                                                className={cn("h-16 w-16 shrink-0 rounded-full bg-linear-to-r", review.gradient)}
-                                                aria-hidden="true"
-                                            />
-                                            <div>
-                                                <h3 className="text-lg font-semibold">{review.name}</h3>
-                                                <p className="text-sm text-muted-foreground">{review.username}</p>
-                                            </div>
-                                        </div>
-                                        <blockquote className="mt-2 text-sm text-muted-foreground">
-                                            {review.body}
-                                        </blockquote>
-                                    </div>
-                                </article>
-                            ))}
-                        </SingleTrackMarquee>
-
-                        <SingleTrackMarquee reverse pauseOnHover duration={20} trackClassName="gap-8 sm:gap-12">
-                            {secondRowReviews.map((review) => (
-                                <article
-                                    key={review.username}
-                                    data-use-case={review.name}
-                                    className="w-72 shrink-0 rounded-xl border border-border bg-background/80 p-5 transition-colors hover:bg-border/10 sm:p-6"
-                                >
-                                    <div className="flex h-full flex-col gap-4">
-                                        <div className="flex items-center gap-3">
-                                            <div
-                                                className={cn("h-16 w-16 shrink-0 rounded-full bg-linear-to-r", review.gradient)}
-                                                aria-hidden="true"
-                                            />
-                                            <div>
-                                                <h3 className="text-lg font-semibold">{review.name}</h3>
-                                                <p className="text-sm text-muted-foreground">{review.username}</p>
-                                            </div>
-                                        </div>
-                                        <blockquote className="mt-2 text-sm text-muted-foreground">
-                                            {review.body}
-                                        </blockquote>
-                                    </div>
-                                </article>
-                            ))}
-                        </SingleTrackMarquee>
-
-                        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background" />
-                        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background" />
-                    </div>
-                </section>
 
                 {/* Trustpilot Reviews Section */}
                 <TrustpilotSection />
