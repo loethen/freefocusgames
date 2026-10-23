@@ -9,7 +9,6 @@ import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
 import TryYourLuck from "@/components/try-your-luck";
 import BreathingGame from "@/app/[locale]/(main)/games/resonance-breathing/components/Game";
-import { LotusIcon } from "@/components/lotus-icon";
 import Image from "next/image";
 import { games } from "@/data/games";
 import {
@@ -340,36 +339,30 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     <LatestGames />
                 </section>
 
-                {/* Breathing break */}
+                {/* Breathing break: a quiet pause between game sections */}
                 <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
-                    <div className="rounded-3xl border border-border bg-teal-50/40 p-5 dark:bg-teal-950/10 sm:p-8">
-                        <h2 className="mb-8 flex items-center gap-2 text-2xl font-semibold">
-                            <LotusIcon className="h-6 w-6 text-teal-500" aria-hidden="true" />
-                            {t("home.quickBreathing.title")}
-                        </h2>
-                        <BreathingGame defaultMode="box" variant="compact" />
-                        <nav
-                            aria-label={t("home.quickBreathing.moreLabel")}
-                            className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border/70 pt-4 text-sm"
-                        >
-                            <span className="text-muted-foreground">{t("home.quickBreathing.moreLabel")}</span>
-                            {games.filter(g => g.categories.includes('relaxation')).map(game => (
-                                <Link
-                                    key={game.id}
-                                    href={`/games/${game.slug}`}
-                                    className="font-medium underline-offset-4 hover:text-primary hover:underline"
+                    <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-teal-50 via-emerald-50/50 to-transparent px-6 py-12 dark:from-teal-950/40 dark:via-emerald-950/20 sm:px-12 sm:py-14">
+                        <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/20" />
+                        <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-emerald-100/40 blur-3xl dark:bg-emerald-900/20" />
+                        <div className="relative">
+                            <BreathingGame defaultMode="box" variant="compact" title={t("home.quickBreathing.title")}>
+                                <nav
+                                    aria-label={t("home.quickBreathing.moreLabel")}
+                                    className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground md:justify-start"
                                 >
-                                    {t(`games.${getIdKey(game.id)}.title`)}
-                                </Link>
-                            ))}
-                            <Link
-                                href="/categories/relaxation"
-                                className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
-                            >
-                                {t("buttons.viewAll")}
-                                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                            </Link>
-                        </nav>
+                                    <span>{t("home.quickBreathing.moreLabel")}</span>
+                                    {games.filter(g => g.categories.includes('relaxation')).map(game => (
+                                        <Link
+                                            key={game.id}
+                                            href={`/games/${game.slug}`}
+                                            className="underline-offset-4 hover:text-foreground hover:underline"
+                                        >
+                                            {t(`games.${getIdKey(game.id)}.title`)}
+                                        </Link>
+                                    ))}
+                                </nav>
+                            </BreathingGame>
+                        </div>
                     </div>
                 </section>
 

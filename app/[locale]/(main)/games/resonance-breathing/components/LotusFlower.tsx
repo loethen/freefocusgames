@@ -153,7 +153,7 @@ export default function LotusFlower({ phase, duration, compact = false }: LotusF
                 className={`absolute left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.2em] uppercase ${compact ? '-bottom-7' : '-bottom-10'}`}
                 animate={{ opacity: isActive ? 1 : 0.4 }}
             >
-                <span className="text-black">
+                <span className={compact ? 'text-foreground/60' : 'text-black'}>
                     {getPhaseText()}
                 </span>
             </motion.div>

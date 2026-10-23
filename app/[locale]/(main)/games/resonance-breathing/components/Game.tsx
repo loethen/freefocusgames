@@ -1,7 +1,7 @@
 'use client';
 
 import { gameTabClass, gameTabsClass } from '@/lib/game-tab-styles'
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, type ReactNode } from 'react';
 import LotusFlower, { BreathingPhase } from './LotusFlower';
 import { useTranslations } from 'next-intl';
 import { Play, Pause, Settings, RotateCcw, Volume2, VolumeX } from 'lucide-react';
@@ -30,9 +30,12 @@ interface GameProps {
     defaultMode?: BreathingMode;
     // Compact: a short one-minute session laid out horizontally, without mode tabs, settings or music.
     variant?: 'full' | 'compact';
+    // Compact only: an invitation shown beside the lotus and quiet extras (such as links) beneath the controls.
+    title?: string;
+    children?: ReactNode;
 }
 
-export default function Game({ defaultMode = 'resonance', variant = 'full' }: GameProps) {
+export default function Game({ defaultMode = 'resonance', variant = 'full', title, children }: GameProps) {
     const isCompact = variant === 'compact';
     const t = useTranslations('games.resonanceBreathing');
 
@@ -218,55 +221,63 @@ export default function Game({ defaultMode = 'resonance', variant = 'full' }: Ga
     ];
 
     if (isCompact) {
+        const isOpen = phase === 'inhale' || phase === 'holdIn';
+        const hasStarted = isRunning || elapsedTime > 0;
+
         return (
-            <div className="flex flex-col items-center gap-10 sm:flex-row sm:justify-center sm:gap-14">
-                <div className="pb-7">
+            <div className="flex flex-col items-center gap-8 md:flex-row md:justify-center md:gap-16">
+                <div className="relative pb-7">
+                    {/* Soft glow that swells and settles with the breath */}
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute left-1/2 top-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-300/30 blur-3xl ease-in-out motion-reduce:transition-none dark:bg-teal-500/20"
+                        style={{
+                            transform: `translate(-50%, -50%) scale(${isOpen ? 1.15 : 0.75})`,
+                            transitionProperty: 'transform',
+                            transitionDuration: `${isRunning ? currentPhaseDuration : 1}s`,
+                        }}
+                    />
                     <LotusFlower phase={phase} duration={currentPhaseDuration} compact />
                 </div>
 
-                <div className="flex flex-col items-center gap-5 sm:items-start">
-                    <div className="text-xs uppercase tracking-widest text-muted-foreground">
-                        {modeButtons.find(({ key }) => key === mode)?.label} · {settings.inhale}s {settings.holdIn > 0 && `· ${settings.holdIn}s`} · {settings.exhale}s {settings.holdOut > 0 && `· ${settings.holdOut}s`}
-                    </div>
+                <div className="flex max-w-sm flex-col items-center gap-5 text-center md:items-start md:text-left">
+                    {title && (
+                        <h2 className="text-2xl font-light leading-relaxed text-foreground/80 sm:text-3xl">
+                            {title}
+                        </h2>
+                    )}
 
-                    <div className="flex gap-10">
-                        <div className="text-center sm:text-left">
-                            <div className="font-mono text-2xl font-light">{cycleCount}</div>
-                            <div className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">{t('ui.cycles')}</div>
-                        </div>
-                        <div className="text-center sm:text-left">
-                            <div className="font-mono text-2xl font-light">{formatTime(elapsedTime)} / {settings.sessionDuration}:00</div>
-                            <div className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">{t('ui.elapsed')}</div>
-                        </div>
-                    </div>
+                    <p className="text-xs tracking-widest text-muted-foreground/80" aria-live="polite">
+                        {hasStarted
+                            ? `${t('ui.cycles')} ${cycleCount} · ${formatTime(elapsedTime)} / ${settings.sessionDuration}:00`
+                            : `${modeButtons.find(({ key }) => key === mode)?.label} · ${settings.inhale}–${settings.holdIn}–${settings.exhale}–${settings.holdOut}`}
+                    </p>
 
-                    <div className="flex items-center gap-3">
-                        {!isRunning ? (
-                            <button
-                                onClick={handleStart}
-                                className="flex items-center gap-2 rounded-full bg-foreground px-7 py-2.5 text-sm font-medium tracking-wide text-background shadow-sm transition-opacity hover:opacity-90"
-                            >
-                                <Play className="h-4 w-4" fill="currentColor" />
-                                {t('ui.start')}
-                            </button>
-                        ) : (
-                            <button
-                                onClick={handlePause}
-                                className="flex items-center gap-2 rounded-full border border-foreground px-7 py-2.5 text-sm font-medium tracking-wide"
-                            >
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={isRunning ? handlePause : handleStart}
+                            className="flex items-center gap-2 rounded-full border border-teal-600/20 bg-background/70 px-6 py-2.5 text-sm tracking-wide text-teal-900 backdrop-blur transition-colors hover:bg-background dark:text-teal-100"
+                        >
+                            {isRunning ? (
                                 <Pause className="h-4 w-4" fill="currentColor" />
-                                {t('ui.pause')}
+                            ) : (
+                                <Play className="h-4 w-4" fill="currentColor" />
+                            )}
+                            {isRunning ? t('ui.pause') : t('ui.start')}
+                        </button>
+                        {hasStarted && !isRunning && (
+                            <button
+                                onClick={handleReset}
+                                className="rounded-full p-2.5 text-muted-foreground transition-colors hover:text-foreground"
+                                title={t('ui.reset')}
+                                aria-label={t('ui.reset')}
+                            >
+                                <RotateCcw className="h-4 w-4" />
                             </button>
                         )}
-                        <button
-                            onClick={handleReset}
-                            className="rounded-full p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                            title={t('ui.reset')}
-                            aria-label={t('ui.reset')}
-                        >
-                            <RotateCcw className="h-5 w-5" />
-                        </button>
                     </div>
+
+                    {children}
                 </div>
             </div>
         );
