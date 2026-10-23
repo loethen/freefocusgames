@@ -8,6 +8,8 @@ import { getBlogPosts } from "@/lib/blog";
 import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
 import TryYourLuck from "@/components/try-your-luck";
+import QuickBreathing from "@/components/quick-breathing";
+import { LotusIcon } from "@/components/lotus-icon";
 import Image from "next/image";
 import { games } from "@/data/games";
 import {
@@ -20,8 +22,7 @@ import {
     Focus,
     Gamepad2,
     ScanEye,
-    Timer,
-    Wind
+    Timer
 } from "lucide-react";
 import TrustpilotSection from "@/components/trustpilot-section";
 
@@ -339,32 +340,36 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     <LatestGames />
                 </section>
 
-                {/* Breathing Zone */}
+                {/* Breathing break */}
                 <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
-                    <div className="mb-5 flex items-center justify-between gap-4">
-                        <h2 className="flex items-center gap-2 text-2xl font-semibold">
-                            <Wind className="h-6 w-6 text-teal-500" aria-hidden="true" />
-                            {t("home.breathingZone")}
+                    <div className="rounded-3xl border border-border bg-teal-50/40 p-5 dark:bg-teal-950/10 sm:p-8">
+                        <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold">
+                            <LotusIcon className="h-6 w-6 text-teal-500" aria-hidden="true" />
+                            {t("home.quickBreathing.title")}
                         </h2>
-                        <Link
-                            href="/categories/relaxation"
-                            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                        <QuickBreathing />
+                        <nav
+                            aria-label={t("home.quickBreathing.moreLabel")}
+                            className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border/70 pt-4 text-sm"
                         >
-                            {t("buttons.viewAll")}
-                            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                        </Link>
-                    </div>
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-                        {games.filter(g => g.categories.includes('relaxation')).map(game => (
+                            <span className="text-muted-foreground">{t("home.quickBreathing.moreLabel")}</span>
+                            {games.filter(g => g.categories.includes('relaxation')).map(game => (
+                                <Link
+                                    key={game.id}
+                                    href={`/games/${game.slug}`}
+                                    className="font-medium underline-offset-4 hover:text-primary hover:underline"
+                                >
+                                    {t(`games.${getIdKey(game.id)}.title`)}
+                                </Link>
+                            ))}
                             <Link
-                                key={game.id}
-                                href={`/games/${game.slug}`}
-                                className="group flex items-center justify-between gap-3 rounded-2xl border border-border bg-secondary/20 px-5 py-4 transition-colors hover:bg-secondary/40"
+                                href="/categories/relaxation"
+                                className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
                             >
-                                <span className="font-semibold">{t(`games.${getIdKey(game.id)}.title`)}</span>
-                                <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                                {t("buttons.viewAll")}
+                                <ArrowRight className="h-4 w-4" aria-hidden="true" />
                             </Link>
-                        ))}
+                        </nav>
                     </div>
                 </section>
 

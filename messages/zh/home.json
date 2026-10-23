@@ -19,7 +19,24 @@
       "refreshAriaLabel": "换一组推荐游戏"
     },
     "springFestivalSpecial": "春节专区",
-    "breathingZone": "呼吸练习与放松",
+    "quickBreathing": {
+      "title": "花 1 分钟呼吸放松",
+      "method": "箱式呼吸 · 4-4-4-4",
+      "intro": "吸气、屏息、呼气、屏息，各 4 秒。3 轮不到 1 分钟，坐在工位上就能做。",
+      "start": "开始 3 轮呼吸",
+      "stop": "停止",
+      "round": "第 {current} / {total} 轮",
+      "phases": {
+        "inhale": "吸气",
+        "holdIn": "屏息",
+        "exhale": "呼气",
+        "holdOut": "屏息"
+      },
+      "doneTitle": "做得好。",
+      "doneHint": "想多练一会儿？试试下面的呼吸练习。",
+      "again": "再来一次",
+      "moreLabel": "更多呼吸练习："
+    },
     "forFun": "轻松玩一玩",
     "latestPosts": "最新文章",
     "featuredResources": {

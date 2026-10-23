@@ -19,7 +19,24 @@
       "refreshAriaLabel": "Show another set of games"
     },
     "springFestivalSpecial": "Spring Festival Special",
-    "breathingZone": "Breathing Exercises and Relaxation",
+    "quickBreathing": {
+      "title": "Take a 1-minute breathing break",
+      "method": "Box breathing · 4-4-4-4",
+      "intro": "Breathe in, hold, breathe out, and hold for 4 seconds each. Three rounds take under a minute and work well at your desk.",
+      "start": "Start 3 calm breaths",
+      "stop": "Stop",
+      "round": "Round {current} of {total}",
+      "phases": {
+        "inhale": "Breathe in",
+        "holdIn": "Hold",
+        "exhale": "Breathe out",
+        "holdOut": "Hold"
+      },
+      "doneTitle": "Nice work.",
+      "doneHint": "Want a longer session? Try one of the breathing exercises below.",
+      "again": "Do it again",
+      "moreLabel": "More breathing exercises:"
+    },
     "forFun": "Just for Fun",
     "latestPosts": "Latest Posts",
     "featuredResources": {
