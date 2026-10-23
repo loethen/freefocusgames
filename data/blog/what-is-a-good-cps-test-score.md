@@ -1,6 +1,7 @@
 ---
 title: "What Is a Good CPS Test Score? Click Speed Benchmarks and Tips (2026)"
 date: "2026-03-13"
+metaDescription: "A good 5-second CPS score is about 7 to 9 clicks per second. See beginner, average, good, and fast CPS benchmarks for 1s, 5s, and 10s click speed tests."
 excerpt: "What counts as a good CPS test score? Learn normal, fast, and advanced click speed benchmarks for 1s, 5s, and 10s modes, plus practical tips to improve your mouse click speed safely."
 coverImage: "/games/cps-test.png"
 keywords: "good cps test score, cps test, click speed test, mouse click speed test, clicks per second, what is a good cps, 5 second cps test, improve click speed, mouse clicking test, cps benchmark"

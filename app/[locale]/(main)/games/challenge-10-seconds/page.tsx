@@ -44,6 +44,10 @@ export default function Challenge10SecondsPage({ params }: { params: Promise<{ l
             answer: t('faq.what.answer'),
         },
         {
+            question: t('faq.names.question'),
+            answer: t('faq.names.answer'),
+        },
+        {
             question: t('faq.trick.question'),
             answer: t('faq.trick.answer'),
         },

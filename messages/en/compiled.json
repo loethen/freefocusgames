@@ -6,10 +6,10 @@
       "description": "Play this 10 second timer challenge game online. Start the timer, stop at exactly 10.0000 seconds, and see how close your internal clock can get.",
       "metadata": {
         "title": "10 Second Challenge Online: Stop the Timer at 10s",
-        "description": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, compare your score, and learn how to win.",
+        "description": "Play the 10 second timer challenge online, also known as the stop the timer or time stop game. Stop at exactly 10.0000 seconds, compare your score, and learn how to win.",
         "keywords": "10 second challenge online, 10 second challenge, 10 seconds challenge, ten second challenge, 10 sec challenge, 10 second timer challenge game, stop the timer at exactly 10 seconds, stop at 10 seconds game, time stop game, time stop challenge game, 10 second challenge timer, 10 second challenge machine, how to win 10 second challenge, 10 seconds game",
         "ogTitle": "10 Second Challenge Online: Stop the Timer at 10s",
-        "ogDescription": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, compare your score, and learn how to win."
+        "ogDescription": "Play the 10 second timer challenge online, also known as the stop the timer or time stop game. Stop at exactly 10.0000 seconds, compare your score, and learn how to win."
       },
       "howToPlay": {
         "description": "The rules are simple, but perfection is hard: this time stop game is a timer challenge where your goal is to stop as close to 10.0000 seconds as possible.",
@@ -44,6 +44,10 @@
         "what": {
           "question": "What is the 10 second challenge game?",
           "answer": "The 10 second challenge, sometimes searched as the 10 sec challenge, is a timer game where you start a stopwatch and try to stop it at exactly 10.0000 seconds. The closer you stop to 10 seconds, the better your score."
+        },
+        "names": {
+          "question": "Is this the same as the stop the timer game or time stop game?",
+          "answer": "Yes. Stop the timer game, time stop game, timer challenge, and stop at 10 seconds game are all names for the same idea: start a timer and stop it as close to exactly 10 seconds as you can."
         },
         "trick": {
           "question": "How do you win the 10 second challenge?",
@@ -400,11 +404,11 @@
       "subtitle": "Free Online 1s, 5s, and 10s Mouse Click Speed Test",
       "description": "Curious how fast you can click? Use this free online CPS test to measure your click speed, mouse clicking rhythm, and burst clicking power across 1s, 3s, 5s, and 10s modes.",
       "metadata": {
-        "title": "CPS Test – Free Mouse Click Speed Test Online",
-        "description": "Use this free CPS test to measure clicks per second, mouse click speed, and burst clicking in 1s, 3s, 5s, or 10s modes.",
+        "title": "CPS Test Online: Mouse Click Speed Test & CPS Game",
+        "description": "Free CPS test and click speed game. Measure clicks per second in 1s, 3s, 5s, or 10s modes and compare your mouse click speed with typical scores.",
         "keywords": "cps test, cps test website, click speed test, mouse click speed test, clicks per second test, mouse clicking test, jitter click test, click speed test free, gamer clicking test",
-        "ogTitle": "CPS Test – Free Mouse Click Speed Test Online",
-        "ogDescription": "Measure clicks per second, mouse click speed, and burst clicking in 1s, 3s, 5s, or 10s modes."
+        "ogTitle": "CPS Test Online: Mouse Click Speed Test & CPS Game",
+        "ogDescription": "Free CPS test and click speed game. Measure clicks per second in 1s, 3s, 5s, or 10s modes and compare your mouse click speed with typical scores."
       },
       "howToPlay": {
         "description": "CPS Test measures how fast you can click in a given time. It's simple:",
@@ -615,8 +619,8 @@
         "item3": "Schulte Table (5 min)"
       }
     },
-    "metaTitle": "Free Brain Training Games Online | Focus & Memory",
-    "metaDescription": "Play free brain training games online for focus, memory, reaction time, visual attention, and mental flexibility. No download or sign-up required.",
+    "metaTitle": "Free Brain Games Online: Focus, Memory & Concentration",
+    "metaDescription": "Play free brain games online for focus, concentration, memory, reaction time, and attention. Every game runs in your browser with no download or sign-up.",
     "metaKeywords": "free brain training games online, focus games, memory games, reaction time games, visual attention games, working memory games, concentration games, cognitive games",
     "ogTitle": "Free Brain Training Games Online",
     "ogDescription": "Explore free browser games for focus, memory, reaction time, visual attention, and mental flexibility.",
@@ -631,10 +635,10 @@
       },
       "watchDemo": "Watch Demo",
       "demo": "Demo",
-      "metaTitle": "Free Schulte Table Online: Visual Search Practice",
-      "metaDescription": "Use this free Schulte Table online to practice timed visual search. Find 1–25 in order, track mistakes and completion time, and compare repeat attempts.",
+      "metaTitle": "Schulte Table Online: Free Focus Game & Visual Search Test",
+      "metaDescription": "Play a free Schulte Table game online. Find 1–25 in order, track mistakes and completion time, and compare repeat attempts to practice visual search.",
       "metaKeywords": "schulte table online, free schulte table, schulte grid, visual search task, attention practice, number search game, timed focus exercise",
-      "ogTitle": "Free Schulte Table Online: Visual Search Practice",
+      "ogTitle": "Schulte Table Online: Free Focus Game & Visual Search Test",
       "ogDescription": "Find 1–25 in order, track completion time and mistakes, and compare repeated attempts in this free visual-search task.",
       "science": {
         "title": "What the Schulte Table Measures",
@@ -2759,10 +2763,10 @@
       "subtitle": "A clean online spacebar speed test built for short keyboard tapping rounds, quick score checks, and low-friction replay",
       "description": "Test how many times you can hit the space bar in 5, 10, or 30 seconds. This free online spacebar clicker works as a quick keyboard speed test with clean visuals, local best scores, and mobile tap support.",
       "metadata": {
-        "title": "Space Bar Clicker Test: Free Spacebar Speed Test Online",
-        "description": "Try this free online space bar clicker test to measure how fast you can hit the space bar in short timed rounds. Compare your tapping speed across 5, 10, and 30 seconds.",
+        "title": "Spacebar Clicker Test: Space Bar Speed & CPS Test",
+        "description": "Free space bar clicker test. See how many times you can hit the spacebar in 5, 10, or 30 seconds and check your spacebar CPS and tapping rhythm.",
         "keywords": "space bar clicker test, spacebar clicker, space bar clicker, spacebar click test, space bar click test, spacebar speed test, spacebar cps test, space bar counter, keyboard speed test",
-        "ogTitle": "Spacebar Clicker Test: Free Spacebar Speed Test Online",
+        "ogTitle": "Spacebar Clicker Test: Space Bar Speed & CPS Test",
         "ogDescription": "Measure your spacebar speed in 5, 10, or 30 seconds with this clean online keyboard tapping test."
       },
       "preview": {

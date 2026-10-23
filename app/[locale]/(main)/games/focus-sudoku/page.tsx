@@ -86,6 +86,7 @@ export default async function FocusSudokuPage({ params }: { params: Promise<{ lo
                     icon: <span className="text-2xl">🔍</span>
                 }
             ]}
+            relatedGames={["schulte-table", "digit-span-test", "pomodoro-timer"]}
         />
     );
 }
