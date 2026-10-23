@@ -1423,7 +1423,7 @@
       "science": {
         "title": "The Corsi Block-Tapping Test and Spatial Memory",
         "description": "The Corsi block-tapping test, also called the Corsi block tapping task, asks you to remember a sequence of block locations. Forward recall repeats the presented order; backward recall reverses it. This sequence memory game adapts those ideas to a regular 3×3 grid, with a 3-step challenge start and one mistake ending the run.",
-        "blogArticleTitle": "How to Improve Working Memory",
+        "blogArticleTitle": "Read the Working Memory Guide",
         "authorityLinks": {
           "workingMemory": "A science-backed guide to how working memory supports learning and focus",
           "shortTermMemory": "Practical strategies for improving short-term memory through training",
@@ -3112,12 +3112,12 @@
   },
   "blog": {
     "title": "Blog",
-    "description": "Discover the latest insights about focus, concentration techniques and updates from our team.",
+    "description": "Short guides that go with our games and tests: what your score means, how each test works, and how to read screening results.",
     "readMore": "Read more",
     "currentArticle": "Current Article",
     "meta": {
       "title": "Blog",
-      "description": "Discover in-depth articles and expert insights about focus, concentration, cognitive enhancement techniques, and brain training strategies for optimal performance."
+      "description": "Guides to our free games and tests: score benchmarks, how each test works, and how to read ADHD screening results."
     },
     "previousPost": "Previous Post",
     "nextPost": "Next Post",
@@ -3126,8 +3126,20 @@
       "description": "Experience the game mechanics firsthand with our step-by-step interactive tutorial. This hands-on approach is the fastest way to understand how dual n-back works.",
       "buttonText": "Start Interactive Tutorial"
     },
-    "guidesPrompt": "Want a structured start?",
-    "guidesLink": "Read the Working Memory Training Guide"
+    "topics": {
+      "reaction": "Reaction speed",
+      "memory": "Memory",
+      "attention": "Attention",
+      "adhd": "ADHD screening"
+    },
+    "guideBadge": "Guide",
+    "guideDescription": "How working memory works, what training studies show, and practical ways to support memory and attention.",
+    "toolCard": {
+      "tryGame": "Try the game",
+      "takeTest": "Take the screener",
+      "play": "Play",
+      "start": "Start"
+    }
   },
   "buttons": {
     "startPlaying": "Start Training for Free",

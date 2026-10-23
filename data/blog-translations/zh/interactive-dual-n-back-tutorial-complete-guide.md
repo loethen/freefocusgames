@@ -7,6 +7,8 @@ keywords: "交互式双重n-back教程, 双重n-back实操训练, 手把手双�
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "memory"
+tool: "/games/dual-n-back"
 ---
 
 嗨！双重n-back刚开始确实挺让人困惑的，所以我做了这个交互式教程来帮你边玩边学。与其只是读文字，不如直接上手试试，一步步来。

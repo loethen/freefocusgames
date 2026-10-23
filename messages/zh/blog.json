@@ -1,12 +1,12 @@
 {
   "blog": {
     "title": "博客",
-    "description": "发现关于专注力、集中注意力技巧和我们团队的最新动态。",
+    "description": "与游戏和测试配套的简短指南：你的成绩代表什么、每个测试怎么回事，以及如何解读筛查结果。",
     "readMore": "阅读更多",
     "currentArticle": "当前文章",
     "meta": {
       "title": "博客",
-      "description": "探索关于专注力、集中力、认知增强技术和脑力训练策略的深度文章和专家见解，帮助您实现最佳心理表现。"
+      "description": "免费游戏与测试的配套指南：成绩基准、测试原理，以及如何解读 ADHD 筛查结果。"
     },
     "previousPost": "上一篇",
     "nextPost": "下一篇",
@@ -15,7 +15,19 @@
       "description": "通过我们循序渐进的交互式教程亲身体验游戏机制。这种实操方法是理解双重n-back工作原理的最快方式。",
       "buttonText": "开始交互式教程"
     },
-    "guidesPrompt": "想系统地开始？",
-    "guidesLink": "阅读工作记忆训练指南"
+    "topics": {
+      "reaction": "反应速度",
+      "memory": "记忆",
+      "attention": "注意力",
+      "adhd": "ADHD 筛查"
+    },
+    "guideBadge": "指南",
+    "guideDescription": "工作记忆如何运作、训练研究的结论，以及支持记忆力和注意力的实用方法。",
+    "toolCard": {
+      "tryGame": "试试这个游戏",
+      "takeTest": "做一下筛查",
+      "play": "开始玩",
+      "start": "开始"
+    }
   }
 }

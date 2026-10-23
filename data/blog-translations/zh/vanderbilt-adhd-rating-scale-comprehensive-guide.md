@@ -9,6 +9,8 @@ author:
   picture: "/authors/team.png"
 tags: ["儿童ADHD", "ADHD评估", "范德比尔特量表", "心理健康", "ADHD诊断", "儿童心理学", "儿科评估"]
 keywords: ["儿童adhd评估", "范德比尔特adhd评定量表", "儿童adhd诊断", "儿科adhd评估", "范德比尔特adhd诊断评定量表", "儿童注意力缺陷", "adhd症状儿童", "vadprs儿童", "学龄儿童adhd", "儿童adhd筛查"]
+topic: "adhd"
+tool: "/adhd-assessment"
 ---
 
 **范德比尔特ADHD诊断评定量表（VADRS）**是目前最广泛使用且经过临床验证的儿童和青少年注意缺陷多动障碍（ADHD）评估工具之一。该综合评估工具由俄克拉荷马健康科学中心的马克·L·沃尔雷奇博士（Dr. Mark L. Wolraich）开发，彻底改变了医疗专业人士诊断和监测ADHD症状的方式。

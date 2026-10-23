@@ -9,6 +9,8 @@ author:
   picture: "/authors/team.png"
 tags: ["Children ADHD", "ADHD Assessment", "Vanderbilt Scale", "Mental Health", "ADHD Diagnosis", "Child Psychology", "Pediatric Assessment"]
 keywords: ["children adhd assessment", "vanderbilt adhd rating scale", "child adhd diagnosis", "pediatric adhd evaluation", "vanderbilt adhd diagnostic rating scale", "child attention deficit", "adhd symptoms children", "vadprs children", "school age adhd", "children adhd screening"]
+topic: "adhd"
+tool: "/adhd-assessment"
 ---
 
 The **Vanderbilt ADHD Diagnostic Rating Scale (VADRS)** stands as one of the most widely used and clinically validated tools for assessing Attention-Deficit/Hyperactivity Disorder (ADHD) in children and adolescents. Developed by Dr. Mark L. Wolraich at the Oklahoma Health Sciences Center, this comprehensive assessment tool has revolutionized how healthcare professionals diagnose and monitor ADHD symptoms.

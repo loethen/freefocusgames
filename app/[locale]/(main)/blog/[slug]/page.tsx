@@ -11,6 +11,7 @@ import { ShareButton } from '@/components/share-button';
 import { routing } from '@/i18n/routing';
 import { Link } from '@/i18n/navigation';
 import { SITE_BASE_URL } from '@/lib/site-constants';
+import { BlogToolCard } from '@/components/blog-tool-card';
 
 async function getLocalizedPost(slug: string, locale: string) {
   const post = await getBlogPost(slug, locale);
@@ -161,6 +162,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             </div>
           </div>
 
+          {post.tool && (
+            <div className="mb-8">
+              <BlogToolCard href={post.tool} fromPage={`blog/${post.slug}`} linkLocation="blog_tool_card_top" />
+            </div>
+          )}
+
           {post.coverImage && (
             <div className="relative h-[300px] md:h-[400px] mb-8 rounded-lg overflow-hidden">
               <Image
@@ -180,6 +187,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
           <div className="prose prose-lg dark:prose-invert max-w-none post-ul-list">
             <Markdown content={post.content} />
           </div>
+
+          {post.tool && (
+            <div className="mt-12">
+              <BlogToolCard href={post.tool} fromPage={`blog/${post.slug}`} linkLocation="blog_tool_card_bottom" />
+            </div>
+          )}
 
           {post.sources && post.sources.length > 0 && (
             <section

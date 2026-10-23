@@ -8,6 +8,8 @@ keywords: "cps测试, cps测试多少算快, 点击速度测试, 鼠标点击速
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "reaction"
+tool: "/games/cps-test"
 ---
 
 **CPS 测试多少算快，并没有一个放之四海而皆准的数字。真正有参考价值的，是你在固定模式下能否稳定重复同样的成绩。对大多数人来说，5 秒模式最适合作为基准。**

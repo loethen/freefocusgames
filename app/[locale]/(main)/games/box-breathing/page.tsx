@@ -126,8 +126,6 @@ export default function BoxBreathingPage({ params }: { params: Promise<{ locale:
             science={{
                 title: t('science.title'),
                 description: t('science.description'),
-                blogArticleUrl: "/blog/the-science-of-box-breathing-navy-seal-technique",
-                blogArticleTitle: t('science.blogArticleTitle'),
                 authorityLinks: [
                     {
                         title: "NIH: Controlled Breathing Research",

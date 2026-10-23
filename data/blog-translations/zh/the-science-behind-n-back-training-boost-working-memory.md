@@ -7,6 +7,8 @@ keywords: "n-back训练, 工作记忆提升, 双重n-back科学, 认知训练研
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "memory"
+tool: "/games/dual-n-back"
 ---
 
 当认知科学家苏珊娜·雅格（Susanne Jaeggi）在2008年发表她的开创性研究时，她在大脑训练研究领域引发了一场革命。她的团队发现，一个简单而具有挑战性的任务——"双重n-back"——实际上可以提高流体智力，即你推理和解决新问题的能力。但是什么让这种训练如此有效？让我们深入了解N-back训练能够真正提升工作记忆背后的神经科学机理。
@@ -207,7 +209,7 @@ N-back训练有效性的科学证据持续发展，但几个结论是明确的�
 ### [方块记忆挑战](/games/block-memory-challenge)
 通过渐进序列训练强化空间工作记忆，旨在补充你的n-back练习。
 
-### [工作记忆文章](/blog/how-to-improve-working-memory)
+### [工作记忆指南](/working-memory-guide)
 探索我们关于基于认知科学研究的工作记忆改善策略的综合指南。
 
 **今天开始你的科学知情认知训练——你增强的工作记忆在等待！** 🧠🔬 

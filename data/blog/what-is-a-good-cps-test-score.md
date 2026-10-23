@@ -8,6 +8,8 @@ keywords: "good cps test score, cps test, click speed test, mouse click speed te
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "reaction"
+tool: "/games/cps-test"
 ---
 
 **A good CPS score depends on the test mode, your clicking technique, and how consistent you can stay under pressure. If you want a practical benchmark, the 5-second mode is the best place to start.**

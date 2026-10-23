@@ -42,6 +42,8 @@ sources:
     year: 2014
     url: "https://doi.org/10.1371/journal.pone.0094215"
     publisher: "PLOS ONE, 9(4), e94215"
+topic: "reaction"
+tool: "/games/reaction-time"
 ---
 
 **游戏里的反应时间 = 大脑的反应时间 + 设备的延迟。两者都能改善，但最大的收益通常来自：减少延迟、睡够觉，以及针对游戏里的真实场景反复练习。**

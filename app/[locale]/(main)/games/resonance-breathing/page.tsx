@@ -127,8 +127,6 @@ export default function ResonanceBreathingPage({ params }: { params: Promise<{ l
             science={{
                 title: t('science.title'),
                 description: t('science.description'),
-                blogArticleUrl: "/blog/the-science-of-resonance-breathing-vagus-nerve",
-                blogArticleTitle: t('science.blogArticleTitle'),
                 authorityLinks: [
                     {
                         title: "NIH: HRV Biofeedback Study",

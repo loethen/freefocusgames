@@ -10,6 +10,8 @@ keywords: "斯特鲁普效应, 什么是斯特鲁普效应, stroop experiment, s
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "attention"
+tool: "/games/stroop-effect-test"
 ---
 
 当你的大脑遇到冲突信息时会发生什么？答案就在心理学最著名的发现之一：斯特鲁普效应中。这个以心理学家约翰·里德利·斯特鲁普命名的经典色词测试，揭示了我们的大脑如何处理竞争信息，也让我们得以观察注意力、抑制控制和执行功能是如何协同工作的。

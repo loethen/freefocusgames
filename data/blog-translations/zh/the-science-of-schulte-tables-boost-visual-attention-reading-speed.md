@@ -28,6 +28,8 @@ sources:
     year: 1998
     url: "https://pubmed.ncbi.nlm.nih.gov/9849112/"
     publisher: "Psychological Bulletin, 124(3), 372–422"
+topic: "attention"
+tool: "/games/schulte-table"
 ---
 
 舒尔特表格首先是一项**计时视觉搜索任务**：你需要按顺序寻找数字目标，同时记住下一个数字并避免点错。研究可以观察人们完成这类任务时的注意表现和脑活动，多次练习也能显示你在该网格任务上的成绩是否变化。但更广泛的说法证据较弱：网格成绩变快，本身不能证明阅读更快、理解力更好、ADHD 得到治疗，或整体认知能力提升。

@@ -42,6 +42,8 @@ sources:
     year: 2014
     url: "https://doi.org/10.1371/journal.pone.0094215"
     publisher: "PLOS ONE, 9(4), e94215"
+topic: "reaction"
+tool: "/games/reaction-time"
 ---
 
 **Your in-game reaction time is your brain's response time plus your setup's delay. You can improve both, but the biggest gains usually come from removing lag, sleeping enough, and practicing the exact situations your game throws at you.**

@@ -8,6 +8,8 @@ author:
   picture: "/authors/team.png"
 tags: ["儿童ADHD", "范德比尔特量表", "ADHD评估", "ADHD筛查", "儿科评估"]
 keywords: ["vanderbilt量表评分", "范德比尔特adhd评定量表评分", "如何给vanderbilt打分", "vanderbilt adhd rating scale", "vanderbilt adhd assessment", "nichq vanderbilt量表", "教师版vanderbilt评分", "家长版vanderbilt评分", "vanderbilt随访评分", "vanderbilt结果解读"]
+topic: "adhd"
+tool: "/adhd-assessment"
 ---
 
 如果你来查 **Vanderbilt 量表怎么打分**，大概率不是想看一篇很专业的说明书，而是想尽快弄明白几件事：哪些回答算阳性、要数多少题、功能部分怎么看、结果大概代表什么。

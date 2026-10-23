@@ -10,6 +10,8 @@ keywords: "stroop effect, what is the stroop effect, stroop experiment, stroop p
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "attention"
+tool: "/games/stroop-effect-test"
 ---
 
 What happens when your brain encounters conflicting information? The answer lies in one of psychology's most famous discoveries: the Stroop Effect. Named after psychologist John Ridley Stroop, this classic color word test reveals how your mind processes competing information and offers a powerful window into attention, inhibition, and executive control.

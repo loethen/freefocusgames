@@ -7,6 +7,8 @@ author:
   name: 'FreeFocusGames Team'
   picture: "/authors/team.png"
 keywords: '10秒挑战, 挑战10秒免单, 抖音网红游戏, 读秒游戏, 时间感知训练, 专注力训练'
+topic: "reaction"
+tool: "/games/challenge-10-seconds"
 ---
 
 ## 全网挑战：按到10秒就免单

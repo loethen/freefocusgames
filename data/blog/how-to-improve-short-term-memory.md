@@ -7,6 +7,8 @@ keywords: "short term memory, hippocampus repair, improve short term memory, fix
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "memory"
+tool: "/games/free-short-term-memory-test"
 ---
 
 **If you're asking "Why can't I remember anything?" or "How do I fix my poor memory?"** — this comprehensive guide addresses memory problems caused by hippocampus damage and provides evidence-based solutions for memory recovery.

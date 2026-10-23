@@ -35,6 +35,8 @@ function processMarkdownFiles(dir) {
         date: data.date || '',
         ...(data.updatedAt ? { updatedAt: data.updatedAt } : {}),
         ...(data.noindex === true ? { noindex: true } : {}),
+        ...(data.topic ? { topic: data.topic } : {}),
+        ...(data.tool ? { tool: data.tool } : {}),
         excerpt: data.excerpt || '',
         coverImage: data.coverImage,
         keywords: data.keywords || '',
@@ -92,6 +94,8 @@ export interface BlogPost {
   date: string;
   updatedAt?: string;
   noindex?: boolean;
+  topic?: string;
+  tool?: string;
   excerpt: string;
   coverImage?: string;
   keywords?: string;

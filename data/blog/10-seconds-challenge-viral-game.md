@@ -7,6 +7,8 @@ author:
   name: 'FreeFocusGames Team'
   picture: "/authors/team.png"
 keywords: '10 seconds challenge, stopwatch game, viral tiktok game, time perception test, brain games, focus training'
+topic: "reaction"
+tool: "/games/challenge-10-seconds"
 ---
 
 ## The Viral Trend Taking Over Social Media

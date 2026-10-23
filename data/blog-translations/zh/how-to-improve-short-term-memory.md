@@ -7,6 +7,8 @@ keywords: "短期记忆, 短时记忆, 海马体修复, 改善短期记忆, 修�
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "memory"
+tool: "/games/free-short-term-memory-test"
 ---
 
 **如果你在问"为什么我什么都记不住？"或"如何修复我糟糕的记忆？"** — 这份全面指南将解决由海马体损伤引起的记忆问题，并提供基于证据的记忆恢复解决方案。

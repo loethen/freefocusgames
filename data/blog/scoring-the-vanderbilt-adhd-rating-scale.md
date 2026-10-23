@@ -8,6 +8,8 @@ author:
   picture: "/authors/team.png"
 tags: ["Children ADHD", "Vanderbilt Scale", "ADHD Assessment", "ADHD Screening", "Pediatric Assessment"]
 keywords: ["scoring the vanderbilt", "vanderbilt adhd rating scale scoring", "how to score the vanderbilt adhd rating scale", "vanderbilt adhd rating scale", "vanderbilt adhd assessment", "nichq vanderbilt assessment scale", "vanderbilt teacher form scoring", "vanderbilt parent form scoring", "vanderbilt follow up scoring", "vanderbilt adhd interpretation"]
+topic: "adhd"
+tool: "/adhd-assessment"
 ---
 
 If you are trying to understand **scoring the Vanderbilt ADHD Rating Scale**, you probably do not want a dense clinical manual. You want to know: which answers count, how many symptoms matter, what to do with the performance section, and what the result might mean.

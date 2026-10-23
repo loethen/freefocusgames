@@ -28,6 +28,8 @@ sources:
     year: 1998
     url: "https://pubmed.ncbi.nlm.nih.gov/9849112/"
     publisher: "Psychological Bulletin, 124(3), 372–422"
+topic: "attention"
+tool: "/games/schulte-table"
 ---
 
 A Schulte Table is primarily a **timed visual-search task**: you locate numbered targets in order while keeping track of the next target and avoiding mistakes. Research can examine attention and brain activity while people complete this kind of task, and repeated attempts can show whether your performance on the grid changes. The evidence is much weaker for broader claims. A faster grid time does not by itself prove faster reading, better comprehension, treatment of ADHD, or a general cognitive improvement.

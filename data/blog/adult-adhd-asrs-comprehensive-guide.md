@@ -9,6 +9,8 @@ author:
   picture: "/authors/team.png"
 tags: ["Adult ADHD", "ASRS", "Adult ADHD Assessment", "Mental Health", "ADHD Diagnosis", "Adult Psychology", "ADHD Screening"]
 keywords: ["adult adhd assessment", "asrs scale", "adult adhd self report scale", "adult adhd diagnosis", "asrs-v1.1", "who adult adhd", "adult attention deficit", "adhd symptoms adults", "adult adhd screening test", "how to test for adhd in adults", "adult adhd symptoms checklist", "free adult adhd assessment online", "adult adhd evaluation tool", "asrs adhd questionnaire", "adult adhd rating scale", "adhd assessment for adults over 18", "adult attention deficit disorder test", "who asrs screening tool", "adult adhd diagnostic criteria", "signs of adhd in adults", "adult adhd self evaluation", "online adult adhd screening", "adult hyperactivity assessment", "adhd in adults symptoms and treatment", "adult inattention symptoms test", "asrs assessment", "asrs scoring", "asrs v1.1 scoring", "adhd test score meaning"]
+topic: "adhd"
+tool: "/adult-adhd-assessment"
 ---
 
 The **Adult ADHD Self-Report Scale (ASRS-v1.1)** represents the most widely validated and clinically accepted screening instrument for Attention-Deficit/Hyperactivity Disorder (ADHD) in adults worldwide. Developed by the World Health Organization (WHO) in collaboration with leading ADHD researchers, this comprehensive tool has transformed adult ADHD assessment and recognition.

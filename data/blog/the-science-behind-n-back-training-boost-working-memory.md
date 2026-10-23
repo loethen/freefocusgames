@@ -7,6 +7,8 @@ keywords: "n-back training, working memory improvement, dual n-back science, cog
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "memory"
+tool: "/games/dual-n-back"
 ---
 
 When cognitive scientist Susanne Jaeggi published her groundbreaking study in 2008, she sparked a revolution in brain training research. Her team discovered that a simple yet challenging task called "dual n-back" could actually increase fluid intelligence—your ability to reason and solve novel problems. But what makes this training so effective? Let's dive into the fascinating neuroscience behind why N-back training can genuinely boost your working memory.

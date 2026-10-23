@@ -20,6 +20,8 @@ export interface BlogPost {
   date: string;
   updatedAt?: string;
   noindex?: boolean;
+  topic?: string;
+  tool?: string;
   excerpt: string;
   coverImage?: string;
   keywords?: string;

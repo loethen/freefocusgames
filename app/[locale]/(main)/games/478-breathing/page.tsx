@@ -125,8 +125,6 @@ export default function Breathing478Page({ params }: { params: Promise<{ locale:
             science={{
                 title: t('science.title'),
                 description: t('science.description'),
-                blogArticleUrl: "/blog/the-science-of-478-breathing-sleep-anxiety-relief",
-                blogArticleTitle: t('science.blogArticleTitle'),
                 authorityLinks: [
                     {
                         title: "NIH: Extended Exhalation Research",

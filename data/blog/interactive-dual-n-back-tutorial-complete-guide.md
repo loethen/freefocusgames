@@ -7,6 +7,8 @@ keywords: "interactive dual n-back tutorial, dual n-back interactive guide, hand
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"
+topic: "memory"
+tool: "/games/dual-n-back"
 ---
 
 Hey there! Dual n-back can seem pretty confusing at first, so I've put together this interactive tutorial to help you learn by actually playing the game. Instead of just reading about it, you'll get to try it out step by step.

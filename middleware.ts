@@ -14,6 +14,17 @@ const legacyRedirects: Record<string, string> = {
     '/games/free-focus-games': '/games',
     '/blog/the-science-of-stroop-effect-cognitive-control': '/blog/the-science-of-stroop-effect-cognitive-flexibility-training',
     '/blog/how-watching-jim-kwik-memory-video-changed-the-way-i-improve-memory': '/blog/how-to-improve-short-term-memory',
+    // Blog rebuild, 2026-10-23: generic posts removed, overlapping ones folded into guides and game pages.
+    '/blog/how-dopamine-hijacks-focus': '/categories/sustained-attention',
+    '/blog/how-to-improve-focus-and-concentration': '/categories/sustained-attention',
+    '/blog/body-doubling-ultimate-guide-focus-productivity': '/games/pomodoro-timer',
+    '/blog/adhd-self-assessment-with-ai': '/adhd-assessment',
+    '/blog/tech-update-react-svg-fish-frog': '/blog',
+    '/blog/the-science-of-working-memory-how-your-brain-processes-information': '/working-memory-guide',
+    '/blog/how-to-improve-working-memory': '/working-memory-guide',
+    '/blog/the-science-of-478-breathing-sleep-anxiety-relief': '/games/478-breathing',
+    '/blog/the-science-of-box-breathing-navy-seal-technique': '/games/box-breathing',
+    '/blog/the-science-of-resonance-breathing-vagus-nerve': '/games/resonance-breathing',
 };
 
 function getLegacyRedirect(pathname: string) {
