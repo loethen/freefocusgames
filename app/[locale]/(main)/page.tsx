@@ -142,13 +142,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                 {t("home.subtitle")}
                             </p>
                             <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row md:items-start md:justify-start">
-                                <Link href="/games/challenge-10-seconds">
+                                <Link href="/get-started">
                                     <InteractiveHoverButton>
                                         {t("home.ctaButton")}
                                     </InteractiveHoverButton>
                                 </Link>
                                 <Link
-                                    href="/get-started"
+                                    href="/games/challenge-10-seconds"
                                     className="inline-flex items-center gap-1.5 text-base font-medium text-primary underline-offset-4 hover:underline sm:self-center"
                                 >
                                     {t("home.ctaSecondary")}

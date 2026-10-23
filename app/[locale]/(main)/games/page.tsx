@@ -5,7 +5,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import GamesLibraryCard from "@/components/games-library-card";
 import { categories } from "@/data/categories";
-import { getGames, sortGamesByPopularity } from "@/data/games";
+import { getGames } from "@/data/games";
 import { Link } from "@/i18n/navigation";
 import { SITE_BASE_URL } from "@/lib/site-constants";
 import { generateAlternates } from "@/lib/utils";
@@ -29,6 +29,37 @@ export async function generateMetadata(
         alternates: generateAlternates(locale, "games"),
     };
 }
+
+const LIBRARY_ORDER = [
+    "double-decision",
+    "dual-n-back",
+    "schulte-table",
+    "rotating-schulte-table",
+    "reaction-time",
+    "memory-matching-game",
+    "block-memory-challenge",
+    "stroop-effect-test",
+    "focus-reaction-test",
+    "frog-memory-leap",
+    "mahjong-dual-n-back",
+    "counting-boxes",
+    "free-short-term-memory-test",
+    "fish-trace",
+    "larger-number",
+    "focus-sudoku",
+    "cps-test",
+    "spacebar-clicker",
+    "pomodoro-timer",
+    "baby-animal-matching",
+    "resonance-breathing",
+    "box-breathing",
+    "478-breathing",
+    "challenge10Seconds",
+    "sbti-test",
+    "digit-span-test",
+    "trail-making-test",
+    "bamboo-cicada",
+];
 
 const CATEGORY_LINK_IDS = [
     "working-memory",
@@ -78,7 +109,12 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
     setRequestLocale(locale);
     const t = await getTranslations({ locale, namespace: "games" });
     const categoryT = await getTranslations({ locale, namespace: "categories.categoryNames" });
-    const games = sortGamesByPopularity(getGames());
+    const orderById = new Map(LIBRARY_ORDER.map((id, index) => [id, index]));
+    const games = [...getGames()].sort(
+        (a, b) =>
+            (orderById.get(a.id) ?? Number.MAX_SAFE_INTEGER) -
+            (orderById.get(b.id) ?? Number.MAX_SAFE_INTEGER)
+    );
     const categoryById = new Map(categories.map((category) => [category.id, category]));
     const categoryLinks = CATEGORY_LINK_IDS
         .map((id) => categoryById.get(id))

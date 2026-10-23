@@ -26,7 +26,7 @@ function gameTitleKey(id: string) {
   return id.replace(/-([a-z])/g, (_, char: string) => char.toUpperCase()).replace(/-/g, "");
 }
 
-// The game a visitor should land in first; other categories use their most popular game.
+// The game a visitor should land in first; other categories use their first listed game.
 const PRIMARY_GAME_BY_CATEGORY: Record<string, string> = {
   "reaction-time": "reaction-time",
   "working-memory": "dual-n-back",

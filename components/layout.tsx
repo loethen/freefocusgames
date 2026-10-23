@@ -4,7 +4,7 @@ import { Link } from "@/i18n/navigation";
 import { Header } from "./header"
 import { useState, useEffect, useCallback } from "react"
 import { Footer } from "./Footer"
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export function Layout({
     children,
@@ -12,6 +12,7 @@ export function Layout({
     children: React.ReactNode;
 }) {
     const t = useTranslations('common');
+    const locale = useLocale();
     // CSS chooses the initial viewport layout before hydration.
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean | null>(null);
     const [isMobile, setIsMobile] = useState(false);
@@ -84,7 +85,11 @@ export function Layout({
             >
                 <nav className="w-full space-y-1 pl-4 text-sm">
                     <NavItem href="/">{t('home')}</NavItem>
+                    <NavItem href="/categories">{t('categories')}</NavItem>
                     <NavItem href="/games">{t('games')}</NavItem>
+                    {locale === "en" && (
+                        <NavItem href="/career-tests">Career Tests</NavItem>
+                    )}
                     <NavItem href="/tests">{t('tests')}</NavItem>
                     <NavItem href="/blog">{t('learn')}</NavItem>
                     <NavItem href="/about">{t('about')}</NavItem>

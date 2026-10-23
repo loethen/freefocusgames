@@ -106,7 +106,7 @@ export const categories: Category[] = [
   {
     id: "reaction-time",
     name: "Reaction Time",
-    description: "Browse reaction games and reflex games that test and practice how quickly you respond to visual or auditory signals. Quick, consistent reactions matter in sports, gaming, and everyday tasks such as driving.",
+    description: "Games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better and drivers respond quickly to road hazards. Regular training can improve sports performance, enhance safety in emergency situations, and maintain cognitive vitality with aging. Even millisecond improvements can make significant real-world differences.",
     slug: "reaction-time",
     icon: "Zap",
     keywords: [

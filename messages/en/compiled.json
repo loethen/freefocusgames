@@ -6,10 +6,10 @@
       "description": "Play this 10 second timer challenge game online. Start the timer, stop at exactly 10.0000 seconds, and see how close your internal clock can get.",
       "metadata": {
         "title": "10 Second Challenge Online: Stop the Timer at 10s",
-        "description": "Play the 10 second timer challenge online, also known as the stop the timer or time stop game. Stop at exactly 10.0000 seconds, compare your score, and learn how to win.",
+        "description": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, compare your score, and learn how to win.",
         "keywords": "10 second challenge online, 10 second challenge, 10 seconds challenge, ten second challenge, 10 sec challenge, 10 second timer challenge game, stop the timer at exactly 10 seconds, stop at 10 seconds game, time stop game, time stop challenge game, 10 second challenge timer, 10 second challenge machine, how to win 10 second challenge, 10 seconds game",
         "ogTitle": "10 Second Challenge Online: Stop the Timer at 10s",
-        "ogDescription": "Play the 10 second timer challenge online, also known as the stop the timer or time stop game. Stop at exactly 10.0000 seconds, compare your score, and learn how to win."
+        "ogDescription": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, compare your score, and learn how to win."
       },
       "howToPlay": {
         "description": "The rules are simple, but perfection is hard: this time stop game is a timer challenge where your goal is to stop as close to 10.0000 seconds as possible.",
@@ -404,11 +404,11 @@
       "subtitle": "Free Online 1s, 5s, and 10s Mouse Click Speed Test",
       "description": "Curious how fast you can click? Use this free online CPS test to measure your click speed, mouse clicking rhythm, and burst clicking power across 1s, 3s, 5s, and 10s modes.",
       "metadata": {
-        "title": "CPS Test Online: Mouse Click Speed Test & CPS Game",
-        "description": "Free CPS test and click speed game. Measure clicks per second in 1s, 3s, 5s, or 10s modes and compare your mouse click speed with typical scores.",
+        "title": "CPS Test – Free Mouse Click Speed Test Online",
+        "description": "Use this free CPS test to measure clicks per second, mouse click speed, and burst clicking in 1s, 3s, 5s, or 10s modes.",
         "keywords": "cps test, cps test website, click speed test, mouse click speed test, clicks per second test, mouse clicking test, jitter click test, click speed test free, gamer clicking test",
-        "ogTitle": "CPS Test Online: Mouse Click Speed Test & CPS Game",
-        "ogDescription": "Free CPS test and click speed game. Measure clicks per second in 1s, 3s, 5s, or 10s modes and compare your mouse click speed with typical scores."
+        "ogTitle": "CPS Test – Free Mouse Click Speed Test Online",
+        "ogDescription": "Measure clicks per second, mouse click speed, and burst clicking in 1s, 3s, 5s, or 10s modes."
       },
       "howToPlay": {
         "description": "CPS Test measures how fast you can click in a given time. It's simple:",
@@ -635,10 +635,10 @@
       },
       "watchDemo": "Watch Demo",
       "demo": "Demo",
-      "metaTitle": "Schulte Table Online: Free Focus Game & Visual Search Test",
-      "metaDescription": "Play a free Schulte Table game online. Find 1–25 in order, track mistakes and completion time, and compare repeat attempts to practice visual search.",
+      "metaTitle": "Free Schulte Table Online: Visual Search Practice",
+      "metaDescription": "Use this free Schulte Table online to practice timed visual search. Find 1–25 in order, track mistakes and completion time, and compare repeat attempts.",
       "metaKeywords": "schulte table online, free schulte table, schulte grid, visual search task, attention practice, number search game, timed focus exercise",
-      "ogTitle": "Schulte Table Online: Free Focus Game & Visual Search Test",
+      "ogTitle": "Free Schulte Table Online: Visual Search Practice",
       "ogDescription": "Find 1–25 in order, track completion time and mistakes, and compare repeated attempts in this free visual-search task.",
       "science": {
         "title": "What the Schulte Table Measures",
@@ -2763,10 +2763,10 @@
       "subtitle": "A clean online spacebar speed test built for short keyboard tapping rounds, quick score checks, and low-friction replay",
       "description": "Test how many times you can hit the space bar in 5, 10, or 30 seconds. This free online spacebar clicker works as a quick keyboard speed test with clean visuals, local best scores, and mobile tap support.",
       "metadata": {
-        "title": "Spacebar Clicker Test: Space Bar Speed & CPS Test",
-        "description": "Free space bar clicker test. See how many times you can hit the spacebar in 5, 10, or 30 seconds and check your spacebar CPS and tapping rhythm.",
+        "title": "Space Bar Clicker Test: Free Spacebar Speed Test Online",
+        "description": "Try this free online space bar clicker test to measure how fast you can hit the space bar in short timed rounds. Compare your tapping speed across 5, 10, and 30 seconds.",
         "keywords": "space bar clicker test, spacebar clicker, space bar clicker, spacebar click test, space bar click test, spacebar speed test, spacebar cps test, space bar counter, keyboard speed test",
-        "ogTitle": "Spacebar Clicker Test: Space Bar Speed & CPS Test",
+        "ogTitle": "Spacebar Clicker Test: Free Spacebar Speed Test Online",
         "ogDescription": "Measure your spacebar speed in 5, 10, or 30 seconds with this clean online keyboard tapping test."
       },
       "preview": {
@@ -3168,7 +3168,7 @@
       "sustained-attention": "Games that build your ability to maintain focus over extended periods. Enhanced sustained attention helps students stay engaged during long lectures, professionals maintain productivity throughout the workday, and everyone complete tasks without mental wandering.",
       "selective-attention": "Games that improve your ability to focus on relevant information while filtering out distractions. Better selective attention helps students study in noisy environments, professionals concentrate in busy offices, and everyone maintain focus despite interruptions.",
       "divided-attention": "Games that develop your ability to effectively split attention between multiple tasks or stimuli. Enhanced divided attention helps parents monitor children while completing household tasks, professionals handle concurrent responsibilities, and drivers safely navigate while being aware of surroundings.",
-      "reaction-time": "Browse reaction games and reflex games that test and practice how quickly you respond to visual or auditory signals. Quick, consistent reactions matter in sports, gaming, and everyday tasks such as driving.",
+      "reaction-time": "Browse reaction games and reflex games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better and drivers respond quickly to road hazards.",
       "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively.",
       "spatial-memory": "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields.",
       "adhd-games": "Short, clearly structured games that practice working memory, inhibition, and sustained attention, the executive functions often affected by ADHD. These games are not a treatment for ADHD and do not replace professional care, but they offer an easy way to practice focus.",
@@ -3578,7 +3578,7 @@
       "Free to Play",
       "Adults, Kids, and ADHD-Friendly"
     ],
-    "ctaButton": "Play the 10 Second Challenge",
+    "ctaButton": "Start with a Quick Quiz",
     "popularGames": "Popular Games",
     "featuredGames": "Popular Games",
     "latestGames": "Recently Added",
@@ -3655,7 +3655,7 @@
       "ctaNote": "Your feedback helps us improve and reach more people who need better focus tools.",
       "ctaButton": "Leave a Review on Trustpilot"
     },
-    "ctaSecondary": "Not sure what to play? Get 3 picks"
+    "ctaSecondary": "Or play the 10 Second Challenge"
   },
   "legal": {
     "privacy": {
