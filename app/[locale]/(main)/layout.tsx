@@ -123,11 +123,6 @@ export default async function RootLayout({
                             "Free online platform with science-based games to improve focus, memory and concentration for kids, adults, and seniors",
                         keywords:
                             "free focus games, memory games, brain training, concentration games, focus games for kids, memory games for seniors",
-                        potentialAction: {
-                            "@type": "SearchAction",
-                            target: "https://www.freefocusgames.com/search?q={search_term_string}",
-                            "query-input": "required name=search_term_string",
-                        },
                     })}
                 </script>
             </head>

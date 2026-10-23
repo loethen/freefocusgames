@@ -4,6 +4,26 @@ import { NextRequest, NextResponse } from "next/server";
 
 const handleI18nRouting = createMiddleware(routing);
 
+// Old or mistyped URLs that still receive search impressions.
+const legacyRedirects: Record<string, string> = {
+    '/partnerships': '/about',
+    '/challenge-10-seconds': '/games/challenge-10-seconds',
+    '/pomodoro-timer': '/games/pomodoro-timer',
+    '/stroop-effect-test': '/games/stroop-effect-test',
+    '/games/challenge-10s': '/games/challenge-10-seconds',
+    '/games/free-focus-games': '/games',
+    '/blog/the-science-of-stroop-effect-cognitive-control': '/blog/the-science-of-stroop-effect-cognitive-flexibility-training',
+};
+
+function getLegacyRedirect(pathname: string) {
+    const match = pathname.match(/^(\/zh)?(\/.*)$/);
+    if (!match) return null;
+    const [, localePrefix = '', path] = match;
+    const target = legacyRedirects[path]
+        ?? (path.startsWith('/games/games/') ? path.replace(/^\/games\/games\//, '/games/') : null);
+    return target ? localePrefix + target : null;
+}
+
 export default async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
@@ -44,6 +64,18 @@ export default async function middleware(request: NextRequest) {
 
             return NextResponse.redirect(new URL(newPath + searchParams, request.url), 301);
         }
+
+        // English is unprefixed; make the /en alias a permanent redirect
+        // instead of next-intl's default 307.
+        if (firstSegment === 'en') {
+            const newPath = '/' + pathSegments.slice(1).join('/');
+            return NextResponse.redirect(new URL(newPath + request.nextUrl.search, request.url), 301);
+        }
+    }
+
+    const legacyTarget = getLegacyRedirect(pathname);
+    if (legacyTarget) {
+        return NextResponse.redirect(new URL(legacyTarget + request.nextUrl.search, request.url), 301);
     }
 
     // 让next-intl处理其余的路由逻辑

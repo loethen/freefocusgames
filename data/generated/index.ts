@@ -19,6 +19,7 @@ export interface BlogPost {
   metaDescription?: string;
   date: string;
   updatedAt?: string;
+  noindex?: boolean;
   excerpt: string;
   coverImage?: string;
   keywords?: string;

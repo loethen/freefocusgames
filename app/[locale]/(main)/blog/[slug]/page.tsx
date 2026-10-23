@@ -58,6 +58,7 @@ export async function generateMetadata(
       modifiedTime: post.updatedAt || post.date,
     },
     alternates: generateAlternates(locale, `blog/${slug}`, getBlogLocales(slug)),
+    ...(post.noindex ? { robots: { index: false, follow: true } } : {}),
   };
 }
 

@@ -88,7 +88,7 @@ function generateCategoryRoutes(locale: string): MetadataRoute.Sitemap {
 function generateBlogRoutes(locale: string): MetadataRoute.Sitemap {
   const posts = blogData[locale] || []
 
-  return posts.map((post) => ({
+  return posts.filter((post) => !post.noindex).map((post) => ({
     url: generateAlternates(locale, `blog/${post.slug}`).canonical,
     lastModified: post.updatedAt || post.date ? new Date(post.updatedAt || post.date) : undefined,
     changeFrequency: 'monthly' as const,

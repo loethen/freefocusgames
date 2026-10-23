@@ -1,6 +1,7 @@
 ---
 title: "技术更新：重构发光鱼追踪与青蛙记忆跳跃，拥抱纯原生 React 与 SVG"
 date: "2026-03-06"
+noindex: true
 excerpt: "我们最近对平台上两款备受欢迎的认知训练游戏——“发光鱼追踪”和“青蛙记忆跳跃”进行了一次重大的底层技术重构。通过抛弃笨重的传统游戏引擎，全面转向纯 React 和 SVG 架构，我们大幅提升了游戏的加载性能、移动端适配体验以及 SEO 可见度。"
 coverImage: "/games/fish-trace.png"
 author:

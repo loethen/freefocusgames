@@ -1,6 +1,7 @@
 ---
 title: "Technical Update: Rewriting Fish Trace & Frog Memory Leap in Pure React/SVG"
 date: "2026-03-06"
+noindex: true
 excerpt: "We recently completed a major technical overhaul of our popular cognitive games, Glowing Fish Trace and Frog Memory Leap. By moving away from heavy game engines like Phaser to a pure React and SVG architecture, we've drastically improved performance, mobile responsiveness, and SEO discoverability."
 coverImage: "/games/fish-trace.png"
 author:
