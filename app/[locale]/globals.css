@@ -198,3 +198,18 @@
 @media (prefers-reduced-motion: reduce) {
   .tests-rise { animation: none; }
 }
+
+/* Grain banner: colour blobs drift and breathe slowly */
+@keyframes grain-drift-a { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(6%, 8%) scale(1.08); } }
+@keyframes grain-drift-b { 0%, 100% { transform: translate(0, 0) scale(1.04); } 50% { transform: translate(-7%, 6%) scale(0.96); } }
+@keyframes grain-drift-c { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(8%, -6%) scale(1.06); } }
+@keyframes grain-drift-d { 0%, 100% { transform: translate(0, 0) scale(0.98); } 50% { transform: translate(-6%, -7%) scale(1.05); } }
+.grain-blob { will-change: transform; }
+.grain-blob-a { animation: grain-drift-a 22s ease-in-out infinite; }
+.grain-blob-b { animation: grain-drift-b 26s ease-in-out infinite; }
+.grain-blob-c { animation: grain-drift-c 20s ease-in-out infinite; }
+.grain-blob-d { animation: grain-drift-d 28s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .grain-blob { animation: none; }
+}

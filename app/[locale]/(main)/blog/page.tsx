@@ -6,10 +6,15 @@ import type { Metadata } from 'next';
 import { ArrowRight } from 'lucide-react';
 import { Breadcrumb } from '@/components/breadcrumb';
 import LinkClickTracker from '@/components/link-click-tracker';
+import { GrainBanner } from '@/components/grain-banner';
+import { Inter } from 'next/font/google';
 import { generateAlternates } from '@/lib/utils';
 
 export const dynamic = "force-static";
 export const revalidate = false;
+
+// The banner title uses Inter, as in the gradient cover style it follows.
+const inter = Inter({ subsets: ['latin'], weight: '400', display: 'swap' });
 
 // Articles are grouped by the games and tests they go with, not by date.
 const TOPICS = ['reaction', 'memory', 'attention', 'adhd'] as const;
@@ -71,10 +76,12 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
           locale={locale}
         />
 
-        <header className="mt-10 mb-12 text-center">
-          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t('title')}</h1>
-          <p className="mx-auto mt-4 max-w-2xl leading-7 text-muted-foreground">{t('description')}</p>
-        </header>
+        <GrainBanner className="mt-8 mb-12">
+          <header className={`${inter.className} flex min-h-[220px] flex-col items-center justify-center px-6 py-12 text-center sm:min-h-[260px]`}>
+            <h1 className="text-4xl font-normal tracking-tight text-white [text-shadow:0_1px_14px_rgba(90,35,12,0.35)] sm:text-5xl">{t('title')}</h1>
+            <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/90 [text-shadow:0_1px_10px_rgba(90,35,12,0.35)] sm:text-base">{t('description')}</p>
+          </header>
+        </GrainBanner>
 
         <div className="space-y-10">
           {TOPICS.map((topic) => {
