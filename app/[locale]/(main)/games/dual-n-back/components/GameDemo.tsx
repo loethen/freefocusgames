@@ -100,8 +100,7 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
             // 追踪教程开始事件
             analytics.tutorial.start({
                 game_id: 'dual-n-back',
-                total_steps: TUTORIAL_SEQUENCE.length,
-                source: 'game_page'
+                total_steps: TUTORIAL_SEQUENCE.length
             });
         }
     }, [isOpen, resetTutorial]);
@@ -136,17 +135,6 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
 
     // 进入下一步
     const nextStep = useCallback(() => {
-        // 追踪当前步骤完成
-        if (currentStep < TUTORIAL_SEQUENCE.length) {
-            analytics.tutorial.step({
-                game_id: 'dual-n-back',
-                tutorial_step: currentStep + 1,
-                total_steps: TUTORIAL_SEQUENCE.length,
-                correct_responses: correctResponses,
-                total_responses: totalResponses
-            });
-        }
-        
         setUserResponse({ position: false, audio: false });
         setFeedback(null);
         setIsWaitingForUser(false);
@@ -161,8 +149,7 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
                 game_id: 'dual-n-back',
                 duration_ms: duration,
                 correct_responses: correctResponses,
-                total_responses: totalResponses,
-                source: 'game_page'
+                total_responses: totalResponses
             });
             
             onComplete();
@@ -246,22 +233,9 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
     // 处理教程关闭事件
     const handleClose = useCallback((open: boolean) => {
         if (!open && isOpen) {
-            // 如果没有完成教程就关闭，追踪退出事件
-            if (currentStep < TUTORIAL_SEQUENCE.length - 1) {
-                const duration = tutorialStartTime > 0 ? Date.now() - tutorialStartTime : 0;
-                const completionRate = currentStep / (TUTORIAL_SEQUENCE.length - 1) * 100;
-                
-                analytics.tutorial.exit({
-                    game_id: 'dual-n-back',
-                    exit_step: currentStep + 1,
-                    total_steps: TUTORIAL_SEQUENCE.length,
-                    completion_rate: completionRate,
-                    duration_ms: duration
-                });
-            }
             onClose();
         }
-    }, [isOpen, currentStep, tutorialStartTime, onClose]);
+    }, [isOpen, onClose]);
 
     return (
         <Dialog open={isOpen} onOpenChange={handleClose}>

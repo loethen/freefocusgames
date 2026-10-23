@@ -470,7 +470,7 @@ export default function AdhdAssessmentFlow() {
                     analytics.navigation.recommendation({
                       from_page: 'adhd-assessment',
                       to_page: `games/${gameSlug}`,
-                      source: 'adhd_assessment_recommendation',
+                      link_location: 'adhd_assessment_recommendation',
                       game_to: gameSlug
                     });
                   }}

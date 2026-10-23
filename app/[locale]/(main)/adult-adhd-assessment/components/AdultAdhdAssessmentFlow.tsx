@@ -426,7 +426,7 @@ export default function AdultAdhdAssessmentFlow() {
                     analytics.navigation.recommendation({
                       from_page: 'adult-adhd-assessment',
                       to_page: `games/${gameSlug}`,
-                      source: 'adult_adhd_assessment_recommendation',
+                      link_location: 'adult_adhd_assessment_recommendation',
                       game_to: gameSlug
                     });
                   }}

@@ -142,17 +142,8 @@ function useGameSettings() {
 
     // 安全更新设置的方法
     const updateSettings = useCallback((newSettings: GameSettingsType) => {
-        // 追踪设置变化（仅在开发环境或重要变化时）
-        if (typeof window !== 'undefined' && newSettings.selectedNBack !== settings.selectedNBack) {
-            analytics.game.settings({
-                game_id: 'dual-n-back',
-                setting_changed: 'difficulty_level',
-                level: newSettings.selectedNBack
-            });
-        }
-        
         setSettings(newSettings);
-    }, [settings.selectedNBack]);
+    }, []);
 
     return { settings, updateSettings };
 }
@@ -945,11 +936,11 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
                                             onClick={() => {
                                                 analytics.navigation.recommendation({
                                                     game_from: 'dual-n-back',
-                                                    game_to: 'stroop-test',
+                                                    game_to: 'stroop-effect-test',
                                                     from_page: '/games/dual-n-back',
-                                                    to_page: '/games/stroop-test'
+                                                    to_page: '/games/stroop-effect-test'
                                                 });
-                                                window.location.href = '/games/stroop-test';
+                                                window.location.href = '/games/stroop-effect-test';
                                             }}
                                         >
                                             {t('stroopTest')}
@@ -987,10 +978,7 @@ export default function GameComponent({ t: propT }: GameComponentProps) {
             <GameDemo
                 isOpen={showTutorial}
                 onClose={() => setShowTutorial(false)}
-                onComplete={() => {
-                    // 教程完成后可以添加GA4事件追踪
-                    analytics.engagement.pageTime('/games/dual-n-back/tutorial', 30000);
-                }}
+                onComplete={() => {}}
             />
         </div>
     );

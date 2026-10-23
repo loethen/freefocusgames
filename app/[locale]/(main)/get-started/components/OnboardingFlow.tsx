@@ -212,7 +212,7 @@ export default function OnboardingFlow() {
         onClickCapture={() => analytics.navigation.recommendation({
           from_page: 'get-started',
           to_page: `games/${game.slug}`,
-          source: 'assessment_recommendation',
+          link_location: 'assessment_recommendation',
           game_to: game.slug,
         })}
       >
