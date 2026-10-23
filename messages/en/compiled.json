@@ -3348,6 +3348,12 @@
       "brain-games-for-kids": "Playful attention practice for kids",
       "relaxation": "Guided breathing for a calm break",
       "personality-tests": "Fun, shareable personality quizzes"
+    },
+    "guide": {
+      "title": "Choosing where to start",
+      "grouping": "Categories group games by the main skill they practice. Many games train more than one skill, so the same game can appear in several categories.",
+      "start": "New here? Try <reaction>Reaction Time</reaction> for quick rounds you can repeat, or <memory>Working Memory</memory> for a steadier challenge. Want something calmer? The <relax>Relaxation</relax> collection has guided breathing exercises.",
+      "picker": "Still not sure? <picker>Answer one question</picker> and get three games to try."
     }
   },
   "common": {

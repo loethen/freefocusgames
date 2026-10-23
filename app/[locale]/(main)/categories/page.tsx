@@ -15,6 +15,8 @@ export const revalidate = false;
 // Curated collections are listed apart from the core cognitive skills.
 const COLLECTION_IDS = ["adhd-games", "brain-games-for-kids", "relaxation", "personality-tests"];
 
+const guideLinkClass = "font-medium text-foreground underline underline-offset-4 hover:text-primary";
+
 // 使用动态生成元数据替代静态元数据
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -123,6 +125,25 @@ export default async function CategoriesPage({
         <ul className="grid grid-cols-1 gap-3 rounded-[2rem] bg-muted/50 p-3 sm:grid-cols-2 lg:grid-cols-4">
           {collections.map((category) => renderTile(category, true))}
         </ul>
+      </section>
+
+      <section aria-labelledby="guide-title" className="mx-auto mt-16 max-w-2xl space-y-3 text-sm leading-7 text-muted-foreground">
+        <h2 id="guide-title" className="text-base font-semibold text-foreground">
+          {t('guide.title')}
+        </h2>
+        <p>{t('guide.grouping')}</p>
+        <p>
+          {t.rich('guide.start', {
+            reaction: (chunks) => <Link href="/categories/reaction-time" className={guideLinkClass}>{chunks}</Link>,
+            memory: (chunks) => <Link href="/categories/working-memory" className={guideLinkClass}>{chunks}</Link>,
+            relax: (chunks) => <Link href="/categories/relaxation" className={guideLinkClass}>{chunks}</Link>,
+          })}
+        </p>
+        <p>
+          {t.rich('guide.picker', {
+            picker: (chunks) => <Link href="/get-started" className={guideLinkClass}>{chunks}</Link>,
+          })}
+        </p>
       </section>
     </div>
   );

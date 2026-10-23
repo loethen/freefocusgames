@@ -3345,6 +3345,12 @@
       "brain-games-for-kids": "适合孩子的趣味注意力练习",
       "relaxation": "跟着引导呼吸，放松一下",
       "personality-tests": "好玩、可分享的人格测验"
+    },
+    "guide": {
+      "title": "从哪里开始",
+      "grouping": "分类按游戏主要练习的能力来划分。很多游戏同时练习几种能力，所以同一个游戏可能出现在多个分类里。",
+      "start": "第一次来？可以先试试<reaction>反应速度</reaction>，每轮很短、可以反复玩；想要更有挑战的，可以选<memory>工作记忆</memory>。想放松一下？<relax>放松</relax>合集里有引导式呼吸练习。",
+      "picker": "还是拿不定主意？<picker>回答一个问题</picker>，获得 3 个推荐游戏。"
     }
   },
   "common": {
