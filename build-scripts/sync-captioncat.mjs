@@ -1,6 +1,7 @@
 // Brings the CaptionCat footer cat over from the extension repository:
 //   public/captioncat/cat.js, cat.css   the extension's controller and renderer, bundled
 //   public/captioncat/assets/characters the character artwork, as the extension ships it
+//   public/captioncat/icon-48.png       the extension icon, used next to CaptionCat links
 // The extension lives next to this repository by default; set CAPTIONCAT to point elsewhere.
 // The output is committed, so building and deploying do not need the extension repository.
 import { build } from 'esbuild';
@@ -14,6 +15,7 @@ const out = resolve(root, 'public/captioncat');
 
 await rm(out, { recursive: true, force: true });
 await cp(resolve(source, 'extension/assets/characters'), resolve(out, 'assets/characters'), { recursive: true });
+await cp(resolve(source, 'extension/icons/48.png'), resolve(out, 'icon-48.png'));
 
 await build({
   entryPoints: { cat: resolve(root, 'build-scripts/captioncat/footer-cat.js') },

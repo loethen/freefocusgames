@@ -85,9 +85,7 @@
       "customSession": "自定义训练"
     },
     "captionCat": {
-      "bubble": "一个免费的 Chrome 扩展，让一只像素猫住在 YouTube 字幕上，陪你听长播客和讲座。",
-      "cta": "去看看 CaptionCat",
-      "label": "CaptionCat：住在 YouTube 字幕上的像素猫（在新标签页打开）"
+      "label": "CaptionCat：住在 YouTube 字幕上的像素猫，在“关于”页面了解更多"
     }
   }
 }

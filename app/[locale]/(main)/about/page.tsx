@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import { Button } from '@/components/ui/button';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
@@ -49,11 +50,18 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
             <p className="handwriting-text">{t('content.paragraph1')}</p>
             <p className="handwriting-text">{t('content.paragraph2')}</p>
             <p className="handwriting-text">{t('content.paragraph3')}</p>
-            <div className="handwriting-text space-y-1">
+            <div id="captioncat" className="handwriting-text scroll-mt-24 space-y-1">
               <p>
                 {t.rich('otherProject.intro', {
                   website: (chunks) => (
-                    <a href={captionCatUrl} className="underline underline-offset-4 hover:text-muted-foreground">
+                    <a href={captionCatUrl} className="inline-flex items-baseline gap-1.5 underline underline-offset-4 hover:text-muted-foreground">
+                      <Image
+                        src="/captioncat/icon-48.png"
+                        alt=""
+                        width={20}
+                        height={20}
+                        className="self-center [image-rendering:pixelated]"
+                      />
                       {chunks}
                     </a>
                   ),

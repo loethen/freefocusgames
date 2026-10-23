@@ -12,7 +12,7 @@ export function Footer() {
   const t = useTranslations('common');
 
   return (
-    <footer className="text-center text-sm mt-12 pb-8">
+    <footer className="mx-auto mt-12 max-w-4xl pb-8 text-center text-sm">
       <CaptionCatFooterCat />
       <div className="flex items-center justify-center space-x-4 flex-wrap text-muted-foreground/60">
         <span>2026</span>
