@@ -1,20 +1,32 @@
 'use client';
 
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { getGame, Game } from "@/data/games";
 import { useTranslations } from "next-intl";
 import {
     ArrowRight,
+    Grid3x3,
+    Orbit,
+    Palette,
     Play,
-    TrendingUp
+    TrendingUp,
+    Zap,
+    type LucideIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { GameCategoryLabel, GameCover } from "@/components/game-card";
+import { GameCategoryLabel } from "@/components/game-card";
 
 
-// One featured game beside a 2x2 grid of popular games
+// One featured game with its cover, beside a quiet list of popular games.
+// The list uses matching line icons instead of covers, whose mixed art styles clash at small sizes.
 const FEATURED_GAME_ID = 'double-decision';
-const SECONDARY_GAME_IDS = ['rotating-schulte-table', 'dual-n-back', 'reaction-time', 'stroop-effect-test'];
+const POPULAR_GAMES: { id: string; icon: LucideIcon }[] = [
+    { id: 'rotating-schulte-table', icon: Orbit },
+    { id: 'dual-n-back', icon: Grid3x3 },
+    { id: 'reaction-time', icon: Zap },
+    { id: 'stroop-effect-test', icon: Palette },
+];
 
 export default function FeaturedBentoGrid() {
     const t = useTranslations("home");
@@ -22,7 +34,9 @@ export default function FeaturedBentoGrid() {
     const buttonsT = useTranslations("buttons");
 
     const featuredGame = getGame(FEATURED_GAME_ID);
-    const secondaryGames = SECONDARY_GAME_IDS.map(id => getGame(id)).filter((g): g is Game => !!g);
+    const popularGames = POPULAR_GAMES
+        .map(({ id, icon }) => ({ game: getGame(id), icon }))
+        .filter((item): item is { game: Game; icon: LucideIcon } => !!item.game);
 
     if (!featuredGame) return null;
 
@@ -47,53 +61,67 @@ export default function FeaturedBentoGrid() {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-[1.15fr_1fr]">
+            <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-[1.35fr_1fr]">
                 <Link
                     href={`/games/${featuredGame.slug}`}
                     className="group flex flex-col overflow-hidden rounded-[2rem] border border-border bg-card transition-colors hover:border-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                    <span className="relative block aspect-[16/9] overflow-hidden bg-muted/60 lg:aspect-auto lg:flex-1 lg:min-h-[240px]">
-                        <GameCover game={featuredGame} title={featuredTitle} sizes="(max-width: 1023px) 92vw, 50vw" />
-                    </span>
-                    <span className="flex flex-col gap-2 p-5 sm:p-6">
+                    {featuredGame.coverImage && (
+                        <span className="relative block aspect-video overflow-hidden bg-muted/60">
+                            <Image
+                                src={featuredGame.coverImage}
+                                alt=""
+                                fill
+                                sizes="(max-width: 1023px) 92vw, 55vw"
+                                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none"
+                            />
+                        </span>
+                    )}
+                    <span className="flex flex-1 flex-col gap-2 p-5 sm:p-7">
                         <GameCategoryLabel game={featuredGame} />
                         <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">{featuredTitle}</h3>
-                        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                        <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
                             {featuredDescription}
                         </p>
-                        <span className="mt-2 inline-flex h-10 w-fit items-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity group-hover:opacity-90">
+                        <span className="mt-auto inline-flex h-10 w-fit items-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity group-hover:opacity-90">
                             <Play className="mr-2 h-4 w-4" fill="currentColor" aria-hidden="true" />
                             {buttonsT('start')}
                         </span>
                     </span>
                 </Link>
 
-                <div className="grid grid-cols-2 gap-4 sm:gap-5">
-                    {secondaryGames.map((game) => (
-                        <GameBentoTile key={game.id} game={game} />
+                <ul className="flex flex-col divide-y divide-border overflow-hidden rounded-[2rem] border border-border bg-card">
+                    {popularGames.map(({ game, icon }) => (
+                        <li key={game.id} className="flex flex-1">
+                            <PopularGameRow game={game} icon={icon} />
+                        </li>
                     ))}
-                </div>
+                </ul>
             </div>
         </div>
     );
 }
 
-function GameBentoTile({ game }: { game: Game }) {
+function PopularGameRow({ game, icon: Icon }: { game: Game; icon: LucideIcon }) {
     const gamesT = useTranslations("games");
-    const title = gamesT(`${getGameIdKey(game.id)}.title`);
+    const idKey = getGameIdKey(game.id);
 
     return (
         <Link
             href={`/games/${game.slug}`}
-            className="group flex flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card transition-colors hover:border-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="group flex w-full items-center gap-4 px-5 py-4 transition-colors hover:bg-muted/40 focus-visible:bg-muted/40 focus-visible:outline-none sm:px-6"
         >
-            <span className="relative block aspect-[4/3] overflow-hidden bg-muted/60 lg:aspect-auto lg:min-h-[120px] lg:flex-1">
-                <GameCover game={game} title={title} sizes="(max-width: 1023px) 46vw, 22vw" />
+            <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-muted/70 text-foreground/70 transition-colors group-hover:text-foreground">
+                <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
             </span>
-            <span className="flex flex-col gap-1 p-3 sm:p-4">
-                <GameCategoryLabel game={game} />
-                <h3 className="line-clamp-1 text-sm font-semibold tracking-tight sm:text-base">{title}</h3>
+            <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                <h3 className="truncate text-base font-semibold tracking-tight">{gamesT(`${idKey}.title`)}</h3>
+                <span className="line-clamp-1 text-sm text-muted-foreground">{gamesT(`${idKey}.description`)}</span>
             </span>
+            <ArrowRight
+                aria-hidden="true"
+                className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
+            />
         </Link>
     );
 }
