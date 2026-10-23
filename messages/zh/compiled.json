@@ -3419,8 +3419,7 @@
       "correctResponses": "正确反应",
       "standardMode": "标准双模式",
       "customSession": "自定义训练"
-    },
-    "learn": "学习"
+    }
   },
   "getStarted": {
     "meta": {

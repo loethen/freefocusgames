@@ -91,8 +91,7 @@ export function Layout({
                         <NavItem href="/career-tests">Career Tests</NavItem>
                     )}
                     <NavItem href="/tests">{t('tests')}</NavItem>
-                    <NavItem href="/blog">{t('learn')}</NavItem>
-                    <NavItem href="/about">{t('about')}</NavItem>
+                    <NavItem href="/blog">{t('blog')}</NavItem>
                 </nav>
             </div>
 
