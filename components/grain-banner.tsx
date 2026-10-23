@@ -13,6 +13,7 @@ const DAMPING = 2 * DAMPING_RATIO * Math.sqrt(STIFFNESS); // unit mass
 
 const BLOB_SHIFT = 36; // px the blobs move toward the cursor at the edge
 const PATTERN_SHIFT = 10; // px the pattern moves the other way
+const GRAIN_CONTRAST = 64; // spread of the grain around mid grey, out of 255
 
 // Sky grey to rust red, neighbours on the colour wheel.
 const BLOBS = [
@@ -45,8 +46,9 @@ function useGrain(ref: RefObject<HTMLDivElement | null>) {
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
         const image = ctx.createImageData(128, 128);
+        // Low-contrast grain around mid grey, so overlay adds texture without speckle.
         for (let i = 0; i < image.data.length; i += 4) {
-            const v = Math.random() * 255;
+            const v = 128 + (Math.random() - 0.5) * GRAIN_CONTRAST;
             image.data[i] = image.data[i + 1] = image.data[i + 2] = v;
             image.data[i + 3] = 255;
         }
@@ -178,7 +180,7 @@ export function GrainBanner({ children, className }: { children: ReactNode; clas
                     }}
                 />
 
-                <div ref={grainRef} className="absolute inset-0 opacity-40 mix-blend-overlay" />
+                <div ref={grainRef} className="absolute inset-0 opacity-25 mix-blend-overlay" />
             </div>
 
             {children}
