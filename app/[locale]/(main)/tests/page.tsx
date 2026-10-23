@@ -4,9 +4,31 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
-import { Button } from '@/components/ui/button';
-import { Brain, Clock, Target } from 'lucide-react';
+import LinkClickTracker from '@/components/link-click-tracker';
+import { ArrowRight, Baby, BriefcaseBusiness, Hash, ListChecks, Route, UserRound, Zap, type LucideIcon } from 'lucide-react';
 import { use } from 'react';
+
+interface TestItem {
+  id: string;
+  href: string;
+  icon: LucideIcon;
+}
+
+const COGNITIVE_TESTS: TestItem[] = [
+  { id: 'trailMaking', href: '/games/trail-making-test', icon: Route },
+  { id: 'digitSpan', href: '/games/digit-span-test', icon: Hash },
+  { id: 'shortTermMemory', href: '/games/free-short-term-memory-test', icon: ListChecks },
+  { id: 'reactionTime', href: '/games/reaction-time', icon: Zap },
+];
+
+const ADHD_TESTS: TestItem[] = [
+  { id: 'childAdhd', href: '/adhd-assessment', icon: Baby },
+  { id: 'adultAdhd', href: '/adult-adhd-assessment', icon: UserRound },
+];
+
+const CAREER_TESTS: TestItem[] = [
+  { id: 'career', href: '/career-tests', icon: BriefcaseBusiness },
+];
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -31,110 +53,65 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
   const { locale } = use(params);
   setRequestLocale(locale);
   const t = useTranslations('tests');
-  const common = useTranslations('common');
 
-  const tests = [
-    { id: 'trail-making-test', href: '/games/trail-making-test', icon: <Target className="w-8 h-8" />, title: locale === 'zh' ? '连线测试' : 'Trail Making Test', description: locale === 'zh' ? '连接数字与字母，分别记录 A/B 用时与错误数。' : 'Connect numbers and letters, with separate time and errors for Parts A and B.', duration: locale === 'zh' ? '按部分计时' : 'Timed by part', color: 'from-neutral-600 to-neutral-700' },
-    { id: 'digit-span-test', href: '/games/digit-span-test', icon: <Brain className="w-8 h-8" />, title: locale === 'zh' ? '数字广度测试' : 'Digit Span Test', description: locale === 'zh' ? '正背与倒背数字回忆，提供试次回顾。' : 'Forward and backward digit recall with a review of each attempt.', duration: locale === 'zh' ? '输入不限时' : 'Untimed input', color: 'from-neutral-600 to-neutral-700' },
-    {
-      id: 'cognitive-assessment',
-      href: '/get-started',
-      icon: <Brain className="w-8 h-8" />,
-      title: t('cognitive.title'),
-      description: t('cognitive.description'),
-      duration: t('cognitive.duration'),
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      id: 'adhd-assessment',
-      href: '/adhd-assessment',
-      icon: <Target className="w-8 h-8" />,
-      title: t('adhd.title'),
-      description: t('adhd.description'),
-      duration: t('adhd.duration'),
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      id: 'adult-adhd-assessment',
-      href: '/adult-adhd-assessment',
-      icon: <Clock className="w-8 h-8" />,
-      title: t('adultAdhd.title'),
-      description: t('adultAdhd.description'),
-      duration: t('adultAdhd.duration'),
-      color: 'from-green-500 to-emerald-500'
-    },
-    ...(locale === 'en'
-      ? [{
-        id: 'career-tests',
-        href: '/career-tests',
-        icon: <Clock className="w-8 h-8" />,
-        title: t('career.title'),
-        description: t('career.description'),
-        duration: t('career.duration'),
-        color: 'from-amber-500 to-orange-500'
-      }]
-      : [])
+  const sections = [
+    { id: 'cognitive', items: COGNITIVE_TESTS },
+    { id: 'adhd', items: ADHD_TESTS, note: t('screeningNote') },
+    // Career tests are English-only.
+    ...(locale === 'en' ? [{ id: 'career', items: CAREER_TESTS }] : []),
   ];
 
   return (
-    <div className="container max-w-6xl mx-auto py-8 px-4">
-      <Breadcrumbs
-        items={[
-          { label: t("title") }
-        ]}
-      />
+    <LinkClickTracker fromPage="tests" className="mx-auto max-w-4xl px-0 py-8">
+      <Breadcrumbs items={[{ label: t('title') }]} />
 
-      <div className="mt-8">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">{t('title')}</h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {t('subtitle')}
-          </p>
-        </div>
+      <header className="mx-auto mt-10 mb-12 max-w-2xl text-center">
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t('title')}</h1>
+        <p className="mt-4 leading-7 text-muted-foreground">{t('subtitle')}</p>
+      </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {tests.map((test) => (
-            <div
-              key={test.id}
-              className="relative group bg-gradient-to-br from-background to-muted/30 border border-border rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-            >
-              <div className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${test.color} opacity-10 rounded-full -mr-8 -mt-8 blur-xl`}></div>
-
-              <div className={`mb-4 p-3 rounded-lg bg-gradient-to-br ${test.color} w-fit`}>
-                <div className="text-white">
-                  {test.icon}
-                </div>
-              </div>
-
-              <h3 className="text-xl font-semibold mb-3">
-                {test.title}
-              </h3>
-
-              <p className="text-muted-foreground mb-4 text-sm leading-relaxed">
-                {test.description}
-              </p>
-
-              <div className="flex items-center justify-between">
-                <span className="text-xs text-muted-foreground bg-muted px-2 py-1 rounded">
-                  {test.duration}
-                </span>
-                <Link href={test.href}>
-                  <Button size="sm" className="bg-gradient-to-r from-primary to-primary/80">
-                    {common('startTest')}
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="bg-muted/50 rounded-xl p-8 text-center">
-          <h2 className="text-2xl font-semibold mb-4">{t('whyTest.title')}</h2>
-          <p className="text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            {t('whyTest.description')}
-          </p>
-        </div>
+      <div className="space-y-10">
+        {sections.map((section) => (
+          <section key={section.id} aria-labelledby={`tests-${section.id}`} data-link-location={`tests_${section.id}`}>
+            <h2 id={`tests-${section.id}`} className="mb-4 text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">
+              {t(`sections.${section.id}`)}
+            </h2>
+            <ul className="flex flex-col gap-1 rounded-[2rem] bg-muted/50 p-2">
+              {section.items.map(({ id, href, icon: Icon }) => (
+                <li key={id}>
+                  <Link
+                    href={href}
+                    className="group flex items-center gap-4 rounded-2xl px-4 py-3.5 transition-colors hover:bg-background/80 focus-visible:bg-background/80 focus-visible:outline-none sm:px-5"
+                  >
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-background text-foreground/70 shadow-sm transition-colors group-hover:text-foreground">
+                      <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
+                    </span>
+                    <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                      <h3 className="text-base font-semibold tracking-tight">{t(`items.${id}.title`)}</h3>
+                      <span className="line-clamp-2 text-sm text-muted-foreground">{t(`items.${id}.description`)}</span>
+                    </span>
+                    <span className="hidden shrink-0 text-xs text-muted-foreground sm:block">{t(`items.${id}.meta`)}</span>
+                    <ArrowRight
+                      aria-hidden="true"
+                      className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
+                    />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            {section.note && (
+              <p className="mt-3 px-2 text-xs leading-5 text-muted-foreground">{section.note}</p>
+            )}
+          </section>
+        ))}
       </div>
-    </div>
+
+      <p className="mt-14 text-center text-sm text-muted-foreground" data-link-location="tests_game_picker">
+        {t('pickerPrompt')}{' '}
+        <Link href="/get-started" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
+          {t('pickerLink')}
+        </Link>
+      </p>
+    </LinkClickTracker>
   );
 }

@@ -4029,29 +4029,55 @@
   },
   "tests": {
     "metaTitle": "免费认知与ADHD评估测试",
-    "metaDescription": "免费进行快速认知评估测试：儿童成人ADHD评估、工作记忆测试、注意力评估、专注力测试。基于科学结果获得个性化大脑训练建议，提升认知能力。",
+    "metaDescription": "免费在线认知测试与 ADHD 筛查：连线测试、数字广度、短期记忆、反应时间，以及儿童和成人 ADHD 问卷。",
     "metaKeywords": "认知评估测试, 免费ADHD测试, 工作记忆测试, 注意力测试, 认知能力评估, 大脑测试, 儿童ADHD筛查, 成人ADHD测试, 认知能力检测, 心理测评, 专注力评估, 注意力集中测试, 执行功能测试, 在线认知筛查, 大脑功能评估, 记忆力测试, 思维能力测试",
     "title": "评估测试",
-    "subtitle": "通过我们基于科学设计的评估测试，发现您的认知优势和改进空间。",
-    "cognitive": {
-      "title": "不知道玩什么？",
-      "description": "选一个目标，可选做 30 秒小测，获得 3 个推荐游戏。",
-      "duration": "约 30 秒"
+    "subtitle": "免费在线的记忆、注意力测试与 ADHD 筛查。结果仅供练习和自我了解，不能作为诊断。",
+    "sections": {
+      "cognitive": "认知测试",
+      "adhd": "ADHD 筛查",
+      "career": "职业测试练习"
     },
-    "adhd": {
-      "title": "儿童ADHD评估",
-      "description": "专为6-17岁儿童设计的ADHD症状筛查问卷，基于临床诊断标准。",
-      "duration": "5-10分钟"
+    "items": {
+      "trailMaking": {
+        "title": "连线测试",
+        "description": "按顺序连接数字与字母，A、B 两部分分别记录用时与错误数。",
+        "meta": "A/B 两部分"
+      },
+      "digitSpan": {
+        "title": "数字广度测试",
+        "description": "正背或倒背数字，并回顾每次作答。",
+        "meta": "正背与倒背"
+      },
+      "shortTermMemory": {
+        "title": "短期记忆测试",
+        "description": "记住一组常见物品，然后尽量全部回忆出来。",
+        "meta": "词语回忆"
+      },
+      "reactionTime": {
+        "title": "反应时间测试",
+        "description": "以毫秒测量你对视觉信号的反应速度。",
+        "meta": "5 轮"
+      },
+      "childAdhd": {
+        "title": "儿童 ADHD 筛查",
+        "description": "基于范德比尔特 ADHD 评定量表的家长问卷，适用于 6–12 岁儿童。",
+        "meta": "家长问卷"
+      },
+      "adultAdhd": {
+        "title": "成人 ADHD 筛查",
+        "description": "成人 ADHD 自我报告量表（ASRS v1.1），给出 A 部分与总分结果。",
+        "meta": "18 道题"
+      },
+      "career": {
+        "title": "职业测试练习",
+        "description": "正式求职测评前，练习 911 调度员打字和 CritiCall 类测试。",
+        "meta": "2 项测试"
+      }
     },
-    "adultAdhd": {
-      "title": "成人ADHD评估",
-      "description": "全面筛查成人ADHD症状，帮助识别日常生活中的注意力和执行功能挑战。",
-      "duration": "5-10分钟"
-    },
-    "whyTest": {
-      "title": "为什么要做这些测试？",
-      "description": "我们的评估测试由认知科学家设计，为您的心理能力提供准确的见解。利用测试结果选择最适合您需求的大脑训练游戏，并跟踪您的认知改进进度。"
-    }
+    "screeningNote": "这些问卷只是筛查工具，只有专业人员才能诊断 ADHD。",
+    "pickerPrompt": "想找游戏玩？",
+    "pickerLink": "获取 3 个推荐游戏"
   },
   "typesOfGames": {
     "title": "不同的训练方式",

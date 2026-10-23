@@ -1,33 +1,54 @@
 {
   "tests": {
     "metaTitle": "Free Cognitive & ADHD Assessment Tests Online",
-    "metaDescription": "Take free quick cognitive assessment tests: ADHD evaluations for children and adults, working memory tests, attention assessments. Get personalized brain training recommendations based on scientific results.",
+    "metaDescription": "Take free online cognitive tests and ADHD screeners: Trail Making, Digit Span, short-term memory, reaction time, and child and adult ADHD questionnaires.",
     "metaKeywords": "cognitive assessment test, free ADHD test, working memory assessment, attention test, cognitive evaluation, brain assessment, ADHD screening children, adult ADHD test, cognitive abilities test, mental performance evaluation, focus assessment, concentration test, executive function test, cognitive screening online, brain function assessment",
     "title": "Assessment Tests",
-    "subtitle": "Discover your cognitive strengths and areas for improvement with our scientifically-designed assessment tests.",
-    "cognitive": {
-      "title": "Not Sure What to Play?",
-      "description": "Pick a goal, take an optional 30-second check, and get three games to try next.",
-      "duration": "About 30 seconds"
+    "subtitle": "Free online tests for memory, attention, and ADHD screening. Use the results for practice and self-reflection, not as a diagnosis.",
+    "sections": {
+      "cognitive": "Cognitive tests",
+      "adhd": "ADHD screening",
+      "career": "Career practice"
     },
-    "adhd": {
-      "title": "Children's ADHD Assessment",
-      "description": "Screening questionnaire designed to help identify ADHD symptoms in children aged 6-17. Based on clinical diagnostic criteria.",
-      "duration": "5-10 minutes"
+    "items": {
+      "trailMaking": {
+        "title": "Trail Making Test",
+        "description": "Connect numbers and letters in order, with separate time and errors for Parts A and B.",
+        "meta": "Parts A and B"
+      },
+      "digitSpan": {
+        "title": "Digit Span Test",
+        "description": "Recall digits forward or backward and review each attempt.",
+        "meta": "Forward and backward"
+      },
+      "shortTermMemory": {
+        "title": "Short-Term Memory Test",
+        "description": "Memorize a set of everyday items, then recall as many as you can.",
+        "meta": "Word recall"
+      },
+      "reactionTime": {
+        "title": "Reaction Time Test",
+        "description": "Measure how quickly you respond to a visual signal, in milliseconds.",
+        "meta": "5 rounds"
+      },
+      "childAdhd": {
+        "title": "Children's ADHD Screening",
+        "description": "A parent questionnaire based on the Vanderbilt ADHD Rating Scale for children aged 6–12.",
+        "meta": "Parent questionnaire"
+      },
+      "adultAdhd": {
+        "title": "Adult ADHD Screening",
+        "description": "The Adult ADHD Self-Report Scale (ASRS v1.1), with Part A and total scores.",
+        "meta": "18 questions"
+      },
+      "career": {
+        "title": "Career Practice Tests",
+        "description": "Practice 911 dispatcher typing and CritiCall-style tests before a real job assessment.",
+        "meta": "2 tests"
+      }
     },
-    "adultAdhd": {
-      "title": "Adult ADHD Assessment",
-      "description": "Comprehensive screening for ADHD symptoms in adults. Helps identify attention and executive function challenges in daily life.",
-      "duration": "5-10 minutes"
-    },
-    "whyTest": {
-      "title": "Why Take These Tests?",
-      "description": "Our assessment tests are designed by cognitive scientists to provide accurate insights into your mental abilities. Use the results to choose the most effective brain training games for your needs and track your cognitive improvement over time."
-    },
-    "career": {
-      "title": "Career Practice Tests",
-      "description": "Practice 911 dispatcher typing and CritiCall-style tests before a real job assessment.",
-      "duration": "Varies by test"
-    }
+    "screeningNote": "These questionnaires are screening tools only. Only a qualified professional can diagnose ADHD.",
+    "pickerPrompt": "Looking for a game instead?",
+    "pickerLink": "Get 3 game picks"
   }
 }
