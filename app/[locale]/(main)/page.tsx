@@ -8,7 +8,7 @@ import { getBlogPosts } from "@/lib/blog";
 import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
 import TryYourLuck from "@/components/try-your-luck";
-import QuickBreathing from "@/components/quick-breathing";
+import BreathingGame from "@/app/[locale]/(main)/games/resonance-breathing/components/Game";
 import { LotusIcon } from "@/components/lotus-icon";
 import Image from "next/image";
 import { games } from "@/data/games";
@@ -343,11 +343,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 {/* Breathing break */}
                 <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
                     <div className="rounded-3xl border border-border bg-teal-50/40 p-5 dark:bg-teal-950/10 sm:p-8">
-                        <h2 className="mb-6 flex items-center gap-2 text-2xl font-semibold">
+                        <h2 className="mb-8 flex items-center gap-2 text-2xl font-semibold">
                             <LotusIcon className="h-6 w-6 text-teal-500" aria-hidden="true" />
                             {t("home.quickBreathing.title")}
                         </h2>
-                        <QuickBreathing />
+                        <BreathingGame defaultMode="box" variant="compact" />
                         <nav
                             aria-label={t("home.quickBreathing.moreLabel")}
                             className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border/70 pt-4 text-sm"

@@ -5,6 +5,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import LotusFlower, { BreathingPhase } from './LotusFlower';
 import { useTranslations } from 'next-intl';
 import { Play, Pause, Settings, RotateCcw, Volume2, VolumeX } from 'lucide-react';
+import { analytics } from '@/lib/analytics';
 
 export type BreathingMode = 'resonance' | 'box' | '478' | 'custom';
 
@@ -27,9 +28,12 @@ interface GameSettings extends BreathingPreset {
 
 interface GameProps {
     defaultMode?: BreathingMode;
+    // Compact: a short one-minute session laid out horizontally, without mode tabs, settings or music.
+    variant?: 'full' | 'compact';
 }
 
-export default function Game({ defaultMode = 'resonance' }: GameProps) {
+export default function Game({ defaultMode = 'resonance', variant = 'full' }: GameProps) {
+    const isCompact = variant === 'compact';
     const t = useTranslations('games.resonanceBreathing');
 
     const [mode, setMode] = useState<BreathingMode>(defaultMode);
@@ -37,19 +41,20 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
     const [isRunning, setIsRunning] = useState(false);
     const [cycleCount, setCycleCount] = useState(0);
     const [elapsedTime, setElapsedTime] = useState(0);
-    const [showSettings, setShowSettings] = useState(true);
+    const [showSettings, setShowSettings] = useState(!isCompact);
     const [isMusicEnabled, setIsMusicEnabled] = useState(false);
     const audioRef = useRef<HTMLAudioElement | null>(null);
 
     const getInitialSettings = (m: BreathingMode): GameSettings => {
         const preset = m === 'custom' ? PRESETS.resonance : PRESETS[m];
-        return { ...preset, sessionDuration: 5 };
+        return { ...preset, sessionDuration: isCompact ? 1 : 5 };
     };
 
     const [settings, setSettings] = useState<GameSettings>(getInitialSettings(defaultMode));
 
     // Initialize Audio
     useEffect(() => {
+        if (isCompact) return;
         audioRef.current = new Audio('/sounds/homecoming-tranquilium-main-version-25793-03-28.mp3');
         audioRef.current.loop = true;
         audioRef.current.volume = 0.5;
@@ -60,7 +65,7 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
                 audioRef.current = null;
             }
         };
-    }, []);
+    }, [isCompact]);
 
     // Handle Music Playback
     useEffect(() => {
@@ -153,9 +158,18 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
         return () => clearInterval(interval);
     }, [isRunning, settings.sessionDuration]);
 
+    useEffect(() => {
+        if (isCompact && elapsedTime === settings.sessionDuration * 60) {
+            analytics.game.complete({ game_id: `${mode}-breathing`, mode: 'homepage', duration_ms: elapsedTime * 1000 });
+        }
+    }, [isCompact, elapsedTime, settings.sessionDuration, mode]);
+
     const handleStart = () => {
         setIsRunning(true);
         setPhase('inhale');
+        if (isCompact && elapsedTime === 0) {
+            analytics.game.start({ game_id: `${mode}-breathing`, mode: 'homepage' });
+        }
     };
 
     const handlePause = () => {
@@ -202,6 +216,61 @@ export default function Game({ defaultMode = 'resonance' }: GameProps) {
         { key: '478', label: t('ui.mode478') },
         { key: 'custom', label: t('ui.modeCustom') },
     ];
+
+    if (isCompact) {
+        return (
+            <div className="flex flex-col items-center gap-10 sm:flex-row sm:justify-center sm:gap-14">
+                <div className="pb-7">
+                    <LotusFlower phase={phase} duration={currentPhaseDuration} compact />
+                </div>
+
+                <div className="flex flex-col items-center gap-5 sm:items-start">
+                    <div className="text-xs uppercase tracking-widest text-muted-foreground">
+                        {modeButtons.find(({ key }) => key === mode)?.label} · {settings.inhale}s {settings.holdIn > 0 && `· ${settings.holdIn}s`} · {settings.exhale}s {settings.holdOut > 0 && `· ${settings.holdOut}s`}
+                    </div>
+
+                    <div className="flex gap-10">
+                        <div className="text-center sm:text-left">
+                            <div className="font-mono text-2xl font-light">{cycleCount}</div>
+                            <div className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">{t('ui.cycles')}</div>
+                        </div>
+                        <div className="text-center sm:text-left">
+                            <div className="font-mono text-2xl font-light">{formatTime(elapsedTime)} / {settings.sessionDuration}:00</div>
+                            <div className="mt-1 text-[10px] uppercase tracking-widest text-muted-foreground">{t('ui.elapsed')}</div>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center gap-3">
+                        {!isRunning ? (
+                            <button
+                                onClick={handleStart}
+                                className="flex items-center gap-2 rounded-full bg-foreground px-7 py-2.5 text-sm font-medium tracking-wide text-background shadow-sm transition-opacity hover:opacity-90"
+                            >
+                                <Play className="h-4 w-4" fill="currentColor" />
+                                {t('ui.start')}
+                            </button>
+                        ) : (
+                            <button
+                                onClick={handlePause}
+                                className="flex items-center gap-2 rounded-full border border-foreground px-7 py-2.5 text-sm font-medium tracking-wide"
+                            >
+                                <Pause className="h-4 w-4" fill="currentColor" />
+                                {t('ui.pause')}
+                            </button>
+                        )}
+                        <button
+                            onClick={handleReset}
+                            className="rounded-full p-2.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                            title={t('ui.reset')}
+                            aria-label={t('ui.reset')}
+                        >
+                            <RotateCcw className="h-5 w-5" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-[600px]">

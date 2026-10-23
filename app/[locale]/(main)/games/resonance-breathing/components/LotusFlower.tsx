@@ -8,9 +8,10 @@ export type BreathingPhase = 'idle' | 'inhale' | 'holdIn' | 'exhale' | 'holdOut'
 interface LotusFlowerProps {
     phase: BreathingPhase;
     duration: number;
+    compact?: boolean;
 }
 
-export default function LotusFlower({ phase, duration }: LotusFlowerProps) {
+export default function LotusFlower({ phase, duration, compact = false }: LotusFlowerProps) {
     const isInhale = phase === 'inhale';
     const isExhale = phase === 'exhale';
     const isHoldIn = phase === 'holdIn';
@@ -71,7 +72,7 @@ export default function LotusFlower({ phase, duration }: LotusFlowerProps) {
     };
 
     return (
-        <div className="relative w-80 h-72 md:w-96 md:h-[22rem] flex items-end justify-center">
+        <div className={`relative flex items-end justify-center ${compact ? 'w-52 h-44' : 'w-80 h-72 md:w-96 md:h-[22rem]'}`}>
             <svg
                 width="100%"
                 height="100%"
@@ -149,7 +150,7 @@ export default function LotusFlower({ phase, duration }: LotusFlowerProps) {
 
             {/* Phase text - Minimalist Black/Gray */}
             <motion.div
-                className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.2em] uppercase"
+                className={`absolute left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.2em] uppercase ${compact ? '-bottom-7' : '-bottom-10'}`}
                 animate={{ opacity: isActive ? 1 : 0.4 }}
             >
                 <span className="text-black">
