@@ -25,7 +25,6 @@ export const CATEGORY_DOT: Record<string, string> = {
 
 interface GameCardProps {
     game: Game;
-    variant?: "standard" | "compact";
     isNew?: boolean;
     className?: string;
 }
@@ -84,34 +83,10 @@ export function GameCategoryLabel({ game }: { game: Game }) {
     );
 }
 
-export default function GameCard({ game, variant = "standard", isNew = false, className }: GameCardProps) {
+export default function GameCard({ game, isNew = false, className }: GameCardProps) {
     const t = useTranslations("games");
     const titleKey = gameTitleKey(game.id);
     const title = t(`${titleKey}.title`);
-
-    if (variant === "compact") {
-        return (
-            <Link
-                href={`/games/${game.slug}`}
-                className={cn(
-                    "group flex items-center gap-3 overflow-hidden rounded-2xl border border-border bg-card pr-4 transition-colors hover:border-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-                    className
-                )}
-            >
-                <span className="relative h-16 w-16 shrink-0 overflow-hidden bg-muted/60">
-                    <GameCover game={game} title={title} sizes="64px" />
-                </span>
-                <span className="flex min-w-0 flex-col gap-0.5 py-3">
-                    <GameCategoryLabel game={game} />
-                    <h3 className="truncate text-sm font-semibold text-foreground">{title}</h3>
-                </span>
-                <ArrowRight
-                    aria-hidden="true"
-                    className="ml-auto h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
-                />
-            </Link>
-        );
-    }
 
     return (
         <Link

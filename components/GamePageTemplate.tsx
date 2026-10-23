@@ -335,12 +335,12 @@ export function GamePageTemplate({
                     <h2 className="text-3xl font-bold mb-12 text-center">
                         {gameT("relatedGames")}
                     </h2>
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
                         {relatedGames.map((gameId) => {
                             const game = getGame(gameId);
                             if (!game) return null;
 
-                            return <GameCard key={gameId} game={game} variant="compact" />;
+                            return <GameCard key={gameId} game={game} className="h-full" />;
                         })}
                     </div>
                 </section>
