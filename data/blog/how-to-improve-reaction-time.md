@@ -50,7 +50,7 @@ tool: "/games/reaction-time"
 
 ## Start With a Baseline
 
-Before changing anything, measure where you are. [Take the reaction time test](/games/reaction-time) five times and use your average, not your best run. Most people land somewhere around 200–300 ms in a browser test, and part of that number is your monitor, mouse, and browser rather than your brain.
+Before changing anything, measure where you are. [Take the reaction time test](/games/reaction-time) five times and use your average, not your best run. On our test the median is about 370 ms, and part of that number is your monitor, mouse, and browser rather than your brain. See [what is a good reaction time](/blog/what-is-a-good-reaction-time) for the full benchmarks.
 
 Retest at the same time of day, on the same device, after any change. That is the only way to know whether something actually helped.
 

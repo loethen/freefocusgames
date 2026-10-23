@@ -1,7 +1,19 @@
 {
   "how-to-improve-reaction-time.md": {
     "zh": {
-      "hash": "9c8c697f5c7a178d1bd6f2d6676fe605",
+      "hash": "014aec85a4bc762eb7c860382222c666",
+      "timestamp": "2026-10-23T00:00:00.000Z"
+    }
+  },
+  "what-is-a-good-cps-test-score.md": {
+    "zh": {
+      "hash": "52964696f5e4c604a7183c8671a8f8e9",
+      "timestamp": "2026-10-23T00:00:00.000Z"
+    }
+  },
+  "what-is-a-good-reaction-time.md": {
+    "zh": {
+      "hash": "a707ead9447c1717c1ef3596c1f861d2",
       "timestamp": "2026-10-23T00:00:00.000Z"
     }
   }

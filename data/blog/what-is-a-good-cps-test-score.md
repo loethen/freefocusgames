@@ -1,144 +1,96 @@
 ---
 title: "What Is a Good CPS Test Score? Click Speed Benchmarks and Tips (2026)"
 date: "2026-03-13"
-metaDescription: "A good 5-second CPS score is about 7 to 9 clicks per second. See beginner, average, good, and fast CPS benchmarks for 1s, 5s, and 10s click speed tests."
-excerpt: "What counts as a good CPS test score? Learn normal, fast, and advanced click speed benchmarks for 1s, 5s, and 10s modes, plus practical tips to improve your mouse click speed safely."
+updatedAt: "2026-10-23"
+metaDescription: "What is a good CPS score? In our 5-second test the median is 7.0 clicks per second. 9 CPS beats about 75% of 4,554 players and 11 CPS reaches the top 10%."
+excerpt: "Real 5-second CPS benchmarks from 4,554 players: the median is 7.0 clicks per second, 9 CPS beats about three out of four players, and 11 CPS reaches the top 10%."
 coverImage: "/games/cps-test.png"
-keywords: "good cps test score, cps test, click speed test, mouse click speed test, clicks per second, what is a good cps, 5 second cps test, improve click speed, mouse clicking test, cps benchmark"
+keywords: "good cps test score, cps test, click speed test, mouse click speed test, clicks per second, what is a good cps, 5 second cps test, average cps, improve click speed, cps benchmark"
 author:
   name: "FreeFocusGames Team"
+  type: "Organization"
   picture: "/authors/team.png"
+  url: "/about"
 topic: "reaction"
 tool: "/games/cps-test"
 ---
 
-**A good CPS score depends on the test mode, your clicking technique, and how consistent you can stay under pressure. If you want a practical benchmark, the 5-second mode is the best place to start.**
+**In our 5-second CPS test, the typical player clicks 7.0 times per second. Reaching 9 CPS beats about three out of four players, and 11 CPS puts you in the top 10%.**
 
-If you have not tested yourself yet, try our [CPS test](/games/cps-test) first. It is the fastest way to see where your click speed stands today.
+These numbers come from 4,554 people who finished the 5-second mode of our [CPS test](/games/cps-test) between March and October 2026. Each player counts once, with their best result.
 
-## What does CPS mean?
+## CPS percentiles (5-second mode)
 
-CPS stands for **clicks per second**. A CPS test measures how many mouse clicks you can produce within a fixed time window, such as 1 second, 5 seconds, or 10 seconds.
+| Percentile | Clicks per second | What it means |
+| --- | --- | --- |
+| Top 1% | 14.4 CPS | Exceptional, usually jitter or butterfly clicking |
+| Top 5% | 12.2 CPS | Very fast |
+| Top 10% | 11.0 CPS | Fast |
+| Top 25% | 8.8 CPS | Above average |
+| Median | 7.0 CPS | Half of players click faster, half slower |
+| Bottom 25% | 5.6 CPS | A little below average |
+| Bottom 10% | 3.8 CPS | Slow, often a first try or a trackpad |
 
-People use CPS tests for different reasons:
+## Where does your score land?
 
-- gamers want to compare click speed for Minecraft, FPS, and rhythm games
-- curious users want to know whether their hand speed is average or fast
-- competitive players use it as a repeatable warmup and benchmark
+| Your CPS | Share of players at or above it |
+| --- | --- |
+| 5 CPS | About 83% |
+| 6 CPS | About 72% |
+| 7 CPS | About 53% |
+| 8 CPS | About 36% |
+| 9 CPS | About 25% |
+| 10 CPS | About 18% |
+| 12 CPS | About 6% |
+| 14 CPS | About 1% |
 
-That is why the term is often searched as **click speed test**, **mouse click speed test**, or **mouse clicking test**.
+So a steady 8 CPS is better than roughly two out of three players, and 10 CPS is better than more than four out of five.
 
 ## What is a good CPS score?
 
-Here is a simple benchmark most users can understand:
+For normal clicking with one finger, these ranges are a fair guide on our 5-second test:
 
-| Mode | Beginner | Average | Good | Fast |
-| --- | --- | --- | --- | --- |
-| 1 second | 4-6 CPS | 6-8 CPS | 8-10 CPS | 10+ CPS |
-| 5 seconds | 4-5 CPS | 5-7 CPS | 7-9 CPS | 9+ CPS |
-| 10 seconds | 4-5 CPS | 5-6.5 CPS | 6.5-8 CPS | 8+ CPS |
+- **Under 5 CPS:** slower than most players. Common on a first try or with a trackpad.
+- **5 to 7 CPS:** the normal range.
+- **7 to 9 CPS:** above average.
+- **9 to 11 CPS:** fast, in the top quarter.
+- **11 CPS and up:** very fast, in the top 10%. Most people at this level use a special technique such as jitter or butterfly clicking.
 
-These ranges are not official lab standards. They are practical consumer benchmarks based on how most online CPS communities compare results.
+## What about the 1-second and 10-second modes?
 
-For most users, a **good 5-second CPS score** is around **7 to 9 CPS**. If you are consistently above that range with clean clicking, you are already faster than the average casual user.
-
-## Why the 5-second CPS test is the best benchmark
-
-The 1-second test measures burst speed, but it can be noisy. A perfect first second does not always reflect your real clicking rhythm.
-
-The 10-second and longer modes test endurance, but they are affected more by fatigue.
-
-The **5-second CPS test** sits in the middle:
-
-- long enough to smooth out lucky bursts
-- short enough to stay focused
-- common enough to compare with other players
-
-That is why many users treat 5 seconds as the default CPS standard.
+Only the 5-second mode records results, so we don't have benchmarks for the other modes. In general, a 1-second burst comes out higher because there's no time to tire, and 10 seconds comes out lower as your hand slows down. The 5-second mode is the best one to compare with other people.
 
 ## What affects your CPS score?
 
-A CPS test is not just raw finger speed. Several things shape your score:
-
-### 1. Clicking technique
-
-Normal clicking, butterfly clicking, and jitter clicking can produce very different results. Some techniques increase speed but are harder to control consistently.
-
-### 2. Mouse switch feel
-
-A light, responsive mouse can make repeated clicking easier than a stiff office mouse.
-
-### 3. Tension and rhythm
-
-Many users slow down because they tense their wrist, shoulder, or forearm. Relaxed rhythm often beats forced speed.
-
-### 4. Test length
-
-A score that looks great at 1 second may drop a lot at 10 seconds if consistency is weak.
-
-### 5. Focus
-
-Short-window clicking is partly a focus task. The moment attention drifts, your rhythm breaks.
+- **Clicking technique.** Regular clicking, jitter clicking (tensing the forearm to vibrate the finger), and butterfly clicking (alternating two fingers) give very different results.
+- **Your mouse.** A light, responsive switch is easier to click quickly than a stiff office mouse. Trackpads are usually much slower.
+- **Tension and rhythm.** A relaxed, steady rhythm often beats forcing every click.
+- **Focus.** Five seconds is short; a moment of hesitation at the start costs a lot.
 
 ## How to improve your click speed safely
 
-If your goal is to improve CPS, focus on repeatable habits rather than chasing one lucky score.
+- **Use the same mode every time.** Stick with the 5-second test so your results are comparable.
+- **Practice in short sets.** Do a few attempts, rest, and repeat. Long sessions lead to sloppy form.
+- **Stay relaxed.** Keep your wrist and shoulder loose.
+- **Track your typical score.** Your usual result matters more than one lucky run.
+- **Stop if it hurts.** Pain is not a training signal. Techniques like jitter clicking put real strain on the forearm.
 
-### Build your baseline first
+## How we calculated these numbers
 
-Use the same mode for a week, ideally the [5-second CPS test](/games/cps-test). That gives you a clean baseline.
-
-### Practice in short sets
-
-Do 5 to 10 attempts, rest briefly, then repeat. Very long sessions can lead to sloppy form and unnecessary hand strain.
-
-### Stay relaxed
-
-Fast clicking comes from efficient motion, not maximum tension. Keep your hand loose and avoid locking your shoulder.
-
-### Compare burst vs consistency
-
-Try both 5-second and 10-second modes. If your 1-second score is high but your 10-second score falls sharply, consistency is the real skill gap.
-
-### Stop if you feel pain
-
-Online CPS tests are fine for short practice, but pain is not a training signal. If your wrist or fingers hurt, stop immediately.
-
-## Is a high CPS score the same as fast reaction time?
-
-Not exactly. CPS measures repeated clicking output. Reaction time measures how quickly you respond to a stimulus.
-
-They overlap a little because both involve coordination and focus, but they are different skills. If you want to train both, pair the [CPS test](/games/cps-test) with a [reaction time test](/games/reaction-time).
-
-## What score should you aim for?
-
-If you are new, aim for steady progress instead of a huge jump:
-
-- below 5 CPS: build rhythm first
-- 5 to 7 CPS: you are in the normal range
-- 7 to 9 CPS: this is a strong score for most users
-- above 9 CPS: clearly fast, especially if repeatable
-
-The most useful goal is not your best-ever attempt. It is your **repeatable score** on a standard mode.
-
-## Conclusion
-
-A good CPS test score is not one magic number. It depends on the mode, your technique, and whether you can repeat the result under the same conditions.
-
-If you want the clearest benchmark, use the **5-second mode** and track your average over multiple attempts. That will tell you more than one lucky burst ever will.
-
-Ready to measure your level? Start with our [free CPS test](/games/cps-test) and compare your score against the 5-second benchmark.
+- **Data:** best 5-second results from 5,153 players on FreeFocusGames, March 13 to October 23, 2026.
+- **Exclusions:** results under 1 CPS (the test was started but barely clicked) and over 16 CPS (rare enough that many are likely auto-clickers). That left 4,554 players.
+- **Limits:** players chose to take the test, use different mice and devices, and each counts with their best score, so this is a practical benchmark for this test, not a scientific population average.
 
 ## FAQ
 
-**What is a good CPS score for 5 seconds?**  
-For most users, 7 to 9 CPS is already a good 5-second score. Above 9 CPS is fast.
+**What is the average CPS?**
+On our 5-second test the median is 7.0 CPS and the mean is 7.3 CPS.
 
-**Is 10 CPS good?**  
-Yes. Reaching 10 CPS consistently is strong, especially in 5-second or 10-second mode.
+**Is 10 CPS good?**
+Yes. Only about 18% of players reach 10 CPS on our 5-second test.
 
-**Which CPS mode is most accurate?**  
-The 5-second CPS test is usually the best balance between burst speed and consistency.
+**Is 8 CPS good?**
+It's above average. About 36% of players reach 8 CPS or more.
 
-**Can I improve CPS without hurting my hand?**  
-Yes, if you practice in short sets, stay relaxed, and stop when you feel discomfort.
+**Is CPS the same as reaction time?**
+No. CPS measures how fast you can repeat a click; reaction time measures how quickly you respond to a signal. See [what is a good reaction time](/blog/what-is-a-good-reaction-time) for those benchmarks.
