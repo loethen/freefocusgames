@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
-import GamesLibraryCard from "@/components/games-library-card";
+import GameCard from "@/components/game-card";
 import { categories } from "@/data/categories";
 import { getGames } from "@/data/games";
 import { Link } from "@/i18n/navigation";
@@ -220,23 +220,9 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3">
-                        {games.map((game) => {
-                            const titleKey = gameTitleKey(game.id);
-                            const primaryCategory = game.categories
-                                .map((categoryId) => categoryById.get(categoryId))
-                                .find(Boolean);
-
-                            return (
-                                <GamesLibraryCard
-                                    key={game.id}
-                                    game={game}
-                                    title={t(`${titleKey}.title`)}
-                                    description={t(`${titleKey}.description`)}
-                                    category={primaryCategory ? categoryT(primaryCategory.slug) : undefined}
-                                    playLabel={t("play")}
-                                />
-                            );
-                        })}
+                        {games.map((game) => (
+                            <GameCard key={game.id} game={game} />
+                        ))}
                     </div>
                 </section>
 

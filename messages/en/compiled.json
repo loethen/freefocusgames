@@ -2758,6 +2758,7 @@
         }
       }
     },
+    "newBadge": "New",
     "spacebarClicker": {
       "title": "Spacebar Clicker Test",
       "subtitle": "A clean online spacebar speed test built for short keyboard tapping rounds, quick score checks, and low-friction replay",

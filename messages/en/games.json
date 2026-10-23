@@ -2259,6 +2259,7 @@
           "description": "Remember where you are in both sequences and what comes next. Keeping track of progress also matters when following a recipe, assembling something or completing a series of instructions."
         }
       }
-    }
+    },
+    "newBadge": "New"
   }
 }

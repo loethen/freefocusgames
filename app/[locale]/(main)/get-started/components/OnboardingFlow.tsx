@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { analytics } from '@/lib/analytics';
-import GamesLibraryCard from '@/components/games-library-card';
+import GameCard from '@/components/game-card';
 import { getGame, getGamesByCategory, type Game } from '@/data/games';
 
 import ReactionTimeTest from './tests/ReactionTimeTest';
@@ -97,13 +97,8 @@ function getPicks(goal: GoalId, level: Level): Game[] {
   return picked.slice(0, PICK_COUNT);
 }
 
-function gameTitleKey(id: string) {
-  return id.replace(/-([a-z])/g, (_, char: string) => char.toUpperCase()).replace(/-/g, '');
-}
-
 export default function OnboardingFlow() {
   const t = useTranslations('getStarted');
-  const gamesT = useTranslations('games');
   const categoryT = useTranslations('categories.categoryNames');
 
   const [goal, setGoal] = useState<GoalId | null>(null);
@@ -216,13 +211,7 @@ export default function OnboardingFlow() {
           game_to: game.slug,
         })}
       >
-        <GamesLibraryCard
-          game={game}
-          title={gamesT(`${gameTitleKey(game.id)}.title`)}
-          description={gamesT(`${gameTitleKey(game.id)}.description`)}
-          category={categoryName}
-          playLabel={gamesT('play')}
-        />
+        <GameCard game={game} className="h-full" />
       </div>
     );
 

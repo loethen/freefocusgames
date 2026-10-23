@@ -434,7 +434,7 @@ function RelatedGamesSection({ t, games }: { t: TFunction, games: Game[] }) {
             </p>
             <div className="grid md:grid-cols-3 gap-8">
                 {games.map((game) => (
-                    <GameCard key={game.id} game={game} preview={game.preview} />
+                    <GameCard key={game.id} game={game} />
                 ))}
             </div>
             
