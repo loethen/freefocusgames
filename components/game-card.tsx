@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 // Small accent per category. Covers share one neutral stage, so colour only
 // appears on this dot and the page stays calm even with many categories.
-const CATEGORY_DOT: Record<string, string> = {
+export const CATEGORY_DOT: Record<string, string> = {
     "working-memory": "#7F77DD",
     "visual-tracking": "#1D9E75",
     "sustained-attention": "#378ADD",

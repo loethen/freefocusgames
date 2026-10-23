@@ -2,18 +2,13 @@
   "categories": {
     "title": "分类",
     "heading": "按训练目标浏览游戏分类",
-    "description": "按工作记忆、反应时间、专注力、成人 ADHD 训练、视觉追踪和放松练习等方向浏览免费脑力训练游戏。先找到目标，再挑适合你的游戏。",
+    "description": "选一个你想练的能力，每个分类都收录了相应的游戏。",
     "metaTitle": "脑力游戏分类：记忆、专注、反应时间与 ADHD",
     "metaDescription": "浏览免费脑力游戏分类，快速找到工作记忆、注意力、反应时间、成人 ADHD 训练、视觉追踪和放松减压等方向的练习。",
     "metaKeywords": "脑力游戏分类, 脑力训练游戏, 记忆力游戏, 专注力游戏, 注意力游戏, 反应时间游戏, 成人ADHD游戏, 工作记忆游戏, 放松练习",
     "ogTitle": "脑力游戏分类：记忆、专注、反应时间与 ADHD",
     "ogDescription": "按训练目标浏览免费脑力游戏分类，快速找到工作记忆、注意力、反应时间、成人 ADHD 和放松练习。",
-    "popularTitle": "热门分类",
-    "popularDescription": "先从大家最常找的几类开始，再往下浏览完整列表。",
-    "allCategoriesTitle": "全部分类",
-    "allCategoriesDescription": "每个分类都会把训练同一类能力的游戏放在一起，方便你更快比较并找到适合自己的练习方式。",
     "gameCount": "{count} 个游戏",
-    "browseCategory": "进入分类",
     "categoryNames": {
       "working-memory": "工作记忆",
       "visual-tracking": "视觉追踪",
@@ -202,6 +197,22 @@
     "startHereDescription": "先通过这些核心{categoryName}页面建立清晰的练习路径，再浏览下面的完整内容。",
     "backToAll": "查看全部分类",
     "playNow": "开始玩{game}",
-    "notSure": "不知道玩什么？获取 3 个推荐"
+    "notSure": "不知道玩什么？获取 3 个推荐",
+    "skillsTitle": "按能力",
+    "collectionsTitle": "专题合集",
+    "categoryTaglines": {
+      "working-memory": "短时间记住并运用信息",
+      "visual-tracking": "用眼睛跟住移动的目标",
+      "sustained-attention": "让专注持续得更久",
+      "selective-attention": "找出重点，忽略干扰",
+      "divided-attention": "同时兼顾两件事",
+      "reaction-time": "反应更快、更稳定",
+      "cognitive-flexibility": "快速切换规则，灵活应变",
+      "spatial-memory": "记住东西在哪里",
+      "adhd-games": "短小、有结构的专注练习",
+      "brain-games-for-kids": "适合孩子的趣味注意力练习",
+      "relaxation": "跟着引导呼吸，放松一下",
+      "personality-tests": "好玩、可分享的人格测验"
+    }
   }
 }

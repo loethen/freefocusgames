@@ -3137,18 +3137,13 @@
   "categories": {
     "title": "Categories",
     "heading": "Browse Brain Training Game Categories",
-    "description": "Explore free brain training games by skill area, including working memory, reaction time, focus, ADHD-friendly practice, and relaxation. Use categories to find the kind of training you actually want to do.",
+    "description": "Pick a skill you want to practice. Each category brings together the games that train it.",
     "metaTitle": "Brain Game Categories: Memory, Focus, Reaction Time & ADHD",
     "metaDescription": "Browse free brain game categories for working memory, attention, reaction time, ADHD-friendly training, visual tracking, and relaxation. Find the right games faster.",
     "metaKeywords": "brain game categories, brain training games, memory games, focus games, attention games, reaction time games, adhd games for adults, working memory games, relaxation exercises",
     "ogTitle": "Brain Game Categories for Memory, Focus, Reaction Time & ADHD",
     "ogDescription": "Explore free brain training game categories and quickly find working memory, attention, reaction time, ADHD-friendly, and relaxation exercises.",
-    "popularTitle": "Popular Categories",
-    "popularDescription": "Start with the categories people are most likely to look for first, then browse the full list below.",
-    "allCategoriesTitle": "All Categories",
-    "allCategoriesDescription": "Each category groups together games that train a related skill, so it is easier to compare options and pick a practice style that fits your goal.",
     "gameCount": "{count} games",
-    "browseCategory": "Browse category",
     "categoryNames": {
       "working-memory": "Working Memory",
       "visual-tracking": "Visual Tracking",
@@ -3337,7 +3332,23 @@
     "startHereDescription": "Use these core {categoryName} pages as a focused path, then browse the full collection below.",
     "backToAll": "See all categories",
     "playNow": "Play {game}",
-    "notSure": "Not sure? Get 3 game picks"
+    "notSure": "Not sure? Get 3 game picks",
+    "skillsTitle": "By skill",
+    "collectionsTitle": "Collections",
+    "categoryTaglines": {
+      "working-memory": "Hold and use information for a moment",
+      "visual-tracking": "Follow moving targets with your eyes",
+      "sustained-attention": "Stay focused for longer stretches",
+      "selective-attention": "Find what matters and ignore the rest",
+      "divided-attention": "Keep track of two things at once",
+      "reaction-time": "Respond faster and more consistently",
+      "cognitive-flexibility": "Switch rules and adapt quickly",
+      "spatial-memory": "Remember where things are",
+      "adhd-games": "Short, structured focus practice",
+      "brain-games-for-kids": "Playful attention practice for kids",
+      "relaxation": "Guided breathing for a calm break",
+      "personality-tests": "Fun, shareable personality quizzes"
+    }
   },
   "common": {
     "home": "Home",
