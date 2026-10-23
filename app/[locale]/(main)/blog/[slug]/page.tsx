@@ -168,18 +168,6 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
             </div>
           )}
 
-          {post.coverImage && (
-            <div className="relative h-[300px] md:h-[400px] mb-8 rounded-lg overflow-hidden">
-              <Image
-                src={post.coverImage}
-                alt={post.title}
-                fill
-                className="object-cover"
-                priority
-              />
-            </div>
-          )}
-
           <div className="mb-8">
             <ShareButton title={post.title} />
           </div>
