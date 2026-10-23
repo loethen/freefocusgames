@@ -5,7 +5,6 @@ import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
 import LinkClickTracker from '@/components/link-click-tracker';
-import { TestsTrailIllustration } from '@/components/tests-trail-illustration';
 import { ArrowRight, Baby, BriefcaseBusiness, Hash, ListChecks, Route, UserRound, Zap, type LucideIcon } from 'lucide-react';
 import { use } from 'react';
 
@@ -70,7 +69,6 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
       <Breadcrumbs items={[{ label: t('title') }]} />
 
       <header className="mx-auto mt-10 mb-12 max-w-2xl text-center">
-        <TestsTrailIllustration className="mx-auto mb-6 h-16 w-auto sm:h-20" />
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t('title')}</h1>
         <p className="mt-4 leading-7 text-muted-foreground">{t('subtitle')}</p>
       </header>
