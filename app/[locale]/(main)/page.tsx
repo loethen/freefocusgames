@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
@@ -20,7 +19,6 @@ import {
     Check,
     Focus,
     Gamepad2,
-    Play,
     ScanEye,
     Timer,
     Wind
@@ -341,83 +339,33 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     <LatestGames />
                 </section>
 
-                {/* Breathing Zone - Bento Layout */}
+                {/* Breathing Zone */}
                 <section className="mb-20 max-w-[1600px] mx-auto px-2 sm:mb-24 sm:px-6">
-                    <div className="mb-6 flex items-center gap-2 sm:mb-8">
-                        <Wind className="h-6 w-6 text-teal-500" />
-                        <h2 className="text-2xl font-semibold">
+                    <div className="mb-5 flex items-center justify-between gap-4">
+                        <h2 className="flex items-center gap-2 text-2xl font-semibold">
+                            <Wind className="h-6 w-6 text-teal-500" aria-hidden="true" />
                             {t("home.breathingZone")}
                         </h2>
+                        <Link
+                            href="/categories/relaxation"
+                            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                        >
+                            {t("buttons.viewAll")}
+                            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                        </Link>
                     </div>
-                    {(() => {
-                        const breathingGames = games.filter(g => g.categories.includes('relaxation'));
-                        const mainGame = breathingGames.find(g => g.id === 'box-breathing') || breathingGames[0];
-                        const sideGames = breathingGames.filter(g => g.id !== mainGame?.id);
-                        if (!mainGame) return null;
-                        return (
-                            <div className="grid grid-cols-1 gap-4 no-ads-inside sm:gap-6 lg:grid-cols-3">
-                                {/* Main Featured Breathing Game */}
-                                <div className="lg:col-span-2 relative group overflow-hidden rounded-3xl bg-gray-50 dark:bg-zinc-900 border border-border transition-all hover:shadow-xl">
-                                    <div className="flex flex-col-reverse md:flex-row h-full">
-                                        <div className="relative z-10 flex flex-1 flex-col justify-center gap-4 bg-white/50 p-5 backdrop-blur-sm dark:bg-black/20 sm:p-8 md:bg-transparent md:backdrop-blur-none">
-                                            <div>
-                                                <h3 className="text-3xl md:text-4xl font-bold mb-3">
-                                                    {t(`games.${getIdKey(mainGame.id)}.title`)}
-                                                </h3>
-                                                <p className="text-muted-foreground text-lg line-clamp-3">
-                                                    {t(`games.${getIdKey(mainGame.id)}.homeDescription`)}
-                                                </p>
-                                            </div>
-                                            <Button asChild size="lg" className="h-12 w-full rounded-full px-8 text-base md:w-auto">
-                                                <Link href={`/games/${mainGame.slug}`}>
-                                                    <Play className="mr-2 h-5 w-5" fill="currentColor" />
-                                                    {t("buttons.start")}
-                                                </Link>
-                                            </Button>
-                                        </div>
-                                        <div className="flex-1 min-h-[250px] md:min-h-[300px] flex items-center justify-center relative">
-                                            <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-emerald-500/10 rounded-full blur-3xl transform scale-75 opacity-50" />
-                                            <div className="relative z-0">
-                                                {mainGame.preview}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Side Breathing Cards */}
-                                <div className="grid h-full grid-rows-2 gap-4 sm:gap-6">
-                                    {sideGames.map(game => (
-                                        <Link
-                                            key={game.id}
-                                            href={`/games/${game.slug}`}
-                                            className="relative group overflow-hidden rounded-3xl bg-secondary/30 border border-border hover:bg-secondary/50 transition-colors min-h-[180px]"
-                                        >
-                                            <div className="absolute inset-0 flex flex-col justify-between p-5 sm:p-6">
-                                                <div className="flex justify-between items-start">
-                                                    <div className="w-12 h-12 rounded-2xl bg-background shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
-                                                        <Wind className="h-6 w-6 text-teal-500" />
-                                                    </div>
-                                                    <div className="opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-2 group-hover:translate-x-0">
-                                                        <div className="bg-background rounded-full p-2 shadow-sm">
-                                                            <ArrowRight className="h-4 w-4" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    <h3 className="font-bold text-lg mb-1 line-clamp-1">
-                                                        {t(`games.${getIdKey(game.id)}.title`)}
-                                                    </h3>
-                                                    <p className="text-sm text-muted-foreground line-clamp-2">
-                                                        {t(`games.${getIdKey(game.id)}.description`)}
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        );
-                    })()}
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+                        {games.filter(g => g.categories.includes('relaxation')).map(game => (
+                            <Link
+                                key={game.id}
+                                href={`/games/${game.slug}`}
+                                className="group flex items-center justify-between gap-3 rounded-2xl border border-border bg-secondary/20 px-5 py-4 transition-colors hover:bg-secondary/40"
+                            >
+                                <span className="font-semibold">{t(`games.${getIdKey(game.id)}.title`)}</span>
+                                <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                            </Link>
+                        ))}
+                    </div>
                 </section>
 
                 {/* For Fun */}
