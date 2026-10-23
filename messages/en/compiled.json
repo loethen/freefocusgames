@@ -3582,7 +3582,14 @@
     "popularGames": "Popular Games",
     "featuredGames": "Popular Games",
     "latestGames": "Recently Added",
+    "tryLuck": {
+      "title": "Try Your Luck",
+      "subtitle": "Not sure what to play? Discover a different fun focus game each time.",
+      "refresh": "Try another set",
+      "refreshAriaLabel": "Show another set of games"
+    },
     "springFestivalSpecial": "Spring Festival Special",
+    "breathingZone": "Breathing Exercises and Relaxation",
     "forFun": "Just for Fun",
     "latestPosts": "Latest Posts",
     "featuredResources": {
@@ -3642,6 +3649,59 @@
     "personalGrowthDesc": "Practice the mental skills behind reading fluency, visual scanning, memory, and reaction speed while keeping sessions short enough to repeat.",
     "dailyPractice": "A few short sessions each week are enough to notice which skills you want to build.",
     "benefitsConclusion": "Start small and stay consistent.",
+    "testimonialsTitle": "How People Use These Games",
+    "testimonials": {
+      "sarah": {
+        "name": "Writers",
+        "username": "Deep focus",
+        "body": "Some people use a short session before writing so it is easier to settle in and stay with the draft."
+      },
+      "mike": {
+        "name": "Students",
+        "username": "Homework warm-up",
+        "body": "A quick game can work as a transition before homework, revision, or any task that needs steady concentration."
+      },
+      "emma": {
+        "name": "Readers",
+        "username": "Visual attention",
+        "body": "Visual search and Schulte-style practice can be a simple way to work on reading flow and attention span."
+      },
+      "sophia": {
+        "name": "Parents",
+        "username": "Short routines",
+        "body": "Parents often use these games as short, structured activities before homework or quiet study time."
+      },
+      "liam": {
+        "name": "Adults with ADHD",
+        "username": "Attention reset",
+        "body": "Short sessions can be useful as an attention reset before work, study, or other tasks that are easy to avoid."
+      },
+      "tom": {
+        "name": "Gamers",
+        "username": "Reaction time",
+        "body": "Reaction and timing games give players a lightweight way to practice visual speed and response control."
+      },
+      "lisa": {
+        "name": "Busy adults",
+        "username": "Quick daily practice",
+        "body": "The sessions are short enough to fit between meetings, after school, or whenever you want a focused mental reset."
+      },
+      "david": {
+        "name": "Athletes and hobbyists",
+        "username": "Visual speed",
+        "body": "Some people use visual attention and reaction drills alongside sports, music, or other skill-based hobbies."
+      },
+      "olivia": {
+        "name": "Homeschool and study plans",
+        "username": "Structured practice",
+        "body": "These games can slot into a weekly routine when you want short practice blocks instead of long training sessions."
+      },
+      "ethan": {
+        "name": "Curious beginners",
+        "username": "Start simple",
+        "body": "Many people start here because they want an easy, low-pressure way to explore focus and memory training."
+      }
+    },
     "metaTitle": "Free Focus Games Online for Adults, Kids & ADHD",
     "metaDescription": "Play free focus games inspired by classic cognitive tasks for attention, working memory, reaction time, and concentration. No download required.",
     "metaKeywords": "focus games, free focus games, focus games online, adhd games online free, attention games, concentration games, memory games, brain training games, reaction time games",
