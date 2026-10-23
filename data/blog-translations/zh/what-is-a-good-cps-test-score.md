@@ -1,6 +1,7 @@
 ---
 title: "CPS测试多少算快？鼠标点击速度标准与提升方法 (2026)"
 date: "2026-03-13"
+metaDescription: "5 秒模式下，7 到 9 次/秒算是不错的 CPS 成绩。查看 1 秒、5 秒和 10 秒点击速度测试中新手、平均、良好和快速的 CPS 基准。"
 excerpt: "CPS测试多少算正常，多少算快？这篇指南整理了 1 秒、5 秒、10 秒模式下的点击速度参考区间，并解释如何安全提升鼠标点击速度与稳定性。"
 coverImage: "/games/cps-test.png"
 keywords: "cps测试, cps测试多少算快, 点击速度测试, 鼠标点击速度测试, 鼠标连点测试, 手速测试, 5秒cps测试, clicks per second, 如何提高cps, cps标准"

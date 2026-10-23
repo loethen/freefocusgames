@@ -1,9 +1,12 @@
 ---
-title: "斯特鲁普效应测试详解：经典 Stroop 实验、色词测试与认知控制"
+title: "什么是斯特鲁普效应？经典 Stroop 实验详解"
+seoTitle: "什么是斯特鲁普效应？经典 Stroop 实验详解"
 date: "2025-08-13"
-excerpt: "了解经典的 Stroop 实验为何会成为心理学里最著名的色词测试之一，为什么 Stroop paradigm 至今仍被广泛使用，以及在线斯特鲁普效应测试如何帮助你训练选择性注意力与认知控制。"
+updatedAt: "2026-10-23"
+metaDescription: "什么是斯特鲁普效应？了解 1935 年 Stroop 实验如何进行、为什么字义与颜色冲突时说出颜色更慢，以及这个效应揭示了注意力的哪些特点。"
+excerpt: "了解经典的 Stroop 实验为何会成为心理学里最著名的色词测试之一，为什么 Stroop paradigm 至今仍被广泛使用，以及在线 Stroop 任务能和不能告诉你哪些关于选择性注意力的信息。"
 coverImage: "/games/stroop-effect.png"
-keywords: "斯特鲁普效应测试, stroop experiment, stroop paradigm, 色词测试, stroop effect, stroop task, 选择性注意力, 认知控制, 抑制控制, 执行功能, 心理学注意力测试, 在线stroop测试"
+keywords: "斯特鲁普效应, 什么是斯特鲁普效应, stroop experiment, stroop paradigm, 色词测试, stroop effect, stroop task, 选择性注意力, 认知控制, 抑制控制, 执行功能, 心理学注意力测试, 在线stroop测试"
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"

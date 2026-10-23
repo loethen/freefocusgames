@@ -1565,7 +1565,7 @@
       "science": {
         "title": "What This Reaction Time Test Measures",
         "description": "A visual reaction time test gives you a simple baseline for how quickly you notice a signal and respond. It is useful for checking consistency, comparing runs over time, and understanding how sleep, focus, fatigue, and device latency affect your score.",
-        "blogArticleTitle": "How to Boost Reaction Time for Gaming: The Ultimate Gamer's Guide (2025)"
+        "blogArticleTitle": "How to Improve Reaction Time for Gaming: What Actually Helps"
       },
       "gameUI": {
         "gameTitle": "Test Your Reaction Time",
@@ -1745,7 +1745,7 @@
       "science": {
         "title": "Why the Stroop Effect Test Works as a Color Word Test",
         "description": "A Stroop effect test is a classic color word test: you must report the ink color while ignoring the word itself. That conflict makes an online Stroop test useful for practicing selective attention, inhibition control, and cognitive flexibility. As you repeat the task, you can compare average reaction time, total test time, and the gap between congruent and incongruent trials.",
-        "blogArticleTitle": "Stroop Effect Test Explained: The Stroop Experiment, Color Word Test, and Cognitive Control",
+        "blogArticleTitle": "What Is the Stroop Effect? The Stroop Experiment Explained",
         "authorityLinks": {
           "neuropsychology": "Stroop test in clinical neuropsychological assessment and cognitive training",
           "executiveFunction": "Executive function and cognitive control research in neuroscience",
@@ -3168,12 +3168,12 @@
       "sustained-attention": "Games that build your ability to maintain focus over extended periods. Enhanced sustained attention helps students stay engaged during long lectures, professionals maintain productivity throughout the workday, and everyone complete tasks without mental wandering.",
       "selective-attention": "Games that improve your ability to focus on relevant information while filtering out distractions. Better selective attention helps students study in noisy environments, professionals concentrate in busy offices, and everyone maintain focus despite interruptions.",
       "divided-attention": "Games that develop your ability to effectively split attention between multiple tasks or stimuli. Enhanced divided attention helps parents monitor children while completing household tasks, professionals handle concurrent responsibilities, and drivers safely navigate while being aware of surroundings.",
-      "reaction-time": "Browse reaction games and reflex games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better, drivers respond quickly to road hazards, and older adults prevent falls.",
+      "reaction-time": "Browse reaction games and reflex games that test and practice how quickly you respond to visual or auditory signals. Quick, consistent reactions matter in sports, gaming, and everyday tasks such as driving.",
       "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively.",
       "spatial-memory": "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields.",
-      "adhd-games": "A curated collection of games scientifically proven to help manage ADHD symptoms. These exercises target working memory, inhibition control, and sustained attention—key executive functions often impaired in ADHD.",
-      "brain-games-for-kids": "Engaging and verifiable brain training games designed specifically for children's cognitive development. These games help improve attention span, follow instructions, and impulse control in a fun, gamified way.",
-      "relaxation": "Games that promote relaxation and stress reduction through guided breathing and mindfulness exercises. These practices stimulate the vagus nerve, improve heart rate variability (HRV), and help the body shift into a calm, restorative state.",
+      "adhd-games": "Short, clearly structured games that practice working memory, inhibition, and sustained attention, the executive functions often affected by ADHD. These games are not a treatment for ADHD and do not replace professional care, but they offer an easy way to practice focus.",
+      "brain-games-for-kids": "Fun brain games for children that practice attention, memory, following instructions, and impulse control in short, game-like rounds. Use them as playful practice alongside schoolwork, not as a replacement for it.",
+      "relaxation": "Guided breathing exercises for relaxation and stress relief. Slow, paced breathing can raise heart rate variability (HRV) while you practice and helps many people feel calmer within a few minutes.",
       "personality-tests": "Shareable, entertainment-first online personality tests and quiz experiences. This category is useful when people are looking for fast, curiosity-driven results such as sbti test, personality test, or mbti-style viral quizzes."
     },
     "keywords": {
@@ -4002,11 +4002,11 @@
     }
   },
   "workingMemoryGuide": {
-    "metaTitle": "The Ultimate Guide to Working Memory: Scientific Training and Cognitive Enhancement",
-    "metaDescription": "Dive deep into the neuroscience of working memory, learn scientifically-validated training methods like Dual N-Back, and get a comprehensive plan to improve memory, attention, and fluid intelligence.",
+    "metaTitle": "Working Memory Guide: How It Works and What Training Can Do",
+    "metaDescription": "Learn how working memory works, what research says about training it with tasks like Dual N-Back, where the evidence is limited, and practical ways to support memory and attention.",
     "metaKeywords": "working memory, cognitive training, dual n-back, schulte table, improve memory, attention training, neuroplasticity, fluid intelligence, cognitive enhancement, brain training",
-    "ogTitle": "The Ultimate Guide to Working Memory: A Complete Cognitive Enhancement Plan from Science to Practice",
-    "ogDescription": "Explore the secrets of working memory, learn training methods backed by breakthrough research from Jaeggi and others, and systematically boost your cognitive abilities through science-based games and lifestyle optimizations.",
+    "ogTitle": "Working Memory Guide: How It Works and What Training Can Do",
+    "ogDescription": "How working memory works, what studies on Dual N-Back and similar training actually show, and practical ways to support memory and attention.",
     "title": "The Ultimate Guide to Working Memory: Scientifically Enhance Your Cognitive Abilities",
     "subtitle": "Based on the latest neuroscience research, this guide provides a complete plan from theoretical foundations to practical exercises to improve your working memory, helping you enhance performance in study, work, and life.",
     "ctaStart": "Start Dual N-Back Training",

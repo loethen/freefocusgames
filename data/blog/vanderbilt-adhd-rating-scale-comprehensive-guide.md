@@ -2,6 +2,7 @@
 title: "The Vanderbilt ADHD Rating Scale: A Comprehensive Guide to Children's ADHD Assessment and Diagnosis"
 excerpt: "Discover everything you need to know about the Vanderbilt ADHD Diagnostic Rating Scale for children's ADHD assessment, from its development history to clinical applications in pediatric diagnosis."
 date: "2025-09-10"
+updatedAt: "2026-10-23"
 coverImage: "/blog/vanderbilt-adhd-scale-cover.png"
 author:
   name: "FreeFocusGames Team"
@@ -202,26 +203,24 @@ The Vanderbilt scale uses a 4-point Likert scale:
 - 2 = Often
 - 3 = Very Often
 
-**ADHD Symptom Scoring:**
-- Inattention: Sum of items 1-9
-- Hyperactivity/Impulsivity: Sum of items 10-18
-- Total ADHD: Sum of all 18 core items
+**How symptoms are counted:**
+The Vanderbilt scales are scored by counting items, not by adding up points. A symptom item counts as positive when it is rated **2 (Often)** or **3 (Very Often)**.
 
-**Comorbidity Screening:**
-- ODD: Sum of oppositional defiant items
-- CD: Sum of conduct disorder items
-- Anxiety/Depression: Sum of internalizing items
+- **Inattention:** count positive items among questions 1-9
+- **Hyperactivity/Impulsivity:** count positive items among questions 10-18
 
-### Clinical Cutoff Scores
+### Screening Thresholds
 
-The original 2003 validation study established evidence-based cutoff scores for clinical interpretation:
-- **ADHD Symptom Subscales**: Scores ≥ 6 for both inattention and hyperactivity/impulsivity suggest clinically significant symptoms
-- **Oppositional Defiant Disorder**: Scores ≥ 4 suggest clinically significant symptoms
-- **Conduct Disorder**: Scores ≥ 3 suggest clinically significant symptoms  
-- **Anxiety/Depression**: Scores ≥ 3 suggest clinically significant symptoms
-- **Functional Impairment**: Performance items rated 4-5 on the 1-5 scale indicate significant impairment
+The AAP/NICHQ scoring instructions use these counts:
+- **Predominantly inattentive pattern:** 6 or more of the 9 inattention items are positive
+- **Predominantly hyperactive/impulsive pattern:** 6 or more of the 9 hyperactivity/impulsivity items are positive
+- **Combined pattern:** both of the above
+- **Oppositional defiant disorder screen (parent form):** 4 or more of the 8 ODD items are positive
+- **Conduct disorder screen (parent form):** 3 or more of the conduct items are positive
+- **Anxiety/depression screen:** 3 or more of the 7 items are positive
+- **Functional impairment:** at least one performance item rated **5**, or at least two rated **4**, on the 1-5 performance scale
 
-**Note:** These cutoff scores were established using the original 4-point frequency scale (0 = never, 1 = occasionally, 2 = often, 3 = very often).
+Symptom counts only support a diagnosis when there is also impairment. For step-by-step examples, see our [Vanderbilt scoring guide](/blog/scoring-the-vanderbilt-adhd-rating-scale).
 
 ## Advantages and Limitations
 
@@ -375,4 +374,3 @@ These evidence-based training tools complement traditional ADHD interventions an
 
 6. **Wolraich, M. L., Bard, D. E., Neas, B., Doffing, M., & Beck, L.** (2013). The psychometric properties of the Vanderbilt ADHD diagnostic teacher rating scale in a community population. *Journal of Abnormal Child Psychology*, 41(2), 327-340.
 
-*Last updated: September 10, 2025*

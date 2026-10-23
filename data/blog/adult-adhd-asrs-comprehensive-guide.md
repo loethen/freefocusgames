@@ -2,6 +2,7 @@
 title: "Adult ADHD ASRS Guide: Scoring, Interpretation, and Screening"
 excerpt: "Learn how ASRS-v1.1 scoring works, what adult ADHD assessment results may mean, and how this WHO screening tool is used for adult ADHD evaluation."
 date: "2025-09-10"
+updatedAt: "2026-10-23"
 coverImage: "/blog/adult-adhd-asrs-cover.png"
 author:
   name: "FreeFocusGames Team"
@@ -12,7 +13,7 @@ keywords: ["adult adhd assessment", "asrs scale", "adult adhd self report scale"
 
 The **Adult ADHD Self-Report Scale (ASRS-v1.1)** represents the most widely validated and clinically accepted screening instrument for Attention-Deficit/Hyperactivity Disorder (ADHD) in adults worldwide. Developed by the World Health Organization (WHO) in collaboration with leading ADHD researchers, this comprehensive tool has transformed adult ADHD assessment and recognition.
 
-With adult ADHD affecting approximately **3.1% of adults globally** according to recent comprehensive meta-analyses, the ASRS-v1.1 provides healthcare professionals and individuals with a scientifically robust method for identifying ADHD symptoms in adults aged 18 and above.
+With persistent adult ADHD estimated at about **2.6% of adults worldwide** in a 2021 global meta-analysis, the ASRS-v1.1 provides healthcare professionals and individuals with a scientifically robust method for identifying ADHD symptoms in adults aged 18 and above.
 
 ## What is the Adult ADHD Self-Report Scale (ASRS-v1.1)?
 
@@ -196,12 +197,11 @@ The ASRS-v1.1 serves multiple clinical functions in adult ADHD assessment:
 
 ### Adult ADHD Worldwide Statistics
 
-Recent comprehensive meta-analyses reveal significant global prevalence of adult ADHD:
+A 2021 global systematic review and meta-analysis estimated:
 
-**Global Prevalence Data (2024):**
-- **Overall adult ADHD prevalence: 3.1%** (95% CI: 2.6-3.6%)
-- Based on analysis of **over 21 million adults** across 57 unique studies
-- Consistent findings across diverse populations and geographical regions
+- **Persistent adult ADHD** (ADHD that began in childhood and continues into adulthood): about **2.58%** of adults
+- **Symptomatic adult ADHD** (adults with clinically significant symptoms, regardless of childhood onset): about **6.76%** of adults
+- Estimates vary widely between countries and study methods
 
 **Citation:** Song, P., Zha, M., Yang, Q., Zhang, Y., Li, X., & Rudan, I. (2021). The prevalence of adult attention-deficit hyperactivity disorder: A global systematic review and meta-analysis. *Journal of Global Health*, 11, 04009. [DOI: 10.7189/jogh.11.04009](https://doi.org/10.7189/jogh.11.04009)
 
@@ -365,7 +365,7 @@ While both tools assess adult ADHD, the ASRS-v1.1 provides WHO standardization a
 
 The Adult ADHD Self-Report Scale (ASRS-v1.1) represents a landmark achievement in adult ADHD assessment, providing healthcare professionals and individuals worldwide with a scientifically validated, efficient, and accessible screening tool. Developed by the World Health Organization and validated across diverse populations, the ASRS-v1.1 has become the global standard for adult ADHD screening.
 
-With adult ADHD affecting over **3% of adults worldwide**, equivalent to millions of individuals, the importance of accurate and accessible screening cannot be overstated. The ASRS-v1.1's unique combination of scientific rigor, clinical utility, and global standardization makes it an invaluable resource in addressing this significant public health need.
+With an estimated 2–7% of adults worldwide living with persistent ADHD or clinically significant ADHD symptoms, the importance of accurate and accessible screening cannot be overstated. The ASRS-v1.1's unique combination of scientific rigor, clinical utility, and global standardization makes it an invaluable resource in addressing this significant public health need.
 
 As our understanding of adult ADHD continues to evolve, the ASRS-v1.1 remains at the forefront of assessment innovation, adapting to new technologies and research developments while maintaining its foundation of scientific excellence. For individuals, families, and healthcare providers navigating adult ADHD recognition and treatment, the ASRS-v1.1 provides a trusted, evidence-based pathway to understanding and addressing attention difficulties in adults.
 
@@ -410,4 +410,3 @@ These evidence-based training tools can be valuable complements to traditional A
 
 7. **Harvard Medical School**. Adult ADHD Self-Report Scale (ASRS-v1.1). Available at: [https://www.hcp.med.harvard.edu/ncs/asrs.php](https://www.hcp.med.harvard.edu/ncs/asrs.php)
 
-*Last updated: September 10, 2025*

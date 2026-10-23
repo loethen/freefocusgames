@@ -1,9 +1,12 @@
 ---
-title: "Stroop Effect Test Explained: The Stroop Experiment, Color Word Test, and Cognitive Control"
+title: "What Is the Stroop Effect? The Stroop Experiment Explained"
+seoTitle: "What Is the Stroop Effect? The Stroop Experiment Explained"
 date: "2025-08-13"
-excerpt: "Learn how the classic Stroop experiment became one of psychology's best-known color word tests, why the Stroop paradigm still matters today, and how an online Stroop effect test can train selective attention and cognitive control."
+updatedAt: "2026-10-23"
+metaDescription: "What is the Stroop effect? Learn how the 1935 Stroop experiment works, why naming ink colors is slower when words conflict, and what the effect says about attention."
+excerpt: "Learn how the classic Stroop experiment became one of psychology's best-known color word tests, why the Stroop paradigm still matters today, and what an online Stroop task can and cannot tell you about selective attention."
 coverImage: "/games/stroop-effect.png"
-keywords: "stroop effect test, stroop experiment, stroop paradigm, color word test, stroop effect, stroop task, selective attention, cognitive control, inhibition control, executive function, psychology attention test, online stroop test"
+keywords: "stroop effect, what is the stroop effect, stroop experiment, stroop paradigm, color word test, stroop effect, stroop task, selective attention, cognitive control, inhibition control, executive function, psychology attention test, online stroop test"
 author:
   name: "FreeFocusGames Team"
   picture: "/authors/team.png"

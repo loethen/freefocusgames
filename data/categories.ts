@@ -106,7 +106,7 @@ export const categories: Category[] = [
   {
     id: "reaction-time",
     name: "Reaction Time",
-    description: "Games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better, drivers respond quickly to road hazards, and older adults prevent falls. Regular training can improve sports performance, enhance safety in emergency situations, and maintain cognitive vitality with aging. Even millisecond improvements can make significant real-world differences.",
+    description: "Browse reaction games and reflex games that test and practice how quickly you respond to visual or auditory signals. Quick, consistent reactions matter in sports, gaming, and everyday tasks such as driving.",
     slug: "reaction-time",
     icon: "Zap",
     keywords: [
@@ -165,7 +165,7 @@ export const categories: Category[] = [
   {
     id: "adhd-games",
     name: "Traffic-Boosting Collection: ADHD Games for Adults",
-    description: "A curated collection of games scientifically proven to help manage ADHD symptoms. These exercises target working memory, inhibition control, and sustained attention—key executive functions often impaired in ADHD. Regular practice can help improve daily focus, reduce impulsivity, and enhance cognitive regulation.",
+    description: "Short, clearly structured games that practice working memory, inhibition, and sustained attention, the executive functions often affected by ADHD. These games are not a treatment for ADHD and do not replace professional care, but they offer an easy way to practice focus.",
     slug: "adhd-games",
     icon: "BrainCircuit",
     keywords: [
@@ -184,7 +184,7 @@ export const categories: Category[] = [
   {
     id: "brain-games-for-kids",
     name: "Traffic-Boosting Collection: Focus Games for Kids",
-    description: "Engaging and verifiable brain training games designed specifically for children's cognitive development. These games help improve attention span, follow instructions, and impulse control in a fun, gamified way. Perfect for supporting school performance and daily behavioral regulation.",
+    description: "Fun brain games for children that practice attention, memory, following instructions, and impulse control in short, game-like rounds. Use them as playful practice alongside schoolwork, not as a replacement for it.",
     slug: "brain-games-for-kids",
     icon: "Gamepad2",
     keywords: [
@@ -203,7 +203,7 @@ export const categories: Category[] = [
   {
     id: "relaxation",
     name: "Relaxation & Stress Relief",
-    description: "Games and exercises designed to reduce stress, promote relaxation, and improve emotional regulation. These techniques help activate the parasympathetic nervous system, lower cortisol levels, and improve heart rate variability (HRV). Perfect for daily stress management, sleep preparation, and building long-term resilience.",
+    description: "Guided breathing exercises for relaxation and stress relief. Slow, paced breathing can raise heart rate variability (HRV) while you practice and helps many people feel calmer within a few minutes.",
     slug: "relaxation",
     icon: "Wind",
     keywords: [

@@ -13,6 +13,7 @@ const legacyRedirects: Record<string, string> = {
     '/games/challenge-10s': '/games/challenge-10-seconds',
     '/games/free-focus-games': '/games',
     '/blog/the-science-of-stroop-effect-cognitive-control': '/blog/the-science-of-stroop-effect-cognitive-flexibility-training',
+    '/blog/how-watching-jim-kwik-memory-video-changed-the-way-i-improve-memory': '/blog/how-to-improve-short-term-memory',
 };
 
 function getLegacyRedirect(pathname: string) {
