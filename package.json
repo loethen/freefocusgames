@@ -20,7 +20,8 @@
     "translate-blogs": "node scripts/translate-blog-posts.js",
     "translate-blogs:force": "node scripts/translate-blog-posts.js --force",
     "seo:audit": "node build-scripts/seo/audit.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "sync:captioncat": "node build-scripts/sync-captioncat.mjs"
   },
   "dependencies": {
     "@google/genai": "^1.38.0",

@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import { XLogo } from './ui/XLogo';
 import { Link } from '@/i18n/navigation';
 import { Github } from 'lucide-react';
+import { CaptionCatFooterCat } from './captioncat-footer-cat';
 
 const KOFI_URL = "https://ko-fi.com/freefocusgames";
 
@@ -12,6 +13,7 @@ export function Footer() {
 
   return (
     <footer className="text-center text-sm mt-12 pb-8">
+      <CaptionCatFooterCat />
       <div className="flex items-center justify-center space-x-4 flex-wrap text-muted-foreground/60">
         <span>2026</span>
         <span>•</span>

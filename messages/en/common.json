@@ -83,6 +83,11 @@
       "correctResponses": "Correct responses",
       "standardMode": "Standard dual mode",
       "customSession": "Custom session"
+    },
+    "captionCat": {
+      "bubble": "A free Chrome extension that puts a pixel cat on your YouTube captions, keeping you company through long podcasts and talks.",
+      "cta": "Visit CaptionCat",
+      "label": "CaptionCat: a pixel cat for your YouTube captions (opens in a new tab)"
     }
   }
 }
