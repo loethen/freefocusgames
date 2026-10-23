@@ -9,16 +9,16 @@ import {
     TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GameCategoryLabel, GameCover } from "@/components/game-card";
 
 
-// Select specific games for the bento grid
+// One featured game beside a 2x2 grid of popular games
 const FEATURED_GAME_ID = 'double-decision';
-const SECONDARY_GAME_IDS = ['rotating-schulte-table', 'dual-n-back', 'reaction-time', 'stroop-effect-test', 'block-memory-challenge'];
+const SECONDARY_GAME_IDS = ['rotating-schulte-table', 'dual-n-back', 'reaction-time', 'stroop-effect-test'];
 
 export default function FeaturedBentoGrid() {
     const t = useTranslations("home");
     const gamesT = useTranslations("games");
-    const categoriesT = useTranslations("categories");
     const buttonsT = useTranslations("buttons");
 
     const featuredGame = getGame(FEATURED_GAME_ID);
@@ -27,7 +27,7 @@ export default function FeaturedBentoGrid() {
     if (!featuredGame) return null;
 
     const featuredGameIdKey = getGameIdKey(featuredGame.id);
-    const featuredCategory = featuredGame.categories.find(id => categoriesT.has(`categoryNames.${id}`));
+    const featuredTitle = gamesT(`${featuredGameIdKey}.title`);
     const featuredDescriptionKey = `${featuredGameIdKey}.featuredDescription`;
     const featuredDescription = gamesT.has(featuredDescriptionKey)
         ? gamesT(featuredDescriptionKey)
@@ -47,89 +47,53 @@ export default function FeaturedBentoGrid() {
                 </Button>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-12 lg:auto-rows-[220px]">
-                <div className="group relative min-h-[480px] overflow-hidden rounded-[2rem] border border-border/70 bg-secondary/25 transition-colors hover:bg-secondary/35 lg:col-span-8 lg:row-span-2 lg:min-h-0">
-                    <div className="flex h-full flex-col p-5 sm:p-9 lg:p-10">
-                        <div className="flex items-start justify-between gap-4">
-                            <span
-                                className="font-mono text-xs tracking-[0.18em] text-muted-foreground"
-                                aria-hidden="true"
-                            >
-                                01
-                            </span>
-                            <span className="text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-                                {featuredCategory && categoriesT(`categoryNames.${featuredCategory}`)}
-                            </span>
-                        </div>
+            <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-[1.15fr_1fr]">
+                <Link
+                    href={`/games/${featuredGame.slug}`}
+                    className="group flex flex-col overflow-hidden rounded-[2rem] border border-border bg-card transition-colors hover:border-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                    <span className="relative block aspect-[16/9] overflow-hidden bg-muted/60 lg:aspect-auto lg:flex-1 lg:min-h-[240px]">
+                        <GameCover game={featuredGame} title={featuredTitle} sizes="(max-width: 1023px) 92vw, 50vw" />
+                    </span>
+                    <span className="flex flex-col gap-2 p-5 sm:p-6">
+                        <GameCategoryLabel game={featuredGame} />
+                        <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">{featuredTitle}</h3>
+                        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground sm:text-base">
+                            {featuredDescription}
+                        </p>
+                        <span className="mt-2 inline-flex h-10 w-fit items-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity group-hover:opacity-90">
+                            <Play className="mr-2 h-4 w-4" fill="currentColor" aria-hidden="true" />
+                            {buttonsT('start')}
+                        </span>
+                    </span>
+                </Link>
 
-                        <div className="grid flex-1 items-center gap-6 pt-6 sm:gap-8 sm:pt-7 md:grid-cols-[0.95fr_1.05fr]">
-                            <div className="order-2 md:order-1">
-                                <h3 className="text-3xl font-bold tracking-tight md:text-4xl">
-                                    {gamesT(`${featuredGameIdKey}.title`)}
-                                </h3>
-                                <p className="mt-4 line-clamp-3 text-base leading-relaxed text-muted-foreground sm:text-lg">
-                                    {featuredDescription}
-                                </p>
-
-                                <Button asChild size="lg" className="mt-7 h-11 w-full rounded-full px-7 text-sm shadow-none sm:w-fit">
-                                    <Link href={`/games/${featuredGame.slug}`}>
-                                        <Play className="mr-2 h-5 w-5" fill="currentColor" />
-                                        {buttonsT('start')}
-                                    </Link>
-                                </Button>
-                            </div>
-
-                            <div className="order-1 flex min-h-[220px] items-center justify-center md:order-2 md:min-h-0">
-                                <div className="relative w-full max-w-[380px] overflow-hidden rounded-3xl bg-background/70 shadow-sm">
-                                    {featuredGame.preview}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="grid grid-cols-2 gap-4 sm:gap-5">
+                    {secondaryGames.map((game) => (
+                        <GameBentoTile key={game.id} game={game} />
+                    ))}
                 </div>
-
-                {secondaryGames.map((game, index) => (
-                    <GameBentoCard key={game.id} game={game} index={index + 2} />
-                ))}
             </div>
         </div>
     );
 }
 
-// Sub-component for standard bento cards
-function GameBentoCard({ game, index }: { game: Game; index: number }) {
+function GameBentoTile({ game }: { game: Game }) {
     const gamesT = useTranslations("games");
-    const idKey = getGameIdKey(game.id);
-    const title = gamesT(`${idKey}.title`);
+    const title = gamesT(`${getGameIdKey(game.id)}.title`);
 
     return (
         <Link
             href={`/games/${game.slug}`}
-            className="group relative min-h-[210px] overflow-hidden rounded-[2rem] border border-border/70 bg-card p-5 transition-colors hover:bg-secondary/20 sm:p-6 lg:col-span-4 lg:min-h-0"
+            className="group flex flex-col overflow-hidden rounded-[1.5rem] border border-border bg-card transition-colors hover:border-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-            <div className="flex h-full flex-col justify-between">
-                <div className="flex items-start justify-between">
-                    <span
-                        className="font-mono text-xs tracking-[0.18em] text-muted-foreground"
-                        aria-hidden="true"
-                    >
-                        {String(index).padStart(2, "0")}
-                    </span>
-                    <ArrowRight
-                        className="h-4 w-4 text-muted-foreground transition-all group-hover:translate-x-1 group-hover:text-foreground"
-                        aria-hidden="true"
-                    />
-                </div>
-
-                <div>
-                    <h3 className="line-clamp-2 text-xl font-semibold tracking-tight">
-                        {title}
-                    </h3>
-                    <p className="mt-3 line-clamp-3 max-w-sm text-sm leading-relaxed text-muted-foreground">
-                        {gamesT(`${idKey}.description`)}
-                    </p>
-                </div>
-            </div>
+            <span className="relative block aspect-[4/3] overflow-hidden bg-muted/60 lg:aspect-auto lg:min-h-[120px] lg:flex-1">
+                <GameCover game={game} title={title} sizes="(max-width: 1023px) 46vw, 22vw" />
+            </span>
+            <span className="flex flex-col gap-1 p-3 sm:p-4">
+                <GameCategoryLabel game={game} />
+                <h3 className="line-clamp-1 text-sm font-semibold tracking-tight sm:text-base">{title}</h3>
+            </span>
         </Link>
     );
 }

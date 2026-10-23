@@ -34,7 +34,7 @@ function gameTitleKey(id: string) {
     return id.replace(/-([a-z])/g, (_, char: string) => char.toUpperCase()).replace(/-/g, "");
 }
 
-function GameCover({ game, title, sizes }: { game: Game; title: string; sizes: string }) {
+export function GameCover({ game, title, sizes }: { game: Game; title: string; sizes: string }) {
     if (game.coverImage) {
         return (
             <Image
@@ -66,14 +66,13 @@ function GameCover({ game, title, sizes }: { game: Game; title: string; sizes: s
     );
 }
 
-export default function GameCard({ game, variant = "standard", isNew = false, className }: GameCardProps) {
-    const t = useTranslations("games");
+// The game's first named category, shown as a coloured dot and label.
+export function GameCategoryLabel({ game }: { game: Game }) {
     const categoryT = useTranslations("categories.categoryNames");
-    const titleKey = gameTitleKey(game.id);
-    const title = t(`${titleKey}.title`);
     const category = game.categories.find((id) => categoryT.has(id));
+    if (!category) return null;
 
-    const categoryLabel = category && (
+    return (
         <span className="flex min-w-0 items-center gap-1.5 text-xs text-muted-foreground">
             <span
                 aria-hidden="true"
@@ -83,6 +82,12 @@ export default function GameCard({ game, variant = "standard", isNew = false, cl
             <span className="truncate">{categoryT(category)}</span>
         </span>
     );
+}
+
+export default function GameCard({ game, variant = "standard", isNew = false, className }: GameCardProps) {
+    const t = useTranslations("games");
+    const titleKey = gameTitleKey(game.id);
+    const title = t(`${titleKey}.title`);
 
     if (variant === "compact") {
         return (
@@ -97,7 +102,7 @@ export default function GameCard({ game, variant = "standard", isNew = false, cl
                     <GameCover game={game} title={title} sizes="64px" />
                 </span>
                 <span className="flex min-w-0 flex-col gap-0.5 py-3">
-                    {categoryLabel}
+                    <GameCategoryLabel game={game} />
                     <h3 className="truncate text-sm font-semibold text-foreground">{title}</h3>
                 </span>
                 <ArrowRight
@@ -125,7 +130,7 @@ export default function GameCard({ game, variant = "standard", isNew = false, cl
             </span>
             <span className="flex flex-1 flex-col gap-1.5 p-4 sm:p-5">
                 <span className="flex items-center gap-2">
-                    {categoryLabel}
+                    <GameCategoryLabel game={game} />
                     {isNew && (
                         <span className="ml-auto shrink-0 rounded-full bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
                             {t("newBadge")}
