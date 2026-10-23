@@ -8,6 +8,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from "@/i18n/routing";
 import { generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
+import LinkClickTracker from "@/components/link-click-tracker";
 import { ArrowRight, Play } from "lucide-react";
 
 export const dynamic = "force-static";
@@ -109,32 +110,18 @@ export default async function CategoryPage({ params }: Props) {
   const categoryGamesHeading = t('categoryGamesHeading', { categoryName: categoryName });
   const categoriesTitle = t('title');
   const categoryIntro = t('categoryIntro', { categoryName });
-  const clusterLinks = category.id === 'reaction-time'
-    ? [
-        { href: '/games/challenge-10-seconds', label: allT('games.challenge10Seconds.title') },
-        { href: '/games/reaction-time', label: allT('games.reactionTime.title') },
-        { href: '/games/cps-test', label: allT('games.cpsTest.title') },
-        { href: '/games/spacebar-clicker', label: allT('games.spacebarClicker.title') },
-      ]
-    : category.id === 'working-memory'
-      ? [
-          { href: '/games/dual-n-back', label: allT('games.dualNBack.title') },
-          { href: '/games/free-short-term-memory-test', label: allT('games.freeShortTermMemoryTest.title') },
-          { href: '/working-memory-guide', label: allT('workingMemoryGuide.title') },
-        ]
-      : category.id === 'visual-tracking'
-        ? [
-            { href: '/games/schulte-table', label: allT('games.schulteTable.title') },
-            { href: '/games/rotating-schulte-table', label: allT('games.rotatingSchulteTable.title') },
-            {
-              href: '/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed',
-              label: allT('games.schulteTable.science.blogArticleTitle'),
-            },
-          ]
-        : [];
+  // Guides and articles that belong to this topic cluster; the games themselves are in the grid.
+  const readingLinks = category.id === 'working-memory'
+    ? [{ href: '/working-memory-guide', label: allT('workingMemoryGuide.title') }]
+    : category.id === 'visual-tracking'
+      ? [{
+          href: '/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed',
+          label: allT('games.schulteTable.science.blogArticleTitle'),
+        }]
+      : [];
 
   return (
-    <div className="max-w-7xl mx-auto py-8">
+    <LinkClickTracker fromPage={`categories/${category.slug}`} className="max-w-7xl mx-auto py-8">
       <Breadcrumbs
         items={[
           { label: categoriesTitle, href: "/categories" },
@@ -142,65 +129,72 @@ export default async function CategoryPage({ params }: Props) {
         ]}
       />
 
-      <h1 className="text-3xl md:text-4xl font-bold mt-12 mb-6 text-center">
-        {categoryGamesHeading}
-      </h1>
-      <p className="mb-4 max-w-4xl mx-auto text-center leading-8 text-foreground/90">{categoryDescription}</p>
-      <p className="mb-8 max-w-3xl mx-auto text-center text-sm text-muted-foreground leading-7">{categoryIntro}</p>
+      <header className="mx-auto mt-10 mb-12 max-w-3xl text-center">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+          {categoryGamesHeading}
+        </h1>
+        <p className="mt-4 leading-7 text-foreground/80">{categoryDescription}</p>
 
-      {primaryGame && (
-        <div className="mb-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <Link
-            href={`/games/${primaryGame.slug}`}
-            className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
-          >
-            <Play className="h-5 w-5" fill="currentColor" aria-hidden="true" />
-            {t('playNow', { game: allT(`games.${gameTitleKey(primaryGame.id)}.title`) })}
-          </Link>
-          <Link
-            href="/get-started"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
-          >
-            {t('notSure')}
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
+        {primaryGame && (
+          <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
+              href={`/games/${primaryGame.slug}`}
+              data-link-location="category_primary_cta"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+            >
+              <Play className="h-5 w-5" fill="currentColor" aria-hidden="true" />
+              {t('playNow', { game: allT(`games.${gameTitleKey(primaryGame.id)}.title`) })}
+            </Link>
+            <Link
+              href="/get-started"
+              data-link-location="category_game_picker"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+            >
+              {t('notSure')}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+        )}
+      </header>
+
+      <section aria-labelledby="category-games-title" data-link-location="category_grid">
+        <h2 id="category-games-title" className="mb-5 text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          {t('gridTitle', { count: games.length, categoryName })}
+        </h2>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+          {games.map((game) => (
+            <GameCard key={game.id} game={game} />
+          ))}
         </div>
-      )}
+      </section>
 
-      {clusterLinks.length > 0 && (
-        <section className="mx-auto mb-10 max-w-4xl rounded-2xl border border-border bg-muted/20 p-5 sm:p-6">
-          <h2 className="text-center text-xl font-semibold">{t('startHereTitle')}</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-center text-sm leading-6 text-muted-foreground">
-            {t('startHereDescription', { categoryName })}
-          </p>
-          <nav className="mt-5" aria-label={t('startHereTitle')}>
-            <ul className="flex flex-wrap justify-center gap-3">
-              {clusterLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="inline-flex rounded-full border border-border bg-background px-4 py-2 text-sm font-medium transition-colors hover:border-primary/40 hover:text-primary"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </section>
-      )}
-
-      <div className="mb-12 text-center">
-        <Link href="/categories" className="text-sm text-primary hover:underline">
-          {t('backToAll')}
-        </Link>
-      </div>
-
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-        {games.map((game) => (
-          <GameCard key={game.id} game={game} />
-        ))}
-      </div>
-    </div>
+      <section
+        aria-labelledby="category-about-title"
+        data-link-location="category_about"
+        className="mx-auto mt-16 max-w-2xl space-y-3 text-sm leading-7 text-muted-foreground"
+      >
+        <h2 id="category-about-title" className="text-base font-semibold text-foreground">
+          {t('aboutTitle', { categoryName })}
+        </h2>
+        <p>{categoryIntro}</p>
+        {readingLinks.length > 0 && (
+          <ul className="space-y-1">
+            {readingLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="inline-flex items-center gap-1.5 font-medium text-foreground underline underline-offset-4 hover:text-primary">
+                  {link.label}
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        <p>
+          <Link href="/categories" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
+            {t('backToAll')}
+          </Link>
+        </p>
+      </section>
+    </LinkClickTracker>
   );
 } 

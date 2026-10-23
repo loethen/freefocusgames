@@ -3325,8 +3325,6 @@
     "categoryOgDescription": "浏览免费的{categoryName}游戏和训练练习，用更集中的方式提升这项能力。",
     "categoryGamesHeading": "{categoryName}游戏",
     "categoryIntro": "这个分类收集了主要训练 {categoryName} 的游戏。相比直接浏览整个游戏库，它更适合你按一个明确目标来练。",
-    "startHereTitle": "建议从这些页面开始",
-    "startHereDescription": "先通过这些核心{categoryName}页面建立清晰的练习路径，再浏览下面的完整内容。",
     "backToAll": "查看全部分类",
     "playNow": "开始玩{game}",
     "notSure": "不知道玩什么？获取 3 个推荐",
@@ -3351,7 +3349,9 @@
       "grouping": "分类按游戏主要练习的能力来划分。很多游戏同时练习几种能力，所以同一个游戏可能出现在多个分类里。",
       "start": "第一次来？可以先试试<reaction>反应速度</reaction>，每轮很短、可以反复玩；想要更有挑战的，可以选<memory>工作记忆</memory>。想放松一下？<relax>放松</relax>合集里有引导式呼吸练习。",
       "picker": "还是拿不定主意？<picker>回答一个问题</picker>，获得 3 个推荐游戏。"
-    }
+    },
+    "gridTitle": "{count} 个{categoryName}游戏",
+    "aboutTitle": "关于{categoryName}游戏"
   },
   "common": {
     "home": "首页",

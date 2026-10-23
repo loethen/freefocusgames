@@ -193,8 +193,6 @@
     "categoryOgDescription": "Browse free {categoryName} games and brain training exercises designed to strengthen this skill with repeatable practice.",
     "categoryGamesHeading": "{categoryName} Games Online",
     "categoryIntro": "This category groups together games that mainly train {categoryName}. Use it when you want a more focused practice path instead of browsing the entire library.",
-    "startHereTitle": "Start with these pages",
-    "startHereDescription": "Use these core {categoryName} pages as a focused path, then browse the full collection below.",
     "backToAll": "See all categories",
     "playNow": "Play {game}",
     "notSure": "Not sure? Get 3 game picks",
@@ -219,6 +217,8 @@
       "grouping": "Categories group games by the main skill they practice. Many games train more than one skill, so the same game can appear in several categories.",
       "start": "New here? Try <reaction>Reaction Time</reaction> for quick rounds you can repeat, or <memory>Working Memory</memory> for a steadier challenge. Want something calmer? The <relax>Relaxation</relax> collection has guided breathing exercises.",
       "picker": "Still not sure? <picker>Answer one question</picker> and get three games to try."
-    }
+    },
+    "gridTitle": "{count} {categoryName} games",
+    "aboutTitle": "About {categoryName} games"
   }
 }

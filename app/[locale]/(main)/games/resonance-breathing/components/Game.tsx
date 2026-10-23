@@ -168,9 +168,15 @@ export default function Game({ defaultMode = 'resonance', variant = 'full', titl
     }, [isCompact, elapsedTime, settings.sessionDuration, mode]);
 
     const handleStart = () => {
+        // A finished session starts over instead of stopping again after one second.
+        const sessionFinished = elapsedTime >= settings.sessionDuration * 60;
+        if (sessionFinished) {
+            setCycleCount(0);
+            setElapsedTime(0);
+        }
         setIsRunning(true);
         setPhase('inhale');
-        if (isCompact && elapsedTime === 0) {
+        if (isCompact && (elapsedTime === 0 || sessionFinished)) {
             analytics.game.start({ game_id: `${mode}-breathing`, mode: 'homepage' });
         }
     };

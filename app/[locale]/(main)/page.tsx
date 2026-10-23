@@ -9,6 +9,7 @@ import FeaturedBentoGrid from "@/components/featured-bento-grid";
 import LatestGames from "@/components/latest-games";
 import TryYourLuck from "@/components/try-your-luck";
 import BreathingGame from "@/app/[locale]/(main)/games/resonance-breathing/components/Game";
+import LinkClickTracker from "@/components/link-click-tracker";
 import Image from "next/image";
 import { games } from "@/data/games";
 import {
@@ -344,10 +345,11 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-teal-50 via-emerald-50/50 to-transparent px-6 py-12 dark:from-teal-950/40 dark:via-emerald-950/20 sm:px-12 sm:py-14">
                         <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/20" />
                         <div aria-hidden="true" className="pointer-events-none absolute -bottom-32 -left-16 h-80 w-80 rounded-full bg-emerald-100/40 blur-3xl dark:bg-emerald-900/20" />
-                        <div className="relative">
+                        <LinkClickTracker fromPage="home" className="relative">
                             <BreathingGame defaultMode="box" variant="compact" title={t("home.quickBreathing.title")}>
                                 <nav
                                     aria-label={t("home.quickBreathing.moreLabel")}
+                                    data-link-location="home_breathing_more"
                                     className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground md:justify-start"
                                 >
                                     <span>{t("home.quickBreathing.moreLabel")}</span>
@@ -362,7 +364,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                     ))}
                                 </nav>
                             </BreathingGame>
-                        </div>
+                        </LinkClickTracker>
                     </div>
                 </section>
 
