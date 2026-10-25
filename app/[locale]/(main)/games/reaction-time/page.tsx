@@ -41,6 +41,7 @@ export default function ReactionTimePage({ params }: { params: Promise<{ locale:
             title={t('title')}
             subtitle={t('subtitle')}
             gameComponent={<Game />}
+            frameless
             howToPlay={
                 <>
                     <p>
