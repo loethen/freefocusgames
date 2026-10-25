@@ -77,6 +77,20 @@ In 2-back, you compare with the step two places earlier, so you always need to h
 
 Dropping back a level after a bad round is normal. Steady sessions at the right difficulty work better than forcing a level that is too hard.
 
+## How far do players get?
+
+On FreeFocusGames, 576 players have cleared dual n-back at 2-back or higher, meaning a round of at least 20 steps with 80% accuracy or better. Among them:
+
+| Cleared at least | Share of these players |
+| --- | --- |
+| 3-back | At least 24% |
+| 4-back | At least 11.5% |
+| 5-back | At least 4% |
+
+The median accuracy in these clearing rounds was 89%.
+
+**Why "at least":** our leaderboard keeps only each player's fastest clear, not their highest level. Short 2-back rounds are usually the fastest, so many players who later cleared a higher level are still counted at 2-back here. The real shares are higher than these numbers. Data from April 24 to October 24, 2026; four 10-back records that are very unlikely to be genuine were left out.
+
 ## Common mistakes
 
 - **Rehearsing out loud.** Saying the letters helps for a moment but tends to fall apart at 2-back and above.
