@@ -279,7 +279,7 @@ export default function ReactionTimeGame() {
         {/* Game board */}
         <div className="relative w-full">
           <div
-            className={`${bgStyle.className} w-full min-h-80 rounded-2xl flex items-center justify-center relative select-none ${isSummary ? '' : 'cursor-pointer'}`}
+            className={`${bgStyle.className} w-full min-h-80 rounded-2xl flex items-center justify-center relative select-none outline-none ${isSummary ? '' : 'cursor-pointer'}`}
             onClick={isSummary ? undefined : handleClick}
             tabIndex={isSummary ? -1 : 0}
             ref={containerRef}
