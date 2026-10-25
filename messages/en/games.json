@@ -1119,7 +1119,12 @@
         "compareLink": "See how 8,791 players compare",
         "startTitle": "Click to start",
         "keyboardHint": "You can also press",
-        "spaceKey": "Space"
+        "spaceKey": "Space",
+        "shareCard": {
+          "medianLabel": "Median player",
+          "challenge": "Can you beat my time?"
+        },
+        "anticipatedHint": "Under {time} ms is a guess, not a reaction. This round does not count."
       },
       "ratings": {
         "master": "Master",

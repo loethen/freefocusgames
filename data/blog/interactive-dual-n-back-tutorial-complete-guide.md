@@ -91,6 +91,8 @@ The median accuracy in these clearing rounds was 89%.
 
 **Why "at least":** our leaderboard keeps only each player's fastest clear, not their highest level. Short 2-back rounds are usually the fastest, so many players who later cleared a higher level are still counted at 2-back here. The real shares are higher than these numbers. Data from April 24 to October 24, 2026; four 10-back records that are very unlikely to be genuine were left out.
 
+For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
+
 ## Common mistakes
 
 - **Rehearsing out loud.** Saying the letters helps for a moment but tends to fall apart at 2-back and above.

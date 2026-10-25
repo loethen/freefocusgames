@@ -1458,7 +1458,12 @@
         "compareLink": "看看 8,791 名玩家的成绩分布",
         "startTitle": "点击开始",
         "keyboardHint": "也可以按",
-        "spaceKey": "空格键"
+        "spaceKey": "空格键",
+        "shareCard": {
+          "medianLabel": "玩家中位数",
+          "challenge": "你能比我更快吗？"
+        },
+        "anticipatedHint": "低于 {time} 毫秒是预判，不是反应，这一回合不算。"
       },
       "ratings": {
         "master": "大师",

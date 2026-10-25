@@ -20,6 +20,9 @@ const FASTER_THAN_POINTS: [ms: number, fasterThanPercent: number][] = [
   [1000, 0],
 ];
 
+// The median best average: half of all players were faster.
+export const REACTION_MEDIAN_MS = 369;
+
 export type ReactionRating = "godlike" | "excellent" | "good" | "average" | "slow";
 
 // Share of players (0-99) whose average was slower than `ms`.
@@ -48,3 +51,13 @@ export function reactionRating(ms: number): ReactionRating {
   if (ms <= 440) return "average";
   return "slow";
 }
+
+// Distribution of the same best averages in 20 ms bins: [bin start in ms, players].
+// Results from 800 to 1,000 ms (218 players) sit outside the chart range.
+export const REACTION_DISTRIBUTION_TOTAL = 8791;
+export const REACTION_DISTRIBUTION_BINS: [binStartMs: number, players: number][] = [
+  [160, 3], [180, 8], [200, 38], [220, 85], [240, 211], [260, 383], [280, 654], [300, 764],
+  [320, 854], [340, 956], [360, 870], [380, 762], [400, 539], [420, 445], [440, 324], [460, 245],
+  [480, 201], [500, 159], [520, 133], [540, 139], [560, 120], [580, 120], [600, 96], [620, 85],
+  [640, 79], [660, 59], [680, 55], [700, 33], [720, 52], [740, 37], [760, 29], [780, 36],
+];

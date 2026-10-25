@@ -3,14 +3,14 @@
 import React, { MouseEvent, useState, useEffect, useRef } from 'react';
 import { toast } from "sonner";
 import { Share, Award, ArrowRight, RotateCcw, MousePointerClick } from "lucide-react";
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from '@/i18n/navigation';
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 import { analytics } from '@/lib/analytics';
-import { reactionFasterThanPercent, reactionRating } from '@/lib/reaction-time-benchmarks';
+import { REACTION_MEDIAN_MS, reactionFasterThanPercent, reactionRating } from '@/lib/reaction-time-benchmarks';
 import {
   getProgressInsights,
   ProgressCardData,
@@ -20,6 +20,8 @@ import {
 const MIN_WAIT_TIME = 2000;
 const MAX_WAIT_TIME = 6000;
 const MAX_ROUNDS = 5;
+// Clicks faster than this after the screen turns green are anticipation, not reaction.
+const MIN_REACTION_MS = 100;
 
 enum GameStates {
   START,
@@ -33,11 +35,14 @@ export default function ReactionTimeGame() {
   const t = useTranslations('games.reactionTime.gameUI');
   const pageT = useTranslations('games.reactionTime');
   const shareT = useTranslations('common.progressShare');
+  const locale = useLocale();
 
   // State management
   const [gameState, setGameState] = useState<GameStates>(GameStates.START);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [reactionTime, setReactionTime] = useState<number | null>(null);
+  // Why the last round did not count: clicked before green, or too soon after it.
+  const [earlyReason, setEarlyReason] = useState<'beforeGreen' | 'anticipated'>('beforeGreen');
   const [bestTime, setBestTime] = useState<number | null>(null);
   const [results, setResults] = useState<number[]>([]);
   const [round, setRound] = useState<number>(1);
@@ -54,7 +59,8 @@ export default function ReactionTimeGame() {
   // Load best time from localStorage and set page URL
   useEffect(() => {
     const savedBestTime = localStorage.getItem('reactionBestTime');
-    if (savedBestTime) {
+    // Ignore bests saved before anticipated clicks were filtered out.
+    if (savedBestTime && parseInt(savedBestTime) >= MIN_REACTION_MS) {
       setBestTime(parseInt(savedBestTime));
     }
   }, []);
@@ -118,6 +124,7 @@ export default function ReactionTimeGame() {
       clearTimeout();
       setGameState(GameStates.RESULT);
       setReactionTime(null);
+      setEarlyReason('beforeGreen');
       return;
     }
 
@@ -127,6 +134,15 @@ export default function ReactionTimeGame() {
 
       if (startTime) {
         const time = Math.round(now - startTime);
+
+        // Too fast to be a real reaction: the click was timed in advance, so redo the round.
+        if (time < MIN_REACTION_MS) {
+          setReactionTime(null);
+          setEarlyReason('anticipated');
+          setGameState(GameStates.RESULT);
+          return;
+        }
+
         setReactionTime(time);
 
         // Update best time if better
@@ -186,21 +202,31 @@ export default function ReactionTimeGame() {
       )
       : shareT('firstTrackedSession');
 
+    // The card repeats the result screen's slow-to-fast slider and links back to the game itself.
+    const fasterThanPercent = reactionFasterThanPercent(averageTime);
     setProgressCard({
       title: pageT('title'),
-      subtitle: t('gameComplete'),
+      subtitle: '',
       primaryLabel: t('averageTime'),
       primaryValue: formatMs(averageTime),
       trendText: deltaText,
-      historyLabel: shareT('sessionsTracked', { count: insights.sessions }),
-      history: history.map((entry) => entry.primaryValue),
+      historyLabel: '',
+      history: results,
       direction: 'lower',
+      scale: {
+        percent: fasterThanPercent,
+        headline: t('reflexAnalysis.fasterThan', { percent: fasterThanPercent }),
+        caption: t(`reflexAnalysis.${reactionRating(averageTime)}`),
+        lowLabel: t('slower'),
+        highLabel: t('faster'),
+      },
       metrics: [
-        { label: t('bestTime'), value: formatMs(bestRound) },
+        { label: t('bestTime'), value: formatMs(bestRound), highlight: true },
         { label: t('round'), value: `${results.length}/${MAX_ROUNDS}` },
-        { label: shareT('sessions'), value: String(insights.sessions) },
+        { label: t('shareCard.medianLabel'), value: formatMs(REACTION_MEDIAN_MS) },
       ],
-      footer: shareT('sessionsTracked', { count: insights.sessions }),
+      footer: t('shareCard.challenge'),
+      siteUrl: `freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/reaction-time`,
       theme: {
         backgroundFrom: '#0f3f7a',
         backgroundTo: '#062239',
@@ -210,7 +236,7 @@ export default function ReactionTimeGame() {
         mutedText: 'rgba(229, 242, 255, 0.72)',
       },
     });
-  }, [gameState, pageT, results, shareT, t]);
+  }, [gameState, locale, pageT, results, shareT, t]);
 
   // Space or Enter plays like a click while the board is on screen, without scrolling the page.
   const handleClickRef = useRef(handleClick);
@@ -287,6 +313,13 @@ export default function ReactionTimeGame() {
             aria-label={ariaLabel}
             style={bgStyle.style}
           >
+            {gameState === GameStates.START && bestTime !== null && (
+              <p className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-sm text-white/90">
+                <Award className="h-3.5 w-3.5" aria-hidden="true" />
+                {t('bestTime')}: <span className="font-semibold tabular-nums">{bestTime}</span> ms
+              </p>
+            )}
+
             {/* Game content based on state */}
             <div className="w-full p-6 text-center">
               {gameState === GameStates.START && (
@@ -301,12 +334,6 @@ export default function ReactionTimeGame() {
                   </motion.span>
                   <p className="text-3xl md:text-4xl font-bold tracking-tight">{t('startTitle')}</p>
                   <p className="mt-3 text-sm md:text-base text-white/80">{t('startHint', { total: MAX_ROUNDS })}</p>
-                  {bestTime !== null && (
-                    <p className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-sm text-white/90">
-                      <Award className="h-3.5 w-3.5" aria-hidden="true" />
-                      {t('bestTime')}: <span className="font-semibold tabular-nums">{bestTime}</span> ms
-                    </p>
-                  )}
                   <p className="mt-4 hidden items-center gap-2 text-xs text-white/60 sm:flex">
                     {t('keyboardHint')}
                     <kbd className="rounded-md bg-white/15 px-2 py-0.5 font-sans text-[11px] font-medium text-white/85">
@@ -346,7 +373,7 @@ export default function ReactionTimeGame() {
                       >
                         {t('tooEarly')}
                       </motion.p>
-                      <p className="mt-3 text-base text-white/75">{t('tooEarlyHint')}</p>
+                      <p className="mt-3 text-base text-white/75">{earlyReason === 'anticipated' ? t('anticipatedHint', { time: MIN_REACTION_MS }) : t('tooEarlyHint')}</p>
                     </>
                   ) : (
                     <motion.p

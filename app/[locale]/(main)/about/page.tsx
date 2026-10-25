@@ -7,11 +7,13 @@ import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { use } from 'react';
 import { Coffee } from 'lucide-react';
+import { Link } from '@/i18n/navigation';
 import './style.css';
 
 const KOFI_URL = "https://ko-fi.com/freefocusgames";
 const CAPTIONCAT_URL = "https://captioncat.app/";
 const CAPTIONCAT_SOURCE_URL = "https://github.com/loethen/captioncat";
+const SITE_SOURCE_URL = "https://github.com/loethen/freefocusgames";
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -78,6 +80,20 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
                 })}
               </p>
             </div>
+            <p className="handwriting-text">
+              {t.rich('content.dataNote', {
+                methodology: (chunks) => (
+                  <Link href="/methodology" className="underline underline-offset-4 hover:text-muted-foreground">
+                    {chunks}
+                  </Link>
+                ),
+                github: (chunks) => (
+                  <a href={SITE_SOURCE_URL} className="underline underline-offset-4 hover:text-muted-foreground">
+                    {chunks}
+                  </a>
+                ),
+              })}
+            </p>
             <p className="handwriting-text">{t('content.paragraph4')}</p>
             <div className="support-note">
               <p className="handwriting-text !mb-4">{t('support.text')}</p>

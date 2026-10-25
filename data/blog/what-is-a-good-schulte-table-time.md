@@ -60,6 +60,8 @@ Want to know what Schulte practice can and can't do? Read [Schulte Table benefit
 - **Exclusions:** times under 8 seconds (very likely not genuine) and over 120 seconds (usually an interrupted game). That left 10,560 players.
 - **Limits:** players chose to play, use different devices, and each counts with their best time, so this is a practical benchmark for this grid, not a scientific population average.
 
+For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
+
 ## FAQ
 
 **What is a good time for a 5×5 Schulte Table?**

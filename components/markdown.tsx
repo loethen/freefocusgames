@@ -7,10 +7,17 @@ import type { Components } from 'react-markdown';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
 import { InteractiveGameDemo } from './interactive-game-demo';
+import { ReactionTimeDistribution } from './reaction-time-distribution';
 
 interface MarkdownProps {
   content: string;
 }
+
+// Charts that articles embed on a line of their own, e.g. <reaction-time-distribution></reaction-time-distribution>.
+const EMBEDS: Record<string, () => React.ReactNode> = {
+  'reaction-time-distribution': () => <ReactionTimeDistribution />,
+};
+const EMBED_PATTERN = new RegExp(`^<(${Object.keys(EMBEDS).join('|')})></\\1>$`, 'm');
 
 const components: Components = {
   // 优化图片渲染
@@ -137,6 +144,28 @@ const components: Components = {
   )
 };
 
+function renderMarkdown(text: string) {
+  return (
+    <ReactMarkdown
+      components={components}
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeRaw, rehypeSlug]}
+    >
+      {text.trim()}
+    </ReactMarkdown>
+  );
+}
+
+// Splits on embed tags so each chart renders as its own block, outside any paragraph.
+function renderSection(section: string) {
+  const parts = section.split(EMBED_PATTERN);
+  return parts.map((part, index) => (
+    <React.Fragment key={index}>
+      {index % 2 === 1 ? EMBEDS[part]() : renderMarkdown(part)}
+    </React.Fragment>
+  ));
+}
+
 export default function Markdown({ content }: MarkdownProps) {
   // 处理GameDemo占位符
   const renderContent = () => {
@@ -144,13 +173,7 @@ export default function Markdown({ content }: MarkdownProps) {
 
     return sectionsWithGameDemo.map((section, index) => (
       <React.Fragment key={index}>
-        <ReactMarkdown
-          components={components}
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeRaw, rehypeSlug]}
-        >
-          {section.trim()}
-        </ReactMarkdown>
+        {renderSection(section)}
 
         {/* 插入GameDemo组件 */}
         {index < sectionsWithGameDemo.length - 1 && <InteractiveGameDemo />}

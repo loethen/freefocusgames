@@ -8,6 +8,8 @@ export type ProgressHistoryEntry = {
 export type ProgressCardMetric = {
     label: string;
     value: string;
+    // Draws the metric in the accent colour, e.g. the best result.
+    highlight?: boolean;
 };
 
 export type ProgressCardTheme = {
@@ -17,6 +19,15 @@ export type ProgressCardTheme = {
     panel: string;
     text: string;
     mutedText: string;
+};
+
+// A percentile slider drawn in place of the history chart.
+export type ProgressCardScale = {
+    percent: number;
+    headline: string;
+    caption: string;
+    lowLabel: string;
+    highLabel: string;
 };
 
 export type ProgressCardData = {
@@ -32,6 +43,7 @@ export type ProgressCardData = {
     metrics: ProgressCardMetric[];
     footer: string;
     siteUrl?: string;
+    scale?: ProgressCardScale;
     theme: ProgressCardTheme;
 };
 
@@ -181,7 +193,7 @@ function fillRoundedRect(
     width: number,
     height: number,
     radius: number,
-    fillStyle: string
+    fillStyle: string | CanvasGradient
 ) {
     drawRoundedRect(ctx, x, y, width, height, radius);
     ctx.fillStyle = fillStyle;
@@ -276,6 +288,50 @@ function drawSparkline(
         ctx.fillStyle = isLatest ? strokeColor : "rgba(255,255,255,0.9)";
         ctx.fill();
     });
+    ctx.restore();
+}
+
+// Matches the slow-to-fast gradient bar on the result screen.
+function drawScale(
+    ctx: CanvasRenderingContext2D,
+    scale: ProgressCardScale,
+    theme: ProgressCardTheme,
+    x: number,
+    y: number,
+    width: number
+) {
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.font = "700 40px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = theme.text;
+    ctx.fillText(scale.headline, x + width / 2, y + 48);
+    ctx.font = "600 26px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = "#fcd34d";
+    ctx.fillText(scale.caption, x + width / 2, y + 94);
+
+    const barY = y + 130;
+    const barHeight = 16;
+    const gradient = ctx.createLinearGradient(x, 0, x + width, 0);
+    gradient.addColorStop(0, "#fb7185");
+    gradient.addColorStop(0.5, "#fcd34d");
+    gradient.addColorStop(1, "#34d399");
+    fillRoundedRect(ctx, x, barY, width, barHeight, barHeight / 2, gradient);
+
+    const knobX = x + (width * Math.min(97, Math.max(3, scale.percent))) / 100;
+    ctx.beginPath();
+    ctx.arc(knobX, barY + barHeight / 2, 18, 0, Math.PI * 2);
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "#0b1626";
+    ctx.stroke();
+
+    ctx.font = "500 22px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = theme.mutedText;
+    ctx.textAlign = "start";
+    ctx.fillText(scale.lowLabel, x, barY + 62);
+    ctx.textAlign = "end";
+    ctx.fillText(scale.highLabel, x + width, barY + 62);
     ctx.restore();
 }
 
@@ -418,15 +474,18 @@ export async function renderProgressCardBlob(data: ProgressCardData) {
         }
     }
 
-    fillRoundedRect(ctx, 110, 110, 260, 54, 27, "rgba(255,255,255,0.14)");
-    ctx.fillStyle = data.theme.text;
-    ctx.font = "600 24px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
-    ctx.fillText(data.subtitle, 138, 145);
+    // The subtitle pill is optional; without it the title moves up.
+    if (data.subtitle) {
+        fillRoundedRect(ctx, 110, 110, 260, 54, 27, "rgba(255,255,255,0.14)");
+        ctx.fillStyle = data.theme.text;
+        ctx.font = "600 24px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+        ctx.fillText(data.subtitle, 138, 145);
+    }
 
     const titleFontSize = data.title.length > 26 ? 54 : 62;
     ctx.font = `700 ${titleFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
     ctx.fillStyle = data.theme.text;
-    ctx.fillText(data.title, 110, 255);
+    ctx.fillText(data.title, 110, data.subtitle ? 255 : 200);
 
     ctx.font = "600 26px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
     ctx.fillStyle = data.theme.mutedText;
@@ -442,20 +501,24 @@ export async function renderProgressCardBlob(data: ProgressCardData) {
     ctx.fillText(data.trendText, 140, 563);
 
     fillRoundedRect(ctx, 110, 640, 980, 250, 30, "rgba(10,15,28,0.18)");
-    ctx.font = "600 24px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
-    ctx.fillStyle = data.theme.mutedText;
-    ctx.fillText(data.historyLabel, 142, 695);
-    drawSparkline(
-        ctx,
-        data.history,
-        data.direction,
-        150,
-        735,
-        900,
-        120,
-        data.theme.accent,
-        "rgba(255,255,255,0.12)"
-    );
+    if (data.scale) {
+        drawScale(ctx, data.scale, data.theme, 160, 650, 880);
+    } else {
+        ctx.font = "600 24px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+        ctx.fillStyle = data.theme.mutedText;
+        ctx.fillText(data.historyLabel, 142, 695);
+        drawSparkline(
+            ctx,
+            data.history,
+            data.direction,
+            150,
+            735,
+            900,
+            120,
+            data.theme.accent,
+            "rgba(255,255,255,0.12)"
+        );
+    }
 
     const metricY = 950;
     const cardWidth = 300;
@@ -463,13 +526,16 @@ export async function renderProgressCardBlob(data: ProgressCardData) {
     data.metrics.slice(0, 3).forEach((metric, index) => {
         const x = 110 + index * (cardWidth + gap);
         fillRoundedRect(ctx, x, metricY, cardWidth, 210, 28, "rgba(255,255,255,0.10)");
+        if (metric.highlight) {
+            strokeRoundedRect(ctx, x, metricY, cardWidth, 210, 28, data.theme.accent, 3);
+        }
         ctx.font = "600 22px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
         ctx.fillStyle = data.theme.mutedText;
         ctx.fillText(metric.label, x + 28, metricY + 56);
 
         const valueFontSize = metric.value.length > 16 ? 36 : 44;
         ctx.font = `700 ${valueFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
-        ctx.fillStyle = data.theme.text;
+        ctx.fillStyle = metric.highlight ? data.theme.accent : data.theme.text;
         ctx.fillText(metric.value, x + 28, metricY + 132);
     });
 

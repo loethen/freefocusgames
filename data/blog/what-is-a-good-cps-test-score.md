@@ -81,6 +81,8 @@ Only the 5-second mode records results, so we don't have benchmarks for the othe
 - **Exclusions:** results under 1 CPS (the test was started but barely clicked) and over 16 CPS (rare enough that many are likely auto-clickers). That left 4,554 players.
 - **Limits:** players chose to take the test, use different mice and devices, and each counts with their best score, so this is a practical benchmark for this test, not a scientific population average.
 
+For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
+
 ## FAQ
 
 **What is the average CPS?**

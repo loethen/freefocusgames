@@ -68,6 +68,8 @@ The median forward span was **7 digits**, matching Miller's classic figure. Most
 
 These are early numbers from a small, self-selected group. Our version also shows digits on screen and lets you type at your own pace, while clinical versions read digits aloud, so the results are not directly comparable.
 
+For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
+
 ## How to get a more accurate result
 
 - Take the test somewhere quiet, without other tabs or notifications.

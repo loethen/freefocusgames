@@ -100,6 +100,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
       '@type': 'Organization',
       name: 'FreeFocusGames',
       url: baseUrl,
+      sameAs: ['https://github.com/loethen/freefocusgames', 'https://x.com/2also397879'],
       logo: {
         '@type': 'ImageObject',
         url: `${baseUrl}/og/oglogo.png`,

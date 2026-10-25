@@ -22,6 +22,7 @@ function generateBaseRoutes(locale: string): MetadataRoute.Sitemap {
     { path: 'categories', changeFrequency: 'weekly' as const, priority: 0.8 },
     { path: 'blog', changeFrequency: 'daily' as const, priority: 0.9 },
     { path: 'about', changeFrequency: 'monthly' as const, priority: 0.7 },
+    { path: 'methodology', changeFrequency: 'monthly' as const, priority: 0.6 },
     { path: 'tests', changeFrequency: 'monthly' as const, priority: 0.9 },
     { path: 'guides', changeFrequency: 'monthly' as const, priority: 0.9 },
     { path: 'get-started', changeFrequency: 'monthly' as const, priority: 0.8 },

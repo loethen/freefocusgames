@@ -84,6 +84,8 @@ Almost exactly half. In standard mode 46% of players' best attempts stopped earl
 - **Exclusions:** attempts more than 3 seconds away from 10 seconds, which usually mean the player got distracted. That left 19,788 players in standard mode and 2,286 in hidden mode.
 - **Limits:** each player counts with their best attempt out of any number of tries, so these numbers show what people can reach with practice, not a typical single try.
 
+For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
+
 ## FAQ
 
 **What is a good score in the 10 second challenge?**

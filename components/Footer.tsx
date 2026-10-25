@@ -39,6 +39,13 @@ export function Footer() {
         </Link>
         <span>•</span>
         <Link
+          href="/methodology"
+          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
+        >
+          {t('methodology')}
+        </Link>
+        <span>•</span>
+        <Link
           href="/privacy-policy"
           className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
         >

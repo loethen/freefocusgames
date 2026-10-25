@@ -1,6 +1,7 @@
 ---
 title: "What Is a Good Reaction Time? Benchmarks From 8,791 Players"
 date: "2026-10-23"
+updatedAt: "2026-10-25"
 excerpt: "Real reaction time benchmarks from 8,791 players of our online test: the median is 369 ms, and under 300 ms beats about 84% of players. See where your score lands."
 metaDescription: "What is a good reaction time? On our online test the median is 369 ms. Under 300 ms is faster than about 84% of 8,791 players. See the full percentile table."
 coverImage: "/games/reaction-time.png"
@@ -20,7 +21,9 @@ These numbers come from 8,791 people who finished our [reaction time test](/game
 
 ## Reaction time percentiles
 
-Each result is the average of five rounds, in milliseconds. Lower is faster.
+Each result is the average of five rounds, in milliseconds. Lower is faster. Most players land between 280 and 440 ms, with a long tail of slower results on the right.
+
+<reaction-time-distribution></reaction-time-distribution>
 
 | Percentile | Reaction time | What it means |
 | --- | --- | --- |
@@ -68,6 +71,8 @@ If you want to get faster, read [how to improve reaction time for gaming](/blog/
 - **Data:** best results from 9,101 players who completed the five-round test on FreeFocusGames from March 8 to October 23, 2026.
 - **Exclusions:** results under 120 ms (almost always clicking before the color changed) and over 1,000 ms (usually a distraction or an interrupted round). That left 8,791 players.
 - **Limits:** players chose to take the test, use many different devices, and each counts with their best score, so this is a practical benchmark for this test, not a scientific population average.
+
+For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
 
 ## FAQ
 

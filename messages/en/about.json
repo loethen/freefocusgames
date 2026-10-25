@@ -7,6 +7,7 @@
       "paragraph1": "Hi there! I'm the creator of FreeFocusGames. I built this website because I got frustrated with constantly running into paywalls and those outdated, cumbersome website experiences when searching for quality brain training games. I firmly believe everyone should be able to freely access these tools without being blocked by subscription barriers.",
       "paragraph2": "The games here are inspired by classic paradigms from cognitive psychology and neuropsychology—such as working memory training, visual search grids, reaction speed tasks, and executive attention challenges. I've carefully adapted them to be clean, fast, and accessible on modern devices without downloads or paywalls.",
       "paragraph3": "I hope these games prove helpful and bring you joy. There's no pressure here - just choose whatever games spark your interest and enjoy the process. Even playing for just a few minutes each day is a beneficial mental workout.",
+      "dataNote": "The benchmarks in our articles come from anonymous results that players submit after a game. <methodology>Data & Methodology</methodology> explains how we collect and filter them, and the code for the whole site is open source on <github>GitHub</github>.",
       "paragraph4": "If you have any feedback or suggestions, I'd be delighted to hear from you.",
       "paragraph5": "Contact: contact@freefocusgames.com"
     },

@@ -66,6 +66,8 @@ Part B took about 1.7 times as long as Part A for the typical player, and 72% of
 
 These are early numbers from a small, self-selected group, so treat them as a rough guide. They also are not comparable with clinical norms: our version is played with a mouse or finger on a screen with randomly placed circles, while clinical norms come from the standard paper forms under controlled conditions.
 
+For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
+
 ## What it can and cannot tell you
 
 - **It is not a diagnosis.** Clinicians interpret the test alongside age, education, history, and other tests. An online score on its own cannot tell you whether anything is wrong.
