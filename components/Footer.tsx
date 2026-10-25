@@ -1,12 +1,20 @@
 "use client";
 
+import { Fragment } from 'react';
 import { useTranslations } from 'next-intl';
 import { XLogo } from './ui/XLogo';
 import { Link } from '@/i18n/navigation';
 import { Github } from 'lucide-react';
 import { CaptionCatFooterCat } from './captioncat-footer-cat';
 
-const KOFI_URL = "https://ko-fi.com/freefocusgames";
+// Methodology and the Ko-fi link live on the About and Benchmarks pages, which keeps this to one line.
+const FOOTER_LINKS = [
+  { href: "/categories", label: "categories" },
+  { href: "/benchmarks", label: "benchmarks" },
+  { href: "/about", label: "about" },
+  { href: "/privacy-policy", label: "privacyPolicy" },
+  { href: "/terms-of-service", label: "termsOfService" },
+] as const;
 
 export function Footer() {
   const t = useTranslations('common');
@@ -15,59 +23,17 @@ export function Footer() {
     <footer className="mx-auto mt-12 max-w-4xl pb-8 text-center text-sm">
       <CaptionCatFooterCat />
       <div className="flex items-center justify-center space-x-4 flex-wrap text-muted-foreground/60">
-        <span>2026</span>
-        <span>•</span>
-        <Link
-          href="/categories"
-          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
-        >
-          {t('categories')}
-        </Link>
-        <span>•</span>
-        <Link
-          href="/benchmarks"
-          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
-        >
-          {t('benchmarks')}
-        </Link>
-        <span>•</span>
-        <Link
-          href="/about"
-          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
-        >
-          {t('about')}
-        </Link>
-        <span>•</span>
-        <Link
-          href="/methodology"
-          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
-        >
-          {t('methodology')}
-        </Link>
-        <span>•</span>
-        <Link
-          href="/privacy-policy"
-          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
-        >
-          {t('privacyPolicy')}
-        </Link>
-        <span>•</span>
-        <Link
-          href="/terms-of-service"
-          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
-        >
-          {t('termsOfService')}
-        </Link>
-        <span>•</span>
-        <a
-          href={KOFI_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
-        >
-          {t('supportProject')}
-        </a>
-        <span>•</span>
+        {FOOTER_LINKS.map(({ href, label }) => (
+          <Fragment key={href}>
+            <Link
+              href={href}
+              className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
+            >
+              {t(label)}
+            </Link>
+            <span>•</span>
+          </Fragment>
+        ))}
         <a
           href="https://x.com/2also397879"
           target="_blank"
