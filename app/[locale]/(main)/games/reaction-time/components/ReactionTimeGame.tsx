@@ -291,21 +291,19 @@ export default function ReactionTimeGame() {
             <div className="w-full p-6 text-center">
               {gameState === GameStates.START && (
                 <div className="flex flex-col items-center justify-center">
-                  <span className="relative mb-6 flex h-20 w-20 items-center justify-center" aria-hidden="true">
-                    <motion.span
-                      className="absolute inset-0 rounded-full bg-white/20"
-                      animate={{ scale: [1, 1.25, 1], opacity: [0.6, 0, 0.6] }}
-                      transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
-                    />
-                    <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30">
-                      <MousePointerClick className="h-8 w-8" strokeWidth={1.75} />
-                    </span>
-                  </span>
+                  <motion.span
+                    className="mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-white/15"
+                    animate={{ scale: [1, 1.06, 1] }}
+                    transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    aria-hidden="true"
+                  >
+                    <MousePointerClick className="h-8 w-8" strokeWidth={1.75} />
+                  </motion.span>
                   <p className="text-3xl md:text-4xl font-bold tracking-tight">{t('startTitle')}</p>
                   <p className="mt-3 text-sm md:text-base text-white/80">{t('startHint', { total: MAX_ROUNDS })}</p>
                   <p className="mt-6 hidden items-center gap-2 text-xs text-white/60 sm:flex">
                     {t('keyboardHint')}
-                    <kbd className="rounded-md border border-white/30 bg-white/10 px-2 py-0.5 font-sans text-[11px] font-medium text-white/85">
+                    <kbd className="rounded-md bg-white/15 px-2 py-0.5 font-sans text-[11px] font-medium text-white/85">
                       {t('spaceKey')}
                     </kbd>
                   </p>

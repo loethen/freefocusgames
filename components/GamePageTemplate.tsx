@@ -46,8 +46,6 @@ interface ScienceInfo {
 
 interface GamePageTemplateProps {
     gameBackground?: string;
-    // Games that fill their own coloured board can skip the bordered frame.
-    frameless?: boolean;
     gameId: string;
     title: string;
     subtitle: string;
@@ -73,7 +71,6 @@ interface GamePageTemplateProps {
 
 export function GamePageTemplate({
     gameBackground,
-    frameless = false,
     gameId,
     title,
     subtitle,
@@ -129,8 +126,7 @@ export function GamePageTemplate({
             {/* 游戏组件 */}
             <section
                 className={cn(
-                    "mb-4",
-                    !frameless && "rounded-xl p-2 md:p-4 border border-border",
+                    "mb-4 rounded-xl p-2 md:p-4 border border-border",
                     gameBackground
                 )}
             >
