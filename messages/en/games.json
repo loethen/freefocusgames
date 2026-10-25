@@ -1107,7 +1107,16 @@
           "average": "Typical - right in the middle",
           "slow": "Room to improve - try a mouse and a quiet moment",
           "fasterThan": "Faster than {percent}% of players"
-        }
+        },
+        "roundProgress": "Round {current} of {total}",
+        "startHint": "{total} rounds · click the moment the screen turns green",
+        "nextRound": "Click anywhere for round {next}",
+        "retryRound": "Click anywhere to retry round {current}",
+        "tooEarlyHint": "Wait until the screen turns green. This round does not count.",
+        "yourRounds": "Your rounds (best in green)",
+        "slower": "Slower",
+        "faster": "Faster",
+        "compareLink": "See how 8,791 players compare"
       },
       "ratings": {
         "master": "Master",

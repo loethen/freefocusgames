@@ -2,12 +2,14 @@
 
 import React, { MouseEvent, useState, useEffect, useRef } from 'react';
 import { toast } from "sonner";
-import { Share, Award } from "lucide-react";
+import { Share, Award, ArrowRight, RotateCcw } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Link } from '@/i18n/navigation';
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
+import { analytics } from '@/lib/analytics';
 import { reactionFasterThanPercent, reactionRating } from '@/lib/reaction-time-benchmarks';
 import {
   getProgressInsights,
@@ -153,10 +155,6 @@ export default function ReactionTimeGame() {
       startGame();
     }
 
-    // If summary, reset the game
-    if (gameState === GameStates.SUMMARY) {
-      resetGame();
-    }
   };
 
   const shareResults = () => {
@@ -248,7 +246,7 @@ export default function ReactionTimeGame() {
         };
       default:
         return {
-          className: "bg-gray-800 text-white dark:bg-gray-900",
+          className: "bg-slate-900 text-white",
           style: {}
         };
     }
@@ -264,116 +262,163 @@ export default function ReactionTimeGame() {
     ariaLabel = t('screenReaderReady');
   }
 
+  const isSummary = gameState === GameStates.SUMMARY;
+  const average = getAverageTime(results);
+  const fasterThan = reactionFasterThanPercent(average);
+  const bestRound = results.length ? Math.min(...results) : null;
+  // During a round, `round` is the round in progress; after a successful click it already points to the next one.
+  const completedRounds = results.length;
+  const showProgress = gameState === GameStates.WAITING || gameState === GameStates.READY || gameState === GameStates.RESULT;
+
   return (
     <>
       <div className="space-y-6 flex flex-col items-center w-full">
         {/* Game board */}
         <div className="relative w-full">
           <div
-            className={`${bgStyle.className} w-full h-80 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] cursor-pointer flex items-center justify-center relative select-none`}
-            onClick={handleClick}
-            tabIndex={0}
+            className={`${bgStyle.className} w-full min-h-80 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center justify-center relative select-none ${isSummary ? '' : 'cursor-pointer'}`}
+            onClick={isSummary ? undefined : handleClick}
+            tabIndex={isSummary ? -1 : 0}
             ref={containerRef}
-            role="button"
+            role={isSummary ? undefined : "button"}
             aria-label={ariaLabel}
             style={bgStyle.style}
           >
+            {/* Round progress: one segment per round */}
+            {showProgress && (
+              <div className="absolute inset-x-0 top-4 flex flex-col items-center gap-2" aria-hidden="true">
+                <div className="flex gap-1.5">
+                  {Array.from({ length: MAX_ROUNDS }, (_, i) => (
+                    <span
+                      key={i}
+                      className={`h-1.5 w-8 rounded-full transition-colors ${i < completedRounds ? 'bg-white' : i === completedRounds ? 'bg-white/60' : 'bg-white/25'}`}
+                    />
+                  ))}
+                </div>
+                <span className="text-xs font-medium text-white/80">
+                  {t('roundProgress', { current: Math.min(completedRounds + 1, MAX_ROUNDS), total: MAX_ROUNDS })}
+                </span>
+              </div>
+            )}
+
             {/* Game content based on state */}
-            <div className="p-4 text-center">
+            <div className="w-full p-6 text-center">
               {gameState === GameStates.START && (
-                <div className="flex flex-col items-center justify-center h-full">
+                <div className="flex flex-col items-center justify-center gap-3">
                   <p className="text-2xl md:text-3xl font-bold text-white">{t('startButton')}</p>
+                  <p className="text-sm text-white/85">{t('startHint', { total: MAX_ROUNDS })}</p>
                 </div>
               )}
 
               {gameState === GameStates.WAITING && (
-                <div className="flex items-center justify-center h-full">
-                  <motion.p
-                    className="text-3xl md:text-4xl font-bold text-white"
-                    animate={{ scale: [1, 1.05, 1] }}
-                    transition={{ repeat: Infinity, duration: 2 }}
-                  >
-                    {t('wait')}
-                  </motion.p>
-                </div>
+                <motion.p
+                  className="text-3xl md:text-4xl font-bold text-white"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                >
+                  {t('wait')}
+                </motion.p>
               )}
 
               {gameState === GameStates.READY && (
-                <div className="flex items-center justify-center h-full">
+                <motion.p
+                  className="text-3xl md:text-4xl font-bold text-white"
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ repeat: Infinity, duration: 0.5 }}
+                >
+                  {t('clickNow')}
+                </motion.p>
+              )}
+
+              {gameState === GameStates.RESULT && (
+                <div className="flex flex-col items-center justify-center pt-8">
+                  {reactionTime === null ? (
+                    <>
+                      <motion.p
+                        className="text-2xl md:text-3xl font-bold text-rose-400"
+                        animate={{ x: [0, -5, 5, -5, 5, 0], transition: { duration: 0.5 } }}
+                      >
+                        {t('tooEarly')}
+                      </motion.p>
+                      <p className="mt-2 text-sm text-white/75">{t('tooEarlyHint')}</p>
+                    </>
+                  ) : (
+                    <>
+                      <motion.p
+                        className="text-5xl md:text-6xl font-bold tabular-nums text-white"
+                        initial={{ scale: 1.4, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        {reactionTime}
+                        <span className="ml-1 text-xl font-medium text-white/70">ms</span>
+                      </motion.p>
+                    </>
+                  )}
                   <motion.p
-                    className="text-3xl md:text-4xl font-bold text-white"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ repeat: Infinity, duration: 0.5 }}
+                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm"
+                    animate={{ scale: [1, 1.04, 1] }}
+                    transition={{ repeat: Infinity, duration: 1.6 }}
                   >
-                    {t('clickNow')}
+                    {reactionTime === null
+                      ? t('retryRound', { current: round })
+                      : t('nextRound', { next: round })}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </motion.p>
                 </div>
               )}
 
-              {gameState === GameStates.RESULT && (
-                <div className="flex flex-col items-center justify-center h-full">
-                  {reactionTime === null ? (
-                    <motion.p
-                      className="text-xl md:text-2xl font-bold text-red-500"
-                      animate={{
-                        x: [0, -5, 5, -5, 5, 0],
-                        transition: { duration: 0.5 }
-                      }}
-                    >
-                      {t('tooEarly')}
-                    </motion.p>
-                  ) : (
-                    <>
-                      <motion.p
-                        className="text-4xl md:text-5xl font-bold text-white"
-                        initial={{ scale: 1.5, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {reactionTime}
-                      </motion.p>
-                      <p className="text-sm md:text-base text-gray-200 mt-1">{t('milliseconds')}</p>
-                      <p className="text-xs md:text-sm text-gray-300 mt-3">{t('round')} {round}/{MAX_ROUNDS}</p>
-                    </>
-                  )}
-                </div>
-              )}
-
-              {gameState === GameStates.SUMMARY && (
-                <div className="flex flex-col items-center justify-center h-full gap-4">
-                  <div className="text-center">
-                    <p className="text-sm md:text-base font-medium text-gray-300">{t('bestTime')}</p>
-                    <p className="text-2xl md:text-3xl font-bold text-white">{Math.min(...results)}</p>
-                    <p className="text-xs text-gray-400">{t('milliseconds')}</p>
-                  </div>
-
-                  <div className="text-center">
-                    <p className="text-sm md:text-base font-medium text-gray-300">{t('averageTime')}</p>
-                    <p className="text-xl md:text-2xl font-bold text-white">{getAverageTime(results)}</p>
-                    <p className="text-xs text-gray-400">{t('milliseconds')}</p>
-                  </div>
-
-                  {/* Reflex Analysis Section */}
-                  <div className="bg-white/10 p-3 rounded-lg backdrop-blur-sm mt-1">
-                    <p className="text-xs text-blue-200 uppercase tracking-wider mb-1">{t('reflexAnalysis.title')}</p>
-                    <p className="text-sm md:text-base font-bold text-yellow-300">
-                      {t(`reflexAnalysis.${reactionRating(getAverageTime(results))}`)}
-                    </p>
-                    <p className="mt-1 text-xs md:text-sm text-white/90">
-                      {t('reflexAnalysis.fasterThan', { percent: reactionFasterThanPercent(getAverageTime(results)) })}
+              {isSummary && (
+                <div className="mx-auto flex w-full max-w-md flex-col items-center gap-5 py-2">
+                  <div>
+                    <p className="text-sm font-medium text-white/70">{t('averageTime')}</p>
+                    <p className="mt-1 text-6xl font-bold tabular-nums text-white">
+                      {average}
+                      <span className="ml-1 text-2xl font-medium text-white/60">ms</span>
                     </p>
                   </div>
 
-                  <div className="flex gap-2 mt-2">
+                  <div className="w-full">
+                    <p className="text-lg font-semibold text-white">
+                      {t('reflexAnalysis.fasterThan', { percent: fasterThan })}
+                    </p>
+                    <p className="mt-0.5 text-sm text-amber-300">{t(`reflexAnalysis.${reactionRating(average)}`)}</p>
+                    <div className="relative mt-4 h-2 w-full rounded-full bg-gradient-to-r from-rose-400 via-amber-300 to-emerald-400">
+                      <span
+                        className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-gray-900 bg-white shadow"
+                        style={{ left: `${Math.min(97, Math.max(3, fasterThan))}%` }}
+                        aria-hidden="true"
+                      />
+                    </div>
+                    <div className="mt-1.5 flex justify-between text-[11px] text-white/50">
+                      <span>{t('slower')}</span>
+                      <span>{t('faster')}</span>
+                    </div>
+                  </div>
+
+                  <div className="w-full">
+                    <p className="mb-2 text-xs font-medium text-white/60">{t('yourRounds')}</p>
+                    <div className="grid grid-cols-5 gap-2">
+                      {results.map((time, i) => (
+                        <span
+                          key={i}
+                          className={`rounded-lg px-1 py-2 text-sm font-semibold tabular-nums ${time === bestRound ? 'bg-emerald-400/20 text-emerald-300' : 'bg-white/10 text-white/85'}`}
+                        >
+                          {time}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex w-full flex-col gap-2 sm:flex-row">
                     <Button
                       onClick={(event) => {
                         stopBoardClick(event);
                         resetGame();
                       }}
-                      size="sm"
-                      variant="secondary"
-                      className="text-xs"
+                      className="flex-1 gap-2 bg-white text-gray-900 hover:bg-white/90"
                     >
+                      <RotateCcw className="h-4 w-4" aria-hidden="true" />
                       {t('playAgain')}
                     </Button>
                     <Button
@@ -381,13 +426,27 @@ export default function ReactionTimeGame() {
                         stopBoardClick(event);
                         shareResults();
                       }}
-                      size="sm"
-                      className="flex items-center justify-center gap-1 text-xs"
+                      variant="outline"
+                      className="flex-1 gap-2 border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white"
                     >
-                      <Share size={12} />
+                      <Share className="h-4 w-4" aria-hidden="true" />
                       {shareT('button')}
                     </Button>
                   </div>
+
+                  <Link
+                    href="/blog/what-is-a-good-reaction-time"
+                    onClick={() => analytics.navigation.recommendation({
+                      from_page: 'games/reaction-time',
+                      to_page: '/blog/what-is-a-good-reaction-time',
+                      game_from: 'reaction-time',
+                      link_location: 'reaction_result_benchmark',
+                    })}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-sky-300 underline-offset-4 hover:underline"
+                  >
+                    {t('compareLink')}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
                 </div>
               )}
             </div>

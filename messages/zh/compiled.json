@@ -1944,7 +1944,16 @@
           "average": "正常 - 处在中间水平",
           "slow": "还有提升空间 - 试试用鼠标、安静时再测",
           "fasterThan": "快过 {percent}% 的玩家"
-        }
+        },
+        "roundProgress": "第 {current} / {total} 回合",
+        "startHint": "共 {total} 回合 · 屏幕变绿的瞬间点击",
+        "nextRound": "点击任意位置开始第 {next} 回合",
+        "retryRound": "点击任意位置重新进行第 {current} 回合",
+        "tooEarlyHint": "请等屏幕变绿再点，这一回合不计成绩。",
+        "yourRounds": "各回合成绩（绿色为最好）",
+        "slower": "较慢",
+        "faster": "较快",
+        "compareLink": "看看 8,791 名玩家的成绩分布"
       },
       "ratings": {
         "master": "大师",
