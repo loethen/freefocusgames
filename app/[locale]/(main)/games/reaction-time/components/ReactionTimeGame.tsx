@@ -102,7 +102,7 @@ export default function ReactionTimeGame() {
     // Change to READY state after random wait time
     timeoutRef.current = window.setTimeout(() => {
       setGameState(GameStates.READY);
-      setStartTime(Date.now());
+      setStartTime(performance.now());
     }, randomWaitTime);
   };
 
@@ -123,10 +123,10 @@ export default function ReactionTimeGame() {
 
     // If ready, record reaction time
     if (gameState === GameStates.READY) {
-      const now = Date.now();
+      const now = performance.now();
 
       if (startTime) {
-        const time = now - startTime;
+        const time = Math.round(now - startTime);
         setReactionTime(time);
 
         // Update best time if better
@@ -161,6 +161,12 @@ export default function ReactionTimeGame() {
     if (progressCard) {
       setIsShareModalOpen(true);
     }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.repeat || (event.key !== ' ' && event.key !== 'Enter')) return;
+    event.preventDefault();
+    handleClick();
   };
 
   const stopBoardClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -226,29 +232,17 @@ export default function ReactionTimeGame() {
     }
   }, [gameState]);
 
-  // Get background color and style based on game state
+  // One colour per instruction: blue invites a click, red means hold, green means go.
   const getBackgroundStyle = () => {
     switch (gameState) {
       case GameStates.START:
-        return {
-          className: "bg-blue-500",
-          style: {}
-        };
+        return { className: "bg-sky-600 text-white", style: {} };
       case GameStates.WAITING:
-        return {
-          className: "bg-blue-500",
-          style: {}
-        };
+        return { className: "bg-rose-600 text-white", style: {} };
       case GameStates.READY:
-        return {
-          className: "bg-green-500",
-          style: {}
-        };
+        return { className: "bg-emerald-500 text-white", style: {} };
       default:
-        return {
-          className: "bg-slate-900 text-white",
-          style: {}
-        };
+        return { className: "bg-slate-900 text-white", style: {} };
     }
   };
 
@@ -266,9 +260,7 @@ export default function ReactionTimeGame() {
   const average = getAverageTime(results);
   const fasterThan = reactionFasterThanPercent(average);
   const bestRound = results.length ? Math.min(...results) : null;
-  // During a round, `round` is the round in progress; after a successful click it already points to the next one.
   const completedRounds = results.length;
-  const showProgress = gameState === GameStates.WAITING || gameState === GameStates.READY || gameState === GameStates.RESULT;
 
   return (
     <>
@@ -278,93 +270,63 @@ export default function ReactionTimeGame() {
           <div
             className={`${bgStyle.className} w-full min-h-80 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center justify-center relative select-none ${isSummary ? '' : 'cursor-pointer'}`}
             onClick={isSummary ? undefined : handleClick}
+            onKeyDown={isSummary ? undefined : handleKeyDown}
             tabIndex={isSummary ? -1 : 0}
             ref={containerRef}
             role={isSummary ? undefined : "button"}
             aria-label={ariaLabel}
             style={bgStyle.style}
           >
-            {/* Round progress: one segment per round */}
-            {showProgress && (
-              <div className="absolute inset-x-0 top-4 flex flex-col items-center gap-2" aria-hidden="true">
-                <div className="flex gap-1.5">
-                  {Array.from({ length: MAX_ROUNDS }, (_, i) => (
-                    <span
-                      key={i}
-                      className={`h-1.5 w-8 rounded-full transition-colors ${i < completedRounds ? 'bg-white' : i === completedRounds ? 'bg-white/60' : 'bg-white/25'}`}
-                    />
-                  ))}
-                </div>
-                <span className="text-xs font-medium text-white/80">
-                  {t('roundProgress', { current: Math.min(completedRounds + 1, MAX_ROUNDS), total: MAX_ROUNDS })}
-                </span>
-              </div>
-            )}
-
             {/* Game content based on state */}
             <div className="w-full p-6 text-center">
               {gameState === GameStates.START && (
-                <div className="flex flex-col items-center justify-center gap-3">
-                  <p className="text-2xl md:text-3xl font-bold text-white">{t('startButton')}</p>
-                  <p className="text-sm text-white/85">{t('startHint', { total: MAX_ROUNDS })}</p>
+                <div className="flex flex-col items-center justify-center gap-4">
+                  <p className="text-3xl md:text-4xl font-bold">{t('startTitle')}</p>
+                  <p className="max-w-sm text-base text-white/85">{t('startHint', { total: MAX_ROUNDS })}</p>
+                  <p className="hidden text-sm text-white/60 sm:block">{t('keyboardHint')}</p>
                 </div>
               )}
 
               {gameState === GameStates.WAITING && (
-                <motion.p
-                  className="text-3xl md:text-4xl font-bold text-white"
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ repeat: Infinity, duration: 2 }}
-                >
-                  {t('wait')}
-                </motion.p>
+                <p className="text-4xl md:text-5xl font-bold">{t('wait')}</p>
               )}
 
               {gameState === GameStates.READY && (
-                <motion.p
-                  className="text-3xl md:text-4xl font-bold text-white"
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ repeat: Infinity, duration: 0.5 }}
-                >
-                  {t('clickNow')}
-                </motion.p>
+                <p className="text-5xl md:text-6xl font-bold">{t('clickNow')}</p>
               )}
 
               {gameState === GameStates.RESULT && (
-                <div className="flex flex-col items-center justify-center pt-8">
+                <div className="flex flex-col items-center justify-center">
                   {reactionTime === null ? (
                     <>
                       <motion.p
-                        className="text-2xl md:text-3xl font-bold text-rose-400"
-                        animate={{ x: [0, -5, 5, -5, 5, 0], transition: { duration: 0.5 } }}
+                        className="text-4xl md:text-5xl font-bold text-rose-400"
+                        animate={{ x: [0, -6, 6, -6, 6, 0], transition: { duration: 0.4 } }}
                       >
                         {t('tooEarly')}
                       </motion.p>
-                      <p className="mt-2 text-sm text-white/75">{t('tooEarlyHint')}</p>
+                      <p className="mt-3 text-base text-white/75">{t('tooEarlyHint')}</p>
                     </>
                   ) : (
-                    <>
-                      <motion.p
-                        className="text-5xl md:text-6xl font-bold tabular-nums text-white"
-                        initial={{ scale: 1.4, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.4 }}
-                      >
-                        {reactionTime}
-                        <span className="ml-1 text-xl font-medium text-white/70">ms</span>
-                      </motion.p>
-                    </>
+                    <motion.p
+                      className="text-6xl md:text-7xl font-bold tabular-nums"
+                      initial={{ scale: 1.2, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {reactionTime}
+                      <span className="ml-1 text-2xl font-medium text-white/60">ms</span>
+                    </motion.p>
                   )}
-                  <motion.p
-                    className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-gray-900 shadow-sm"
-                    animate={{ scale: [1, 1.04, 1] }}
-                    transition={{ repeat: Infinity, duration: 1.6 }}
-                  >
-                    {reactionTime === null
-                      ? t('retryRound', { current: round })
-                      : t('nextRound', { next: round })}
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </motion.p>
+                  <p className="mt-8 text-lg font-medium text-white/90">
+                    {reactionTime === null ? t('retryRound') : t('nextRound')}
+                  </p>
+                  <div className="mt-4 flex items-center gap-1.5" aria-label={t('roundProgress', { current: completedRounds, total: MAX_ROUNDS })}>
+                    {Array.from({ length: MAX_ROUNDS }, (_, i) => (
+                      <span key={i} className={`h-1.5 w-1.5 rounded-full ${i < completedRounds ? 'bg-white' : 'bg-white/25'}`} />
+                    ))}
+                    <span className="ml-2 text-xs tabular-nums text-white/50">{completedRounds} / {MAX_ROUNDS}</span>
+                  </div>
                 </div>
               )}
 
