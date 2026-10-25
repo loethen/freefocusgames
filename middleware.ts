@@ -25,6 +25,7 @@ const legacyRedirects: Record<string, string> = {
     '/blog/the-science-of-478-breathing-sleep-anxiety-relief': '/games/478-breathing',
     '/blog/the-science-of-box-breathing-navy-seal-technique': '/games/box-breathing',
     '/blog/the-science-of-resonance-breathing-vagus-nerve': '/games/resonance-breathing',
+    '/blog/the-science-behind-n-back-training-boost-working-memory': '/blog/interactive-dual-n-back-tutorial-complete-guide',
 };
 
 function getLegacyRedirect(pathname: string) {

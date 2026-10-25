@@ -390,12 +390,12 @@
       "subtitle": "Authoritative guides based on the latest neuroscience research to provide a solid scientific foundation for your cognitive training.",
       "buttonText": "View More Science Articles →",
       "article1": {
-        "title": "The Science of Dual N-Back: How to Truly Improve Working Memory",
-        "description": "A deep dive into Jaeggi's 2008 breakthrough study, revealing how dual n-back training enhances fluid intelligence through neuroplasticity, including training protocols, brain change evidence, and effect validation.",
-        "highlights": "Jaeggi PNAS Study,40% Fluid Intelligence Boost,Neuroplasticity Evidence,Optimal Training Protocol",
+        "title": "Dual N-Back: How to Play and What the Research Says",
+        "description": "How dual n-back works, a step-by-step 1-back walkthrough, and an honest look at what studies found about working memory and intelligence.",
+        "highlights": "How to play,1-back walkthrough,What studies found,Limits of transfer",
         "tag": "Working Memory",
-        "readTime": "15 min read",
-        "difficulty": "Intermediate"
+        "readTime": "8 min read",
+        "difficulty": "Beginner"
       },
       "article2": {
         "title": "Schulte Tables: Evidence, Limits & Visual Search",

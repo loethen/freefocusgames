@@ -713,7 +713,7 @@ function ClusterArticlesSection({ t }: { t: TWorkingMemoryT }) {
         {
             title: t("clusterArticles.article1.title"),
             description: t("clusterArticles.article1.description"),
-            slug: "the-science-behind-n-back-training-boost-working-memory",
+            slug: "interactive-dual-n-back-tutorial-complete-guide",
             highlights: t("clusterArticles.article1.highlights").split(","),
             tag: t("clusterArticles.article1.tag"),
             readTime: t("clusterArticles.article1.readTime"),

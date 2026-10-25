@@ -272,7 +272,7 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
       science={{
         title: t('science.title'),
         description: t('science.description'),
-        blogArticleUrl: "/blog/the-science-behind-n-back-training-boost-working-memory",
+        blogArticleUrl: "/blog/interactive-dual-n-back-tutorial-complete-guide",
         blogArticleTitle: t('science.blogArticleTitle'),
       }}
       faq={faq}

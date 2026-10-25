@@ -388,12 +388,12 @@
       "subtitle": "基于最新神经科学研究的权威指南，为您的认知训练提供科学理论基础",
       "buttonText": "查看更多科学文章 →",
       "article1": {
-        "title": "Dual N-Back训练科学：如何真正提升工作记忆",
-        "description": "深入解析Jaeggi 2008年突破性研究，揭示dual n-back训练如何通过神经可塑性增强流体智力，包含训练协议、大脑变化证据和效果验证。",
-        "highlights": "Jaeggi PNAS研究,流体智力提升40%,神经可塑性证据,最佳训练方案",
+        "title": "Dual N-Back：玩法详解与研究怎么说",
+        "description": "Dual N-Back 怎么玩、1-back 分步示例，以及研究对工作记忆和智力提升的真实结论。",
+        "highlights": "玩法说明,1-back示例,研究结论,迁移的局限",
         "tag": "工作记忆",
-        "readTime": "15分钟",
-        "difficulty": "中等"
+        "readTime": "8分钟",
+        "difficulty": "入门"
       },
       "article2": {
         "title": "舒尔特表格：证据、局限与视觉搜索",
