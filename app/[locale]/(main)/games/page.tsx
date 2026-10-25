@@ -281,7 +281,7 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
                     </p>
                     <div className="mt-6 flex flex-wrap gap-x-7 gap-y-3">
                         <Link
-                            href="/working-memory-guide"
+                            href="/blog"
                             className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
                         >
                             {t("resources.workingMemory")}

@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from "@/i18n/routing";
+import { getBlogPost } from "@/lib/blog";
 import { generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import LinkClickTracker from "@/components/link-click-tracker";
@@ -111,8 +112,16 @@ export default async function CategoryPage({ params }: Props) {
   const categoriesTitle = t('title');
   const categoryIntro = t('categoryIntro', { categoryName });
   // Guides and articles that belong to this topic cluster; the games themselves are in the grid.
+  const workingMemoryReads = category.id === 'working-memory'
+    ? await Promise.all(
+        ['interactive-dual-n-back-tutorial-complete-guide', 'digit-span-test-explained'].map(async (slug) => ({
+          href: `/blog/${slug}`,
+          label: (await getBlogPost(slug, locale))?.title ?? '',
+        }))
+      )
+    : [];
   const readingLinks = category.id === 'working-memory'
-    ? [{ href: '/working-memory-guide', label: allT('workingMemoryGuide.title') }]
+    ? workingMemoryReads.filter((link) => link.label)
     : category.id === 'visual-tracking'
       ? [{
           href: '/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed',

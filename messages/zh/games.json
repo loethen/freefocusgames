@@ -36,8 +36,8 @@
     },
     "resources": {
       "title": "还不知道从哪里开始？",
-      "description": "你可以先阅读实用指南、浏览全部训练分类，或用番茄钟开始一段短时专注练习。",
-      "workingMemory": "阅读工作记忆指南",
+      "description": "你可以先读几篇文章、浏览全部训练分类，或用番茄钟开始一段短时专注练习。",
+      "workingMemory": "阅读文章",
       "categories": "浏览全部游戏分类",
       "pomodoro": "打开番茄钟"
     },
@@ -72,10 +72,6 @@
         "adultAdhdAssessment": {
           "title": "成人 ADHD 自测",
           "description": "通过成人 ADHD 评估了解自己的注意力模式，并获取下一步建议。"
-        },
-        "workingMemoryGuide": {
-          "title": "工作记忆指南",
-          "description": "阅读我们的工作记忆深度指南，了解训练收益和推荐游戏。"
         }
       }
     },

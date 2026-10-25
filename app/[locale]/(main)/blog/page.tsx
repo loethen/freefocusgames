@@ -46,7 +46,6 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'blog' });
   const commonT = await getTranslations({ locale, namespace: 'common' });
-  const guidesT = await getTranslations({ locale, namespace: 'guides' });
   const posts = (await getBlogPosts(locale)).filter((post) => !post.noindex);
 
   const rowClass = "group flex items-start gap-4 rounded-2xl px-4 py-4 transition-colors hover:bg-background/80 focus-visible:bg-background/80 focus-visible:outline-none sm:px-5";
@@ -86,8 +85,7 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
         <div className="space-y-10">
           {TOPICS.map((topic) => {
             const topicPosts = posts.filter((post) => post.topic === topic);
-            const showGuide = topic === 'memory';
-            if (!topicPosts.length && !showGuide) return null;
+            if (!topicPosts.length) return null;
 
             return (
               <section key={topic} aria-labelledby={`blog-${topic}`} data-link-location={`blog_${topic}`}>
@@ -95,22 +93,6 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
                   {t(`topics.${topic}`)}
                 </h2>
                 <ul className="flex flex-col gap-1 rounded-[2rem] bg-muted/50 p-2">
-                  {showGuide && (
-                    <li>
-                      <Link href="/working-memory-guide" className={rowClass}>
-                        <span className="flex min-w-0 flex-1 flex-col gap-1">
-                          <span className="flex items-center gap-2">
-                            <h3 className="text-base font-semibold leading-snug tracking-tight">{guidesT('workingMemory.title')}</h3>
-                            <span className="shrink-0 rounded-full bg-background px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
-                              {t('guideBadge')}
-                            </span>
-                          </span>
-                          <span className="line-clamp-2 text-sm leading-6 text-muted-foreground">{t('guideDescription')}</span>
-                        </span>
-                        <ArrowRight aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-                      </Link>
-                    </li>
-                  )}
                   {topicPosts.map(renderPost)}
                 </ul>
               </section>

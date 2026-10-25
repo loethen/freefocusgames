@@ -27,12 +27,11 @@
     "latestPosts": "最新文章",
     "featuredResources": {
       "title": "实用指南与文章",
-      "subtitle": "从我们最实用的工作记忆指南、舒尔特表格训练文章和成人 ADHD 自测说明开始。",
+      "subtitle": "从真实玩家的反应时间数据、舒尔特表格训练文章和成人 ADHD 自测说明开始。",
       "viewAll": "查看全部文章",
       "items": {
-        "workingMemoryGuide": {
-          "label": "指南",
-          "description": "从我们的核心工作记忆指南开始，了解训练原理，以及哪些游戏最适合提升专注力和整体认知表现。"
+        "reactionBenchmarks": {
+          "label": "数据"
         },
         "schulteBenefits": {
           "label": "文章"

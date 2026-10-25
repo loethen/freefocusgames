@@ -27,12 +27,11 @@
     "latestPosts": "Latest Posts",
     "featuredResources": {
       "title": "Helpful Guides and Articles",
-      "subtitle": "Start with our most useful guides on working memory, Schulte Table training, and adult ADHD self-screening.",
+      "subtitle": "Start with real reaction time benchmarks, Schulte Table training, and adult ADHD self-screening.",
       "viewAll": "Browse all articles",
       "items": {
-        "workingMemoryGuide": {
-          "label": "Guide",
-          "description": "Start with our flagship guide to working memory, how training works, and which games are most useful for improving focus and mental performance."
+        "reactionBenchmarks": {
+          "label": "Data"
         },
         "schulteBenefits": {
           "label": "Article"

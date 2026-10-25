@@ -119,7 +119,7 @@ Dual N-Back 因为 2008 年 Susanne Jaeggi 等人的一项研究而出名。参�
 - 记录自己几周来的级别和正确率，把难度保持在大约 80% 能做对的水平。
 - 和其他你喜欢的活动搭配，没有哪一项练习是捷径。
 
-想更全面地了解工作记忆以及训练能做到什么，可以看我们的[工作记忆指南](/working-memory-guide)。
+想换种方式练习，可以浏览全部[工作记忆游戏](/categories/working-memory)，或者用[数字广度测试](/blog/digit-span-test-explained)测测你的记忆广度。
 
 ## 常见问题
 

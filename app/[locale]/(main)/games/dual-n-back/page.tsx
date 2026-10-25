@@ -2,7 +2,7 @@ import { SITE_BASE_URL } from "@/lib/site-constants";
 import { Metadata } from 'next'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { Brain, Layers, Zap, Clock, BookOpen, Target, CalendarRange } from 'lucide-react'
+import { Brain, Layers, Zap, Clock, Target, CalendarRange } from 'lucide-react'
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
@@ -54,7 +54,6 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
   const { locale } = use(params);
   setRequestLocale(locale);
   const t = useTranslations('games.dualNBack');
-  const tCommon = useTranslations('common');
   const baseUrl = SITE_BASE_URL;
   const localePrefix = locale === 'en' ? '' : `/${locale}`;
   const pageUrl = `${baseUrl}${localePrefix}/games/dual-n-back`;
@@ -175,14 +174,6 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
       howToPlay={
         <>
           <p><Link href="/games/digit-span-test" className="underline">{locale === "zh" ? "数字广度测试：正背与倒背数字回忆" : "Digit Span Test: forward and backward digit recall"}</Link>{locale === "zh" ? "提供与 N-Back 更新任务不同的序列回忆练习。" : " offers sequence recall alongside the different N-Back updating task."}</p>
-          <Link href="/working-memory-guide" className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
-            <div className="flex items-center gap-3">
-              <BookOpen className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-medium text-primary">
-                {tCommon('learnMoreAboutWorkingMemory')}
-              </span>
-            </div>
-          </Link>
           <p>{t('howToPlayIntro')}</p>
           <div className="my-6 p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-orange-400 rounded-r-lg">
             <div className="flex items-center justify-between">

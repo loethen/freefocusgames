@@ -1,7 +1,6 @@
 [
   "common",
   "metadata",
-  "workingMemoryGuide",
   "home",
   "typesOfGames",
   "adhdAssessment",
@@ -13,6 +12,5 @@
   "getStarted",
   "about",
   "legal",
-  "tests",
-  "guides"
+  "tests"
 ]

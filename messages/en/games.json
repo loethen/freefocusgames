@@ -36,8 +36,8 @@
     },
     "resources": {
       "title": "Not sure where to begin?",
-      "description": "Use a practical guide, browse every training category, or start a short focus session with the Pomodoro timer.",
-      "workingMemory": "Read the working memory guide",
+      "description": "Read an article, browse every training category, or start a short focus session with the Pomodoro timer.",
+      "workingMemory": "Read our articles",
       "categories": "Browse all game categories",
       "pomodoro": "Open the Pomodoro timer"
     },
@@ -72,10 +72,6 @@
         "adultAdhdAssessment": {
           "title": "Adult ADHD Self-Assessment",
           "description": "Take our adult ADHD assessment to understand your attention patterns and get recommended next steps."
-        },
-        "workingMemoryGuide": {
-          "title": "Working Memory Guide",
-          "description": "Read our in-depth guide to working memory, training benefits, and recommended games."
         }
       }
     },

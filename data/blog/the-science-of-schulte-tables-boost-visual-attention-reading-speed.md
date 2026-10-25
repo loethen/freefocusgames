@@ -126,4 +126,4 @@ The clearest Schulte Table benefit is that it provides a simple, repeatable way 
 - **[Schulte Table Online](/games/schulte-table)**: A 5×5 number-search task with completion-time and mistake tracking.
 - **[Rotating Schulte Table](/games/rotating-schulte-table)**: A moving-number variation with a different search demand.
 - **[Focus Reaction Test](/games/focus-reaction-test)**: A flanker-style selective-attention task.
-- **[Working Memory Guide](/working-memory-guide)**: An overview of working memory and the limits of cognitive-training claims.
+- **[Dual N-Back: How to Play and What the Research Says](/blog/interactive-dual-n-back-tutorial-complete-guide)**: What studies show about working memory training, and where the claims stop.

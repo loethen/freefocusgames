@@ -152,8 +152,6 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             science={{
                 title: scienceT("title"),
                 description: scienceT("description"),
-                blogArticleUrl: "/working-memory-guide",
-                blogArticleTitle: scienceT("blogArticleTitle"),
                 authorityLinks: [
                     {
                         title: "Corsi Block-Tapping Test",

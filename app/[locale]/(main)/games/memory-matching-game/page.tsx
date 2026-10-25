@@ -107,8 +107,6 @@ export default function MemoryMatchingGamePage({
             science={{
                 title: t('science.title'),
                 description: t('science.description'),
-                blogArticleUrl: '/working-memory-guide',
-                blogArticleTitle: t('science.guideTitle'),
             }}
             faq={[
                 {

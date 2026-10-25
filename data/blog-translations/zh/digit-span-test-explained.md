@@ -83,7 +83,7 @@ sources:
 - **它不是诊断。** 单凭广度短，并不能说明有记忆问题，临床上会结合很多其他指标来解读。
 - **策略很重要。** 把数字分组记忆可以提高广度，这说明结果不只取决于先天容量，也取决于方法。
 
-想进一步了解工作记忆以及训练能做到什么，可以看我们的[工作记忆指南](/working-memory-guide)。
+想了解研究对工作记忆训练怎么说，可以看 [Dual N-Back：玩法详解与研究怎么说](/blog/interactive-dual-n-back-tutorial-complete-guide)，或者浏览全部[工作记忆游戏](/categories/working-memory)。
 
 ## 常见问题
 

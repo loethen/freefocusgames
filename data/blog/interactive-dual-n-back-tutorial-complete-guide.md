@@ -119,7 +119,7 @@ Later work has been more cautious:
 - Track your own level and accuracy over weeks, and keep difficulty where you are succeeding about 80% of the time.
 - Mix it with other activities you enjoy. No single exercise is a shortcut.
 
-For a wider look at working memory and what training can do, see our [working memory guide](/working-memory-guide).
+For other ways to practice, browse all [working memory games](/categories/working-memory), or test your span with the [Digit Span Test](/blog/digit-span-test-explained).
 
 ## FAQ
 

@@ -20,12 +20,15 @@ const legacyRedirects: Record<string, string> = {
     '/blog/body-doubling-ultimate-guide-focus-productivity': '/games/pomodoro-timer',
     '/blog/adhd-self-assessment-with-ai': '/adhd-assessment',
     '/blog/tech-update-react-svg-fish-frog': '/blog',
-    '/blog/the-science-of-working-memory-how-your-brain-processes-information': '/working-memory-guide',
-    '/blog/how-to-improve-working-memory': '/working-memory-guide',
+    '/blog/the-science-of-working-memory-how-your-brain-processes-information': '/categories/working-memory',
+    '/blog/how-to-improve-working-memory': '/categories/working-memory',
     '/blog/the-science-of-478-breathing-sleep-anxiety-relief': '/games/478-breathing',
     '/blog/the-science-of-box-breathing-navy-seal-technique': '/games/box-breathing',
     '/blog/the-science-of-resonance-breathing-vagus-nerve': '/games/resonance-breathing',
     '/blog/the-science-behind-n-back-training-boost-working-memory': '/blog/interactive-dual-n-back-tutorial-complete-guide',
+    // 2026-10-25: the working memory guide is retired in favour of the category page.
+    '/working-memory-guide': '/categories/working-memory',
+    '/guides': '/benchmarks',
 };
 
 function getLegacyRedirect(pathname: string) {

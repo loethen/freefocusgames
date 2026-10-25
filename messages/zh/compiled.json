@@ -534,8 +534,8 @@
     },
     "resources": {
       "title": "还不知道从哪里开始？",
-      "description": "你可以先阅读实用指南、浏览全部训练分类，或用番茄钟开始一段短时专注练习。",
-      "workingMemory": "阅读工作记忆指南",
+      "description": "你可以先读几篇文章、浏览全部训练分类，或用番茄钟开始一段短时专注练习。",
+      "workingMemory": "阅读文章",
       "categories": "浏览全部游戏分类",
       "pomodoro": "打开番茄钟"
     },
@@ -570,10 +570,6 @@
         "adultAdhdAssessment": {
           "title": "成人 ADHD 自测",
           "description": "通过成人 ADHD 评估了解自己的注意力模式，并获取下一步建议。"
-        },
-        "workingMemoryGuide": {
-          "title": "工作记忆指南",
-          "description": "阅读我们的工作记忆深度指南，了解训练收益和推荐游戏。"
         }
       }
     },
@@ -3126,6 +3122,117 @@
       "linkText": "阅读 ASRS 评分指南"
     }
   },
+  "benchmarks": {
+    "metaTitle": "各项测试平均成绩：反应时间、CPS、舒尔特方格与记忆力标准",
+    "metaDescription": "真实玩家的平均成绩：反应时间中位数 369 毫秒，CPS 7.0，舒尔特方格 26.4 秒，数字广度 7 位。查看完整分布、前 10% 成绩，看看你的成绩排在哪里。",
+    "title": "反应、专注与记忆测试的平均成绩",
+    "intro": "来自 FreeFocusGames 上 44,000 多条玩家成绩的中位数、顶尖成绩和完整分布。每位玩家只计一次，取最好成绩。先去测一测，再回来看看你排在哪里。",
+    "updated": "数据截至 2026 年 10 月 25 日",
+    "methodLink": "我们如何收集和筛选这些数据",
+    "summaryTitle": "一览",
+    "table": {
+      "test": "测试",
+      "median": "中位数",
+      "top10": "前 10%",
+      "players": "玩家数"
+    },
+    "units": {
+      "ms": "毫秒",
+      "s": "秒",
+      "cps": "CPS",
+      "digits": "位"
+    },
+    "stats": {
+      "median": "中位数",
+      "top10": "前 10%",
+      "top1": "前 1%",
+      "players": "玩家数"
+    },
+    "actions": {
+      "play": "去测试",
+      "article": "完整数据与技巧"
+    },
+    "items": {
+      "reactionTime": {
+        "name": "反应时间",
+        "heading": "平均反应时间",
+        "text": "典型玩家 5 轮平均为 369 毫秒。低于 284 毫秒进入前 10%，低于 233 毫秒进入前 1%。设备本身会带来一些延迟，所以在线测试比实验室数据慢。",
+        "axis": "最佳 5 轮平均（毫秒）",
+        "aria": "最佳平均反应时间的直方图。大多数玩家在 280 到 440 毫秒之间，中位数为 369 毫秒。",
+        "note": "每根柱子宽 20 毫秒；800 到 1,000 毫秒之间的 218 名玩家未画出。"
+      },
+      "tenSeconds": {
+        "name": "10 秒挑战",
+        "heading": "10 秒挑战：大家能停得多准？",
+        "text": "按最好的一次算，一半玩家停在离 10 秒 32 毫秒以内。前 10% 在 2 毫秒以内，大约每 100 人里有 1 人正好停在 10.000。以上是显示计时器模式的成绩。",
+        "axis": "与 10 秒的误差（毫秒）",
+        "aria": "玩家停表误差的柱状图。人数最多的一组误差在 10 毫秒以内。",
+        "note": "柱子是误差区间，从 10 毫秒以内到 1–3 秒。"
+      },
+      "schulte": {
+        "name": "舒尔特方格 5×5",
+        "heading": "舒尔特方格平均用时（5×5）",
+        "text": "最佳用时的中位数是 26.4 秒，每点错一次加 2 秒。低于 17.1 秒进入前 10%，低于 11.6 秒进入前 1%。",
+        "axis": "最佳用时（秒）",
+        "aria": "舒尔特方格最佳用时的直方图。大多数玩家在 16 到 34 秒之间完成，中位数为 26.4 秒。",
+        "note": "每根柱子宽 2 秒；超过 70 秒的 267 名玩家未画出。"
+      },
+      "cps": {
+        "name": "CPS 测试（5 秒）",
+        "heading": "平均 CPS（每秒点击次数）",
+        "text": "在 5 秒测试中，典型玩家达到每秒 7.0 次。11 CPS 进入前 10%，14.4 进入前 1%。高于 16 CPS 的成绩疑似连点器，已排除。",
+        "axis": "最佳每秒点击次数",
+        "aria": "最佳 CPS 成绩的直方图。大多数玩家在 5 到 9 CPS 之间，中位数为 7.0。",
+        "note": "每根柱子宽 1 CPS。"
+      },
+      "digitSpan": {
+        "name": "数字广度（正背）",
+        "heading": "平均数字广度",
+        "text": "一半玩家能按顺序记住至少 7 位数字，和经典的\"7 加减 2\"一致。前 10% 能达到 10 位及以上。这是来自 214 名玩家的早期数据。",
+        "axis": "记住的最长序列（位）",
+        "aria": "最佳正背数字广度的柱状图。最常见的广度是 6 位，中位数为 7 位。",
+        "note": "每根柱子代表一种广度。"
+      },
+      "trailMaking": {
+        "name": "连线测试",
+        "heading": "连线测试平均用时",
+        "text": "典型玩家完成 A 部分用时 34.6 秒，B 部分 58.8 秒。前 10% 分别低于 24.2 秒和 39.0 秒。中位数和前 10% 写作\"A 部分 / B 部分\"，图表是两部分合计。这是来自 201 名玩家的早期数据。",
+        "axis": "A 部分 + B 部分（秒）",
+        "aria": "连线测试合计用时的直方图。大多数玩家在 70 到 110 秒内完成两部分。",
+        "note": "每根柱子宽 10 秒；超过 200 秒的 12 名玩家未画出。"
+      }
+    },
+    "nback": {
+      "heading": "Dual N-Back：玩家能达到几级？",
+      "text": "有 576 名玩家通关过 2-back 及以上的 Dual N-Back。排行榜只保存每位玩家最快的一次通关，而不是最高级别，所以这些比例是下限。",
+      "level": "至少通关过",
+      "share": "玩家比例",
+      "atLeast": "至少 {share}%",
+      "accuracy": "通关局的正确率中位数：{accuracy}%。"
+    },
+    "faq": {
+      "title": "常见问题",
+      "items": [
+        {
+          "q": "反应时间多少算快？",
+          "a": "在我们的测试中，低于 300 毫秒就快过约 84% 的玩家，中位数是 369 毫秒。"
+        },
+        {
+          "q": "平均 CPS 是多少？",
+          "a": "我们 5 秒 CPS 测试的中位数是每秒 7.0 次，大多数玩家在 5 到 9 之间。"
+        },
+        {
+          "q": "可以和 Human Benchmark 等其他网站比吗？",
+          "a": "只能粗略比较。每个网站的规则、回合数和玩家群体都不同，设备延迟也不一样，同一个人在不同网站的成绩可能会有差别。"
+        },
+        {
+          "q": "为什么用每位玩家的最好成绩？",
+          "a": "排行榜为每位玩家保留一条最好成绩，这样每人只计一次。最好成绩会比平时的典型成绩略快一些。"
+        }
+      ]
+    },
+    "cite": "欢迎引用这些数据，请链接到本页或数据所在的文章。"
+  },
   "blog": {
     "title": "博客",
     "description": "与游戏和测试配套的简短指南：你的成绩代表什么、每个测试怎么回事，以及如何解读筛查结果。",
@@ -3148,8 +3255,6 @@
       "attention": "注意力",
       "adhd": "ADHD 筛查"
     },
-    "guideBadge": "指南",
-    "guideDescription": "工作记忆如何运作、训练研究的结论，以及支持记忆力和注意力的实用方法。",
     "toolCard": {
       "tryGame": "试试这个游戏",
       "takeTest": "做一下筛查",
@@ -3398,17 +3503,14 @@
     "methodology": "数据与方法",
     "privacyPolicy": "隐私政策",
     "termsOfService": "服务条款",
-    "guides": "指南",
+    "benchmarks": "成绩基准",
     "tests": "评估",
     "supportProject": "支持这个项目",
-    "workingMemoryGuide": "工作记忆指南",
     "assessmentTests": "认知评估",
     "cognitiveAssessment": "认知测试",
     "adhdAssessment": "儿童ADHD",
     "adultAdhdAssessment": "成人ADHD",
     "startTest": "开始测试",
-    "readGuide": "阅读指南",
-    "learnMoreAboutWorkingMemory": "在我们的综合指南中了解此游戏如何提高工作记忆。",
     "leaderboard": {
       "title": "前20名排行榜",
       "subtitle": "匿名排行榜",
@@ -3600,24 +3702,6 @@
     "browseAllPrefix": "已经知道想玩什么？",
     "browseAll": "浏览全部游戏"
   },
-  "guides": {
-    "metaTitle": "免费大脑训练指南：工作记忆与专注力",
-    "metaDescription": "学习基于科学证据的大脑训练方法。掌握双N-back训练、工作记忆提升、注意力增强技巧和认知训练策略，基于神经科学研究的全面训练指南。",
-    "metaKeywords": "大脑训练指南, 工作记忆训练, 认知增强指南, 双N-back训练, 注意力训练方法, 记忆力提升技巧, 认知训练策略, 神经可塑性训练, 脑力锻炼指南, 心智训练方法, 专注力训练指南, 注意力集中改善, 执行功能训练, 认知技能发展, 大脑健身指南, 脑力开发, 思维训练",
-    "title": "训练指南",
-    "subtitle": "通过我们深入的、基于研究的训练指南，掌握认知增强的科学。",
-    "workingMemory": {
-      "title": "工作记忆训练指南",
-      "description": "全面了解和训练工作记忆这一认知能力基础的指南。学习双N-back训练背后的科学原理以及如何最大化训练效果。",
-      "readTime": "25分钟阅读",
-      "difficulty": "中级"
-    },
-    "featured": "精选",
-    "moreGuides": {
-      "title": "更多指南即将推出",
-      "description": "我们正在不断开发关于注意力训练、执行功能和认知增强策略的新指南。敬请期待更多基于科学证据的内容，帮助您优化心智表现。"
-    }
-  },
   "home": {
     "title": "免费在线专注力游戏：适合成人、儿童与 ADHD",
     "subtitle": "选择一项注意力、工作记忆、反应速度或专注力挑战——许多游戏的灵感来自经典认知任务，打开浏览器即可免费开始。",
@@ -3646,12 +3730,11 @@
     "latestPosts": "最新文章",
     "featuredResources": {
       "title": "实用指南与文章",
-      "subtitle": "从我们最实用的工作记忆指南、舒尔特表格训练文章和成人 ADHD 自测说明开始。",
+      "subtitle": "从真实玩家的反应时间数据、舒尔特表格训练文章和成人 ADHD 自测说明开始。",
       "viewAll": "查看全部文章",
       "items": {
-        "workingMemoryGuide": {
-          "label": "指南",
-          "description": "从我们的核心工作记忆指南开始，了解训练原理，以及哪些游戏最适合提升专注力和整体认知表现。"
+        "reactionBenchmarks": {
+          "label": "数据"
         },
         "schulteBenefits": {
           "label": "文章"
@@ -4225,536 +4308,6 @@
     "memory": {
       "title": "短期记忆",
       "description": "通过模式匹配和序列回忆来强化记忆保持。"
-    }
-  },
-  "workingMemoryGuide": {
-    "metaTitle": "工作记忆指南：原理与训练的真实效果",
-    "metaDescription": "了解工作记忆如何运作、关于 Dual N-Back 等训练的研究结论、证据的局限，以及支持记忆力和注意力的实用方法。",
-    "metaKeywords": "工作记忆, 认知训练, dual n-back, schulte table, 记忆力提升, 注意力训练, 神经可塑性, 流体智力, 认知增强, 大脑训练",
-    "ogTitle": "工作记忆指南：原理与训练的真实效果",
-    "ogDescription": "工作记忆如何运作，Dual N-Back 等训练研究实际显示了什么，以及支持记忆力和注意力的实用方法。",
-    "breadcrumbHome": "首页",
-    "breadcrumbCurrent": "工作记忆指南",
-    "baddeleyDiagram": {
-      "title": "Baddeley工作记忆模型",
-      "centralExecutive": {
-        "name": "中央执行器",
-        "english": "(Central Executive)"
-      },
-      "phonologicalLoop": {
-        "name": "语音循环",
-        "english": "(Phonological Loop)",
-        "description": "(语言信息存储)"
-      },
-      "visuospatialSketchpad": {
-        "name": "视觉空间画板",
-        "english": "(Visuospatial Sketchpad)",
-        "description": "(视觉空间信息)"
-      },
-      "episodicBuffer": {
-        "name": "情节缓冲器",
-        "english": "(Episodic Buffer)",
-        "description": "(整合多种信息)"
-      },
-      "longTermMemory": {
-        "name": "长时记忆 (Long-term Memory)"
-      },
-      "legend": {
-        "title": "模型说明：",
-        "centralExecutive": "控制和协调整个工作记忆系统",
-        "phonologicalLoop": "处理和暂时存储语言信息",
-        "visuospatialSketchpad": "处理视觉和空间信息",
-        "episodicBuffer": "整合来自不同来源的信息，连接长时记忆"
-      }
-    },
-    "trainingChart": {
-      "title": "Dual N-Back训练效果 (Jaeggi et al. 2008)",
-      "xAxisLabel": "训练天数 (Training Days)",
-      "yAxisLabel": "流体智力提升 (Fluid Intelligence Improvement)",
-      "trainingGroup": "训练组 (Training Group)",
-      "controlGroup": "对照组 (Control Group)",
-      "description": {
-        "title": "研究数据说明：",
-        "source": {
-          "label": "研究来源",
-          "text": "Jaeggi et al. (2008) PNAS - 首个证明工作记忆训练可转移的突破性研究"
-        },
-        "training": {
-          "label": "训练内容",
-          "text": "19天Dual N-Back训练，每天约25分钟"
-        },
-        "measure": {
-          "label": "测量指标",
-          "text": "Raven渐进矩阵测试（流体智力标准测试）"
-        },
-        "findings": {
-          "label": "关键发现",
-          "text": "训练组流体智力提升约40%，对照组几乎无变化"
-        }
-      }
-    },
-    "brainDiagram": {
-      "title": "工作记忆相关大脑区域",
-      "subtitle": "Working Memory Brain Networks",
-      "dlpfc": {
-        "name": "背外侧前额叶皮质",
-        "fullName": "背外侧前额叶皮质 (DLPFC)",
-        "description": "工作记忆的核心控制区域"
-      },
-      "acc": {
-        "name": "前扣带皮质",
-        "fullName": "前扣带皮质 (ACC)",
-        "description": "注意力控制和冲突监测"
-      },
-      "ppc": {
-        "name": "后顶叶皮质",
-        "fullName": "后顶叶皮质 (PPC)",
-        "description": "空间注意力和信息整合"
-      },
-      "basalGanglia": {
-        "name": "基底神经节",
-        "description": "认知控制和学习"
-      },
-      "hippocampus": {
-        "name": "海马体",
-        "description": "记忆编码和检索"
-      },
-      "legend": {
-        "title": "大脑区域功能说明：",
-        "connections": "虚线",
-        "connectionsDesc": "区域间的功能连接",
-        "note": "* 基于fMRI和PET研究的工作记忆神经网络，这些区域在dual n-back训练中显示显著激活增强"
-      }
-    },
-    "scheduleTable": {
-      "title": "科学化工作记忆训练计划",
-      "subtitle": "基于Jaeggi et al. (2008) 和Au et al. (2015) 研究的最佳训练方案",
-      "phases": {
-        "beginner": {
-          "level": "初级阶段",
-          "levelEn": "Beginner",
-          "weeks": "第1-2周",
-          "frequency": "每天15-20分钟",
-          "sessions": "连续14天",
-          "nBack": "1-back → 2-back",
-          "focus": "建立基础认知模式",
-          "expectations": "适应训练节奏，准确率>60%"
-        },
-        "intermediate": {
-          "level": "中级阶段",
-          "levelEn": "Intermediate",
-          "weeks": "第3-4周",
-          "frequency": "每天20-25分钟",
-          "sessions": "连续14天",
-          "nBack": "2-back → 3-back",
-          "focus": "提升工作记忆容量",
-          "expectations": "流体智力开始提升，准确率>70%"
-        },
-        "advanced": {
-          "level": "高级阶段",
-          "levelEn": "Advanced",
-          "weeks": "第5-6周",
-          "frequency": "每天25-30分钟",
-          "sessions": "连续14天",
-          "nBack": "3-back → 4-back+",
-          "focus": "巩固训练效果",
-          "expectations": "显著认知提升，准确率>80%"
-        }
-      },
-      "timeline": {
-        "week1": "基础适应",
-        "week2": "技能建立",
-        "week3": "能力提升",
-        "week4": "效果显现",
-        "week5": "深度训练",
-        "week6": "效果巩固"
-      },
-      "timelineTitle": "6周训练时间轴",
-      "labels": {
-        "parameters": "训练参数",
-        "frequency": "频率：",
-        "duration": "持续：",
-        "difficulty": "难度：",
-        "goals": "训练目标",
-        "expected": "预期效果：",
-        "phase": "阶段",
-        "week": "第",
-        "weekSuffix": "周"
-      },
-      "principles": {
-        "title": "训练成功的关键原则",
-        "training": "训练原则",
-        "adaptive": "适应性难度：",
-        "adaptiveDesc": "根据表现自动调整n-back等级",
-        "progressive": "渐进式训练：",
-        "progressiveDesc": "从简单到复杂，循序渐进",
-        "consistency": "持续性：",
-        "consistencyDesc": "每日训练，避免超过1天间隔",
-        "focus": "专注度：",
-        "focusDesc": "训练时保持高度集中注意力"
-      },
-      "monitoring": {
-        "title": "效果监测",
-        "accuracy": "准确率追踪：",
-        "accuracyDesc": "目标维持在60-80%之间",
-        "reaction": "反应时间：",
-        "reactionDesc": "观察反应速度的改善",
-        "level": "n-back等级：",
-        "levelDesc": "记录能达到的最高等级",
-        "subjective": "主观感受：",
-        "subjectiveDesc": "日常生活中注意力的改善"
-      },
-      "warning": {
-        "title": "重要提醒",
-        "intensity": "训练强度控制：",
-        "intensityDesc": "如果准确率持续低于50%，说明难度过高，应降低n-back等级。如果准确率持续高于90%，可适当提高难度。最佳训练效果出现在适中挑战性的任务中。"
-      },
-      "evidence": {
-        "title": "科学依据：",
-        "jaeggi": "19天训练显示流体智力提升40%",
-        "au": "元分析证实训练效果的稳定性",
-        "klingberg": "确定了最佳训练参数和适应性原则",
-        "melby": "强调训练一致性的重要性"
-      }
-    },
-    "title": "工作记忆权威指南：科学提升您的认知能力",
-    "subtitle": "基于最新神经科学研究，提供从理论基础到实践训练的完整工作记忆提升方案，助您改善学习、工作和生活表现。",
-    "introduction": {
-      "title": "🧠 工作记忆基础：大脑的\"工作台\"",
-      "whatIs": {
-        "title": "什么是工作记忆",
-        "p1": "想象一下，你的大脑里有一个**“心理工作台”**。当你在这个工作台上把不同的信息放在一起处理时（比如心算 24 + 58，或者记住一个新的人名），这就是工作记忆在运作。",
-        "analogy": {
-          "workbench": {
-            "title": "心理工作台",
-            "p": "就像一个真实的工作台，你再这里暂时存放和组合信息。"
-          },
-          "limited": {
-            "title": "空间有限",
-            "p": "这个工作台很小，通常只能同时放下 3-4 个“工件”。一旦东西太多，旧的就会掉下去（遗忘）。"
-          },
-          "processing": {
-            "title": "即用即清",
-            "p": "在这个工作台上的东西是为了“即时使用”。一旦任务完成或被打断，工作台通常会被清空，为下一个任务腾出空间。"
-          }
-        }
-      },
-      "neuroscience": {
-        "title": "神经科学基础",
-        "p1": "现代神经影像学研究揭示，工作记忆依赖于<strong>前额叶皮质</strong>和<strong>顶叶皮质</strong>的协调工作。前额叶负责执行控制，顶叶负责信息存储，两者通过神经网络实现高效通信。",
-        "keyAreas": {
-          "title": "关键脑区功能：",
-          "li1": "<strong>背外侧前额叶皮质：</strong>维持和操作工作记忆信息",
-          "li2": "<strong>前扣带皮质：</strong>监控冲突和错误，调节注意力",
-          "li3": "<strong>顶内沟：</strong>工作记忆的\"存储缓冲区\"",
-          "li4": "<strong>默认网络：</strong>需要被抑制以维持专注状态"
-        }
-      },
-      "dailyImpact": {
-        "title": "日常生活影响",
-        "p1": "工作记忆能力直接影响您的学习效率、工作表现和生活质量。研究表明，工作记忆容量与以下能力高度相关：",
-        "academic": {
-          "title": "✅ 学术表现",
-          "li1": "• 阅读理解能力提升 25-30%",
-          "li2": "• 数学问题解决效率提高 40%",
-          "li3": "• 注意力持续时间延长 2-3倍",
-          "li4": "• 复杂指令遵循准确率达 85%+"
-        },
-        "workplace": {
-          "title": "💼 职场表现",
-          "li1": "• 多任务处理能力提升 50%",
-          "li2": "• 会议重点把握精准度 90%+",
-          "li3": "• 决策质量和速度显著改善",
-          "li4": "• 新技能学习速度提高 60%"
-        }
-      }
-    },
-    "dnb": {
-      "title": "🎯 Dual N-Back训练：科学验证的认知增强器",
-      "jaeggiStudy": {
-        "title": "Jaeggi研究发现：改变认知科学的突破",
-        "p1": "2008年，认知科学家Susanne Jaeggi在《美国科学院院报》(PNAS)发表了震撼学界的研究：<strong>Dual N-Back训练可以提升流体智力</strong>——这是首次证明基础认知能力可以通过训练改善的研究。",
-        "coreFindings": {
-          "title": "Jaeggi研究核心发现：",
-          "design": {
-            "title": "研究设计：",
-            "li1": "• 35名成年参与者",
-            "li2": "• 每日25分钟dual n-back训练",
-            "li3": "• 训练周期：8-19天",
-            "li4": "• 使用瑞文推理测试评估"
-          },
-          "results": {
-            "title": "关键结果：",
-            "li1": "• 流体智力提升最高40%",
-            "li2": "• 训练时间越长，提升越明显",
-            "li3": "• 效果迁移到未训练的推理任务",
-            "li4": "• 训练停止后效果持续存在"
-          }
-        }
-      },
-      "mechanism": {
-        "title": "训练机制：为什么如此有效",
-        "p1": "Dual N-Back的独特之处在于同时挑战工作记忆的多个系统，创造\"认知超载\"状态，迫使大脑建立更高效的神经连接。",
-        "card1": {
-          "title": "自适应难度机制",
-          "p": "训练始终保持在认知能力边缘，确保持续挑战神经系统。",
-          "details": "准确率 ≥ 80% → 提升到 N+1 难度<br/>准确率 ≤ 50% → 降低到 N-1 难度"
-        },
-        "card2": {
-          "title": "双重任务干扰",
-          "p": "同时处理视觉位置和听觉字母，训练注意力分配和冲突解决能力。",
-          "details": "视觉通道：空间位置记忆 + 听觉通道：字母序列记忆"
-        },
-        "card3": {
-          "title": "执行功能锻炼",
-          "p": "全面挑战更新、抑制、转换三大执行功能核心能力。",
-          "details": "更新记忆内容 + 抑制无关信息 + 注意力快速转换"
-        }
-      },
-      "neuroplasticity": {
-        "title": "神经可塑性证据：大脑的实际变化",
-        "p1": "后续神经影像学研究揭示了dual n-back训练引起的大脑结构和功能变化：",
-        "structural": {
-          "title": "🧠 结构性改变",
-          "li1": "• 灰质密度增加：前额叶和顶叶皮质厚度显著增长",
-          "li2": "• 白质完整性提升：脑区间连接效率提高25%",
-          "li3": "• 神经网络重组：工作记忆网络通信更加高效"
-        },
-        "functional": {
-          "title": "⚡ 功能性变化",
-          "li1": "• 神经效率提升：相同任务激活强度降低30%",
-          "li2": "• 网络协调性增强：前额-顶叶同步性提高",
-          "li3": "• 干扰抑制改善：默认网络抑制能力增强"
-        }
-      },
-      "protocol": {
-        "title": "最佳训练方案：基于研究的建议",
-        "boxTitle": "科学训练协议",
-        "params": {
-          "title": "训练参数",
-          "li1": "• 每次 20-25 分钟",
-          "li2": "• 每周 4-5 次",
-          "li3": "• 持续 3-8 周",
-          "li4": "• 始终挑战最高难度"
-        },
-        "expectations": {
-          "title": "效果预期",
-          "li1": "• 第1-2周：适应训练",
-          "li2": "• 第3-4周：明显改善",
-          "li3": "• 第5-8周：显著提升",
-          "li4": "• 长期：效果持续"
-        },
-        "successFactors": {
-          "title": "成功要素",
-          "li1": "• 专注训练过程",
-          "li2": "• 避免训练中分心",
-          "li3": "• 接受挫折感",
-          "li4": "• 坚持规律练习"
-        }
-      }
-    },
-    "relatedGames": {
-      "title": "🎮 开始您的科学训练之旅",
-      "subtitle": "基于本指南的研究证据，这些训练游戏专门设计用于提升工作记忆和认知能力",
-      "tag": "科学验证",
-      "benefitsTitle": "✅ 训练效果：",
-      "buttonText": "开始科学训练",
-      "dnb": {
-        "description": "遵循Jaeggi研究协议的双重N-Back训练，直接提升流体智力和工作记忆容量。每日20-25分钟训练，3-8周内显著改善认知表现。",
-        "benefit1": "工作记忆提升40%",
-        "benefit2": "流体智力增强",
-        "benefit3": "注意力控制改善",
-        "benefit4": "多任务处理优化"
-      },
-      "schulte": {
-        "description": "一项计时视觉搜索任务，要求按顺序定位数字目标，并记录完成时间和错误次数。",
-        "benefit1": "视觉搜索速度",
-        "benefit2": "周边视觉扫描",
-        "benefit3": "专注时间延长",
-        "benefit4": "外周视觉开发"
-      },
-      "memoryTest": {
-        "description": "针对海马体功能的短期记忆专项训练。结合神经发生原理，通过渐进式记忆挑战修复和增强记忆形成能力。",
-        "benefit1": "记忆形成改善",
-        "benefit2": "海马体功能修复",
-        "benefit3": "信息保持增强",
-        "benefit4": "认知疲劳降低"
-      }
-    },
-    "protocol": {
-      "title": "科学训练建议",
-      "duration": {
-        "title": "最佳训练时长",
-        "p": "每日总计45-60分钟，分为2-3个训练模块，避免认知疲劳"
-      },
-      "progress": {
-        "title": "进步预期",
-        "p": "第1-2周适应期，第3-4周明显改善，6-8周显著提升"
-      },
-      "principles": {
-        "title": "训练原则",
-        "p": "保持80%准确率下的最高难度，规律练习比完美表现更重要"
-      },
-      "box": {
-        "title": "科学训练建议",
-        "duration": {
-          "title": "最佳训练时长",
-          "p": "每日总计45-60分钟，分为2-3个训练模块，避免认知疲劳"
-        },
-        "progress": {
-          "title": "进步预期",
-          "p": "第1-2周适应期，第3-4周明显改善，6-8周显著提升"
-        },
-        "principles": {
-          "title": "训练原则",
-          "p": "保持80%准确率下的最高难度，规律练习比完美表现更重要"
-        }
-      }
-    },
-    "clusterArticles": {
-      "title": "📖 延伸阅读：科学研究指南",
-      "subtitle": "基于最新神经科学研究的权威指南，为您的认知训练提供科学理论基础",
-      "buttonText": "查看更多科学文章 →",
-      "article1": {
-        "title": "Dual N-Back：玩法详解与研究怎么说",
-        "description": "Dual N-Back 怎么玩、1-back 分步示例，以及研究对工作记忆和智力提升的真实结论。",
-        "highlights": "玩法说明,1-back示例,研究结论,迁移的局限",
-        "tag": "工作记忆",
-        "readTime": "8分钟",
-        "difficulty": "入门"
-      },
-      "article2": {
-        "title": "舒尔特表格：证据、局限与视觉搜索",
-        "description": "从证据角度说明舒尔特表格直接测量什么、注意与眼动研究能提供哪些背景，以及哪些迁移说法超出证据范围。",
-        "highlights": "直接测量,视觉搜索,阅读证据,迁移边界",
-        "tag": "视觉注意力",
-        "readTime": "12分钟",
-        "difficulty": "中等"
-      },
-      "article3": {
-        "title": "短期记忆修复指南：海马体再生的科学方法",
-        "description": "基于最新神经科学研究，系统介绍海马体损伤原因和修复策略，包含营养干预、生活方式优化和认知训练的综合治疗方案。",
-        "highlights": "海马体神经发生,维生素D缺乏修复,运动BDNF提升,间歇性禁食",
-        "tag": "记忆修复",
-        "readTime": "18分钟",
-        "difficulty": "进阶"
-      }
-    },
-    "schulte": {
-      "title": "👁️ 舒尔特表格练习：证据与局限",
-      "posnerTheory": {
-        "title": "视觉注意力科学：Posner的三网络理论",
-        "p1": "Posner 的注意框架描述了警觉、定向与执行控制系统，可作为理解注意任务的背景。但它不是舒尔特训练干预研究，不能证明网格练习会强化这些网络。",
-        "card1": {
-          "title": "警觉网络",
-          "p": "维持警觉状态，准备响应刺激",
-          "details": "脑区：蓝斑核、前额叶<br/>功能：持续注意、认知准备"
-        },
-        "card2": {
-          "title": "定向网络",
-          "p": "将注意力导向特定空间位置",
-          "details": "脑区：顶上小叶、额眼区<br/>功能：空间注意、视觉搜索"
-        },
-        "card3": {
-          "title": "执行网络",
-          "p": "解决冲突，控制注意力分配",
-          "details": "脑区：前扣带皮质、前额叶<br/>功能：冲突监控、认知控制"
-        }
-      },
-      "readingSpeed": {
-        "title": "视觉扫描与阅读眼动机制：证据与边界",
-        "p1": "眼动研究描述了注视、扫视、知觉广度与语言加工如何共同参与阅读，但不能证明舒尔特练习会扩大阅读视幅或减少回视。",
-        "russiaStudy": {
-          "title": "👁️ 视觉搜索与注意力机制收益",
-          "visual": {
-            "title": "核心注意机制提升：",
-            "list": "<li>• 在多个方格中定位数字目标</li><li>• 追踪固定序列中的下一个目标</li><li>• 在相同条件下比较完成时间与错误次数</li>"
-          },
-          "reading": {
-            "title": "阅读动作改善与迁移边界：",
-            "list": "<li>• 数字搜索与阅读是不同任务</li><li>• 网格成绩提高不能证明阅读速度或理解力提高</li><li>• 阅读结果应单独直接测量</li>"
-          }
-        },
-        "psychologyStudy": {
-          "title": "🎯 学习与日常专注建议",
-          "p1": "在日常学习与工作中的实际应用建议：",
-          "list": "<li>• 可作为可选的短时活动，不应当作治疗；</li><li>• 保持网格尺寸、设备和设置一致；</li><li>• 把时间和错误次数作为个人任务基线。</li>"
-        }
-      }
-    },
-    "memory": {
-      "title": "🔬 记忆力改善策略：海马体修复与再生",
-      "hippocampus": {
-        "title": "海马体修复：短期记忆问题的根本解决",
-        "p1": "短期记忆问题的核心往往在于海马体功能受损。与其他脑区不同，海马体具有终生神经发生能力——每天产生700+新神经元，为记忆修复提供了科学基础。",
-        "causes": {
-          "title": "海马体损伤的五大原因：",
-          "cause1": {
-            "title": "慢性压力和皮质醇过高",
-            "p": "长期压力使海马体萎缩10-20%，影响75%的慢性压力患者"
-          },
-          "cause2": {
-            "title": "血糖控制不良",
-            "p": "高血糖通过糖化损伤记忆神经元，糖尿病患者记忆衰退风险高40%"
-          },
-          "cause3": {
-            "title": "关键营养素缺乏",
-            "p": "维生素D、B1、锌缺乏直接影响海马体功能和神经发生"
-          },
-          "cause4": {
-            "title": "血氧供应不足",
-            "p": "久坐生活使脑部血氧降低15-25%，影响海马体新陈代谢"
-          }
-        }
-      }
-    },
-    "trainingProtocol": {
-      "title": "📊 综合训练方案：个性化认知增强计划",
-      "personalized": {
-        "title": "个性化训练：基于认知档案的精准方案",
-        "p1": "认知能力存在显著个体差异，有效的训练方案必须考虑基线能力、年龄、目标和时间投入。以下是基于认知科学研究的分层训练协议：",
-        "audience": "适用人群：",
-        "focus": "训练重点：",
-        "effect": "预期效果：",
-        "beginner": {
-          "title": "🌱 初学者方案",
-          "audience": "首次认知训练、注意力困难、记忆力明显下降",
-          "focus": "<li>• Schulte Table (5×5): 每日10分钟</li><li>• Dual 1-Back: 每日15分钟</li><li>• 短期记忆测试: 每周2次</li>",
-          "effect": "4-6周后注意力持续时间延长50%"
-        },
-        "advanced": {
-          "title": "⚡ 进阶方案",
-          "audience": "有训练基础、追求高效提升、职业需求",
-          "focus": "<li>• Dual 2-4 Back: 每日20分钟</li><li>• 多任务Schulte: 每日15分钟</li><li>• 复杂记忆任务: 每日10分钟</li>",
-          "effect": "6-8周工作记忆容量提升30%"
-        },
-        "expert": {
-          "title": "🚀 专家方案",
-          "audience": "高认知需求、竞技训练、研究参与",
-          "focus": "<li>• Dual 4+ Back: 每日25分钟</li><li>• 三重任务训练: 每日20分钟</li><li>• 干扰下训练: 每日15分钟</li>",
-          "effect": "8-12周流体智力测试提升25%"
-        }
-      }
-    },
-    "research": {
-      "title": "📚 科学研究证据：认知训练的循证基础",
-      "milestones": {
-        "title": "核心研究：改变领域的里程碑发现",
-        "design": "研究设计：",
-        "findings": "突破性发现：",
-        "background": "研究背景：",
-        "jaeggi": {
-          "title": "🏆 Jaeggi et al. (2008) - PNAS",
-          "design": "<li>• <strong>样本：</strong>70名健康成年人</li><li>• <strong>干预：</strong>dual n-back训练 8-19天</li><li>• <strong>评估：</strong>Raven推理测试</li><li>• <strong>对照：</strong>严格随机对照设计</li>",
-          "findings": "<li>• 训练时间与智力提升呈线性关系</li><li>• 最大提升幅度达40% (19天组)</li><li>• 首次证明流体智力可训练性</li><li>• 开启认知训练研究新纪元</li>"
-        },
-        "erickson": {
-          "title": "🧠 Erickson et al. (2011) - Nature",
-          "background": "探索运动对老年人海马体体积和记忆功能的影响",
-          "design": "<li>• <strong>样本：</strong>120名60-80岁健康老人</li><li>• <strong>干预：</strong>每周3次有氧步行训练</li><li>• <strong>时长：</strong>持续12个月</li>",
-          "findings": "<li>• 海马体前部体积增加2%</li><li>• 空间记忆能力显著提升</li><li>• BDNF血清水平升高</li><li>• 逆转1-2年的海马体萎缩</li>"
-        }
-      }
     }
   }
 }

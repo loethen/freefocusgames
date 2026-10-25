@@ -25,10 +25,10 @@ export function Footer() {
         </Link>
         <span>•</span>
         <Link
-          href="/guides"
+          href="/benchmarks"
           className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
         >
-          {t('guides')}
+          {t('benchmarks')}
         </Link>
         <span>•</span>
         <Link

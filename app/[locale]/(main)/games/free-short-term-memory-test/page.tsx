@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { Link } from '@/i18n/navigation'
 import Game from './components/Game'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
-import { Brain, TrendingUp, Users, BookOpen } from 'lucide-react'
+import { Brain, TrendingUp, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
@@ -35,7 +35,6 @@ export default function FreeShortTermMemoryTestPage({ params }: { params: Promis
     const { locale } = use(params);
     setRequestLocale(locale);
     const t = useTranslations('games.freeShortTermMemoryTest');
-    const tCommon = useTranslations('common');
 
     return (
         <GamePageTemplate
@@ -46,14 +45,6 @@ export default function FreeShortTermMemoryTestPage({ params }: { params: Promis
             howToPlay={
                 <>
                     <p><Link href="/games/digit-span-test" className="underline">{locale === 'zh' ? '数字广度测试：尝试正背与倒背数字序列' : 'Digit Span Test: try forward and backward digit sequences'}</Link>{locale === 'zh' ? '，与单词回忆和 N-Back 更新任务不同。' : ', a different task from word recall and N-Back updating.'}</p>
-                    <Link href="/working-memory-guide" className="block mb-6 p-4 bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors group">
-                        <div className="flex items-center gap-3">
-                            <BookOpen className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                            <span className="text-sm font-medium text-primary">
-                                {tCommon('learnMoreAboutWorkingMemory')}
-                            </span>
-                        </div>
-                    </Link>
                     <p>
                         {t('howToPlay.description')}
                     </p>

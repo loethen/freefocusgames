@@ -59,17 +59,16 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     setRequestLocale(locale);
     const t = await getTranslations({ locale });
     const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
-    const guidesT = await getTranslations({ locale, namespace: 'guides' });
     const posts = await getBlogPosts(locale);
     const postsBySlug = new Map(posts.map((post) => [post.slug, post]));
     const featuredResources = [
         {
-            id: "workingMemoryGuide",
-            href: "/working-memory-guide",
-            label: t("home.featuredResources.items.workingMemoryGuide.label"),
-            title: guidesT("workingMemory.title"),
-            description: t("home.featuredResources.items.workingMemoryGuide.description"),
-            cta: t("common.readGuide")
+            id: "reactionBenchmarks",
+            href: "/blog/what-is-a-good-reaction-time",
+            label: t("home.featuredResources.items.reactionBenchmarks.label"),
+            title: postsBySlug.get("what-is-a-good-reaction-time")?.title || "",
+            description: postsBySlug.get("what-is-a-good-reaction-time")?.excerpt || "",
+            cta: t("blog.readMore")
         },
         {
             id: "schulteBenefits",
