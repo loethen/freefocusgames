@@ -2,7 +2,7 @@
 
 import React, { MouseEvent, useState, useEffect, useRef } from 'react';
 import { toast } from "sonner";
-import { Share, Award, ArrowRight, RotateCcw } from "lucide-react";
+import { Share, Award, ArrowRight, RotateCcw, MousePointerClick } from "lucide-react";
 import { useTranslations } from 'next-intl';
 import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
 import { motion } from "framer-motion";
@@ -163,12 +163,6 @@ export default function ReactionTimeGame() {
     }
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.repeat || (event.key !== ' ' && event.key !== 'Enter')) return;
-    event.preventDefault();
-    handleClick();
-  };
-
   const stopBoardClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
   };
@@ -218,6 +212,24 @@ export default function ReactionTimeGame() {
     });
   }, [gameState, pageT, results, shareT, t]);
 
+  // Space or Enter plays like a click while the board is on screen, without scrolling the page.
+  const handleClickRef = useRef(handleClick);
+  handleClickRef.current = handleClick;
+  useEffect(() => {
+    if (gameState === GameStates.SUMMARY) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.repeat || (event.key !== ' ' && event.key !== 'Enter')) return;
+      const target = event.target as HTMLElement | null;
+      if (target && target !== containerRef.current && target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return;
+      const board = containerRef.current?.getBoundingClientRect();
+      if (!board || board.bottom <= 0 || board.top >= window.innerHeight) return;
+      event.preventDefault();
+      handleClickRef.current();
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [gameState]);
+
   // Cleanup timers on unmount
   useEffect(() => {
     return () => {
@@ -232,17 +244,16 @@ export default function ReactionTimeGame() {
     }
   }, [gameState]);
 
-  // One colour per instruction: blue invites a click, red means hold, green means go.
+  // Get background color and style based on game state
   const getBackgroundStyle = () => {
     switch (gameState) {
       case GameStates.START:
-        return { className: "bg-sky-600 text-white", style: {} };
       case GameStates.WAITING:
-        return { className: "bg-rose-600 text-white", style: {} };
+        return { className: "bg-blue-500 text-white", style: {} };
       case GameStates.READY:
-        return { className: "bg-emerald-500 text-white", style: {} };
+        return { className: "bg-green-500 text-white", style: {} };
       default:
-        return { className: "bg-slate-900 text-white", style: {} };
+        return { className: "bg-gray-800 text-white dark:bg-gray-900", style: {} };
     }
   };
 
@@ -270,7 +281,6 @@ export default function ReactionTimeGame() {
           <div
             className={`${bgStyle.className} w-full min-h-80 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.25)] dark:shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center justify-center relative select-none ${isSummary ? '' : 'cursor-pointer'}`}
             onClick={isSummary ? undefined : handleClick}
-            onKeyDown={isSummary ? undefined : handleKeyDown}
             tabIndex={isSummary ? -1 : 0}
             ref={containerRef}
             role={isSummary ? undefined : "button"}
@@ -280,19 +290,46 @@ export default function ReactionTimeGame() {
             {/* Game content based on state */}
             <div className="w-full p-6 text-center">
               {gameState === GameStates.START && (
-                <div className="flex flex-col items-center justify-center gap-4">
-                  <p className="text-3xl md:text-4xl font-bold">{t('startTitle')}</p>
-                  <p className="max-w-sm text-base text-white/85">{t('startHint', { total: MAX_ROUNDS })}</p>
-                  <p className="hidden text-sm text-white/60 sm:block">{t('keyboardHint')}</p>
+                <div className="flex flex-col items-center justify-center">
+                  <span className="relative mb-6 flex h-20 w-20 items-center justify-center" aria-hidden="true">
+                    <motion.span
+                      className="absolute inset-0 rounded-full bg-white/20"
+                      animate={{ scale: [1, 1.25, 1], opacity: [0.6, 0, 0.6] }}
+                      transition={{ repeat: Infinity, duration: 2.4, ease: "easeInOut" }}
+                    />
+                    <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white/15 ring-1 ring-white/30">
+                      <MousePointerClick className="h-8 w-8" strokeWidth={1.75} />
+                    </span>
+                  </span>
+                  <p className="text-3xl md:text-4xl font-bold tracking-tight">{t('startTitle')}</p>
+                  <p className="mt-3 text-sm md:text-base text-white/80">{t('startHint', { total: MAX_ROUNDS })}</p>
+                  <p className="mt-6 hidden items-center gap-2 text-xs text-white/60 sm:flex">
+                    {t('keyboardHint')}
+                    <kbd className="rounded-md border border-white/30 bg-white/10 px-2 py-0.5 font-sans text-[11px] font-medium text-white/85">
+                      {t('spaceKey')}
+                    </kbd>
+                  </p>
                 </div>
               )}
 
               {gameState === GameStates.WAITING && (
-                <p className="text-4xl md:text-5xl font-bold">{t('wait')}</p>
+                <motion.p
+                  className="text-3xl md:text-4xl font-bold"
+                  animate={{ scale: [1, 1.05, 1] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                >
+                  {t('wait')}
+                </motion.p>
               )}
 
               {gameState === GameStates.READY && (
-                <p className="text-5xl md:text-6xl font-bold">{t('clickNow')}</p>
+                <motion.p
+                  className="text-3xl md:text-4xl font-bold"
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ repeat: Infinity, duration: 0.5 }}
+                >
+                  {t('clickNow')}
+                </motion.p>
               )}
 
               {gameState === GameStates.RESULT && (

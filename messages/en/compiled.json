@@ -1569,12 +1569,12 @@
       },
       "gameUI": {
         "gameTitle": "Test Your Reaction Time",
-        "instructions": "When the red screen turns green, click as quickly as you can! Complete 5 rounds to get your average score.",
+        "instructions": "When the blue screen turns green, click as quickly as you can! Complete 5 rounds to get your average score.",
         "hardwareNote": "Note: Your results depend on your device's hardware, display lag, and input processing time.",
         "startButton": "START",
-        "wait": "Wait for green",
-        "clickNow": "Click!",
-        "tooEarly": "Too soon!",
+        "wait": "WAIT...",
+        "clickNow": "CLICK NOW",
+        "tooEarly": "TOO EARLY!",
         "yourReactionTime": "Your Reaction Time",
         "bestTime": "Best Time",
         "averageTime": "Average Time",
@@ -1586,7 +1586,7 @@
         "shareTitle": "My Reaction Time Result",
         "shareText": "My reaction time",
         "milliseconds": "milliseconds",
-        "screenReaderWaiting": "Waiting for the red screen to turn green. Do not click yet.",
+        "screenReaderWaiting": "Waiting for blue screen to turn green. Do not click yet.",
         "screenReaderReady": "Screen is now green. Click immediately!",
         "screenReaderResult": "Your reaction time is",
         "hardwareFactorsNote": "Results vary by device. Gaming monitors, mice, and computers can impact measurements by up to 30-50ms.",
@@ -1607,7 +1607,7 @@
           "fasterThan": "Faster than {percent}% of players"
         },
         "roundProgress": "{current} of {total} rounds done",
-        "startHint": "When the red screen turns green, click as fast as you can. {total} rounds.",
+        "startHint": "Click as soon as the screen turns green · {total} rounds",
         "nextRound": "Click to keep going",
         "retryRound": "Click to try again",
         "tooEarlyHint": "That round doesn't count.",
@@ -1615,8 +1615,9 @@
         "slower": "Slower",
         "faster": "Faster",
         "compareLink": "See how 8,791 players compare",
-        "startTitle": "Click anywhere to start",
-        "keyboardHint": "Tip: you can also press Space."
+        "startTitle": "Click to start",
+        "keyboardHint": "You can also press",
+        "spaceKey": "Space"
       },
       "ratings": {
         "master": "Master",

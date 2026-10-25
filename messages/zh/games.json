@@ -1410,11 +1410,11 @@
       },
       "gameUI": {
         "gameTitle": "测试你的反应时间",
-        "instructions": "当红色屏幕变为绿色时，尽快点击！完成 5 轮测试获取平均分数。",
+        "instructions": "当蓝色屏幕变为绿色时，尽快点击！完成5轮测试获取平均分数。",
         "hardwareNote": "注意：你的结果取决于你的设备硬件、显示延迟和输入处理时间。",
         "startButton": "开始",
-        "wait": "等待变绿",
-        "clickNow": "点！",
+        "wait": "等待...",
+        "clickNow": "立即点击",
         "tooEarly": "太早了！",
         "yourReactionTime": "你的反应时间",
         "bestTime": "最佳时间",
@@ -1427,7 +1427,7 @@
         "shareTitle": "我的反应时间结果",
         "shareText": "我的反应时间",
         "milliseconds": "毫秒",
-        "screenReaderWaiting": "等待红色屏幕变为绿色。请勿立即点击。",
+        "screenReaderWaiting": "等待蓝色屏幕变为绿色。请勿立即点击。",
         "screenReaderReady": "屏幕现在是绿色的。立即点击！",
         "screenReaderResult": "你的反应时间是",
         "hardwareFactorsNote": "结果因设备而异。游戏显示器、鼠标和电脑可能会影响测量结果，差异可达30-50毫秒。",
@@ -1448,7 +1448,7 @@
           "fasterThan": "快过 {percent}% 的玩家"
         },
         "roundProgress": "已完成 {current} / {total} 回合",
-        "startHint": "红色屏幕变绿的瞬间，尽快点击。共 {total} 回合。",
+        "startHint": "屏幕变绿时尽快点击 · 共 {total} 回合",
         "nextRound": "点击继续",
         "retryRound": "点击重试",
         "tooEarlyHint": "这一回合不算。",
@@ -1456,8 +1456,9 @@
         "slower": "较慢",
         "faster": "较快",
         "compareLink": "看看 8,791 名玩家的成绩分布",
-        "startTitle": "点击任意位置开始",
-        "keyboardHint": "小技巧：也可以按空格键。"
+        "startTitle": "点击开始",
+        "keyboardHint": "也可以按",
+        "spaceKey": "空格键"
       },
       "ratings": {
         "master": "大师",
