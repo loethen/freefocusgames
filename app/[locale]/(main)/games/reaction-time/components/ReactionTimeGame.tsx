@@ -301,7 +301,13 @@ export default function ReactionTimeGame() {
                   </motion.span>
                   <p className="text-3xl md:text-4xl font-bold tracking-tight">{t('startTitle')}</p>
                   <p className="mt-3 text-sm md:text-base text-white/80">{t('startHint', { total: MAX_ROUNDS })}</p>
-                  <p className="mt-6 hidden items-center gap-2 text-xs text-white/60 sm:flex">
+                  {bestTime !== null && (
+                    <p className="mt-5 inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-sm text-white/90">
+                      <Award className="h-3.5 w-3.5" aria-hidden="true" />
+                      {t('bestTime')}: <span className="font-semibold tabular-nums">{bestTime}</span> ms
+                    </p>
+                  )}
+                  <p className="mt-4 hidden items-center gap-2 text-xs text-white/60 sm:flex">
                     {t('keyboardHint')}
                     <kbd className="rounded-md bg-white/15 px-2 py-0.5 font-sans text-[11px] font-medium text-white/85">
                       {t('spaceKey')}
@@ -449,14 +455,6 @@ export default function ReactionTimeGame() {
             </div>
           </div>
         </div>
-
-        {/* Previous best time display (only shown on start screen) */}
-        {gameState === GameStates.START && bestTime && (
-          <div className="flex justify-center items-center space-x-1 text-gray-600 dark:text-gray-400 text-sm">
-            <Award className="w-3 h-3" />
-            <span>{t('bestTime')}: <span className="font-bold">{bestTime}</span> ms</span>
-          </div>
-        )}
       </div>
 
       <ProgressShareModal
