@@ -1,134 +1,147 @@
 'use client';
 
-import Image from "next/image";
-import { Link } from "@/i18n/navigation";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { getGame, Game } from "@/data/games";
 import { useTranslations } from "next-intl";
-import {
-    ArrowRight,
-    Blocks,
-    Grid3x3,
-    Orbit,
-    Palette,
-    Play,
-    TrendingUp,
-    Zap,
-    type LucideIcon
-} from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { GameCategoryLabel } from "@/components/game-card";
+import { ArrowLeft, ArrowRight, TrendingUp, type LucideIcon } from "lucide-react";
+import GameCard from "@/components/game-card";
+import { cn } from "@/lib/utils";
 
 
-// One featured game with its cover, beside a quiet list of popular games.
-// The list uses matching line icons instead of covers, whose mixed art styles clash at small sizes.
-const FEATURED_GAME_ID = 'double-decision';
-const POPULAR_GAMES: { id: string; icon: LucideIcon }[] = [
-    { id: 'rotating-schulte-table', icon: Orbit },
-    { id: 'dual-n-back', icon: Grid3x3 },
-    { id: 'reaction-time', icon: Zap },
-    { id: 'stroop-effect-test', icon: Palette },
-    { id: 'block-memory-challenge', icon: Blocks },
+// Popular games as one horizontal rail of equal cards, scrolled by the visitor only (no autoplay).
+// A partly visible card at the edge signals there is more to see.
+const POPULAR_GAME_IDS = [
+    'double-decision',
+    'reaction-time',
+    'rotating-schulte-table',
+    'dual-n-back',
+    'stroop-effect-test',
+    'block-memory-challenge',
 ];
+
+const CARD_WIDTH = "w-[82%] shrink-0 snap-start sm:w-[45%] lg:w-[29%]";
+
+// On hover a thin neutral halo appears just outside the card's border.
+const HALO_CARD = cn(
+    "h-full transition-[border-color,box-shadow,transform]",
+    "hover:[box-shadow:0_0_0_3px_hsl(var(--primary)/0.08)]"
+);
 
 export default function FeaturedBentoGrid() {
     const t = useTranslations("home");
-    const gamesT = useTranslations("games");
-    const buttonsT = useTranslations("buttons");
 
-    const featuredGame = getGame(FEATURED_GAME_ID);
-    const popularGames = POPULAR_GAMES
-        .map(({ id, icon }) => ({ game: getGame(id), icon }))
-        .filter((item): item is { game: Game; icon: LucideIcon } => !!item.game);
+    const railRef = useRef<HTMLUListElement>(null);
+    const [canScrollPrev, setCanScrollPrev] = useState(false);
+    const [canScrollNext, setCanScrollNext] = useState(true);
+    // "idle" renders cards as-is; "hidden" → "shown" plays a staggered entrance when the rail scrolls into view.
+    const [entrance, setEntrance] = useState<'idle' | 'hidden' | 'shown'>('idle');
 
-    if (!featuredGame) return null;
+    const popularGames = POPULAR_GAME_IDS
+        .map((id) => getGame(id))
+        .filter((game): game is Game => !!game);
 
-    const featuredGameIdKey = getGameIdKey(featuredGame.id);
-    const featuredTitle = gamesT(`${featuredGameIdKey}.title`);
-    const featuredDescriptionKey = `${featuredGameIdKey}.featuredDescription`;
-    const featuredDescription = gamesT.has(featuredDescriptionKey)
-        ? gamesT(featuredDescriptionKey)
-        : gamesT(`${featuredGameIdKey}.description`);
+    const updateScrollState = useCallback(() => {
+        const rail = railRef.current;
+        if (!rail) return;
+        setCanScrollPrev(rail.scrollLeft > 4);
+        setCanScrollNext(rail.scrollLeft + rail.clientWidth < rail.scrollWidth - 4);
+    }, []);
+
+    useEffect(() => {
+        const rail = railRef.current;
+        if (!rail) return;
+        updateScrollState();
+        rail.addEventListener("scroll", updateScrollState, { passive: true });
+        window.addEventListener("resize", updateScrollState);
+        return () => {
+            rail.removeEventListener("scroll", updateScrollState);
+            window.removeEventListener("resize", updateScrollState);
+        };
+    }, [updateScrollState]);
+
+    useEffect(() => {
+        const rail = railRef.current;
+        if (!rail || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        // Skip the entrance if the rail is already on screen at load, so nothing visible blinks out.
+        const observer = new IntersectionObserver(([entry]) => {
+            if (entry.isIntersecting) {
+                setEntrance((phase) => (phase === 'hidden' ? 'shown' : phase));
+                observer.disconnect();
+            } else {
+                setEntrance((phase) => (phase === 'idle' ? 'hidden' : phase));
+            }
+        }, { threshold: 0.2 });
+        observer.observe(rail);
+        return () => observer.disconnect();
+    }, []);
+
+    const scrollByPage = (direction: 1 | -1) => {
+        const rail = railRef.current;
+        if (!rail) return;
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        rail.scrollBy({ left: direction * rail.clientWidth * 0.9, behavior: reduceMotion ? "auto" : "smooth" });
+    };
+
+    if (popularGames.length === 0) return null;
+
+    const entranceClass = (index: number) => ({
+        className: cn(
+            entrance !== 'idle' && "transition-[opacity,transform] duration-500 ease-out",
+            entrance === 'hidden' && "translate-y-3 opacity-0"
+        ),
+        style: entrance === 'shown' ? { transitionDelay: `${index * 70}ms` } : undefined,
+    });
 
     return (
         <div className="space-y-6 no-ads-inside sm:space-y-8">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between gap-4">
                 <h2 className="text-2xl font-semibold flex items-center gap-2">
                     <TrendingUp className="h-6 w-6 text-muted-foreground" />
                     {t("featuredGames")}
                 </h2>
-                <Button asChild variant="ghost" className="gap-2 rounded-full px-4">
-                    <Link href="/games">
-                        {buttonsT("viewAll")} <ArrowRight className="h-4 w-4" />
-                    </Link>
-                </Button>
+                <div className="hidden items-center gap-1 sm:flex">
+                    <RailArrow icon={ArrowLeft} label={t("featuredPrev")} disabled={!canScrollPrev} onClick={() => scrollByPage(-1)} />
+                    <RailArrow icon={ArrowRight} label={t("featuredNext")} disabled={!canScrollNext} onClick={() => scrollByPage(1)} />
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:gap-5 lg:grid-cols-[1.35fr_1fr]">
-                <Link
-                    href={`/games/${featuredGame.slug}`}
-                    className="group flex flex-col overflow-hidden rounded-[2rem] border border-border bg-card transition-colors hover:border-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                    {featuredGame.coverImage && (
-                        <span className="relative block aspect-video overflow-hidden bg-muted/60">
-                            <Image
-                                src={featuredGame.coverImage}
-                                alt=""
-                                fill
-                                sizes="(max-width: 1023px) 92vw, 55vw"
-                                className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02] motion-reduce:transition-none"
-                            />
-                        </span>
-                    )}
-                    <span className="flex flex-1 flex-col gap-2 p-5 sm:p-7">
-                        <GameCategoryLabel game={featuredGame} />
-                        <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">{featuredTitle}</h3>
-                        <p className="line-clamp-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
-                            {featuredDescription}
-                        </p>
-                        <span className="mt-auto inline-flex h-10 w-fit items-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground transition-opacity group-hover:opacity-90">
-                            <Play className="mr-2 h-4 w-4" fill="currentColor" aria-hidden="true" />
-                            {buttonsT('start')}
-                        </span>
-                    </span>
-                </Link>
-
-                <ul className="flex flex-col overflow-hidden rounded-[2rem] bg-muted/50 p-2">
-                    {popularGames.map(({ game, icon }) => (
-                        <li key={game.id} className="flex flex-1">
-                            <PopularGameRow game={game} icon={icon} />
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            {/* Padding keeps the cards' hover lift and focus ring from being clipped by the scroll box. */}
+            <ul
+                ref={railRef}
+                className="scrollbar-hide -mx-1 flex snap-x snap-mandatory scroll-px-1 gap-4 overflow-x-auto overscroll-x-contain px-1 py-2 sm:gap-5"
+            >
+                {popularGames.map((game, index) => (
+                    <li
+                        key={game.id}
+                        className={cn(CARD_WIDTH, entranceClass(index).className)}
+                        style={entranceClass(index).style}
+                    >
+                        <GameCard game={game} className={HALO_CARD} />
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }
 
-function PopularGameRow({ game, icon: Icon }: { game: Game; icon: LucideIcon }) {
-    const gamesT = useTranslations("games");
-    const idKey = getGameIdKey(game.id);
+// A bare arrow: no circle or outline, just the glyph darkening and nudging toward its direction on hover.
+function RailArrow({ icon: Icon, label, disabled, onClick }: {
+    icon: LucideIcon;
+    label: string;
+    disabled: boolean;
+    onClick: () => void;
+}) {
+    const nudge = Icon === ArrowLeft ? "group-hover:-translate-x-0.5" : "group-hover:translate-x-0.5";
 
     return (
-        <Link
-            href={`/games/${game.slug}`}
-            className="group flex w-full items-center gap-4 rounded-2xl px-4 py-3.5 transition-colors hover:bg-background/80 focus-visible:bg-background/80 focus-visible:outline-none sm:px-5"
+        <button
+            type="button"
+            onClick={onClick}
+            disabled={disabled}
+            aria-label={label}
+            className="group flex h-10 w-10 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-30"
         >
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-background text-foreground/70 shadow-sm transition-colors group-hover:text-foreground">
-                <Icon className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
-            </span>
-            <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <h3 className="truncate text-base font-semibold tracking-tight">{gamesT(`${idKey}.title`)}</h3>
-                <span className="line-clamp-1 text-sm text-muted-foreground">{gamesT(`${idKey}.description`)}</span>
-            </span>
-            <ArrowRight
-                aria-hidden="true"
-                className="h-4 w-4 shrink-0 text-muted-foreground opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100"
-            />
-        </Link>
+            <Icon className={cn("h-5 w-5 transition-transform motion-reduce:transition-none", nudge)} strokeWidth={1.5} aria-hidden="true" />
+        </button>
     );
-}
-
-// Helper to convert snake-case ID to camelCase for translation keys
-function getGameIdKey(id: string): string {
-    return id.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 }
