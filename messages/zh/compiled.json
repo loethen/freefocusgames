@@ -2891,9 +2891,6 @@
       "intro": "我还做了<website>CaptionCat 字幕猫</website>。",
       "description": "一只住在 YouTube 字幕上的像素小猫，陪你看视频。",
       "source": "已开源：<github>GitHub 仓库</github>。"
-    },
-    "support": {
-      "text": "如果你觉得它还不错，想顺手支持一下，也欢迎请我喝杯咖啡。"
     }
   },
   "adhdAssessment": {
@@ -3504,7 +3501,6 @@
     "termsOfService": "服务条款",
     "benchmarks": "成绩基准",
     "tests": "评估",
-    "supportProject": "支持这个项目",
     "assessmentTests": "认知评估",
     "cognitiveAssessment": "认知测试",
     "adhdAssessment": "儿童ADHD",

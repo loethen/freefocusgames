@@ -1,16 +1,13 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { Button } from '@/components/ui/button';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { use } from 'react';
-import { Coffee } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import './style.css';
 
-const KOFI_URL = "https://ko-fi.com/freefocusgames";
 const CAPTIONCAT_URL = "https://captioncat.app/";
 const CAPTIONCAT_SOURCE_URL = "https://github.com/loethen/captioncat";
 const SITE_SOURCE_URL = "https://github.com/loethen/freefocusgames";
@@ -32,7 +29,6 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
   const { locale } = use(params);
   setRequestLocale(locale);
   const t = useTranslations('about');
-  const tCommon = useTranslations('common');
   const captionCatUrl = locale === 'zh' ? `${CAPTIONCAT_URL}zh/` : CAPTIONCAT_URL;
 
   return (
@@ -95,15 +91,6 @@ export default function AboutPage({ params }: { params: Promise<{ locale: string
               })}
             </p>
             <p className="handwriting-text">{t('content.paragraph4')}</p>
-            <div className="support-note">
-              <p className="handwriting-text !mb-4">{t('support.text')}</p>
-              <Button asChild variant="outline" className="support-button">
-                <a href={KOFI_URL} target="_blank" rel="noopener noreferrer nofollow">
-                  <Coffee className="h-4 w-4" />
-                  {tCommon('supportProject')}
-                </a>
-              </Button>
-            </div>
             <p className="handwriting-text">{t('content.paragraph5')}</p>
 
             {/* Video signature */}

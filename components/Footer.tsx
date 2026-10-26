@@ -7,7 +7,7 @@ import { Link } from '@/i18n/navigation';
 import { Github } from 'lucide-react';
 import { CaptionCatFooterCat } from './captioncat-footer-cat';
 
-// Methodology and the Ko-fi link live on the About and Benchmarks pages, which keeps this to one line.
+// Methodology lives on the About and Benchmarks pages, which keeps this to one line.
 const FOOTER_LINKS = [
   { href: "/categories", label: "categories" },
   { href: "/benchmarks", label: "benchmarks" },
