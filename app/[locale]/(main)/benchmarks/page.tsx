@@ -41,6 +41,7 @@ export default async function BenchmarksPage({ params }: { params: Promise<{ loc
     description: t('metaDescription'),
     url: pageUrl,
     isAccessibleForFree: true,
+    license: 'https://creativecommons.org/licenses/by/4.0/',
     temporalCoverage: '2026-03-08/2026-10-25',
     creator: {
       '@type': 'Organization',
