@@ -1620,6 +1620,7 @@
         "spaceKey": "Space",
         "shareCard": {
           "medianLabel": "Median player",
+          "unit": "ms",
           "challenge": "Can you beat my time?"
         },
         "anticipatedHint": "Under {time} ms is a guess, not a reaction. This round does not count."

@@ -1959,6 +1959,7 @@
         "spaceKey": "空格键",
         "shareCard": {
           "medianLabel": "玩家中位数",
+          "unit": "毫秒",
           "challenge": "你能比我更快吗？"
         },
         "anticipatedHint": "低于 {time} 毫秒是预判，不是反应，这一回合不算。"

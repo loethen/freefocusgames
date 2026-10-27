@@ -270,8 +270,8 @@ export const games: Game[] = [
     id: "reaction-time",
     title: "Reaction Time Test",
     slug: "reaction-time",
-    coverImage: "/games/reaction-time.png",
-    preview: <ImagePreview src="/games/reaction-time.png" />,
+    coverImage: "/games/reaction-time-cover.png",
+    preview: <ImagePreview src="/games/reaction-time-cover.png" />,
     categories: [
       "reaction-time",
       "selective-attention",

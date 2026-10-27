@@ -191,7 +191,7 @@ export default function ReactionTimeGame() {
     hasRecordedProgressRef.current = true;
     const averageTime = Math.round(results.reduce((acc, curr) => acc + curr, 0) / results.length);
     const bestRound = Math.min(...results);
-    const formatMs = (value: number) => `${value} ${t('milliseconds')}`;
+    const formatMs = (value: number) => `${value} ${t('shareCard.unit')}`;
     const history = recordProgressSnapshot('reaction-time', averageTime);
     const insights = getProgressInsights(history, 'lower');
     const deltaText = insights.previous && insights.deltaFromPrevious !== null
