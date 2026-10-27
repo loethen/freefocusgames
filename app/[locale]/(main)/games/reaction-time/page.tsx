@@ -7,6 +7,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
+import { Link } from '@/i18n/navigation'
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -80,6 +81,16 @@ export default function ReactionTimePage({ params }: { params: Promise<{ locale:
                 },
             ]}
             faq={[
+                {
+                    question: t('faq.good.question'),
+                    answer: t.rich('faq.good.answer', {
+                        link: (chunks) => (
+                            <Link href="/blog/what-is-a-good-reaction-time" className="text-primary underline underline-offset-4">
+                                {chunks}
+                            </Link>
+                        ),
+                    }),
+                },
                 {
                     question: t('faq.what.question'),
                     answer: t('faq.what.answer'),

@@ -1043,9 +1043,13 @@
         }
       },
       "faq": {
+        "good": {
+          "question": "What is a good reaction time?",
+          "answer": "On this test the median player averages 369 ms over five rounds. Under 284 ms puts you in the top 10% of 8,791 players, and under 233 ms in the top 1%. <link>See the full distribution of scores</link>."
+        },
         "what": {
           "question": "What is reaction time?",
-          "answer": "Reaction time is the interval between perceiving a stimulus (like seeing the screen turn green) and making a physical response (like clicking). It includes the time your brain takes to process visual information, decide to act, and send signals to your muscles. Average human reaction time to visual stimuli is typically between 200-250 milliseconds, though this varies by individual and circumstances."
+          "answer": "Reaction time is the interval between perceiving a stimulus (like seeing the screen turn green) and making a physical response (like clicking). It includes the time your brain takes to process visual information, decide to act, and send signals to your muscles. Lab studies usually put simple visual reaction time around 200-250 milliseconds; online tests run slower because your screen, mouse, and browser add delay."
         },
         "limitations": {
           "question": "What are the limitations of this test?",
