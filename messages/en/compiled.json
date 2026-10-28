@@ -2832,16 +2832,16 @@
       },
       "benefits": {
         "focus": {
-          "title": "Take in more at a glance",
-          "description": "Holding your gaze on the shop door while noticing a plane near the edges trains your useful field of view, the area you can take in without moving your eyes."
+          "title": "See more around you",
+          "description": "It trains your useful field of view, the area you notice without moving your eyes. A wider view makes it easier to spot a car or person coming from the side when you cross a road, ride a bike or walk through a crowd."
         },
         "speed": {
-          "title": "Catch details faster",
-          "description": "The flash gets shorter round by round, so you practise picking out the two things that matter before the scene is gone."
+          "title": "Take things in faster",
+          "description": "It trains visual processing speed, how quickly you recognise what matters at a glance. Faster processing helps you react sooner to a road sign, a change on the sports field or a prompt on screen."
         },
         "attention": {
-          "title": "Split your attention",
-          "description": "The snack in the middle and the plane at the side compete for attention. Getting both right means sharing your focus instead of locking onto one."
+          "title": "Juggle two things at once",
+          "description": "It trains divided attention, keeping track of two things without dropping either. Think of watching the road while checking the mirror, or listening in class while reading the board."
         }
       },
       "faq": {
