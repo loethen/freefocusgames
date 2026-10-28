@@ -96,7 +96,7 @@
     "topic": "reaction",
     "tool": "/games/reaction-time",
     "excerpt": "Real reaction time benchmarks from 8,791 players of our online test: the median is 369 ms, and under 300 ms beats about 84% of players. See where your score lands.",
-    "coverImage": "/games/reaction-time.png",
+    "coverImage": "/games/reaction-time-cover.png",
     "keywords": "what is a good reaction time, average reaction time, reaction time test results, reaction time benchmark, good reaction time ms, reaction time percentile, human reaction time online test",
     "author": {
       "name": "FreeFocusGames Team",

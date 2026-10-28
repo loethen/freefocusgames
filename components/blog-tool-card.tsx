@@ -5,6 +5,7 @@ import { GameCover } from "@/components/game-card";
 import LinkClickTracker from "@/components/link-click-tracker";
 import { getGameBySlug } from "@/data/games";
 import { Link } from "@/i18n/navigation";
+import { cn } from "@/lib/utils";
 
 // Screeners that articles can point to, keyed by path, with their copy in the tests namespace.
 const ASSESSMENTS: Record<string, { item: string; icon: LucideIcon }> = {
@@ -44,9 +45,15 @@ export function BlogToolCard({ href, fromPage, linkLocation }: BlogToolCardProps
                 data-link-location={linkLocation}
                 className="group flex items-stretch gap-4 overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-foreground/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-                <span className="relative flex w-28 shrink-0 items-center justify-center overflow-hidden bg-muted/60 sm:w-36">
+                {/* Game covers are 16:9, so they get a matching frame instead of being cropped to the card height. */}
+                <span
+                    className={cn(
+                        "relative flex shrink-0 items-center justify-center overflow-hidden bg-muted/60",
+                        game ? "my-3 ml-3 aspect-video w-32 self-center rounded-xl sm:w-52" : "w-28 sm:w-36"
+                    )}
+                >
                     {game ? (
-                        <GameCover game={game} title={title} sizes="144px" />
+                        <GameCover game={game} title={title} sizes="208px" />
                     ) : (
                         Icon && <Icon className="h-8 w-8 text-foreground/70" strokeWidth={1.5} aria-hidden="true" />
                     )}

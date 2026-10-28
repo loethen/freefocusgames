@@ -4,7 +4,7 @@ date: "2026-10-23"
 updatedAt: "2026-10-25"
 excerpt: "来自 8,791 名在线测试玩家的真实反应时间数据：中位数 369 毫秒，低于 300 毫秒就快过约 84% 的玩家。看看你的成绩排在哪里。"
 metaDescription: "反应时间多少算快？我们在线测试的中位数是 369 毫秒，低于 300 毫秒快过 8,791 名玩家中的约 84%。查看完整的百分位表。"
-coverImage: "/games/reaction-time.png"
+coverImage: "/games/reaction-time-cover.png"
 keywords: "反应时间多少算快, 平均反应时间, 反应时间测试结果, 反应速度标准, 反应时间百分位, 在线反应时间测试"
 author:
   name: "FreeFocusGames 团队"
