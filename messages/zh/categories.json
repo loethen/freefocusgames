@@ -21,7 +21,8 @@
       "adhd-games": "成人ADHD游戏",
       "brain-games-for-kids": "儿童专注力游戏",
       "relaxation": "放松减压",
-      "personality-tests": "热门人格测试"
+      "personality-tests": "热门人格测试",
+      "double-decision-games": "双重决策"
     },
     "categoryDescriptions": {
       "working-memory": "增强你暂时保持和操作信息能力的游戏。强大的工作记忆帮助学生记住指令，专业人士同时处理多项任务，以及每个人更好地跟随对话。",
@@ -35,7 +36,8 @@
       "adhd-games": "结构清晰、时间短的游戏，用于练习工作记忆、抑制控制和持续注意力——这些执行功能常受 ADHD 影响。这些游戏不是 ADHD 的治疗方法，也不能替代专业帮助，但可以作为练习专注的简单方式。",
       "brain-games-for-kids": "适合儿童的趣味脑力游戏，以短小的游戏关卡练习注意力、记忆、遵循指令和冲动控制。适合作为学习之外的趣味练习，而不是替代学习。",
       "relaxation": "用于放松和减压的引导式呼吸练习。缓慢、有节奏的呼吸在练习时可以提高心率变异性（HRV），帮助很多人在几分钟内平静下来。",
-      "personality-tests": "适合社交传播和截图分享的娱乐向人格测试分类。这里的内容更偏好玩、好转发、结果来得快，适合正在搜索 sbti 人格测试、人格测试、sbti mbti 这类热门词的用户。"
+      "personality-tests": "适合社交传播和截图分享的娱乐向人格测试分类。这里的内容更偏好玩、好转发、结果来得快，适合正在搜索 sbti 人格测试、人格测试、sbti mbti 这类热门词的用户。",
+      "double-decision-games": "收录所有版本的双重决策（Double Decision）视觉速度游戏。每一轮会同时闪现中央的目标和周边的目标，两样都要答对，练习有效视野、视觉处理速度和分配注意力。"
     },
     "keywords": {
       "working-memory": {
@@ -183,6 +185,16 @@
         "fun personality test": "好玩的性格测试",
         "shareable personality result": "可分享的人格结果图",
         "internet personality test": "互联网人格测试"
+      },
+      "double-decision-games": {
+        "double decision game": "双重决策游戏",
+        "double decision brain training": "双重决策脑力训练",
+        "useful field of view training": "有效视野训练",
+        "ufov training": "UFOV 训练",
+        "visual processing speed game": "视觉处理速度游戏",
+        "speed of processing training": "处理速度训练",
+        "peripheral vision game": "周边视觉游戏",
+        "divided attention game": "分配注意力游戏"
       }
     },
     "categoryNotFound": "未找到分类",
@@ -210,7 +222,8 @@
       "adhd-games": "短小、有结构的专注练习",
       "brain-games-for-kids": "适合孩子的趣味注意力练习",
       "relaxation": "跟着引导呼吸，放松一下",
-      "personality-tests": "好玩、可分享的人格测验"
+      "personality-tests": "好玩、可分享的人格测验",
+      "double-decision-games": "一眼兼顾中央与周边"
     },
     "guide": {
       "title": "从哪里开始",

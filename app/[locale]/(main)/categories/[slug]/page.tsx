@@ -33,6 +33,7 @@ const PRIMARY_GAME_BY_CATEGORY: Record<string, string> = {
   "reaction-time": "reaction-time",
   "working-memory": "dual-n-back",
   "visual-tracking": "schulte-table",
+  "double-decision-games": "double-decision",
 };
 
 type Props = {

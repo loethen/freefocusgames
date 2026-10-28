@@ -1,3 +1,4 @@
+import { SITE_BASE_URL } from '@/lib/site-constants'
 import { Metadata } from 'next'
 import { use } from 'react'
 import { Brain, Eye, Zap } from 'lucide-react'
@@ -8,8 +9,8 @@ import { generateAlternates } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
 import { SchoolRunGame } from './components/SchoolRunGame'
 
-// Prototype: kept out of search and the games list until it is play-tested. It is not in
-// data/games.tsx, so the sitemap skips it too.
+const coverImage = '/games/school-run-double-decision-cover.png'
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
@@ -24,7 +25,22 @@ export async function generateMetadata({
   return {
     title: t('metadata.title'),
     description: t('metadata.description'),
-    robots: { index: false, follow: false },
+    keywords: t('metadata.keywords')
+      .split(',')
+      .map((keyword) => keyword.trim()),
+    openGraph: {
+      title: t('metadata.title'),
+      description: t('metadata.description'),
+      type: 'website',
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      images: [{ url: coverImage, width: 1200, height: 675, alt: t('title') }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('metadata.title'),
+      description: t('metadata.description'),
+      images: [coverImage],
+    },
     alternates: generateAlternates(locale, 'games/school-run-double-decision'),
   }
 }
@@ -42,6 +58,37 @@ export default function SchoolRunDoubleDecisionPage({
     question: t(`faq.${key}.question`),
     answer: t(`faq.${key}.answer`),
   }))
+
+  const localePrefix = locale === 'en' ? '' : `/${locale}`
+  const pageUrl = `${SITE_BASE_URL}${localePrefix}/games/school-run-double-decision`
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: t('title'),
+      description: t('metadata.description'),
+      url: pageUrl,
+      image: `${SITE_BASE_URL}${coverImage}`,
+      applicationCategory: 'GameApplication',
+      operatingSystem: 'Web Browser',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+      featureList: t.raw('structuredData.featureList'),
+      educationalUse: t('structuredData.educationalUse'),
+      interactivityType: 'active',
+      inLanguage: locale,
+      isAccessibleForFree: true,
+      dateModified: '2026-10-28',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.question,
+        acceptedAnswer: { '@type': 'Answer', text: item.answer },
+      })),
+    },
+  ]
 
   return (
     <GamePageTemplate
@@ -78,6 +125,7 @@ export default function SchoolRunDoubleDecisionPage({
       ]}
       faq={faq}
       relatedGames={['double-decision', 'reaction-time', 'schulte-table']}
+      structuredData={structuredData}
     />
   )
 }

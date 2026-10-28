@@ -198,7 +198,7 @@ export default function DoubleDecisionPage({
         ],
       }}
       faq={faq}
-      relatedGames={['reaction-time', 'rotating-schulte-table', 'schulte-table']}
+      relatedGames={['school-run-double-decision', 'reaction-time', 'rotating-schulte-table']}
       hasLeaderboard
       leaderboardTitle={t('leaderboard.title')}
       leaderboardIntro={t('leaderboard.description')}

@@ -165,7 +165,21 @@ export const games: Game[] = [
         fit="cover"
       />
     ),
-    categories: ["divided-attention", "visual-tracking", "reaction-time", "selective-attention"],
+    categories: ["divided-attention", "visual-tracking", "reaction-time", "selective-attention", "double-decision-games"],
+  },
+  {
+    id: "school-run-double-decision",
+    title: "School Run Double Decision",
+    slug: "school-run-double-decision",
+    coverImage: "/games/school-run-double-decision-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/school-run-double-decision-cover.png"
+        alt="School Run Double Decision preview"
+        fit="cover"
+      />
+    ),
+    categories: ["divided-attention", "visual-tracking", "brain-games-for-kids", "double-decision-games"],
   },
   {
     id: "fish-trace",
@@ -433,6 +447,7 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
+    'school-run-double-decision', // School Run Double Decision - Newest
     'trail-making-test',
     'digit-span-test',
     'rotating-schulte-table', // Rotating Schulte Table - Newest

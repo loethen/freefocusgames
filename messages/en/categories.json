@@ -21,7 +21,8 @@
       "adhd-games": "ADHD Games for Adults",
       "brain-games-for-kids": "Focus Games for Kids",
       "relaxation": "Relaxation",
-      "personality-tests": "Viral Personality Tests"
+      "personality-tests": "Viral Personality Tests",
+      "double-decision-games": "Double Decision"
     },
     "categoryDescriptions": {
       "working-memory": "Games that strengthen your ability to temporarily hold and manipulate information. Strong working memory helps students remember instructions, professionals juggle multiple tasks, and everyone follow conversations better.",
@@ -35,7 +36,8 @@
       "adhd-games": "Short, clearly structured games that practice working memory, inhibition, and sustained attention, the executive functions often affected by ADHD. These games are not a treatment for ADHD and do not replace professional care, but they offer an easy way to practice focus.",
       "brain-games-for-kids": "Fun brain games for children that practice attention, memory, following instructions, and impulse control in short, game-like rounds. Use them as playful practice alongside schoolwork, not as a replacement for it.",
       "relaxation": "Guided breathing exercises for relaxation and stress relief. Slow, paced breathing can raise heart rate variability (HRV) while you practice and helps many people feel calmer within a few minutes.",
-      "personality-tests": "Shareable, entertainment-first online personality tests and quiz experiences. This category is useful when people are looking for fast, curiosity-driven results such as sbti test, personality test, or mbti-style viral quizzes."
+      "personality-tests": "Shareable, entertainment-first online personality tests and quiz experiences. This category is useful when people are looking for fast, curiosity-driven results such as sbti test, personality test, or mbti-style viral quizzes.",
+      "double-decision-games": "Every version of the Double Decision visual speed game in one place. Each round flashes something in the centre and a target out to the side, and you report both, training useful field of view, visual processing speed and divided attention."
     },
     "keywords": {
       "working-memory": {
@@ -183,6 +185,16 @@
         "fun personality test": "Fun personality test",
         "shareable personality result": "Shareable personality result",
         "internet personality test": "Internet personality test"
+      },
+      "double-decision-games": {
+        "double decision game": "Double Decision game",
+        "double decision brain training": "Double Decision brain training",
+        "useful field of view training": "Useful field of view training",
+        "ufov training": "UFOV training",
+        "visual processing speed game": "Visual processing speed game",
+        "speed of processing training": "Speed of processing training",
+        "peripheral vision game": "Peripheral vision game",
+        "divided attention game": "Divided attention game"
       }
     },
     "categoryNotFound": "Category Not Found",
@@ -210,7 +222,8 @@
       "adhd-games": "Short, structured focus practice",
       "brain-games-for-kids": "Playful attention practice for kids",
       "relaxation": "Guided breathing for a calm break",
-      "personality-tests": "Fun, shareable personality quizzes"
+      "personality-tests": "Fun, shareable personality quizzes",
+      "double-decision-games": "Spot the centre and the side in one glance"
     },
     "guide": {
       "title": "Choosing where to start",

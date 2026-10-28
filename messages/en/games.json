@@ -2287,8 +2287,9 @@
     "schoolRunDoubleDecision": {
       "title": "School Run Double Decision",
       "metadata": {
-        "title": "School Run Double Decision Game (Prototype)",
-        "description": "An after-school street version of the Double Decision game: see what a child bought at the corner shop and spot the red paper plane in one glance."
+        "title": "School Run: Free Endless Double Decision Game Online",
+        "description": "Play School Run, a free endless Double Decision game. In one glance, see what a child bought at the corner shop and spot the red paper plane. Every round gets faster; one mistake ends the run.",
+        "keywords": "double decision game, school run game, endless double decision, visual processing speed game, useful field of view game, peripheral vision game, divided attention game, brain game for kids"
       },
       "gameUI": {
         "title": "School's out!",
@@ -2363,6 +2364,17 @@
           "question": "Can I play on a phone?",
           "answer": "Yes. The street switches to a taller view on narrow screens and all answers are taps. Play at a comfortable distance and keep the page in the foreground; switching away pauses the round."
         }
+      },
+      "description": "An endless after-school Double Decision game: see what the child bought and spot the red paper plane in one glance.",
+      "structuredData": {
+        "featureList": [
+          "Endless rounds that get faster until the first mistake",
+          "A snack in the centre and a red paper plane at the side in every flash",
+          "Three levels that widen the ring of planes and add look-alikes",
+          "Leaf-gust mask after every flash",
+          "Works with taps on phones and tablets"
+        ],
+        "educationalUse": "Casual practice of visual processing speed, useful field of view and divided attention"
       }
     }
   }

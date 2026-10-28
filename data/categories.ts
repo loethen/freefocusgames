@@ -220,6 +220,23 @@ export const categories: Category[] = [
     ]
   },
   {
+    id: "double-decision-games",
+    name: "Double Decision",
+    description: "Every version of the Double Decision visual speed game in one place. Each round flashes something in the centre and a target out to the side, and you report both, training useful field of view, visual processing speed and divided attention.",
+    slug: "double-decision-games",
+    icon: "Target",
+    keywords: [
+      "double decision game",
+      "double decision brain training",
+      "useful field of view training",
+      "ufov training",
+      "visual processing speed game",
+      "speed of processing training",
+      "peripheral vision game",
+      "divided attention game"
+    ]
+  },
+  {
     id: "personality-tests",
     name: "Viral Personality Tests",
     description: "Shareable, entertainment-first online personality tests and quiz experiences. These pages are designed more for curiosity, comparison, and social conversation than formal psychological assessment, making them useful when you want a fast result people will actually repost.",
