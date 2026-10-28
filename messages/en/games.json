@@ -2305,7 +2305,7 @@
         "resultsTitle": "Game over",
         "resultLevel": "Highest level",
         "levelValue": "Level {level}",
-        "resultFastest": "Fastest flash",
+        "resultFastest": "Quickest glance",
         "playAgain": "Play again",
         "chooseSnack": "What did they buy?",
         "snacks": {
@@ -2324,7 +2324,10 @@
         "levelUp": "Level up! The planes spread out",
         "roundsUnit": "rounds cleared",
         "newBest": "New best!",
-        "resultBest": "Best run"
+        "resultBest": "Best run",
+        "leaderboardRecorded": "Your run has been sent to the leaderboard.",
+        "resultFastestValue": "{seconds} s",
+        "resultFastestHint": "Quickest glance: the street was shown for just {seconds} seconds and you still got both right."
       },
       "subtitle": "A playful after-school take on Double Decision: catch the snack and the red paper plane in one glance",
       "howToPlay": {
@@ -2375,6 +2378,10 @@
           "Works with taps on phones and tablets"
         ],
         "educationalUse": "Casual practice of visual processing speed, useful field of view and divided attention"
+      },
+      "leaderboard": {
+        "title": "School Run Leaderboard",
+        "description": "Ranked by the most rounds cleared in one run. Your best run is saved automatically when a game ends."
       }
     }
   }

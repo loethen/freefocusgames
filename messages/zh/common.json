@@ -46,6 +46,7 @@
       "unitSec": "秒",
       "unitCps": "CPS",
       "unitLevel": "第{score}关",
+      "unitRounds": "{score} 关",
       "unitPercent": "%",
       "unitWahTurns": "哇了 {score} 圈",
       "unitDigits": "{score} 位",

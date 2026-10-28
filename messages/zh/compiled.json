@@ -2800,7 +2800,7 @@
         "resultsTitle": "游戏结束",
         "resultLevel": "最高等级",
         "levelValue": "等级 {level}",
-        "resultFastest": "最快闪现",
+        "resultFastest": "最快看清",
         "playAgain": "再玩一次",
         "chooseSnack": "小朋友买了什么？",
         "snacks": {
@@ -2819,7 +2819,10 @@
         "levelUp": "升级！纸飞机飞得更远了",
         "roundsUnit": "连续通过关数",
         "newBest": "新纪录！",
-        "resultBest": "最佳纪录"
+        "resultBest": "最佳纪录",
+        "leaderboardRecorded": "成绩已提交到排行榜。",
+        "resultFastestValue": "{seconds} 秒",
+        "resultFastestHint": "最快看清：画面只出现了 {seconds} 秒，你仍然两样都答对了。"
       },
       "subtitle": "放学街景版的双重决策游戏：一眼之内看清零食，同时找到红色纸飞机",
       "howToPlay": {
@@ -2870,6 +2873,10 @@
           "手机和平板直接点按作答"
         ],
         "educationalUse": "休闲练习视觉处理速度、有效视野和分配注意力"
+      },
+      "leaderboard": {
+        "title": "放学啦排行榜",
+        "description": "按一局内连续通过的关数排名。每局结束时会自动记录你的最好成绩。"
       }
     },
     "spacebarClicker": {
@@ -3648,6 +3655,7 @@
       "unitSec": "秒",
       "unitCps": "CPS",
       "unitLevel": "第{score}关",
+      "unitRounds": "{score} 关",
       "unitPercent": "%",
       "unitWahTurns": "哇了 {score} 圈",
       "unitDigits": "{score} 位",

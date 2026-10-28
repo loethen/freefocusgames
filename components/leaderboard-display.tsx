@@ -7,7 +7,7 @@ import { DEFAULT_LEADERBOARD_MODE } from "@/lib/leaderboard-config";
 import { getPublicLeaderboardUrl } from "@/lib/leaderboard-public";
 import { compareScores, hasTargetScore, isHigherScoreBetter } from "@/lib/leaderboard-snapshots";
 
-export type FormatterType = 'ms' | 'sec3' | 'sec4' | 'cps' | 'pts' | 'levels' | 'steps' | 'digits' | 'schulte' | 'percent' | 'wahs' | 'default';
+export type FormatterType = 'ms' | 'sec3' | 'sec4' | 'cps' | 'pts' | 'levels' | 'rounds' | 'steps' | 'digits' | 'schulte' | 'percent' | 'wahs' | 'default';
 export type LeaderboardDetailsType = 'double-decision';
 
 export interface LeaderboardDisplayProps {
@@ -119,6 +119,7 @@ export function LeaderboardDisplay({
             case 'cps': return `${Number(s.toFixed(1))} ${t('unitCps')}`;
             case 'pts': return `${rounded} ${t('unitPts')}`;
             case 'levels': return t('unitLevel', { score: rounded.toString() });
+            case 'rounds': return t('unitRounds', { score: rounded.toString() });
             case 'digits': return t('unitDigits', { score: Number(s.toFixed(1)).toString() });
             case 'steps': return t('unitSteps', { score: Number(s.toFixed(1)).toString() });
             case 'schulte': return `${(s / 1000).toFixed(1)} ${t('unitSec')}`;

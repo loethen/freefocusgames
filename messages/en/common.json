@@ -46,6 +46,7 @@
       "unitSec": "s",
       "unitCps": "CPS",
       "unitLevel": "Level {score}",
+      "unitRounds": "{score} rounds",
       "unitPercent": "%",
       "unitWahTurns": "{score} wah turns",
       "unitDigits": "{score} digits",

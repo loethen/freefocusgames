@@ -4,6 +4,7 @@ import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { isDigitSpanLeaderboardMode, validateDigitSpanSubmission, type DigitSpanSubmissionDetails } from "@/lib/digit-span";
 import { isBlockMemoryLeaderboardMode, validateBlockMemorySubmission } from "@/lib/block-memory-game";
 import { TRAIL_LEADERBOARD_MODE, validateTrailSubmission, type TrailSubmissionDetails } from "@/lib/trail-making";
+import { validateSchoolRunSubmission } from "@/lib/school-run-rules";
 import {
     DEFAULT_LEADERBOARD_MODE,
 } from "@/lib/leaderboard-config";
@@ -524,6 +525,11 @@ function validateScore(
             return "Score rejected (Unsupported dual n-back mode)";
         case "double-decision":
             return validateDoubleDecisionDetails(score, mode, details);
+        case "school-run-double-decision":
+            if (mode !== DEFAULT_LEADERBOARD_MODE) {
+                return "Score rejected (Unsupported School Run mode)";
+            }
+            return validateSchoolRunSubmission(score, details);
         case "bamboo-cicada":
             if (mode !== "lifetime" || !Number.isInteger(score) || score < 1 || score > 1_000_000) {
                 return "Score rejected (Invalid bamboo cicada wah count)";

@@ -125,6 +125,10 @@ export default function SchoolRunDoubleDecisionPage({
       ]}
       faq={faq}
       relatedGames={['double-decision', 'reaction-time', 'schulte-table']}
+      hasLeaderboard
+      leaderboardTitle={t('leaderboard.title')}
+      leaderboardIntro={t('leaderboard.description')}
+      leaderboardFormatterType="rounds"
       structuredData={structuredData}
     />
   )

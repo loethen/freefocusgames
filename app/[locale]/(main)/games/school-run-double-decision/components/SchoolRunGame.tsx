@@ -4,7 +4,13 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Play, RotateCcw } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
-import { DOUBLE_DECISION_MIN_DISPLAY_MS } from '@/lib/double-decision-score'
+import { submitScoreToLeaderboard } from '@/lib/leaderboard'
+import {
+  SCHOOL_RUN_FEEDBACK_MS,
+  SCHOOL_RUN_MASK_MS,
+  SCHOOL_RUN_RULES_VERSION,
+  schoolRunRound,
+} from '@/lib/school-run-rules'
 import { SchoolRunScene, type StimulusSpec } from './scene/engine'
 import { type FieldLevel, type SceneSize, LANDSCAPE, SLOT_COUNT, slotPosition } from './scene/layout'
 import type { FlyerKind, SnackKind } from './scene/sprites'
@@ -31,25 +37,11 @@ interface TrialOutcome {
   locationCorrect: boolean | null
 }
 
-// Endless rounds, one mistake ends the run. The first round is shown for 2 s so the player can
-// find the snack and the paper plane; every cleared round shortens the flash a little. Every few
-// rounds the ring of planes widens, and the flash steps back up so the new level starts fair.
-const INITIAL_DISPLAY_MS = 2000
-const SPEED_UP = 0.92
-const ROUNDS_PER_LEVEL = 8
-const LEVEL_UP_SLOWDOWN = 1.3
-const MASK_DURATION_MS = 150
-const FEEDBACK_MS = 1100
+// Endless rounds, one mistake ends the run; the flash schedule lives in lib/school-run-rules so the
+// leaderboard API can check runs against it.
 // A miss stays on screen a little longer, so the player sees where the plane was.
 const GAME_OVER_MS = 1800
 const BEST_ROUNDS_KEY = 'schoolRunBestRounds'
-
-// Flash length and level for a round, counted from 0.
-function roundSettings(round: number): { level: FieldLevel; displayMs: number } {
-  const level = Math.min(3, 1 + Math.floor(round / ROUNDS_PER_LEVEL)) as FieldLevel
-  const ms = INITIAL_DISPLAY_MS * SPEED_UP ** round * LEVEL_UP_SLOWDOWN ** (level - 1)
-  return { level, displayMs: Math.max(DOUBLE_DECISION_MIN_DISPLAY_MS, Math.round(ms)) }
-}
 
 // The two snacks look more alike as the level rises.
 const SNACK_PAIRS: Record<FieldLevel, [SnackKind, SnackKind][]> = {
@@ -96,6 +88,8 @@ export function SchoolRunGame() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sceneRef = useRef<SchoolRunScene | null>(null)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // When the first flash of the current run started, for the run length sent to the leaderboard.
+  const runStartRef = useRef(0)
 
   const [sceneSize, setSceneSize] = useState<SceneSize>(LANDSCAPE)
   const [phase, setPhase] = useState<Phase>('intro')
@@ -143,13 +137,13 @@ export function SchoolRunGame() {
   }, [clearPendingTimeout, t])
 
   const beginTrial = useCallback((round: number) => {
-    const { level, displayMs } = roundSettings(round)
+    const { level, displayMs } = schoolRunRound(round)
     const next = createTrial(level)
     setTrial(next)
     setTrialIndex(round)
     setOutcome(null)
     setPhase('stimulus')
-    sceneRef.current?.runStimulus(next.spec, displayMs, MASK_DURATION_MS, (shownMs) => {
+    sceneRef.current?.runStimulus(next.spec, displayMs, SCHOOL_RUN_MASK_MS, (shownMs) => {
       setLastShownMs(shownMs)
       setPhase('snack-answer')
     })
@@ -169,6 +163,7 @@ export function SchoolRunGame() {
   useEffect(() => {
     if (phase !== 'countdown') return
     if (countdown === 0) {
+      runStartRef.current = performance.now()
       beginTrial(0)
       return
     }
@@ -188,15 +183,24 @@ export function SchoolRunGame() {
       if (cleared) {
         setFastestShownMs((current) => (current === null ? lastShownMs : Math.min(current, lastShownMs)))
         // A wider ring brings a busier street; reshuffle it now rather than at the next flash.
-        scene?.setLevel(roundSettings(trialIndex + 1).level)
+        scene?.setLevel(schoolRunRound(trialIndex + 1).level)
         timeoutRef.current = setTimeout(() => {
           timeoutRef.current = null
           beginTrial(trialIndex + 1)
-        }, FEEDBACK_MS)
+        }, SCHOOL_RUN_FEEDBACK_MS)
         return
       }
 
       const rounds = trialIndex
+      if (rounds > 0 && fastestShownMs !== null) {
+        void submitScoreToLeaderboard('school-run-double-decision', rounds, {
+          details: {
+            fastestDisplayMs: fastestShownMs,
+            durationMs: Math.round(performance.now() - runStartRef.current),
+            rulesVersion: SCHOOL_RUN_RULES_VERSION,
+          },
+        })
+      }
       timeoutRef.current = setTimeout(() => {
         timeoutRef.current = null
         setNewBest(rounds > 0 && rounds > (bestRounds ?? 0))
@@ -209,7 +213,7 @@ export function SchoolRunGame() {
         setPhase('results')
       }, GAME_OVER_MS)
     },
-    [beginTrial, bestRounds, lastShownMs, trial.spec, trialIndex],
+    [beginTrial, bestRounds, fastestShownMs, lastShownMs, trial.spec, trialIndex],
   )
 
   const chooseSnack = useCallback(
@@ -229,8 +233,8 @@ export function SchoolRunGame() {
     [finishTrial, phase, trial.spec.targetSlot],
   )
 
-  const { level, displayMs } = roundSettings(trialIndex)
-  const levelUp = phase === 'feedback' && outcome?.snackCorrect && outcome.locationCorrect && roundSettings(trialIndex + 1).level > level
+  const { level, displayMs } = schoolRunRound(trialIndex)
+  const levelUp = phase === 'feedback' && outcome?.snackCorrect && outcome.locationCorrect && schoolRunRound(trialIndex + 1).level > level
   const showHud = phase !== 'intro' && phase !== 'results'
 
   return (
@@ -355,6 +359,7 @@ export function SchoolRunGame() {
               <h2 className="text-xl font-extrabold">{t('resultsTitle')}</h2>
               <div className="mt-2 font-mono text-6xl font-extrabold">{trialIndex}</div>
               <p className="mt-1 text-sm font-semibold">{t('roundsUnit')}</p>
+              {trialIndex > 0 && <p className="mt-1 text-xs text-[#3c4656]/70">{t('leaderboardRecorded')}</p>}
               {newBest && (
                 <p className="mt-3 inline-block rounded-full border-2 border-[#3c4656] bg-[#f7c6d4] px-3 py-0.5 text-sm font-bold">
                   {t('newBest')}
@@ -364,7 +369,12 @@ export function SchoolRunGame() {
                 {[
                   { value: String(bestRounds ?? trialIndex), label: t('resultBest'), fill: 'bg-[#fbe3a1]' },
                   { value: t('levelValue', { level }), label: t('resultLevel'), fill: 'bg-[#cfc3ec]' },
-                  { value: fastestShownMs === null ? '-' : `${fastestShownMs} ms`, label: t('resultFastest'), fill: 'bg-[#a8dcc8]' },
+                  // The shortest flash the player still got right, in seconds.
+                  {
+                    value: fastestShownMs === null ? '-' : t('resultFastestValue', { seconds: (fastestShownMs / 1000).toFixed(2) }),
+                    label: t('resultFastest'),
+                    fill: 'bg-[#a8dcc8]',
+                  },
                 ].map((item) => (
                   <div key={item.label} className={cn('rounded-xl border-2 border-[#3c4656] px-2 py-3', item.fill)}>
                     <div className="font-mono text-base font-bold">{item.value}</div>
@@ -372,6 +382,11 @@ export function SchoolRunGame() {
                   </div>
                 ))}
               </div>
+              {fastestShownMs !== null && (
+                <p className="mt-3 text-xs text-[#3c4656]/70">
+                  {t('resultFastestHint', { seconds: (fastestShownMs / 1000).toFixed(2) })}
+                </p>
+              )}
               <button type="button" className={cn(BUTTON, 'mt-6')} onClick={startGame}>
                 <RotateCcw className="h-4 w-4" />
                 {t('playAgain')}
