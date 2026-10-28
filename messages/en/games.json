@@ -106,7 +106,7 @@
         "title": "Memory Boost",
         "description": "Strengthen your working memory and recall abilities.",
         "item1": "Dual N-Back (10 min)",
-        "item2": "Block Memory Challenge (5 min)",
+        "item2": "Sequence Memory Test (5 min)",
         "item3": "Frog Memory Leap (5 min)"
       },
       "flexibility": {
@@ -887,13 +887,13 @@
       }
     },
     "blockMemoryChallenge": {
-      "title": "Block Memory Challenge",
+      "title": "Sequence Memory Test",
       "description": "Play a free sequence memory game online. Watch flashing blocks, recall them forward or backward, and use your longest completed sequence as a memory benchmark.",
-      "subtitle": "Sequence memory test online with forward and backward recall",
-      "metaTitle": "Sequence Memory Test Online | Block Memory Challenge",
+      "subtitle": "Free sequence memory test and game online, forward and backward",
+      "metaTitle": "Sequence Memory Test: Free Online Forward & Backward",
       "metaDescription": "Take a free sequence memory test online. Recall flashing blocks forward or backward and track your longest completed sequence as your sequence memory benchmark.",
-      "metaKeywords": "sequence memory test, sequence memory test online, sequence memory game, sequence memory game online, sequence memory benchmark, backward sequence memory test, visual memory test, spatial memory test, Corsi test, Corsi block tapping test, Corsi block-tapping test, Corsi block tapping task, Corsi block tapping test online, Corsi block tapping test online free, Corsi block test online, Corsi block span",
-      "ogTitle": "Sequence Memory Test Online | Block Memory Challenge",
+      "metaKeywords": "sequence memory test, sequence memory test online, sequence memory game, sequence memory game online, sequence memory test average score, sequence memory world record, sequential memory test, sequential memory games online, order memory game, sequence memory game for kids, backward sequence memory test, visual memory test, spatial memory test, Corsi test, Corsi block tapping test, Corsi block tapping test online, Corsi block span",
+      "ogTitle": "Sequence Memory Test: Free Online Forward & Backward",
       "ogDescription": "Take a free sequence memory test online. Recall flashing blocks forward or backward and track your longest completed sequence as your sequence memory benchmark.",
       "howToPlay": {
         "intro": "Watch the flashing blocks in this sequence memory test. Forward repeats the same order; Backward reverses it.",
@@ -945,6 +945,18 @@
         "corsiSpan": {
           "question": "What does Corsi block span mean?",
           "answer": "Corsi block span refers to the longest block sequence recalled correctly under a particular Corsi block task’s scoring rules. Here, Longest Sequence counts a fully completed round: recalling only part of a longer round does not increase your score. Forward and backward results are kept separate."
+        },
+        "average": {
+          "question": "What is a good or average sequence memory test score?",
+          "answer": "In research versions of the Corsi block-tapping test, healthy adults usually recall about 5 to 7 blocks forward and a little fewer backward. This game uses its own rules (a 3×3 board, one mistake ends the run), so treat that range as a rough guide rather than a cut-off. The leaderboard on this page shows how far other players get in each direction."
+        },
+        "record": {
+          "question": "Is there a sequence memory test world record?",
+          "answer": "There is no official world record, because every sequence memory test uses different timing and scoring. The leaderboard on this page ranks the longest sequences completed here, with forward and backward kept separate."
+        },
+        "sequential": {
+          "question": "Is this a sequential memory test, and can kids play it?",
+          "answer": "Yes. Sequence memory, sequential memory and order memory games all ask you to remember the order things appear in, which is what this test does with blocks. Kids can play too: start in practice mode with a short sequence and let them build up one step at a time."
         }
       },
       "gameUI": {

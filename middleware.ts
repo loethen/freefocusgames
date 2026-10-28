@@ -29,6 +29,8 @@ const legacyRedirects: Record<string, string> = {
     // 2026-10-25: the working memory guide is retired in favour of the category page.
     '/working-memory-guide': '/categories/working-memory',
     '/guides': '/benchmarks',
+    // 2026-10-28: renamed to match what people search for; the leaderboard keeps the old game id.
+    '/games/block-memory-challenge': '/games/sequence-memory-test',
 };
 
 function getLegacyRedirect(pathname: string) {

@@ -238,13 +238,13 @@ export const games: Game[] = [
   },
   {
     id: "block-memory-challenge",
-    title: "Block Memory Challenge",
-    slug: "block-memory-challenge",
-    coverImage: "/games/block-memory-challenge-cover.png",
+    title: "Sequence Memory Test",
+    slug: "sequence-memory-test",
+    coverImage: "/games/sequence-memory-test-cover.png",
     preview: (
       <ImagePreview
-        src="/games/block-memory-challenge-cover.png"
-        alt="Block Memory Challenge preview"
+        src="/games/sequence-memory-test-cover.png"
+        alt="Sequence Memory Test preview"
         fit="cover"
       />
     ),

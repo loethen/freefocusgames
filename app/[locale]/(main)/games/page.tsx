@@ -84,7 +84,7 @@ const CHOICE_GROUPS = [
         id: "memory",
         games: [
             ["dual-n-back", "dual-n-back"],
-            ["block-memory-challenge", "block-memory-challenge"],
+            ["block-memory-challenge", "sequence-memory-test"],
             ["frog-memory-leap", "frog-memory-leap"],
         ],
     },

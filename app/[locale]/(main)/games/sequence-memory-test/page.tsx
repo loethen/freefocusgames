@@ -13,7 +13,7 @@ import { routing } from '@/i18n/routing';
 import { generateAlternates } from "@/lib/utils";
 import { BlockMemoryLeaderboard, RecallDirectionProvider } from "./components/RecallDirection";
 
-const coverImage = "/games/block-memory-challenge-cover.png";
+const coverImage = "/games/sequence-memory-test-cover.png";
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -47,7 +47,7 @@ export async function generateMetadata({
             description: t("ogDescription") || t("description"),
             images: [coverImage],
         },
-        alternates: generateAlternates(locale, "games/block-memory-challenge"),
+        alternates: generateAlternates(locale, "games/sequence-memory-test"),
     }
 }
 
@@ -61,7 +61,7 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
     const faqT = useTranslations("games.blockMemoryChallenge.faq");
     const scienceT = useTranslations("games.blockMemoryChallenge.science");
 
-    const faq = ["online", "backward", "corsi", "corsiSpan"].map((key) => ({
+    const faq = ["online", "average", "record", "sequential", "backward", "corsi", "corsiSpan"].map((key) => ({
         question: faqT(`${key}.question`),
         answer: faqT(`${key}.answer`)
     }));
@@ -73,7 +73,7 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
             "name": t("title"),
             "description": t("metaDescription"),
             "keywords": t("metaKeywords").split(",").map(keyword => keyword.trim()),
-            "url": `${baseUrl}/games/block-memory-challenge`,
+            "url": `${baseUrl}${locale === "en" ? "" : `/${locale}`}/games/sequence-memory-test`,
             "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "EducationalApplication",
             "operatingSystem": "Web Browser",

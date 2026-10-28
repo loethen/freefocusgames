@@ -216,7 +216,7 @@ tool: "/games/free-short-term-memory-test"
 ### [双N-Back训练](/games/dual-n-back)
 工作记忆增强的黄金标准。同时挑战视觉和听觉记忆系统，直接针对海马体功能，实现可测量的记忆改善。
 
-### [方块记忆挑战](/games/block-memory-challenge)
+### [序列记忆测试](/games/sequence-memory-test)
 通过渐进式视觉序列训练强化空间记忆。专门设计来挑战因年龄和压力而衰退的海马体空间处理能力。
 
 ### [青蛙记忆跳跃](/games/frog-memory-leap)

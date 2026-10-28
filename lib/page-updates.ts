@@ -1,6 +1,8 @@
 // Record substantive content revisions, not builds or metadata-only deployments.
 // Unknown dates are omitted from the sitemap rather than guessed.
 export const PAGE_UPDATED_AT: Record<string, string> = {
+  '/games/sequence-memory-test': '2026-10-28T00:00:00.000Z',
+  '/zh/games/sequence-memory-test': '2026-10-28T00:00:00.000Z',
   '/games/school-run-double-decision': '2026-10-28T00:00:00.000Z',
   '/zh/games/school-run-double-decision': '2026-10-28T00:00:00.000Z',
   '/categories/double-decision-games': '2026-10-28T00:00:00.000Z',

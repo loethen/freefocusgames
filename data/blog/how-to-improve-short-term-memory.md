@@ -213,7 +213,7 @@ Start with the foundation interventions and add strategies gradually. Consistenc
 ### [Dual N-Back Training](/games/dual-n-back)
 The gold standard for working memory enhancement. Simultaneously challenges visual and auditory memory systems, directly targeting hippocampus function for measurable memory improvements.
 
-### [Block Memory Challenge](/games/block-memory-challenge)
+### [Sequence Memory Test](/games/sequence-memory-test)
 Strengthen spatial memory with progressive visual sequence training. Specifically designed to challenge hippocampus spatial processing abilities that decline with age and stress.
 
 ### [Frog Memory Leap](/games/frog-memory-leap)

@@ -27,7 +27,7 @@ A selection of the games and tools available on the site. Each name links direct
 | [Stroop Effect Test](https://www.freefocusgames.com/games/stroop-effect-test) | Respond to a word's ink color while ignoring its meaning, then compare response times for matching and conflicting word–color pairs. |
 | [Reaction Time Test](https://www.freefocusgames.com/games/reaction-time) | Wait for the screen to change color, then click or tap. Results show the response time recorded by your browser. |
 | [Digit Span Test](https://www.freefocusgames.com/games/digit-span-test) | Recall visually presented digit sequences in forward or backward order as sequence length increases. |
-| [Block Memory Challenge](https://www.freefocusgames.com/games/block-memory-challenge) | Recall sequences of highlighted blocks in forward or backward order, with adjustable practice and separate challenge leaderboards. |
+| [Sequence Memory Test](https://www.freefocusgames.com/games/sequence-memory-test) | Recall sequences of highlighted blocks in forward or backward order, with adjustable practice and separate challenge leaderboards. |
 | [Pomodoro Timer](https://www.freefocusgames.com/games/pomodoro-timer) | Alternate focused work sessions with breaks using a Pomodoro-style timer. |
 
 Explore the [full game collection](https://www.freefocusgames.com/games) for more memory games, attention tasks, puzzles, and focus tools.

@@ -604,7 +604,7 @@
         "title": "记忆力增强",
         "description": "增强你的工作记忆和回忆能力。",
         "item1": "双重N-Back（10分钟）",
-        "item2": "方块记忆挑战（5分钟）",
+        "item2": "序列记忆测试（5分钟）",
         "item3": "青蛙记忆跳跃（5分钟）"
       },
       "flexibility": {
@@ -1724,13 +1724,13 @@
       }
     },
     "blockMemoryChallenge": {
-      "title": "方块记忆挑战",
+      "title": "序列记忆测试",
       "description": "免费在线序列记忆游戏：观察闪烁的方块，按正序或倒序复现，用最长成功完成的序列检验自己的记忆表现。",
-      "subtitle": "免费在线序列记忆测试，支持正序与倒序回忆",
-      "metaTitle": "在线序列记忆测试 | 方块记忆挑战",
+      "subtitle": "免费在线序列记忆测试与游戏，支持正序和倒序",
+      "metaTitle": "序列记忆测试：免费在线正序与倒序挑战",
       "metaDescription": "免费在线序列记忆测试，支持正序和倒序方块回忆。挑战从 3 步开始，按最长成功完成序列分别排名；练习可调整起始步数，随时检验自己的序列记忆表现。",
-      "metaKeywords": "序列记忆测试, 在线序列记忆测试, 免费序列记忆游戏, 倒序记忆测试, sequence memory test, sequence memory test online, sequence memory game, sequence memory game online, sequence memory benchmark, Corsi test, Corsi block tapping test, Corsi block-tapping test, Corsi block tapping task, Corsi block tapping test online, Corsi block tapping test online free, Corsi block test online, Corsi block span",
-      "ogTitle": "在线序列记忆测试 | 方块记忆挑战",
+      "metaKeywords": "序列记忆测试, 在线序列记忆测试, 序列记忆游戏, 免费序列记忆游戏, 序列记忆测试平均分, 序列记忆世界纪录, 顺序记忆测试, 顺序记忆游戏, 儿童序列记忆游戏, 倒序记忆测试, 视觉记忆测试, 空间记忆测试, Corsi 方块测验, sequence memory test, sequence memory game, sequential memory test",
+      "ogTitle": "序列记忆测试：免费在线正序与倒序挑战",
       "ogDescription": "免费在线序列记忆测试，支持正序和倒序方块回忆。挑战从 3 步开始，按最长成功完成序列分别排名；练习可调整起始步数，随时检验自己的序列记忆表现。",
       "howToPlay": {
         "intro": "观察并记住方块闪烁的顺序。正序按原顺序点击，倒序从最后一步开始点击。",
@@ -1782,6 +1782,18 @@
         "corsiSpan": {
           "question": "Corsi block span 是什么意思？",
           "answer": "Corsi block span 指在某个 Corsi 方块任务的计分规则下，成功回忆的最长方块序列。本游戏的“最长序列”只计算完整成功的回合，部分复现更长序列不会增加成绩；正序和倒序分别记录。"
+        },
+        "average": {
+          "question": "序列记忆测试多少分算正常？平均分是多少？",
+          "answer": "在 Corsi 方块敲击测验的研究版本中，健康成年人正序通常能记住约 5 到 7 个方块，倒序略少一些。本游戏的规则不同（3×3 棋盘、点错一次即结束），这个范围只能作为大致参考，不是及格线。本页的排行榜可以看到其他玩家在正序和倒序中分别能达到多少。"
+        },
+        "record": {
+          "question": "序列记忆测试有世界纪录吗？",
+          "answer": "没有官方的世界纪录，因为不同的序列记忆测试在节奏和计分上都不一样。本页排行榜按在这里完成的最长序列排名，正序和倒序分开计算。"
+        },
+        "sequential": {
+          "question": "这算顺序记忆测试吗？孩子能玩吗？",
+          "answer": "算。序列记忆、顺序记忆游戏考的都是记住事物出现的先后顺序，这个测试就是用方块来练这件事。孩子也可以玩：先用练习模式从较短的序列开始，一步一步往上加。"
         }
       },
       "gameUI": {
