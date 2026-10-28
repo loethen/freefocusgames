@@ -19,6 +19,11 @@ export type ProgressCardTheme = {
     panel: string;
     text: string;
     mutedText: string;
+    // Fill for boxes and pills and the panel outline; the defaults are white tints for dark themes.
+    surface?: string;
+    border?: string;
+    // Colour of the two soft circles behind the panel; defaults to the accent.
+    glow?: string;
 };
 
 // A percentile slider drawn in place of the history chart.
@@ -44,6 +49,9 @@ export type ProgressCardData = {
     footer: string;
     siteUrl?: string;
     scale?: ProgressCardScale;
+    // The game's cover and a one-line how-to, shown above the numbers so they make sense to people who never played.
+    coverImage?: string;
+    description?: string;
     theme: ProgressCardTheme;
 };
 
@@ -335,16 +343,94 @@ function drawScale(
     ctx.restore();
 }
 
-function drawCardFooter(ctx: CanvasRenderingContext2D, data: ProgressCardData) {
+function drawCardFooter(ctx: CanvasRenderingContext2D, data: ProgressCardData, y = 1328) {
     const footerFontSize = data.footer.length > 36 ? 22 : 28;
     ctx.font = `600 ${footerFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
     ctx.fillStyle = data.theme.text;
-    ctx.fillText(data.footer, 110, 1328);
+    ctx.fillText(data.footer, 110, y);
     const siteUrl = data.siteUrl ?? "freefocusgames.com";
     const siteFontSize = siteUrl.length > 42 ? 20 : 22;
     ctx.font = `500 ${siteFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
     ctx.fillStyle = data.theme.mutedText;
-    ctx.fillText(siteUrl, 110, 1372);
+    ctx.fillText(siteUrl, 110, y + 44);
+}
+
+function drawMetricRow(ctx: CanvasRenderingContext2D, data: ProgressCardData, metricY: number) {
+    const cardWidth = 300;
+    const gap = 30;
+    data.metrics.slice(0, 3).forEach((metric, index) => {
+        const x = 110 + index * (cardWidth + gap);
+        fillRoundedRect(ctx, x, metricY, cardWidth, 210, 28, data.theme.surface ?? "rgba(255,255,255,0.10)");
+        if (metric.highlight) {
+            strokeRoundedRect(ctx, x, metricY, cardWidth, 210, 28, data.theme.accent, 3);
+        }
+        ctx.font = "600 22px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+        ctx.fillStyle = data.theme.mutedText;
+        ctx.fillText(metric.label, x + 28, metricY + 56);
+
+        const valueFontSize = metric.value.length > 16 ? 36 : 44;
+        ctx.font = `700 ${valueFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
+        ctx.fillStyle = metric.highlight ? data.theme.accent : data.theme.text;
+        ctx.fillText(metric.value, x + 28, metricY + 132);
+    });
+}
+
+function loadCardImage(src: string) {
+    const image = new Image();
+    image.src = src;
+    return image.decode().then(() => image);
+}
+
+// Leads with the game's cover across the top of the panel, then the how-to line, the result and the metrics.
+function drawCoverCard(ctx: CanvasRenderingContext2D, data: ProgressCardData, cover: HTMLImageElement) {
+    const panelHeight = ctx.canvas.height - 120;
+    const coverHeight = 608;
+    ctx.save();
+    drawRoundedRect(ctx, 60, 60, 1080, panelHeight, 42);
+    ctx.clip();
+    // Crops the cover to fill its frame, like object-fit: cover.
+    const scale = Math.max(1080 / cover.naturalWidth, coverHeight / cover.naturalHeight);
+    const sourceWidth = 1080 / scale;
+    const sourceHeight = coverHeight / scale;
+    ctx.drawImage(
+        cover,
+        (cover.naturalWidth - sourceWidth) / 2,
+        (cover.naturalHeight - sourceHeight) / 2,
+        sourceWidth,
+        sourceHeight,
+        60,
+        60,
+        1080,
+        coverHeight
+    );
+    ctx.restore();
+
+    const titleFontSize = data.title.length > 26 ? 50 : 56;
+    ctx.font = `700 ${titleFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
+    ctx.fillStyle = data.theme.text;
+    ctx.fillText(data.title, 110, 744);
+
+    ctx.font = "500 28px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = data.theme.mutedText;
+    wrapCanvasText(ctx, data.description ?? "", 980).slice(0, 2).forEach((line, index) => {
+        ctx.fillText(line, 110, 796 + index * 40);
+    });
+
+    ctx.font = "600 26px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = data.theme.mutedText;
+    ctx.fillText(data.primaryLabel, 110, 920);
+
+    ctx.font = "700 110px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = data.theme.text;
+    ctx.fillText(data.primaryValue, 110, 1030);
+
+    fillRoundedRect(ctx, 110, 1066, 640, 68, 24, data.theme.surface ?? "rgba(255,255,255,0.11)");
+    ctx.font = "600 28px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
+    ctx.fillStyle = data.theme.text;
+    ctx.fillText(data.trendText, 140, 1109);
+
+    drawMetricRow(ctx, data, 1174);
+    drawCardFooter(ctx, data, 1470);
 }
 
 function wrapCanvasText(
@@ -437,7 +523,9 @@ function drawScoreCard(ctx: CanvasRenderingContext2D, data: ProgressCardData) {
 export async function renderProgressCardBlob(data: ProgressCardData) {
     const canvas = document.createElement("canvas");
     canvas.width = 1200;
-    canvas.height = 1500;
+    // A cover that fails to load falls back to the plain layout.
+    const cover = data.coverImage ? await loadCardImage(data.coverImage).catch(() => null) : null;
+    canvas.height = cover ? 1640 : 1500;
 
     const ctx = canvas.getContext("2d");
     if (!ctx) {
@@ -452,7 +540,7 @@ export async function renderProgressCardBlob(data: ProgressCardData) {
 
     ctx.save();
     ctx.globalAlpha = 0.28;
-    ctx.fillStyle = data.theme.accent;
+    ctx.fillStyle = data.theme.glow ?? data.theme.accent;
     ctx.beginPath();
     ctx.arc(980, 210, 260, 0, Math.PI * 2);
     ctx.fill();
@@ -461,11 +549,17 @@ export async function renderProgressCardBlob(data: ProgressCardData) {
     ctx.fill();
     ctx.restore();
 
-    fillRoundedRect(ctx, 60, 60, 1080, 1380, 42, data.theme.panel);
-    strokeRoundedRect(ctx, 60, 60, 1080, 1380, 42, "rgba(255,255,255,0.12)", 2);
+    fillRoundedRect(ctx, 60, 60, 1080, canvas.height - 120, 42, data.theme.panel);
+    strokeRoundedRect(ctx, 60, 60, 1080, canvas.height - 120, 42, data.theme.border ?? "rgba(255,255,255,0.12)", 2);
 
-    if (data.variant === "score") {
-        drawScoreCard(ctx, data);
+    if (cover || data.variant === "score") {
+        if (cover) {
+            drawCoverCard(ctx, data, cover);
+            // The cover paints over the top edge, so the outline goes back on top.
+            strokeRoundedRect(ctx, 60, 60, 1080, canvas.height - 120, 42, data.theme.border ?? "rgba(255,255,255,0.12)", 2);
+        } else {
+            drawScoreCard(ctx, data);
+        }
         try {
             const dataUrl = canvas.toDataURL("image/png");
             return dataUrlToBlob(dataUrl);
@@ -520,24 +614,7 @@ export async function renderProgressCardBlob(data: ProgressCardData) {
         );
     }
 
-    const metricY = 950;
-    const cardWidth = 300;
-    const gap = 30;
-    data.metrics.slice(0, 3).forEach((metric, index) => {
-        const x = 110 + index * (cardWidth + gap);
-        fillRoundedRect(ctx, x, metricY, cardWidth, 210, 28, "rgba(255,255,255,0.10)");
-        if (metric.highlight) {
-            strokeRoundedRect(ctx, x, metricY, cardWidth, 210, 28, data.theme.accent, 3);
-        }
-        ctx.font = "600 22px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif";
-        ctx.fillStyle = data.theme.mutedText;
-        ctx.fillText(metric.label, x + 28, metricY + 56);
-
-        const valueFontSize = metric.value.length > 16 ? 36 : 44;
-        ctx.font = `700 ${valueFontSize}px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif`;
-        ctx.fillStyle = metric.highlight ? data.theme.accent : data.theme.text;
-        ctx.fillText(metric.value, x + 28, metricY + 132);
-    });
+    drawMetricRow(ctx, data, 950);
 
     drawCardFooter(ctx, data);
 

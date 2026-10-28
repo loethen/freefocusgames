@@ -2507,6 +2507,10 @@
           "taxi": "Taxi",
           "bus": "Bus",
           "truck": "Truck"
+        },
+        "shareCard": {
+          "ratingLabel": "Decision rating",
+          "challenge": "Can you beat my score?"
         }
       }
     },

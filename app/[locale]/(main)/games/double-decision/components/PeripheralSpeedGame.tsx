@@ -11,12 +11,14 @@ import {
   Play,
   RotateCcw,
   Settings2,
+  Share,
   Trophy,
   Truck,
   X,
 } from 'lucide-react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Button } from '@/components/ui/button'
+import { ProgressShareModal } from '@/components/ui/ProgressShareModal'
 import {
   Dialog,
   DialogContent,
@@ -26,6 +28,11 @@ import {
 } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import { submitScoreToLeaderboard } from '@/lib/leaderboard'
+import {
+  getProgressInsights,
+  ProgressCardData,
+  recordProgressSnapshot,
+} from '@/lib/progress-share'
 import {
   DOUBLE_DECISION_MAX_DISPLAY_MS,
   DOUBLE_DECISION_MIN_DISPLAY_MS,
@@ -438,6 +445,9 @@ function SettingsDialog({
 
 export function PeripheralSpeedGame() {
   const t = useTranslations('games.doubleDecision.gameUI')
+  const pageT = useTranslations('games.doubleDecision')
+  const shareT = useTranslations('common.progressShare')
+  const locale = useLocale()
   const [phase, setPhase] = useState<Phase>('intro')
   const [trialIndex, setTrialIndex] = useState(0)
   const [trial, setTrial] = useState<Trial>(() => createTrial(1))
@@ -455,7 +465,10 @@ export function PeripheralSpeedGame() {
   const [settings, setSettings] = useState<GameSettings>(DEFAULT_SETTINGS)
   const [activeSettings, setActiveSettings] = useState<GameSettings>(DEFAULT_SETTINGS)
   const [totalTrials, setTotalTrials] = useState(DEFAULT_SETTINGS.totalTrials)
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+  const [progressCard, setProgressCard] = useState<ProgressCardData | null>(null)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const hasRecordedProgressRef = useRef(false)
 
   const clearPendingTimeout = useCallback(() => {
     if (timeoutRef.current) {
@@ -516,6 +529,8 @@ export function PeripheralSpeedGame() {
     setMaxFieldReached(settings.startingFieldLevel)
     setFastestCorrectDisplayMs(settings.startingDisplayMs)
     setTrialIndex(0)
+    setProgressCard(null)
+    hasRecordedProgressRef.current = false
     setCountdown(3)
     setPhase('countdown')
   }, [clearPendingTimeout, settings])
@@ -656,6 +671,54 @@ export function PeripheralSpeedGame() {
     accuracy: currentAccuracy,
     totalTrials,
   })
+  // Builds the share card once per finished session, tracking the rating across sessions.
+  useEffect(() => {
+    if (phase !== 'results' || hasRecordedProgressRef.current) return
+
+    hasRecordedProgressRef.current = true
+    const history = recordProgressSnapshot('double-decision', decisionRating)
+    const insights = getProgressInsights(history, 'higher')
+    const deltaText = insights.previous && insights.deltaFromPrevious !== null
+      ? (
+        insights.isImprovement
+          ? shareT('higherThanLast', { value: Math.round(insights.deltaFromPrevious) })
+          : shareT('lowerThanLast', { value: Math.round(insights.deltaFromPrevious) })
+      )
+      : shareT('firstTrackedSession')
+
+    setProgressCard({
+      title: pageT('title'),
+      subtitle: '',
+      primaryLabel: t('shareCard.ratingLabel'),
+      primaryValue: String(decisionRating),
+      trendText: deltaText,
+      historyLabel: shareT('sessionsTracked', { count: insights.sessions }),
+      history: history.map((entry) => entry.primaryValue),
+      direction: 'higher',
+      metrics: [
+        { label: t('resultAccuracy'), value: `${currentAccuracy}%`, highlight: true },
+        { label: t('resultField'), value: t('levelValue', { level: maxFieldReached }) },
+        { label: t('resultFastest'), value: `${fastestCorrectDisplayMs} ms` },
+      ],
+      footer: t('shareCard.challenge'),
+      siteUrl: `freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/double-decision`,
+      coverImage: '/games/double-decision-cover.png',
+      description: t('intro'),
+      // A light card in the cover's palette: sign yellow, road-side mint and the bus icon's navy.
+      theme: {
+        backgroundFrom: '#ffd84d',
+        backgroundTo: '#5fd3a5',
+        accent: '#1c7ed6',
+        panel: '#ffffff',
+        text: '#14213d',
+        mutedText: 'rgba(20, 33, 61, 0.62)',
+        surface: '#eef4ef',
+        border: 'rgba(20, 33, 61, 0.10)',
+        glow: '#ffffff',
+      },
+    })
+  }, [currentAccuracy, decisionRating, fastestCorrectDisplayMs, locale, maxFieldReached, pageT, phase, shareT, t])
+
   const feedbackCorrect =
     outcome?.vehicleCorrect === true && outcome.locationCorrect === true
   const visibleRound =
@@ -845,15 +908,33 @@ export function PeripheralSpeedGame() {
                   : t('leaderboardNeedsAccuracy')}
             </span>
           </div>
-          <Button
-            className="group mt-8 h-11 rounded-full px-7 transition-transform active:scale-95"
-            onClick={startGame}
-          >
-            <RotateCcw className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:-rotate-45 motion-reduce:transition-none" />
-            {t('playAgain')}
-          </Button>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Button
+              variant="outline"
+              className="h-11 rounded-full px-6"
+              onClick={() => setIsShareModalOpen(true)}
+              disabled={!progressCard}
+            >
+              <Share className="mr-2 h-4 w-4" />
+              {shareT('button')}
+            </Button>
+            <Button
+              className="group h-11 rounded-full px-7 transition-transform active:scale-95"
+              onClick={startGame}
+            >
+              <RotateCcw className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:-rotate-45 motion-reduce:transition-none" />
+              {t('playAgain')}
+            </Button>
+          </div>
         </div>
       )}
+
+      <ProgressShareModal
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        card={progressCard}
+        fileName="double-decision-progress.png"
+      />
     </div>
   )
 }

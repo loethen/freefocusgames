@@ -2009,6 +2009,10 @@
           "taxi": "出租车",
           "bus": "巴士",
           "truck": "卡车"
+        },
+        "shareCard": {
+          "ratingLabel": "决策评分",
+          "challenge": "你能超过我的分数吗？"
         }
       }
     },

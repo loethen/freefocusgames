@@ -144,8 +144,9 @@ export function ProgressShareModal({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/65 p-4 backdrop-blur-sm">
-            <div className="w-full max-w-4xl overflow-hidden rounded-3xl border border-white/10 bg-background shadow-2xl">
-                <div className="flex items-center justify-between border-b border-border/50 px-6 py-4">
+            {/* Capped at the viewport height so the close button stays reachable; the body scrolls if it must. */}
+            <div className="flex max-h-full w-full max-w-4xl flex-col overflow-hidden rounded-3xl border border-white/10 bg-background shadow-2xl">
+                <div className="flex shrink-0 items-center justify-between border-b border-border/50 px-6 py-4">
                     <div>
                         <h3 className="text-lg font-semibold">{t("title")}</h3>
                     </div>
@@ -154,8 +155,8 @@ export function ProgressShareModal({
                     </Button>
                 </div>
 
-                <div className="grid gap-6 p-6 lg:grid-cols-[minmax(0,1fr)_280px]">
-                    <div className="overflow-hidden rounded-[28px] bg-muted/30">
+                <div className="grid min-h-0 gap-6 overflow-y-auto p-6 lg:grid-cols-[minmax(0,1fr)_280px]">
+                    <div className="flex justify-center overflow-hidden rounded-[28px] bg-muted/30">
                         {isGenerating || !previewUrl ? (
                             generationFailed ? (
                                 <div className="flex min-h-[520px] flex-col items-center justify-center gap-3 px-6 text-center text-muted-foreground">
@@ -198,7 +199,8 @@ export function ProgressShareModal({
                                 width={1200}
                                 height={1500}
                                 unoptimized
-                                className="h-auto w-full object-contain"
+                                // Tall cards shrink to fit the screen instead of stretching the dialog.
+                                className="h-auto max-h-[calc(100dvh-10rem)] w-auto max-w-full object-contain"
                             />
                         )}
                     </div>
