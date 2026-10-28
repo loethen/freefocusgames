@@ -8,7 +8,7 @@ import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
 import { routing } from '@/i18n/routing';
 
-const coverImage = '/games/pomodoro-timer-cover.png';
+const coverImage = '/games/pomodoro-timer-cover-v2.png';
 
 // Generate static params for all locales
 export function generateStaticParams() {

@@ -64,10 +64,10 @@ export const games: Game[] = [
     id: "pomodoro-timer",
     title: "Pomodoro Timer",
     slug: "pomodoro-timer",
-    coverImage: "/games/pomodoro-timer-cover.png",
+    coverImage: "/games/pomodoro-timer-cover-v2.png",
     preview: (
       <ImagePreview
-        src="/games/pomodoro-timer-cover.png"
+        src="/games/pomodoro-timer-cover-v2.png"
         alt="Pomodoro Timer preview"
         fit="cover"
       />
@@ -85,8 +85,8 @@ export const games: Game[] = [
     id: "free-short-term-memory-test",
     title: "Free Short Term Memory Test",
     slug: "free-short-term-memory-test",
-    coverImage: "/games/free-short-term-memory-test.png",
-    preview: <ImagePreview src="/games/free-short-term-memory-test.png" />,
+    coverImage: "/games/free-short-term-memory-test-cover.png",
+    preview: <ImagePreview src="/games/free-short-term-memory-test-cover.png" alt="Free Short Term Memory Test preview" fit="cover" />,
     categories: ["working-memory", "auditory-processing"],
   },
   {
