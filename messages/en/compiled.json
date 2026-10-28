@@ -2782,6 +2782,87 @@
       }
     },
     "newBadge": "New",
+    "schoolRunDoubleDecision": {
+      "title": "School Run Double Decision",
+      "metadata": {
+        "title": "School Run Double Decision Game (Prototype)",
+        "description": "An after-school street version of the Double Decision game: see what a child bought at the corner shop and spot the red paper plane in one glance."
+      },
+      "gameUI": {
+        "title": "School's out!",
+        "sceneLabel": "A street after school: children walk past a corner shop and cross the road while cars and birds go by",
+        "intro": "Watch the corner shop's door. In one flash, see what the child walking out has bought and where the red paper plane flies past. Every round gets faster, and one mistake ends the run.",
+        "fixationTip": "Keep your eyes on the red dot at the shop door.",
+        "start": "Start",
+        "chooseLocation": "Where was the red paper plane?",
+        "locationLabel": "Position {number}",
+        "correct": "Both right!",
+        "paused": "Paused because the page lost focus. That round won't count.",
+        "resume": "Continue",
+        "resultsTitle": "Game over",
+        "resultLevel": "Highest level",
+        "levelValue": "Level {level}",
+        "resultFastest": "Fastest flash",
+        "playAgain": "Play again",
+        "chooseSnack": "What did they buy?",
+        "snacks": {
+          "icecream": "Ice cream",
+          "lollipop": "Lollipop",
+          "donut": "Donut",
+          "cookie": "Cookie",
+          "juice": "Juice",
+          "burger": "Burger"
+        },
+        "snackMissed": "Wrong snack",
+        "planeMissed": "Wrong spot",
+        "signLabel": "SHOP",
+        "hudRound": "Round {round}",
+        "bestRounds": "Best run: {count} rounds",
+        "levelUp": "Level up! The planes spread out",
+        "roundsUnit": "rounds cleared",
+        "newBest": "New best!",
+        "resultBest": "Best run"
+      },
+      "subtitle": "A playful after-school take on Double Decision: catch the snack and the red paper plane in one glance",
+      "howToPlay": {
+        "description": "School Run is an endless version of the Double Decision game set on a street after school. Each round flashes two things at once: the snack a child carries out of the corner shop, and a red paper plane somewhere around the street.",
+        "step1": "Keep your eyes on the red dot at the shop door. Don't look around for the plane; take in the whole street at once.",
+        "step2": "After a quick gust of leaves, pick the snack the child bought, then tap the spot where the red paper plane flew past.",
+        "step3": "Every round you clear shows the street a little faster, and every 8 rounds the planes spread further out. One mistake ends the run, so see how far you can get."
+      },
+      "benefits": {
+        "focus": {
+          "title": "Take in more at a glance",
+          "description": "Holding your gaze on the shop door while noticing a plane near the edges trains your useful field of view, the area you can take in without moving your eyes."
+        },
+        "speed": {
+          "title": "Catch details faster",
+          "description": "The flash gets shorter round by round, so you practise picking out the two things that matter before the scene is gone."
+        },
+        "attention": {
+          "title": "Split your attention",
+          "description": "The snack in the middle and the plane at the side compete for attention. Getting both right means sharing your focus instead of locking onto one."
+        }
+      },
+      "faq": {
+        "what": {
+          "question": "What is School Run?",
+          "answer": "School Run is a casual, endless version of the Double Decision visual speed game. The flash shows a child walking out of a corner shop with a snack, while a red paper plane flies past somewhere around the street. You report both."
+        },
+        "classic": {
+          "question": "How is it different from the classic Double Decision game?",
+          "answer": "The classic game runs a fixed number of rounds and gives a decision rating. School Run keeps going until your first mistake, so your score is the number of rounds you clear. The street is busier and livelier, and the scoring is just for fun."
+        },
+        "endless": {
+          "question": "How does the difficulty increase?",
+          "answer": "The first round shows the street for 2 seconds. Each cleared round shortens the flash, and every 8 rounds the planes move further from the centre, more look-alike planes appear and the snacks get harder to tell apart. When a new level starts, the flash steps back up a little so it starts fair."
+        },
+        "device": {
+          "question": "Can I play on a phone?",
+          "answer": "Yes. The street switches to a taller view on narrow screens and all answers are taps. Play at a comfortable distance and keep the page in the foreground; switching away pauses the round."
+        }
+      }
+    },
     "spacebarClicker": {
       "title": "Spacebar Clicker Test",
       "subtitle": "A clean online spacebar speed test built for short keyboard tapping rounds, quick score checks, and low-friction replay",
