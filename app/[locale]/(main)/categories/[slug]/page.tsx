@@ -1,5 +1,5 @@
 import { getCategoryBySlug, categories } from "@/data/categories";
-import { getGamesByCategory } from "@/data/games";
+import { getGame, getGamesByCategory } from "@/data/games";
 import GameCard from "@/components/game-card";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { Metadata } from "next";
@@ -34,6 +34,29 @@ const PRIMARY_GAME_BY_CATEGORY: Record<string, string> = {
   "working-memory": "dual-n-back",
   "visual-tracking": "schulte-table",
   "double-decision-games": "double-decision",
+  "memory-games": "memory-matching-game",
+};
+
+type HubGroup = { id: string; games: string[] };
+
+// Hub categories target a broad search term, so they get their own title and
+// grouped content. Copy lives under categories.hubs.<category id>.
+const HUBS: Record<string, { types: HubGroup[]; audiences: HubGroup[]; faq: string[] }> = {
+  "memory-games": {
+    types: [
+      { id: "matching", games: ["memory-matching-game", "baby-animal-matching"] },
+      { id: "sequence", games: ["block-memory-challenge", "frog-memory-leap"] },
+      { id: "recall", games: ["digit-span-test", "free-short-term-memory-test"] },
+      { id: "nBack", games: ["dual-n-back", "mahjong-dual-n-back"] },
+      { id: "spatial", games: ["counting-boxes"] },
+    ],
+    audiences: [
+      { id: "adults", games: ["memory-matching-game", "dual-n-back"] },
+      { id: "seniors", games: ["free-short-term-memory-test", "baby-animal-matching"] },
+      { id: "kids", games: ["baby-animal-matching", "frog-memory-leap"] },
+    ],
+    faq: ["free", "best", "improve", "howOften"],
+  },
 };
 
 type Props = {
@@ -52,6 +75,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const categoryName = t(`categoryNames.${category.id}`, { defaultMessage: category.name });
   const categoryDescription = t(`categoryDescriptions.${category.id}`, { defaultMessage: category.description });
+  const hubKey = HUBS[category.id] ? `hubs.${category.id}` : null;
+  const metaTitle = hubKey ? t(`${hubKey}.metaTitle`) : t('categoryMetaTitle', { categoryName });
+  const metaDescription = hubKey
+    ? t(`${hubKey}.metaDescription`)
+    : t('categoryMetaDescription', { categoryName, categoryDescription });
 
   // 翻译关键词
   let translatedKeywords = '';
@@ -71,21 +99,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   return {
-    title: t('categoryMetaTitle', {
-      categoryName: categoryName
-    }),
-    description: t('categoryMetaDescription', {
-      categoryName: categoryName,
-      categoryDescription: categoryDescription
-    }),
+    title: metaTitle,
+    description: metaDescription,
     keywords: translatedKeywords.split(",").map((keyword) => keyword.trim()).filter(Boolean),
     openGraph: {
-      title: t('categoryOgTitle', {
-        categoryName: categoryName
-      }),
-      description: t('categoryOgDescription', {
-        categoryName: categoryName
-      }),
+      title: hubKey ? metaTitle : t('categoryOgTitle', { categoryName }),
+      description: hubKey ? metaDescription : t('categoryOgDescription', { categoryName }),
       images: [{ url: "/og/oglogo.png", width: 1200, height: 630 }],
     },
     alternates: generateAlternates(locale, `categories/${slug}`),
@@ -101,7 +120,12 @@ export default async function CategoryPage({ params }: Props) {
     notFound();
   }
 
-  const games = getGamesByCategory(category.id);
+  const hub = HUBS[category.id];
+  // Hubs list games in the same order as their type groups.
+  const hubOrder = hub ? hub.types.flatMap((group) => group.games) : [];
+  const games = getGamesByCategory(category.id).sort((a, b) =>
+    hub ? hubOrder.indexOf(a.id) - hubOrder.indexOf(b.id) : 0
+  );
   const primaryGame = games.find((game) => game.id === PRIMARY_GAME_BY_CATEGORY[category.id]) ?? games[0];
 
   // 获取服务器端翻译
@@ -111,7 +135,40 @@ export default async function CategoryPage({ params }: Props) {
   const categoryDescription = t(`categoryDescriptions.${category.id}`, { defaultMessage: category.description });
   const categoryGamesHeading = t('categoryGamesHeading', { categoryName: categoryName });
   const categoriesTitle = t('title');
-  const categoryIntro = t('categoryIntro', { categoryName });
+  const categoryIntro = hub
+    ? t.rich(`hubs.${category.id}.intro`, {
+        wm: (chunks) => (
+          <Link href="/categories/working-memory" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
+            {chunks}
+          </Link>
+        ),
+      })
+    : t('categoryIntro', { categoryName });
+  const gameTitle = (id: string) => allT(`games.${gameTitleKey(id)}.title`);
+  const pageUrl = generateAlternates(locale, `categories/${category.slug}`).canonical;
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: categoryGamesHeading,
+      numberOfItems: games.length,
+      itemListElement: games.map((game, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: gameTitle(game.id),
+        url: generateAlternates(locale, `games/${game.slug}`).canonical,
+      })),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { name: allT('common.home'), url: generateAlternates(locale).canonical },
+        { name: categoriesTitle, url: generateAlternates(locale, 'categories').canonical },
+        { name: categoryName, url: pageUrl },
+      ].map((item, index) => ({ "@type": "ListItem", position: index + 1, name: item.name, item: item.url })),
+    },
+  ];
   // Guides and articles that belong to this topic cluster; the games themselves are in the grid.
   const workingMemoryReads = category.id === 'working-memory'
     ? await Promise.all(
@@ -122,7 +179,10 @@ export default async function CategoryPage({ params }: Props) {
       )
     : [];
   const readingLinks = category.id === 'working-memory'
-    ? workingMemoryReads.filter((link) => link.label)
+    ? [
+        ...workingMemoryReads.filter((link) => link.label),
+        { href: '/categories/memory-games', label: t('hubs.memory-games.backlink') },
+      ]
     : category.id === 'visual-tracking'
       ? [{
           href: '/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed',
@@ -132,6 +192,13 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <LinkClickTracker fromPage={`categories/${category.slug}`} className="max-w-7xl mx-auto py-8">
+      {structuredData.map((item) => (
+        <script
+          key={item["@type"]}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }}
+        />
+      ))}
       <Breadcrumbs
         items={[
           { label: categoriesTitle, href: "/categories" },
@@ -177,6 +244,57 @@ export default async function CategoryPage({ params }: Props) {
           ))}
         </div>
       </section>
+
+      {hub && (
+        <div data-link-location="category_hub" className="mx-auto mt-16 max-w-3xl space-y-14">
+          {(['types', 'audiences'] as const).map((part) => (
+            <section key={part} aria-labelledby={`hub-${part}-title`}>
+              <h2 id={`hub-${part}-title`} className="text-2xl font-bold tracking-tight">
+                {t(`hubs.${category.id}.${part}Title`)}
+              </h2>
+              <dl className="mt-6 divide-y divide-border border-y border-border">
+                {hub[part].map((group) => (
+                  <div key={group.id} className="grid gap-2 py-5 sm:grid-cols-[12rem_1fr] sm:gap-6">
+                    <dt className="font-semibold">{t(`hubs.${category.id}.${part}.${group.id}.title`)}</dt>
+                    <dd className="space-y-2 text-sm leading-7 text-muted-foreground">
+                      <p>{t(`hubs.${category.id}.${part}.${group.id}.body`)}</p>
+                      <p className="flex flex-wrap gap-x-4 gap-y-1">
+                        {group.games.map((id) => {
+                          const game = getGame(id);
+                          return game ? (
+                            <Link
+                              key={id}
+                              href={`/games/${game.slug}`}
+                              className="inline-flex items-center gap-1 font-medium text-foreground underline underline-offset-4 hover:text-primary"
+                            >
+                              {gameTitle(id)}
+                              <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" />
+                            </Link>
+                          ) : null;
+                        })}
+                      </p>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))}
+
+          <section aria-labelledby="hub-faq-title">
+            <h2 id="hub-faq-title" className="text-2xl font-bold tracking-tight">
+              {t(`hubs.${category.id}.faqTitle`)}
+            </h2>
+            <div className="mt-6 space-y-6">
+              {hub.faq.map((id) => (
+                <div key={id}>
+                  <h3 className="font-semibold">{t(`hubs.${category.id}.faq.${id}.q`)}</h3>
+                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{t(`hubs.${category.id}.faq.${id}.a`)}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
 
       <section
         aria-labelledby="category-about-title"

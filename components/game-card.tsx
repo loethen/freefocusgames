@@ -17,6 +17,7 @@ export const CATEGORY_DOT: Record<string, string> = {
     "reaction-time": "#D85A30",
     "cognitive-flexibility": "#639922",
     "spatial-memory": "#0F6E56",
+    "memory-games": "#534AB7",
     "adhd-games": "#993556",
     "brain-games-for-kids": "#EF9F27",
     relaxation: "#5DCAA5",

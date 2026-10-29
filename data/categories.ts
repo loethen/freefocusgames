@@ -163,6 +163,25 @@ export const categories: Category[] = [
     ]
   },
   {
+    id: "memory-games",
+    name: "Memory",
+    description: "Every free memory game on the site in one place: card matching, sequence and route recall, digit span, n-back and spatial memory puzzles. Play in the browser with no sign-up, on desktop or mobile.",
+    slug: "memory-games",
+    icon: "PuzzlePiece",
+    keywords: [
+      "memory games",
+      "memory game",
+      "free memory games",
+      "memory games online",
+      "memory games for adults",
+      "memory games for seniors",
+      "memory games for kids",
+      "card matching game",
+      "sequence memory game",
+      "brain games for memory"
+    ]
+  },
+  {
     id: "adhd-games",
     name: "Traffic-Boosting Collection: ADHD Games for Adults",
     description: "Short, clearly structured games that practice working memory, inhibition, and sustained attention, the executive functions often affected by ADHD. These games are not a treatment for ADHD and do not replace professional care, but they offer an easy way to practice focus.",

@@ -13,7 +13,7 @@ export const dynamic = "force-static";
 export const revalidate = false;
 
 // Curated collections are listed apart from the core cognitive skills.
-const COLLECTION_IDS = ["adhd-games", "brain-games-for-kids", "double-decision-games", "relaxation", "personality-tests"];
+const COLLECTION_IDS = ["memory-games", "adhd-games", "brain-games-for-kids", "double-decision-games", "relaxation", "personality-tests"];
 
 const guideLinkClass = "font-medium text-foreground underline underline-offset-4 hover:text-primary";
 

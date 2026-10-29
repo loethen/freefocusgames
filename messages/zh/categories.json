@@ -18,6 +18,7 @@
       "reaction-time": "反应时间",
       "cognitive-flexibility": "认知灵活性",
       "spatial-memory": "空间记忆",
+      "memory-games": "记忆力",
       "adhd-games": "成人ADHD游戏",
       "brain-games-for-kids": "儿童专注力游戏",
       "relaxation": "放松减压",
@@ -33,6 +34,7 @@
       "reaction-time": "锻炼你对视觉或听觉刺激反应速度的游戏。更快的反应时间帮助运动员表现更好，以及驾驶员快速应对道路危险。",
       "cognitive-flexibility": "增强你在不同概念之间切换或适应变化规则能力的游戏。更大的认知灵活性帮助学生跨学科应用知识，专业人士适应不断变化的工作要求，以及每个人更有效地应对社交场合。",
       "spatial-memory": "增强你记忆和操作空间信息能力的游戏。强大的空间记忆帮助导航、记住物体位置、理解地图和想象3D结构。这项技能对停车、寻找物品、跟随方向以及在STEM领域中取得优异成绩至关重要。",
+      "memory-games": "全站免费记忆力游戏合集：翻牌配对、序列和路线记忆、数字广度、N-back 和空间记忆。浏览器直接玩，无需注册，电脑和手机都能用。",
       "adhd-games": "结构清晰、时间短的游戏，用于练习工作记忆、抑制控制和持续注意力——这些执行功能常受 ADHD 影响。这些游戏不是 ADHD 的治疗方法，也不能替代专业帮助，但可以作为练习专注的简单方式。",
       "brain-games-for-kids": "适合儿童的趣味脑力游戏，以短小的游戏关卡练习注意力、记忆、遵循指令和冲动控制。适合作为学习之外的趣味练习，而不是替代学习。",
       "relaxation": "用于放松和减压的引导式呼吸练习。缓慢、有节奏的呼吸在练习时可以提高心率变异性（HRV），帮助很多人在几分钟内平静下来。",
@@ -138,6 +140,18 @@
         "navigation skills training": "导航技能训练",
         "spatial intelligence games": "空间智力游戏"
       },
+      "memory-games": {
+        "memory games": "记忆力游戏",
+        "memory game": "记忆游戏",
+        "free memory games": "免费记忆力游戏",
+        "memory games online": "在线记忆力游戏",
+        "memory games for adults": "成人记忆力游戏",
+        "memory games for seniors": "老人记忆力游戏",
+        "memory games for kids": "儿童记忆力游戏",
+        "card matching game": "翻牌配对游戏",
+        "sequence memory game": "序列记忆游戏",
+        "brain games for memory": "记忆力训练游戏"
+      },
       "adhd-games": {
         "ADHD games for adults": "成人ADHD游戏",
         "games for adhd adults": "ADHD成人游戏",
@@ -219,6 +233,7 @@
       "reaction-time": "反应更快、更稳定",
       "cognitive-flexibility": "快速切换规则，灵活应变",
       "spatial-memory": "记住东西在哪里",
+      "memory-games": "配对、序列、数字广度等",
       "adhd-games": "短小、有结构的专注练习",
       "brain-games-for-kids": "适合孩子的趣味注意力练习",
       "relaxation": "跟着引导呼吸，放松一下",
@@ -232,6 +247,71 @@
       "picker": "还是拿不定主意？<picker>回答一个问题</picker>，获得 3 个推荐游戏。"
     },
     "gridTitle": "{count} 个{categoryName}游戏",
-    "aboutTitle": "关于{categoryName}游戏"
+    "aboutTitle": "关于{categoryName}游戏",
+    "hubs": {
+      "memory-games": {
+        "metaTitle": "免费记忆力游戏在线玩：成人、老人和儿童都适合",
+        "metaDescription": "免费在线玩记忆力游戏：翻牌配对、序列和路线记忆、数字广度、双重 N-back 等。无需注册，并按成人、老人和儿童给出推荐。",
+        "intro": "这里的记忆力游戏练的东西各不相同，有翻牌找配对，也有记住一串顺序再复述。如果你只想要最考验工作记忆的游戏，可以去<wm>工作记忆</wm>分类。",
+        "backlink": "全部记忆力游戏：配对、序列、数字广度等",
+        "typesTitle": "记忆力游戏的类型",
+        "types": {
+          "matching": {
+            "title": "翻牌配对",
+            "body": "最经典的记忆游戏。每次翻两张牌，记住看过的位置，直到清空牌面。适合轻松入门。"
+          },
+          "sequence": {
+            "title": "序列与路线",
+            "body": "看方块依次亮起，或青蛙在荷叶间跳跃，然后按同样的顺序点回去。每答对一轮就多一步，很快能摸到自己的上限。"
+          },
+          "recall": {
+            "title": "数字与词语回忆",
+            "body": "记住一串数字或一组日常物品，稍后再回忆出来。这也是经典短期记忆测试采用的形式。"
+          },
+          "nBack": {
+            "title": "N-back",
+            "body": "判断当前的位置或声音是否与 n 步之前的相同。这是这里难度最高的形式，也是工作记忆研究中最常用的任务。"
+          },
+          "spatial": {
+            "title": "空间记忆",
+            "body": "在脑中想象一堆立体方块，数出全部方块，包括看不到的那些。适合喜欢解谜、不喜欢拼速度的人。"
+          }
+        },
+        "audiencesTitle": "适合成人、老人和儿童的记忆力游戏",
+        "audiences": {
+          "adults": {
+            "title": "成人",
+            "body": "一轮很短，休息间隙就能玩。先从翻牌配对开始，想要真正的挑战再试双重 N-back。"
+          },
+          "seniors": {
+            "title": "老人",
+            "body": "先玩宝宝动物配对热身，节奏轻松。短期记忆测试可以快速了解日常的回忆能力。"
+          },
+          "kids": {
+            "title": "儿童",
+            "body": "角色可爱、规则简单、容易获得成就感。宝宝动物配对和青蛙记忆跳跃都是为小玩家设计的。"
+          }
+        },
+        "faqTitle": "记忆力游戏常见问题",
+        "faq": {
+          "free": {
+            "q": "这些记忆力游戏免费吗？",
+            "a": "免费。所有游戏都在浏览器里运行，无需下载或注册，电脑、平板和手机都能玩。"
+          },
+          "best": {
+            "q": "应该先玩哪个记忆力游戏？",
+            "a": "想轻松一点，就从在线记忆配对游戏开始；想要一个能刷新的分数，就玩序列记忆测试。双重 N-back 最难，等其他游戏玩得顺手了再试。"
+          },
+          "improve": {
+            "q": "记忆力游戏能提高记忆力吗？",
+            "a": "你在练习的游戏上会越玩越好，这种进步是真实的。但它能在多大程度上迁移到日常记忆，研究结论并不一致，所以把这些游戏当作练习和挑战，而不是治疗。"
+          },
+          "howOften": {
+            "q": "多久玩一次比较好？",
+            "a": "每周几次短时间练习就足够了。专注玩 10 到 15 分钟，比疲劳时一次玩很久效果更好。"
+          }
+        }
+      }
+    }
   }
 }

@@ -34,7 +34,7 @@ export const games: Game[] = [
         alt="Remember a digit sequence and type it back"
       />
     ),
-    categories: ["working-memory"],
+    categories: ["working-memory", "memory-games"],
   },
   {
     id: "resonance-breathing",
@@ -79,7 +79,7 @@ export const games: Game[] = [
     title: "Counting Boxes",
     slug: "counting-boxes",
     preview: <CountingBoxesGamePreview />,
-    categories: ["working-memory", "spatial-memory", "brain-games-for-kids"],
+    categories: ["working-memory", "spatial-memory", "brain-games-for-kids", "memory-games"],
   },
   {
     id: "free-short-term-memory-test",
@@ -87,7 +87,7 @@ export const games: Game[] = [
     slug: "free-short-term-memory-test",
     coverImage: "/games/free-short-term-memory-test-cover.png",
     preview: <ImagePreview src="/games/free-short-term-memory-test-cover.png" alt="Free Short Term Memory Test preview" fit="cover" />,
-    categories: ["working-memory", "auditory-processing"],
+    categories: ["working-memory", "auditory-processing", "memory-games"],
   },
   {
     id: "challenge10Seconds",
@@ -123,7 +123,7 @@ export const games: Game[] = [
         fit="cover"
       />
     ),
-    categories: ["working-memory", "visual-tracking", "brain-games-for-kids"],
+    categories: ["working-memory", "visual-tracking", "brain-games-for-kids", "memory-games"],
   },
   {
     id: "memory-matching-game",
@@ -137,7 +137,7 @@ export const games: Game[] = [
         fit="cover"
       />
     ),
-    categories: ["working-memory", "visual-tracking", "sustained-attention", "adhd-games"],
+    categories: ["working-memory", "visual-tracking", "sustained-attention", "adhd-games", "memory-games"],
   },
   {
     id: "dual-n-back",
@@ -151,7 +151,7 @@ export const games: Game[] = [
         fit="cover"
       />
     ),
-    categories: ["working-memory", "divided-attention", "adhd-games"],
+    categories: ["working-memory", "divided-attention", "adhd-games", "memory-games"],
   },
   {
     id: "double-decision",
@@ -207,7 +207,7 @@ export const games: Game[] = [
         fit="cover"
       />
     ),
-    categories: ["working-memory", "visual-tracking", "brain-games-for-kids"],
+    categories: ["working-memory", "visual-tracking", "brain-games-for-kids", "memory-games"],
   },
   {
     id: "larger-number",
@@ -234,6 +234,7 @@ export const games: Game[] = [
       "divided-attention",
       "cognitive-flexibility",
       "adhd-games",
+      "memory-games",
     ],
   },
   {
@@ -248,7 +249,7 @@ export const games: Game[] = [
         fit="cover"
       />
     ),
-    categories: ["working-memory", "visual-tracking", "brain-games-for-kids", "adhd-games"],
+    categories: ["working-memory", "visual-tracking", "brain-games-for-kids", "adhd-games", "memory-games"],
   },
   {
     id: "schulte-table",

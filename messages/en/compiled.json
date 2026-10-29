@@ -3432,6 +3432,7 @@
       "reaction-time": "Reaction Time",
       "cognitive-flexibility": "Cognitive Flexibility",
       "spatial-memory": "Spatial Memory",
+      "memory-games": "Memory",
       "adhd-games": "ADHD Games for Adults",
       "brain-games-for-kids": "Focus Games for Kids",
       "relaxation": "Relaxation",
@@ -3447,6 +3448,7 @@
       "reaction-time": "Browse reaction games and reflex games that sharpen your speed of response to visual or auditory stimuli. Faster reaction time helps athletes perform better and drivers respond quickly to road hazards.",
       "cognitive-flexibility": "Games that enhance your ability to switch between different concepts or adapt to changing rules. Greater cognitive flexibility helps students apply knowledge across subjects, professionals adapt to changing work requirements, and everyone navigate social situations more effectively.",
       "spatial-memory": "Games that strengthen your ability to remember and manipulate spatial information. Strong spatial memory helps with navigation, remembering object locations, understanding maps, and visualizing 3D structures. This skill is crucial for activities like parking, finding items, following directions, and excelling in STEM fields.",
+      "memory-games": "Every free memory game on the site in one place: card matching, sequence and route recall, digit span, n-back and spatial memory puzzles. Play in the browser with no sign-up, on desktop or mobile.",
       "adhd-games": "Short, clearly structured games that practice working memory, inhibition, and sustained attention, the executive functions often affected by ADHD. These games are not a treatment for ADHD and do not replace professional care, but they offer an easy way to practice focus.",
       "brain-games-for-kids": "Fun brain games for children that practice attention, memory, following instructions, and impulse control in short, game-like rounds. Use them as playful practice alongside schoolwork, not as a replacement for it.",
       "relaxation": "Guided breathing exercises for relaxation and stress relief. Slow, paced breathing can raise heart rate variability (HRV) while you practice and helps many people feel calmer within a few minutes.",
@@ -3552,6 +3554,18 @@
         "navigation skills training": "Navigation skills training",
         "spatial intelligence games": "Spatial intelligence games"
       },
+      "memory-games": {
+        "memory games": "Memory games",
+        "memory game": "Memory game",
+        "free memory games": "Free memory games",
+        "memory games online": "Memory games online",
+        "memory games for adults": "Memory games for adults",
+        "memory games for seniors": "Memory games for seniors",
+        "memory games for kids": "Memory games for kids",
+        "card matching game": "Card matching game",
+        "sequence memory game": "Sequence memory game",
+        "brain games for memory": "Brain games for memory"
+      },
       "adhd-games": {
         "ADHD games for adults": "ADHD games for adults",
         "games for adhd adults": "games for adhd adults",
@@ -3633,6 +3647,7 @@
       "reaction-time": "Respond faster and more consistently",
       "cognitive-flexibility": "Switch rules and adapt quickly",
       "spatial-memory": "Remember where things are",
+      "memory-games": "Matching, sequence, digit span and more",
       "adhd-games": "Short, structured focus practice",
       "brain-games-for-kids": "Playful attention practice for kids",
       "relaxation": "Guided breathing for a calm break",
@@ -3646,7 +3661,72 @@
       "picker": "Still not sure? <picker>Answer one question</picker> and get three games to try."
     },
     "gridTitle": "{count} {categoryName} games",
-    "aboutTitle": "About {categoryName} games"
+    "aboutTitle": "About {categoryName} games",
+    "hubs": {
+      "memory-games": {
+        "metaTitle": "Free Memory Games Online for Adults, Seniors & Kids",
+        "metaDescription": "Play free memory games online: card matching, sequence and route recall, digit span, dual n-back and more. No sign-up, with picks for adults, seniors and kids.",
+        "intro": "Memory games here cover very different jobs, from flipping cards to find pairs to holding a sequence in mind and playing it back. If you want the games that load working memory hardest, the <wm>Working Memory</wm> category narrows the list to those.",
+        "backlink": "All memory games: matching, sequence, digit span and more",
+        "typesTitle": "Types of memory games",
+        "types": {
+          "matching": {
+            "title": "Card matching",
+            "body": "The classic memory game. Flip two cards at a time, remember what you saw and clear the board. A relaxed place to start."
+          },
+          "sequence": {
+            "title": "Sequence and route",
+            "body": "Watch blocks light up or a frog hop between lily pads, then repeat the order. Each correct round adds one more step, so you find your limit quickly."
+          },
+          "recall": {
+            "title": "Number and word recall",
+            "body": "Remember a string of digits or a list of everyday items and recall them a moment later. These are the formats used in classic short-term memory tests."
+          },
+          "nBack": {
+            "title": "N-back",
+            "body": "Say whether the current square or sound matches the one from n steps back. The hardest format here, and the one most often used in working memory research."
+          },
+          "spatial": {
+            "title": "Spatial memory",
+            "body": "Picture a 3D stack of boxes and count every box, including the ones you cannot see. Good if you prefer puzzles to speed."
+          }
+        },
+        "audiencesTitle": "Memory games for adults, seniors and kids",
+        "audiences": {
+          "adults": {
+            "title": "Adults",
+            "body": "Short rounds that fit a coffee break. Start with card matching, then move to dual n-back once you want a real stretch."
+          },
+          "seniors": {
+            "title": "Seniors",
+            "body": "Start with Baby Animal Matching for a gentle warm-up. The short-term memory test gives a quick snapshot of everyday recall."
+          },
+          "kids": {
+            "title": "Kids",
+            "body": "Friendly characters, simple rules and quick wins. Baby Animal Matching and Frog Memory Leap are made with younger players in mind."
+          }
+        },
+        "faqTitle": "Memory games FAQ",
+        "faq": {
+          "free": {
+            "q": "Are these memory games free?",
+            "a": "Yes. Every game runs in your browser for free, with no download or account needed, on desktop, tablet and phone."
+          },
+          "best": {
+            "q": "Which memory game should I start with?",
+            "a": "Start with the Memory Matching Game if you want something relaxed, or the Sequence Memory Test if you want a score to beat. Dual n-back is the most demanding, so try it once the others feel easy."
+          },
+          "improve": {
+            "q": "Do memory games improve your memory?",
+            "a": "You will get better at the games you practise, and that improvement is real. Research is mixed on how much it carries over to everyday memory, so treat these games as practice and a fun challenge rather than a treatment."
+          },
+          "howOften": {
+            "q": "How often should I play?",
+            "a": "A few short sessions a week is plenty. Ten to fifteen minutes of focused play works better than one long session when you are tired."
+          }
+        }
+      }
+    }
   },
   "common": {
     "home": "Home",
