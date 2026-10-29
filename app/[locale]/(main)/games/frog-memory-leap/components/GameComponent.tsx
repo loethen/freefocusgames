@@ -1,16 +1,18 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useTranslations } from 'next-intl';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LilyPadSVG } from './LilyPadSVG';
-import { FrogSVG } from './FrogSVG';
+import { FrogPondScene, padRadiusFor } from './scene/engine';
+import { PAD_TILT } from './scene/pond';
 import { Button } from '@/components/ui/button';
-import { Settings } from 'lucide-react';
+import { Brain, CircleX, Eye, MousePointerClick, PartyPopper, Settings, Share } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
+import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
+import { getProgressInsights, recordProgressSnapshot, type ProgressCardData } from '@/lib/progress-share';
 import {
     GamePhase,
     PadPosition,
@@ -18,6 +20,7 @@ import {
     pickPadPositions,
     generateJumpSequence,
     calculateScore,
+    jumpDuration,
 } from '../hooks/useFrogEngine';
 
 interface GameSettings {
@@ -33,7 +36,12 @@ const SETTINGS_KEY = 'frogMemorySettings';
 
 export default function GameComponent() {
     const t = useTranslations('games.frogMemoryLeap.gameUI');
+    const pageT = useTranslations('games.frogMemoryLeap');
+    const shareT = useTranslations('common.progressShare');
+    const locale = useLocale();
     const containerRef = useRef<HTMLDivElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const sceneRef = useRef<FrogPondScene | null>(null);
 
     // Settings
     const [settings, setSettings] = useState<GameSettings>(DEFAULT_SETTINGS);
@@ -46,27 +54,23 @@ export default function GameComponent() {
     const [bestScore, setBestScore] = useState(0);
     const [message, setMessage] = useState('');
     const [roundPoints, setRoundPoints] = useState<number | null>(null);
+    const [popKey, setPopKey] = useState(0);
+    const [showLevelBanner, setShowLevelBanner] = useState(false);
+    const [showTurnBanner, setShowTurnBanner] = useState(false);
+    // Longest route the player has repeated correctly this run, for the share card
+    const [longestRoute, setLongestRoute] = useState(0);
+    const [progressCard, setProgressCard] = useState<ProgressCardData | null>(null);
+    const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+    // How many demo hops have played so far, for the progress dots
+    const [demoStep, setDemoStep] = useState(0);
 
     // Level data
     const [activePads, setActivePads] = useState<PadPosition[]>([]);
     const [jumpSeq, setJumpSeq] = useState<number[]>([]);
 
-    // Demo playback
-    const [demoIndex, setDemoIndex] = useState(-1); // which jump is being shown
-    const [highlightedPadId, setHighlightedPadId] = useState<number | null>(null);
-
     // Player input
     const [playerIndex, setPlayerIndex] = useState(0);
-    const [correctPads, setCorrectPads] = useState<Set<number>>(new Set());
-    const [wrongPadId, setWrongPadId] = useState<number | null>(null);
     const [startTime, setStartTime] = useState(0);
-
-    // Frog position (pad ID)
-    const [frogPadId, setFrogPadId] = useState<number | null>(null);
-    const [isJumping, setIsJumping] = useState(false);
-    const [jumpDuration, setJumpDuration] = useState(900);
-    const [frogRotation, setFrogRotation] = useState(0); // degrees, 0 = sprite default
-    const prevPadIdRef = useRef<number | null>(null);
 
     // Progress
     const [progressTotal, setProgressTotal] = useState(0);
@@ -102,26 +106,31 @@ export default function GameComponent() {
         setIsSettingsOpen(false);
     };
 
-    // Container size for responsive scaling
-    const [containerWidth, setContainerWidth] = useState(600);
+    // Canvas scene; on the start screen the frog hops about a few pads by itself
+    const [padRadius, setPadRadius] = useState(40);
 
     useEffect(() => {
+        const canvas = canvasRef.current;
         const el = containerRef.current;
-        if (!el) return;
-        const ro = new ResizeObserver(entries => {
-            for (const entry of entries) {
-                setContainerWidth(entry.contentRect.width);
-            }
+        if (!canvas || !el) return;
+        const scene = new FrogPondScene(canvas);
+        sceneRef.current = scene;
+        const idlePads = pickPadPositions(5);
+        scene.setPads(idlePads);
+        scene.placeFrog(idlePads[0].id);
+        scene.setAmbientHops(true);
+        const ro = new ResizeObserver(([entry]) => {
+            const { width, height } = entry.contentRect;
+            scene.resize(width, height);
+            setPadRadius(padRadiusFor(width, height));
         });
         ro.observe(el);
-        return () => ro.disconnect();
+        return () => {
+            ro.disconnect();
+            scene.destroy();
+            sceneRef.current = null;
+        };
     }, []);
-
-    // Scale game elements based on container width (600px = desktop baseline)
-    const scale = Math.max(0.6, Math.min(1, containerWidth / 600));
-    const lilyPadSize = Math.round(75 * scale);
-    const frogSize = Math.round(50 * scale);
-    const idleFrogSize = Math.round(80 * scale);
 
     // Progress bar tick
     useEffect(() => {
@@ -136,151 +145,79 @@ export default function GameComponent() {
         return () => cancelAnimationFrame(id);
     }, [progressTotal, progressStart]);
 
-    /**
-     * Calculate rotation angle from one pad to another.
-     * The sprite faces "down" by default, so 0° = down.
-     * We calculate the angle so the frog's head points toward the target.
-     */
-    const calcRotation = useCallback((fromId: number, toId: number, pads: PadPosition[]) => {
-        const from = pads.find(p => p.id === fromId);
-        const to = pads.find(p => p.id === toId);
-        if (!from || !to) return 0;
-        const dx = to.px - from.px;
-        const dy = to.py - from.py;
-        // Calculate angle CW from north using screen coordinates (Y-down).
-        // atan2(dx, -dy) gives CW angle from north:
-        //   up=0°, right=90°, down=180°, left=-90°
-        const rad = Math.atan2(dx, -dy);
-        const targetAngle = (rad * 180) / Math.PI;
-        // Sprite default heading ≈ 205° CW from north (≈ -155°),
-        // i.e. head points bottom-left, slightly biased toward straight-down.
-        const SPRITE_ANGLE = -155;
-        let rotation = targetAngle - SPRITE_ANGLE;
-        // Normalize to [-180, 180] for shortest rotation path
-        rotation = ((rotation + 540) % 360) - 180;
-        return rotation;
-    }, []);
+    // Pending timers for the demo and round transitions, cleared on restart and unmount.
+    const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+    const later = (fn: () => void, ms: number) => {
+        timersRef.current.push(setTimeout(fn, ms));
+    };
+    const clearTimers = () => {
+        timersRef.current.forEach(clearTimeout);
+        timersRef.current = [];
+    };
+    useEffect(() => () => timersRef.current.forEach(clearTimeout), []);
 
-    /** Calculate Euclidean distance (in % units) between two pads */
-    const calcDistance = useCallback((fromId: number, toId: number, pads: PadPosition[]) => {
-        const from = pads.find(p => p.id === fromId);
-        const to = pads.find(p => p.id === toId);
-        if (!from || !to) return 30; // fallback medium distance
-        const dx = to.px - from.px;
-        const dy = to.py - from.py;
-        return Math.sqrt(dx * dx + dy * dy);
-    }, []);
-
-    /**
-     * Map distance to jump duration.
-     * Short hops (~10% units) → 400ms, long leaps (~80% units) → 1200ms.
-     * Linearly interpolated and clamped.
-     */
-    const calcJumpDuration = useCallback((distance: number) => {
-        const MIN_DIST = 10;
-        const MAX_DIST = 80;
-        const MIN_DUR = 400;
-        const MAX_DUR = 1200;
-        const t = Math.max(0, Math.min(1, (distance - MIN_DIST) / (MAX_DIST - MIN_DIST)));
-        return Math.round(MIN_DUR + t * (MAX_DUR - MIN_DUR));
-    }, []);
-
-    /** Trigger a jump: set rotation, then simultaneously start position + sprite animation */
-    const triggerJump = useCallback((targetPadId: number, pads: PadPosition[], duration = 900) => {
-        const fromId = prevPadIdRef.current;
-        if (fromId !== null && fromId !== targetPadId) {
-            setFrogRotation(calcRotation(fromId, targetPadId, pads));
-        }
-        setFrogPadId(targetPadId);
-        setJumpDuration(duration);
-        setIsJumping(true);
-        prevPadIdRef.current = targetPadId;
-        setTimeout(() => setIsJumping(false), duration);
-    }, [calcRotation]);
+    const padById = (pads: PadPosition[], id: number) => pads.find(p => p.id === id)!;
 
     // ── Start a new round ──
-    const startRound = useCallback((lvl: number) => {
+    const startRound = (lvl: number) => {
+        clearTimers();
         const params = getLevelParams(lvl);
         const pads = pickPadPositions(params.padCount);
         const seq = generateJumpSequence(pads, params.jumpCount);
 
         setActivePads(pads);
         setJumpSeq(seq);
-        setFrogPadId(seq[0]);
-        prevPadIdRef.current = seq[0];
-        setDemoIndex(-1);
-        setHighlightedPadId(null);
         setPlayerIndex(0);
-        setCorrectPads(new Set());
-        setWrongPadId(null);
+        setDemoStep(0);
         setRoundPoints(null);
-        setIsJumping(false);
         setPhase('watching');
-        setMessage(t('level', { level: lvl.toString() }));
+        setShowLevelBanner(true);
+        setShowTurnBanner(false);
+        setMessage(t('getReady'));
 
-        // Pre-compute per-jump durations based on distance
-        const jumpDurations: number[] = [];
-        for (let i = 1; i < seq.length; i++) {
-            const dist = Math.sqrt(
-                Math.pow((pads.find(p => p.id === seq[i])?.px ?? 0) - (pads.find(p => p.id === seq[i - 1])?.px ?? 0), 2) +
-                Math.pow((pads.find(p => p.id === seq[i])?.py ?? 0) - (pads.find(p => p.id === seq[i - 1])?.py ?? 0), 2)
-            );
-            // Duration: 400ms–1200ms based on distance
-            const t = Math.max(0, Math.min(1, (dist - 10) / 70));
-            jumpDurations.push(Math.round(400 + t * 800));
-        }
-        // Each demo step: jump duration + small pause (200ms)
+        const scene = sceneRef.current;
+        scene?.setAmbientHops(false);
+        scene?.setPads(pads);
+        scene?.placeFrog(seq[0], true);
+
+        // Per-jump durations based on distance
+        const durations = seq.slice(1).map((id, i) => jumpDuration(padById(pads, seq[i]), padById(pads, id)));
+        const INTRO = 1500;
+        const START_CUE = 500;
         const PAUSE_BETWEEN = 200;
-        const totalDemoTime = jumpDurations.reduce((sum, d) => sum + d + PAUSE_BETWEEN, 0) + 1500;
+        const OUTRO = 300;
+        const totalDemoTime = INTRO + START_CUE + durations.reduce((sum, d) => sum + d + PAUSE_BETWEEN, 0) + OUTRO;
         setProgressTotal(totalDemoTime);
         setProgressStart(Date.now());
         setProgressElapsed(0);
 
-        // After a brief pause, start demo
-        setTimeout(() => {
-            setMessage(t('watch'));
-            playDemo(seq, pads, jumpDurations);
-        }, 1500);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [t]);
+        later(() => {
+            setShowLevelBanner(false);
+            setMessage(t('watchStatus'));
+            sceneRef.current?.cue(seq[0]);
+        }, INTRO);
 
-    // ── Play demo sequence ──
-    const playDemo = (seq: number[], pads: PadPosition[], durations: number[]) => {
-        // Start from i=1 since frog is already placed at seq[0]
-        let i = 1;
-        // Highlight the starting pad briefly
-        setHighlightedPadId(seq[0]);
-        setTimeout(() => setHighlightedPadId(null), 400);
-        const PAUSE_BETWEEN = 200;
+        let at = INTRO + START_CUE;
+        durations.forEach((dur, i) => {
+            later(() => {
+                sceneRef.current?.hopTo(seq[i + 1], dur, true);
+                setDemoStep(i + 1);
+            }, at);
+            at += dur + PAUSE_BETWEEN;
+        });
 
-        const step = () => {
-            if (i < seq.length) {
-                const dur = durations[i - 1];
-                // Jump to the next pad — rotation + sprite + position all together
-                triggerJump(seq[i], pads, dur);
-                setHighlightedPadId(seq[i]);
-
-                // Clear highlight shortly after landing
-                setTimeout(() => setHighlightedPadId(null), dur * 0.7);
-
-                i++;
-                // Next step after jump completes + small pause
-                setTimeout(step, dur + PAUSE_BETWEEN);
-            } else {
-                // Demo done → player turn
-                setTimeout(() => {
-                    setPhase('playing');
-                    setMessage(t('repeat'));
-                    setFrogPadId(seq[0]); // reset frog to start
-                    prevPadIdRef.current = seq[0];
-                    setPlayerIndex(1); // player needs to click from index 1
-                    setStartTime(Date.now());
-                    setProgressTotal(0);
-                }, 500);
-            }
-        };
-        const firstDur = durations[0] || 600;
-        setTimeout(step, firstDur + PAUSE_BETWEEN);
+        // Demo done → player turn, with the frog back on the start pad
+        later(() => {
+            setPhase('playing');
+            setMessage(t('yourTurn'));
+            setShowTurnBanner(true);
+            sceneRef.current?.placeFrog(seq[0], true);
+            sceneRef.current?.cue(seq[0]);
+            setPlayerIndex(1);
+            setStartTime(Date.now());
+            setProgressTotal(0);
+            later(() => setShowTurnBanner(false), 1100);
+        }, at + OUTRO);
     };
 
     // ── Handle player click on pad ──
@@ -289,12 +226,11 @@ export default function GameComponent() {
 
         const expected = jumpSeq[playerIndex];
 
+        setShowTurnBanner(false);
         if (padId === expected) {
             // Correct! Jump to the pad with distance-based duration
-            const dist = calcDistance(prevPadIdRef.current ?? padId, padId, activePads);
-            const dur = calcJumpDuration(dist);
-            triggerJump(padId, activePads, dur);
-            setCorrectPads(prev => new Set(prev).add(padId));
+            const from = padById(activePads, jumpSeq[playerIndex - 1]);
+            sceneRef.current?.hopTo(padId, jumpDuration(from, padById(activePads, padId)));
 
             const nextIdx = playerIndex + 1;
             setPlayerIndex(nextIdx);
@@ -305,7 +241,8 @@ export default function GameComponent() {
             }
         } else {
             // Wrong!
-            setWrongPadId(padId);
+            sceneRef.current?.markWrong(padId);
+            sceneRef.current?.showHint(expected);
             handleFailure();
         }
     };
@@ -316,19 +253,21 @@ export default function GameComponent() {
         const elapsed = Date.now() - startTime;
         const points = calculateScore(level, elapsed);
         setRoundPoints(points);
+        setPopKey(k => k + 1);
 
         const newScore = score + points;
         setScore(newScore);
+        setLongestRoute(r => Math.max(r, jumpSeq.length - 1));
 
         if (newScore > bestScore) {
             setBestScore(newScore);
             localStorage.setItem(BEST_SCORE_KEY, String(newScore));
         }
 
-        setMessage(t('correct'));
+        setMessage(t('levelUp', { count: getLevelParams(level + 1).jumpCount.toString() }));
 
         // Auto advance after pause
-        setTimeout(() => {
+        later(() => {
             const nextLevel = level + 1;
             setLevel(nextLevel);
             startRound(nextLevel);
@@ -338,13 +277,58 @@ export default function GameComponent() {
     // ── Failure ──
     const handleFailure = () => {
         setPhase('fail');
-        setMessage(t('gameOver'));
+        setMessage(t('wrongTitle'));
+        buildShareCard();
+    };
+
+    // ── Share card: the run's score, tracked across sessions ──
+    const buildShareCard = () => {
+        const history = recordProgressSnapshot('frog-memory-leap', score);
+        const insights = getProgressInsights(history, 'higher');
+        const trendText = insights.previous && insights.deltaFromPrevious !== null
+            ? (insights.isImprovement
+                ? shareT('higherThanLast', { value: Math.round(insights.deltaFromPrevious) })
+                : shareT('lowerThanLast', { value: Math.round(insights.deltaFromPrevious) }))
+            : shareT('firstTrackedSession');
+
+        setProgressCard({
+            title: pageT('title'),
+            subtitle: '',
+            primaryLabel: t('shareScoreLabel'),
+            primaryValue: score.toString(),
+            trendText,
+            historyLabel: shareT('sessionsTracked', { count: insights.sessions }),
+            history: history.map(entry => entry.primaryValue),
+            direction: 'higher',
+            metrics: [
+                { label: t('shareLevelLabel'), value: level.toString(), highlight: true },
+                { label: t('shareRouteLabel'), value: t('shareRouteValue', { count: longestRoute.toString() }) },
+                { label: t('shareBestLabel'), value: Math.max(bestScore, score).toString() },
+            ],
+            footer: t('shareChallenge'),
+            siteUrl: `freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/frog-memory-leap`,
+            coverImage: '/games/frog-memory-leap-cover.png',
+            description: pageT('description'),
+            // A light card in the cover's palette: pond aqua, lily-pad green and the slate ink of the scene.
+            theme: {
+                backgroundFrom: '#bfeef3',
+                backgroundTo: '#a6d78f',
+                accent: '#2f8f5b',
+                panel: '#ffffff',
+                text: '#3c4656',
+                mutedText: 'rgba(60, 70, 86, 0.62)',
+                surface: '#eef7ea',
+                border: 'rgba(60, 70, 86, 0.12)',
+                glow: '#ffffff',
+            },
+        });
     };
 
     // ── Restart ──
     const restartGame = () => {
         setLevel(1);
         setScore(0);
+        setLongestRoute(0);
         startRound(1);
     };
 
@@ -353,43 +337,49 @@ export default function GameComponent() {
         startRound(level);
     };
 
-    // Get frog pixel position from pad ID
-    const getFrogPosition = () => {
-        if (frogPadId === null) return null;
-        return activePads.find(p => p.id === frogPadId) || null;
-    };
-
-    const frogPos = getFrogPosition();
+    // Pads in reading order, so the screen-reader labels run top-left to bottom-right
+    const padsInOrder = [...activePads].sort((a, b) => a.py - b.py || a.px - b.px);
     const progressPct = progressTotal > 0 ? Math.max(0, 1 - progressElapsed / progressTotal) : 0;
-    const params = getLevelParams(level);
+    const totalJumps = Math.max(0, jumpSeq.length - 1);
+    const doneJumps =
+        phase === 'watching' ? demoStep :
+        phase === 'success' ? totalJumps :
+        Math.max(0, playerIndex - 1);
+
+    // Status line at the top: an icon and a colour per phase, so it is clear whose turn it is
+    const status = {
+        idle: { icon: Brain, text: t('idleStatus'), tone: 'bg-slate-100 text-slate-700 dark:bg-zinc-800 dark:text-zinc-200' },
+        watching: { icon: Eye, text: message, tone: 'bg-amber-100 text-amber-800 dark:bg-amber-500/15 dark:text-amber-300' },
+        playing: { icon: MousePointerClick, text: message, tone: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300' },
+        success: { icon: PartyPopper, text: message, tone: 'bg-emerald-100 text-emerald-800 dark:bg-emerald-500/15 dark:text-emerald-300' },
+        fail: { icon: CircleX, text: message, tone: 'bg-rose-100 text-rose-800 dark:bg-rose-500/15 dark:text-rose-300' },
+    }[phase];
+    const StatusIcon = status.icon;
 
     return (
-        <div className="w-full h-full flex flex-col font-mono bg-white dark:bg-zinc-950 rounded-xl overflow-hidden">
+        <div className="w-full h-full flex flex-col bg-white dark:bg-zinc-950 rounded-xl overflow-hidden">
 
             {/* Top HUD */}
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 px-3 py-2 md:px-6 md:py-3 bg-transparent shrink-0 z-20">
-                {phase !== 'idle' && (
-                    <span className="text-[10px] md:text-xs font-bold tracking-widest uppercase px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 shrink-0">
-                        {t('level', { level: level.toString() })}
-                    </span>
-                )}
-                <div className="font-bold text-sm md:text-lg tracking-wide text-zinc-800 dark:text-zinc-200 truncate">
-                    {phase === 'idle' ? t('start') : message}
+            <div className="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-5 md:py-3 shrink-0 z-20">
+                <div className={`flex items-center gap-1.5 md:gap-2 min-w-0 px-3 py-1.5 rounded-full text-xs md:text-sm font-semibold ${status.tone}`}>
+                    <StatusIcon className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    <span className="truncate" aria-live="polite">{status.text}</span>
                 </div>
-                {phase !== 'idle' && (
-                    <div className="flex gap-3 text-xs md:text-sm font-bold tracking-wider md:ml-auto">
-                        <span className="text-zinc-600 dark:text-zinc-400">
-                            {t('score', { score: score.toString() })}
-                        </span>
-                        {bestScore > 0 && (
-                            <span className="text-zinc-400 dark:text-zinc-600">
-                                {t('highScore', { score: bestScore.toString() })}
+                <div className="ml-auto flex items-center gap-2 md:gap-3 shrink-0 text-xs md:text-sm font-semibold">
+                    {phase !== 'idle' && (
+                        <>
+                            <span className="hidden sm:inline px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 dark:bg-zinc-800 dark:text-zinc-300">
+                                {t('level', { level: level.toString() })}
                             </span>
-                        )}
-                    </div>
-                )}
-                {phase === 'idle' && (
-                    <div className="ml-auto">
+                            <span className="text-zinc-700 dark:text-zinc-200">{t('score', { score: score.toString() })}</span>
+                        </>
+                    )}
+                    {bestScore > 0 && (
+                        <span className="hidden md:inline text-zinc-400 dark:text-zinc-500">
+                            {t('highScore', { score: bestScore.toString() })}
+                        </span>
+                    )}
+                    {phase === 'idle' && (
                         <GameSettingsDialog
                             settings={settings}
                             onSave={saveSettings}
@@ -397,194 +387,192 @@ export default function GameComponent() {
                             onOpenChange={setIsSettingsOpen}
                             t={t}
                         />
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
 
             {/* Play Area */}
-            <div
-                ref={containerRef}
-                className="relative flex-1 w-full min-h-0 overflow-hidden bg-cover bg-center"
-                style={{ backgroundImage: "url('/games/assets/frog/bg_pond.png')" }}
-            >
+            <div ref={containerRef} className="relative flex-1 w-full min-h-0 overflow-hidden bg-[#d6eef0]">
+                <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" role="img" aria-label={t('sceneLabel')} />
+
+                {/* Invisible buttons over the pads take the taps and keyboard focus */}
+                {padsInOrder.map((pad, i) => (
+                    <button
+                        key={pad.id}
+                        type="button"
+                        aria-label={t('padLabel', { n: (i + 1).toString() })}
+                        disabled={phase !== 'playing'}
+                        onClick={() => handlePadClick(pad.id)}
+                        className="absolute z-10 rounded-full cursor-pointer disabled:cursor-default outline-none focus-visible:ring-2 focus-visible:ring-slate-500/60 touch-manipulation"
+                        style={{
+                            left: `${pad.px}%`,
+                            top: `${pad.py}%`,
+                            width: padRadius * 2,
+                            height: padRadius * 2 * PAD_TILT,
+                            transform: 'translate(-50%, -50%)',
+                        }}
+                    />
+                ))}
+
+                {/* How to play, over the pond on the start screen */}
+                <AnimatePresence>
+                    {phase === 'idle' && (
+                        <motion.div
+                            key="how-to"
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -12 }}
+                            className="absolute inset-0 z-30 flex items-center justify-center p-4 pointer-events-none"
+                        >
+                            <div className="w-full max-w-xs rounded-2xl border-2 border-slate-600/70 bg-white/95 px-5 py-4 text-slate-700 shadow-[5px_5px_0_rgba(60,70,86,0.18)]">
+                                <h3 className="text-base md:text-lg font-bold text-slate-800 mb-3">{t('howTitle')}</h3>
+                                <ol className="space-y-2.5 text-sm md:text-[15px] leading-snug">
+                                    {[
+                                        { icon: Eye, text: t('howStep1'), tone: 'bg-amber-100 text-amber-700' },
+                                        { icon: Brain, text: t('howStep2'), tone: 'bg-violet-100 text-violet-700' },
+                                        { icon: MousePointerClick, text: t('howStep3'), tone: 'bg-emerald-100 text-emerald-700' },
+                                    ].map(({ icon: Icon, text, tone }, i) => (
+                                        <li key={i} className="flex items-start gap-3">
+                                            <span className={`flex items-center justify-center w-7 h-7 rounded-full shrink-0 ${tone}`}>
+                                                <Icon className="w-4 h-4" aria-hidden="true" />
+                                            </span>
+                                            <span className="pt-1">{text}</span>
+                                        </li>
+                                    ))}
+                                </ol>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
                 {/* Score popup */}
                 <AnimatePresence>
                     {roundPoints !== null && roundPoints > 0 && (
                         <motion.div
-                            key={`score-pop-${Date.now()}`}
+                            key={`score-pop-${popKey}`}
                             initial={{ opacity: 1, y: 0, scale: 1 }}
                             animate={{ opacity: 0, y: -60, scale: 1.5 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 1.2, ease: 'easeOut' }}
                             className="absolute top-1/3 left-1/2 -translate-x-1/2 z-40 pointer-events-none"
                         >
-                            <span className="text-4xl font-black text-green-400 drop-shadow-lg">
+                            <span className="text-4xl font-black text-emerald-600 drop-shadow-[0_2px_0_rgba(255,255,255,0.9)]">
                                 +{roundPoints}
                             </span>
                         </motion.div>
                     )}
                 </AnimatePresence>
 
-                {/* Level announce */}
+                {/* Level and turn announcements */}
                 <AnimatePresence>
-                    {phase === 'watching' && demoIndex === -1 && (
+                    {(showLevelBanner || showTurnBanner) && (
                         <motion.div
-                            key={`level-ann-${level}`}
-                            initial={{ opacity: 0, scale: 0.5 }}
+                            key={showLevelBanner ? `level-ann-${level}` : 'turn-ann'}
+                            initial={{ opacity: 0, scale: 0.6 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 1.4 }}
-                            transition={{ duration: 0.8 }}
-                            className="absolute top-1/4 left-1/2 -translate-x-1/2 z-40 pointer-events-none"
+                            exit={{ opacity: 0, scale: 1.2 }}
+                            transition={{ duration: 0.4 }}
+                            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none"
                         >
-                            <span className="text-3xl font-black tracking-widest uppercase text-white/80 drop-shadow-xl">
-                                {t('level', { level: level.toString() })}
+                            <span className={`block whitespace-nowrap rounded-2xl border-2 border-slate-600/70 px-5 py-2 text-2xl md:text-3xl font-black shadow-[4px_4px_0_rgba(60,70,86,0.18)] ${showLevelBanner ? 'bg-white/95 text-slate-700' : 'bg-emerald-50/95 text-emerald-700'}`}>
+                                {showLevelBanner ? t('level', { level: level.toString() }) : t('yourTurnBanner')}
                             </span>
                         </motion.div>
                     )}
                 </AnimatePresence>
-
-                {/* Lily pads */}
-                {activePads.map(pad => (
-                    <div
-                        key={pad.id}
-                        className="absolute z-10"
-                        style={{
-                            left: `${pad.px}%`,
-                            top: `${pad.py}%`,
-                            transform: 'translate(-50%, -50%)',
-                        }}
-                    >
-                        <LilyPadSVG
-                            size={lilyPadSize}
-                            isActive={frogPadId === pad.id}
-                            isHighlighted={highlightedPadId === pad.id}
-                            isCorrect={correctPads.has(pad.id)}
-                            isWrong={wrongPadId === pad.id}
-                            onClick={() => handlePadClick(pad.id)}
-                        />
-                    </div>
-                ))}
-
-                {/* Frog */}
-                {frogPos && (
-                    <motion.div
-                        className="absolute z-20 pointer-events-none"
-                        animate={{
-                            left: `${frogPos.px}%`,
-                            top: `${frogPos.py}%`,
-                        }}
-                        transition={{
-                            type: 'tween',
-                            duration: jumpDuration / 1000,
-                            ease: [0.25, 0.1, 0.25, 1],
-                        }}
-                        style={{
-                            transform: 'translate(-50%, -65%)',
-                        }}
-                    >
-                        <FrogSVG size={frogSize} isJumping={isJumping} jumpDuration={jumpDuration} rotation={frogRotation} />
-                    </motion.div>
-                )}
-
-                {/* Idle decorative frogs */}
-                {phase === 'idle' && (
-                    <div className="absolute inset-0 z-5 pointer-events-none flex items-center justify-center">
-                        <motion.div
-                            animate={{ y: [0, -8, 0] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                        >
-                            <FrogSVG size={idleFrogSize} />
-                        </motion.div>
-                    </div>
-                )}
             </div>
 
-            {/* Progress Bar */}
+            {/* Demo progress bar */}
             {progressTotal > 0 && (
-                <div className="w-full h-0.5 bg-zinc-200 dark:bg-zinc-800 shrink-0 overflow-hidden">
-                    <motion.div
-                        className="h-full rounded-r-full bg-cyan-400"
+                <div className="w-full h-1 bg-zinc-200 dark:bg-zinc-800 shrink-0 overflow-hidden">
+                    <div
+                        className="h-full rounded-r-full bg-amber-300"
                         style={{ width: `${progressPct * 100}%` }}
-                        transition={{ duration: 0.05 }}
                     />
                 </div>
             )}
 
             {/* Bottom Controls */}
-            <div className="h-24 shrink-0 flex items-center justify-center bg-transparent relative z-20">
-                <AnimatePresence mode="popLayout">
-                    {phase === 'idle' && (
-                        <motion.div
-                            key="start-btn"
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.95 }}
+            <div className="h-28 shrink-0 flex flex-col items-center justify-center gap-2 px-3 relative z-20">
+                {phase === 'idle' && (
+                    <motion.div
+                        animate={{ scale: [1, 1.04, 1] }}
+                        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                    >
+                        <Button
+                            size="lg"
+                            onClick={() => startRound(settings.startLevel)}
+                            className="h-14 px-10 text-xl font-bold rounded-full shadow-md"
                         >
-                            <motion.div
-                                animate={{ scale: [1, 1.04, 1] }}
-                                transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-                            >
-                                <Button
-                                    size="lg"
-                                    onClick={() => startRound(settings.startLevel)}
-                                    className="w-56 h-14 text-2xl font-bold uppercase tracking-widest rounded-xl shadow-md"
-                                >
-                                    {t('start')}
-                                </Button>
-                            </motion.div>
-                        </motion.div>
-                    )}
+                            {t('start')}
+                        </Button>
+                    </motion.div>
+                )}
 
-                    {phase === 'watching' && (
-                        <motion.div
-                            key="watching-hint"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className="text-sm font-medium text-zinc-500 dark:text-zinc-400 tracking-wider"
-                        >
-                            🐸 {params.jumpCount} {t('watch')}
-                        </motion.div>
-                    )}
+                {(phase === 'watching' || phase === 'playing' || phase === 'success') && totalJumps > 0 && (
+                    <>
+                        <JumpDots
+                            total={totalJumps}
+                            done={doneJumps}
+                            tone={phase === 'watching' ? 'watch' : 'play'}
+                        />
+                        <p className="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400">
+                            {phase === 'watching'
+                                ? t('jumpsToWatch', { count: totalJumps.toString() })
+                                : phase === 'playing' && doneJumps === 0
+                                    ? t('startHint')
+                                    : t('jumpProgress', { done: doneJumps.toString(), total: totalJumps.toString() })}
+                        </p>
+                    </>
+                )}
 
-                    {phase === 'playing' && (
-                        <motion.div
-                            key="playing-hint"
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0 }}
-                            className="text-sm font-medium text-zinc-500 dark:text-zinc-400 tracking-wider"
-                        >
-                            {playerIndex - 1}/{jumpSeq.length - 1}
-                        </motion.div>
-                    )}
-
-                    {phase === 'fail' && (
-                        <motion.div
-                            key="fail-btns"
-                            initial={{ opacity: 0, y: 8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="flex gap-3"
-                        >
-                            <Button
-                                size="lg"
-                                variant="outline"
-                                onClick={retryLevel}
-                                className="font-bold py-5 px-8 text-lg uppercase tracking-widest rounded-xl"
-                            >
+                {phase === 'fail' && (
+                    <motion.div
+                        key="fail"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="flex flex-col items-center gap-2"
+                    >
+                        <p className="text-xs md:text-sm text-center text-zinc-500 dark:text-zinc-400">
+                            {t('wrongHint', { level: level.toString() })}
+                        </p>
+                        <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+                            <Button variant="outline" onClick={() => setIsShareModalOpen(true)} disabled={!progressCard} className="font-bold px-4 md:px-5 rounded-full">
+                                <Share className="w-4 h-4 mr-1.5" aria-hidden="true" />
+                                {t('share')}
+                            </Button>
+                            <Button variant="outline" onClick={retryLevel} className="font-bold px-4 md:px-5 rounded-full">
                                 {t('tryAgain')}
                             </Button>
-                            <Button
-                                size="lg"
-                                onClick={restartGame}
-                                className="font-bold py-5 px-8 text-lg uppercase tracking-widest rounded-xl shadow-md"
-                            >
-                                {t('start')}
+                            <Button onClick={restartGame} className="font-bold px-4 md:px-5 rounded-full shadow-md">
+                                {t('restart')}
                             </Button>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+                        </div>
+                    </motion.div>
+                )}
             </div>
+
+            <ProgressShareModal
+                isOpen={isShareModalOpen}
+                onClose={() => setIsShareModalOpen(false)}
+                card={progressCard}
+                fileName="frog-memory-leap-score.png"
+            />
+        </div>
+    );
+}
+
+// One dot per jump in the route: filled as the demo plays or as the player repeats it.
+function JumpDots({ total, done, tone }: { total: number; done: number; tone: 'watch' | 'play' }) {
+    const filled = tone === 'watch' ? 'bg-amber-300 border-amber-500' : 'bg-emerald-300 border-emerald-500';
+    return (
+        <div className="flex flex-wrap justify-center gap-1.5" aria-hidden="true">
+            {Array.from({ length: total }, (_, i) => (
+                <span
+                    key={i}
+                    className={`w-3 h-3 md:w-3.5 md:h-3.5 rounded-full border-2 transition-colors duration-300 ${i < done ? filled : 'bg-white border-slate-300 dark:bg-zinc-900 dark:border-zinc-600'}`}
+                />
+            ))}
         </div>
     );
 }

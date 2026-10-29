@@ -85,6 +85,16 @@ export function generateJumpSequence(pads: PadPosition[], jumpCount: number): nu
     return seq;
 }
 
+/**
+ * Jump duration from the distance between two pads (in % units).
+ * Short hops (~10 units) → 400ms, long leaps (~80 units) → 1200ms.
+ */
+export function jumpDuration(from: PadPosition, to: PadPosition): number {
+    const dist = Math.hypot(to.px - from.px, to.py - from.py);
+    const t = Math.max(0, Math.min(1, (dist - 10) / 70));
+    return Math.round(400 + t * 800);
+}
+
 /** Calculate score for a successful round */
 export function calculateScore(level: number, elapsedMs: number): number {
     const base = 100;
