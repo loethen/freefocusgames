@@ -17,7 +17,7 @@ export async function generateMetadata(
 ): Promise<Metadata> {
     const { locale } = await params
     const t = await getTranslations({ locale, namespace: 'games.memoryMatchingGame' })
-    const coverImage = '/games/memory-matching-game-cover.png'
+    const coverImage = '/games/memory-matching-game-cover-v2.png'
 
     return {
         title: t('metadata.title'),

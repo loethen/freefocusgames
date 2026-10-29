@@ -129,10 +129,10 @@ export const games: Game[] = [
     id: "memory-matching-game",
     title: "Memory Matching Game",
     slug: "memory-matching-game",
-    coverImage: "/games/memory-matching-game-cover.png",
+    coverImage: "/games/memory-matching-game-cover-v2.png",
     preview: (
       <ImagePreview
-        src="/games/memory-matching-game-cover.png"
+        src="/games/memory-matching-game-cover-v2.png"
         alt="Memory Matching Game preview"
         fit="cover"
       />
