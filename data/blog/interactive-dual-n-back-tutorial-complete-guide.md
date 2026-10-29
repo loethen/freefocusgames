@@ -119,7 +119,7 @@ Later work has been more cautious:
 - Track your own level and accuracy over weeks, and keep difficulty where you are succeeding about 80% of the time.
 - Mix it with other activities you enjoy. No single exercise is a shortcut.
 
-For other ways to practice, browse all [working memory games](/categories/working-memory), or test your span with the [Digit Span Test](/blog/digit-span-test-explained).
+For other ways to practice, browse all [working memory games](/categories/working-memory), or test your span with the [Digit Span Test](/blog/digit-span-test-explained). For lighter options like card matching, see all [free memory games](/categories/memory-games).
 
 ## FAQ
 

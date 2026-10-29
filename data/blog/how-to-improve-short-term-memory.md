@@ -225,4 +225,6 @@ Enhance visual tracking and dynamic memory formation. Trains hippocampus systems
 ### [Larger Number](/games/larger-number)
 Rapidly process numerical information to strengthen memory under time pressure. Develops hippocampus capacity for quick memory formation and retrieval in challenging conditions.
 
+Want more options? Browse all [free memory games](/categories/memory-games), from card matching to digit span.
+
 **Recommended usage:** 15-20 minutes daily combined with lifestyle interventions for maximum memory recovery. These games are designed by cognitive scientists to specifically target hippocampus function and memory enhancement. 

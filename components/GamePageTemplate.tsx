@@ -13,7 +13,7 @@ import { Breadcrumbs } from "@/components/Breadcrumbs";
 import GameCard from '@/components/game-card';
 import { getGame } from '@/data/games';
 import { useTranslations } from 'next-intl';
-import { ExternalLink, BookOpen } from 'lucide-react';
+import { ExternalLink, BookOpen, ArrowRight } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
 import {
     LeaderboardDisplay,
@@ -355,6 +355,16 @@ export function GamePageTemplate({
                     <div className="flex justify-center">
                         <GameCategories gameId={gameId} />
                     </div>
+                    {getGame(gameId)?.categories.includes('memory-games') && (
+                        <Link
+                            href="/categories/memory-games"
+                            data-link-location="game_memory_hub"
+                            className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline underline-offset-4 hover:text-primary"
+                        >
+                            {gameT("moreMemoryGames")}
+                            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                        </Link>
+                    )}
                 </div>
             </section>
         </>

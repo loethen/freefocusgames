@@ -83,7 +83,7 @@ For how we collect, filter, and cite all of our player data, see [our data metho
 - **It is not a diagnosis.** A short span alone does not mean there is a memory problem. Clinicians interpret it alongside many other measures.
 - **Strategies matter.** Grouping digits into chunks can raise your span, which shows how much strategy, not just raw capacity, shapes the result.
 
-For what the research says about training working memory, see [Dual N-Back: How to Play and What the Research Says](/blog/interactive-dual-n-back-tutorial-complete-guide), or browse all [working memory games](/categories/working-memory).
+For what the research says about training working memory, see [Dual N-Back: How to Play and What the Research Says](/blog/interactive-dual-n-back-tutorial-complete-guide), or browse all [working memory games](/categories/working-memory). For lighter options like card matching, see all [free memory games](/categories/memory-games).
 
 ## FAQ
 
