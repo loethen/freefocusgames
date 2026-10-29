@@ -48,6 +48,14 @@ export default function Challenge10SecondsPage({ params }: { params: Promise<{ l
             answer: t('faq.names.answer'),
         },
         {
+            question: t('faq.accuracy.question'),
+            answer: t('faq.accuracy.answer'),
+        },
+        {
+            question: t('faq.guessing.question'),
+            answer: t('faq.guessing.answer'),
+        },
+        {
             question: t('faq.trick.question'),
             answer: t('faq.trick.answer'),
         },
@@ -86,6 +94,7 @@ export default function Challenge10SecondsPage({ params }: { params: Promise<{ l
                 "10 second challenge online",
                 "Stop the timer at exactly 10 seconds",
                 "10 second timer challenge game",
+                "Hidden timer mode for stopwatch accuracy and time guessing",
                 "Closest to 10 seconds leaderboard",
                 "Keyboard and click controls"
             ],
@@ -132,6 +141,19 @@ export default function Challenge10SecondsPage({ params }: { params: Promise<{ l
                             {t('howToPlay.step4')}
                         </li>
                     </ul>
+                    <h3 className="pt-4 text-xl font-semibold text-foreground">
+                        {t('howToPlay.modesTitle')}
+                    </h3>
+                    <p>
+                        {t.rich('howToPlay.modeVisible', {
+                            b: (chunks) => <strong className="text-foreground">{chunks}</strong>,
+                        })}
+                    </p>
+                    <p>
+                        {t.rich('howToPlay.modeHidden', {
+                            b: (chunks) => <strong className="text-foreground">{chunks}</strong>,
+                        })}
+                    </p>
                 </>
             }
             benefits={[

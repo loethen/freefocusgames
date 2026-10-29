@@ -6,17 +6,20 @@
       "description": "Play this 10 second timer challenge game online. Start the timer, stop at exactly 10.0000 seconds, and see how close your internal clock can get.",
       "metadata": {
         "title": "10 Second Challenge Online: Stop the Timer at 10s",
-        "description": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, compare your score, and learn how to win.",
-        "keywords": "10 second challenge online, 10 second challenge, 10 seconds challenge, ten second challenge, 10 sec challenge, 10 second timer challenge game, stop the timer at exactly 10 seconds, stop at 10 seconds game, time stop game, time stop challenge game, 10 second challenge timer, 10 second challenge machine, how to win 10 second challenge, 10 seconds game",
+        "description": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, or hide the timer for a stopwatch accuracy test.",
+        "keywords": "10 second challenge online, 10 second challenge, 10 seconds challenge, ten second challenge, 10 sec challenge, 10 second timer challenge game, stop the timer at exactly 10 seconds, stop at 10 seconds game, time stop game, time stop challenge game, 10 second challenge timer, 10 second challenge machine, how to win 10 second challenge, 10 seconds game, timer game, timing game, stop the clock game, stopwatch accuracy test, time guessing game",
         "ogTitle": "10 Second Challenge Online: Stop the Timer at 10s",
-        "ogDescription": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, compare your score, and learn how to win."
+        "ogDescription": "Play the 10 second timer challenge online. Start the timer, stop at exactly 10.0000 seconds, or hide the timer for a stopwatch accuracy test."
       },
       "howToPlay": {
-        "description": "The rules are simple, but perfection is hard: this time stop game is a timer challenge where your goal is to stop as close to 10.0000 seconds as possible.",
+        "description": "The rules are simple, but perfection is hard: this timer game, also called a time stop or stop the clock game, asks you to stop as close to 10.0000 seconds as possible.",
         "step1": "Click 'Start Timer' to begin the 10 second challenge timer.",
         "step2": "Watch the numbers (or close your eyes and count).",
         "step3": "Click 'STOP!' exactly when you think the timer has reached 10.0000 seconds.",
         "step4": "Check your result. Within 0.01s is considered excellent!",
+        "modesTitle": "Two ways to play",
+        "modeVisible": "<b>Visible Timer:</b> the classic stop the clock game. Watch the digits climb and work on your stop timing, pressing a fraction early to beat your own reaction delay.",
+        "modeHidden": "<b>Hidden Timer:</b> a time guessing game and stopwatch accuracy test. The display stays blank until you stop, so your score shows how well your internal clock keeps time on its own.",
         "win": "PERFECT! Exactly 10.0000s!",
         "lose": "Close! Try again.",
         "nearMiss": "So close! Just a tiny bit off!"
@@ -47,7 +50,15 @@
         },
         "names": {
           "question": "Is this the same as the stop the timer game or time stop game?",
-          "answer": "Yes. Stop the timer game, time stop game, timer challenge, and stop at 10 seconds game are all names for the same idea: start a timer and stop it as close to exactly 10 seconds as you can."
+          "answer": "Yes. Stop the timer game, stop the clock game, time stop game, timer game, timing game and timer challenge are all names for the same idea: start a timer and stop it as close to exactly 10 seconds as you can."
+        },
+        "accuracy": {
+          "question": "Can I use this as a stopwatch accuracy test?",
+          "answer": "Yes. Switch to Hidden Timer: the clock is hidden while it runs, so your result shows how accurately you can time 10 seconds without looking. Hidden Timer scores have their own leaderboard."
+        },
+        "guessing": {
+          "question": "Is there a time guessing mode?",
+          "answer": "Yes. Hidden Timer turns the challenge into a time guessing game: start the timer, guess when 10 seconds have passed and press stop. You only see how far off your guess was after you stop."
         },
         "trick": {
           "question": "How do you win the 10 second challenge?",
