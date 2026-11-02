@@ -96,6 +96,10 @@ export default function StroopEffectTestPage({ params }: { params: Promise<{ loc
             }}
             faq={[
                 {
+                    question: t('faq.purpose.question'),
+                    answer: t('faq.purpose.answer'),
+                },
+                {
                     question: t('faq.whatIsStroop.question'),
                     answer: t('faq.whatIsStroop.answer'),
                 },

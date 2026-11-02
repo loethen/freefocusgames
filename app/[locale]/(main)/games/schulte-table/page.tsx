@@ -71,6 +71,10 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
             answer: faqT("howItWorks.answer"),
         },
         {
+            question: faqT("mechanism.question"),
+            answer: faqT("mechanism.answer"),
+        },
+        {
             question: faqT("bestPractice.question"),
             answer: faqT("bestPractice.answer"),
         },

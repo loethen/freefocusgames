@@ -168,6 +168,10 @@
           "question": "How does the Schulte Table work?",
           "answer": "The task asks you to find 1–25 in order while recording completion time and mistakes. It combines visual search, sequence tracking, and goal-directed attention."
         },
+        "mechanism": {
+          "question": "What is the psychological mechanism behind Schulte table training?",
+          "answer": "A Schulte table relies on three processes: visual search (scanning for the next target among similar distractors), working memory (keeping track of which number comes next), and attention control (staying on the target instead of nearby numbers). Faster times with practice mostly reflect getting better at this specific task, such as more efficient scanning and familiarity with the grid. Research has not shown that these gains reliably transfer to reading or general attention."
+        },
         "bestPractice": {
           "question": "What is the best way to practice?",
           "answer": "Prioritize accuracy and compare your own attempts under the same conditions. A central gaze can be tried as a search strategy, but there is no universal schedule or performance cutoff for this online game."
@@ -1253,7 +1257,7 @@
     },
     "stroopEffectTest": {
       "title": "Stroop Effect Test",
-      "subtitle": "Take a free online color-word test to measure selective attention, inhibition control, and Stroop interference.",
+      "subtitle": "Take a free online color-word test. The Stroop test measures inhibitory control: how well you can ignore the word you read and name its ink color instead.",
       "description": "Take a free Stroop effect test online by naming the ink color instead of the word. Train selective attention, inhibition control, and conflict resolution while tracking your reaction time.",
       "metadata": {
         "title": "Stroop Effect Test Online: Free Color Word Test",
@@ -1284,6 +1288,10 @@
         }
       },
       "faq": {
+        "purpose": {
+          "question": "What is the purpose of the Stroop test?",
+          "answer": "The Stroop test measures inhibitory control and selective attention: how well you can suppress an automatic response (reading the word) to give the correct one (naming the ink color). Psychologists and neuropsychologists use it as a measure of executive function by comparing response times on incongruent trials, where the word and color conflict, with congruent ones. The larger the slowdown, the stronger the interference. This online version is for practice and comparing your own results, not for clinical diagnosis."
+        },
         "whatIsStroop": {
           "question": "What is the Stroop effect?",
           "answer": "The Stroop effect is the delay that happens when a word's meaning conflicts with its ink color, such as the word 'RED' printed in blue. In a classic color word test, you must name the ink color instead of reading the word, which reveals how automatic reading interferes with attention and response control."
