@@ -39,7 +39,7 @@ export function GameCover({ game, title, sizes }: { game: Game; title: string; s
         return (
             <Image
                 src={game.coverImage}
-                alt=""
+                alt={title}
                 fill
                 sizes={sizes}
                 className={cn(
