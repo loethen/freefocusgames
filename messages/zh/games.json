@@ -2619,8 +2619,11 @@
         "average": "平均",
         "share": "分享",
         "shareTitle": "我的 F1 反应测试成绩",
-        "shareText": "我在 F1 反应测试中熄灯反应用时 {time} 秒，你能超过我吗？"
-      }
+        "shareText": "我在 F1 反应测试中熄灯反应用时 {time} 秒，你能超过我吗？",
+        "leaderboardProgress": "连续有效起步：{count}/{total}，满 5 次计入排行榜",
+        "leaderboardSubmitted": "排行榜：最近 5 次起步平均 {time} 秒"
+      },
+      "leaderboardIntro": "按连续 5 次有效起步的平均成绩排名。一旦抢跑就要重新计数，所以猜灯不会带来好处。"
     }
   }
 }

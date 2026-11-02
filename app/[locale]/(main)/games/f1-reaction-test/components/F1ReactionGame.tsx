@@ -6,12 +6,14 @@ import { Award, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ShareModal } from '@/components/ui/ShareModal';
 import { cn } from '@/lib/utils';
+import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 import {
   LIGHT_COUNT,
   LIGHT_INTERVAL_MS,
   MIN_REACTION_MS,
   F1_RANGE_MS,
   HISTORY_SIZE,
+  LEADERBOARD_SET_SIZE,
   randomHold,
   formatSeconds,
   rateAgainstF1,
@@ -44,6 +46,9 @@ export default function F1ReactionGame() {
   const [lastTime, setLastTime] = useState<number | null>(null);
   const [history, setHistory] = useState<number[]>([]);
   const [best, setBest] = useState<number | null>(null);
+  // Clean starts in a row since the last jump start, for the leaderboard set
+  const [setTimes, setSetTimes] = useState<number[]>([]);
+  const [submittedAverage, setSubmittedAverage] = useState<number | null>(null);
   const [showShareModal, setShowShareModal] = useState(false);
 
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
@@ -83,6 +88,8 @@ export default function F1ReactionGame() {
   const jumpStart = useCallback(() => {
     clearTimers();
     onsetRef.current = null;
+    setSetTimes([]);
+    setSubmittedAverage(null);
     setStage('jump');
   }, [clearTimers]);
 
@@ -91,6 +98,15 @@ export default function F1ReactionGame() {
     setLastTime(ms);
     setHistory(prev => [ms, ...prev].slice(0, HISTORY_SIZE));
     setStage('result');
+
+    // Every clean start from the fifth on submits the average of the last five
+    const nextSet = [...setTimes, ms].slice(-LEADERBOARD_SET_SIZE);
+    setSetTimes(nextSet);
+    if (nextSet.length === LEADERBOARD_SET_SIZE) {
+      const setAverage = Math.round(nextSet.reduce((a, b) => a + b, 0) / LEADERBOARD_SET_SIZE);
+      setSubmittedAverage(setAverage);
+      void submitScoreToLeaderboard('f1-reaction-test', setAverage);
+    }
     if (best === null || ms < best) {
       setBest(ms);
       try {
@@ -99,7 +115,7 @@ export default function F1ReactionGame() {
         // Keep the best time for this visit only
       }
     }
-  }, [best]);
+  }, [best, setTimes]);
 
   const respond = useCallback((time: number) => {
     if (stage === 'idle' || stage === 'result' || stage === 'jump') {
@@ -239,6 +255,14 @@ export default function F1ReactionGame() {
               </div>
             )}
           </div>
+
+          {(stage === 'result' || stage === 'jump') && (
+            <p className="text-xs text-white/50">
+              {submittedAverage !== null && stage === 'result'
+                ? t('leaderboardSubmitted', { time: formatSeconds(submittedAverage) })
+                : t('leaderboardProgress', { count: setTimes.length, total: LEADERBOARD_SET_SIZE })}
+            </p>
+          )}
 
           {history.length > 0 && (
             <div className="flex flex-wrap items-center justify-center gap-2 text-xs">

@@ -141,6 +141,9 @@ export default function F1ReactionTestPage({ params }: { params: Promise<{ local
             }}
             faq={faq}
             relatedGames={["reaction-time", "psychomotor-vigilance-test", "challenge10Seconds"]}
+            hasLeaderboard={true}
+            leaderboardFormatterType="sec3"
+            leaderboardIntro={<p>{t('leaderboardIntro')}</p>}
             structuredData={structuredData}
         />
     );

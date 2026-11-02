@@ -486,6 +486,9 @@ function validateScore(
             return score < 0 || score > 30 ? "Score rejected (Outside expected keyboard speed range)" : null;
         case "reaction-time":
             return score < 80 || score > 10000 ? "Score rejected (Outside human limits)" : null;
+        case "f1-reaction-test":
+            // Average of five clean starts; single starts under 100 ms are jump starts
+            return score < 100 || score > 2000 ? "Score rejected (Outside human limits)" : null;
         case "frog-memory-leap":
         case "fish-trace":
             return score > 50000 ? "Score rejected" : null;

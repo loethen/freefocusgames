@@ -10,6 +10,7 @@ export const RANKED_LEADERBOARD_MODE = "ranked";
 
 export const LEADERBOARD_GAME_CONFIG: Record<string, LeaderboardSortConfig> = {
   "reaction-time": { primary: "ASC" },
+  "f1-reaction-test": { primary: "ASC" },
   "memory-matching-game": { primary: "ASC" },
   "stroop-effect-test": { primary: "ASC" },
   "challenge10Seconds": { primary: "ASC", target: 10_000 },

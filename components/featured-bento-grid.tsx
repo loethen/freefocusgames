@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 // Popular games as one horizontal rail of equal cards, scrolled by the visitor only (no autoplay).
 // A partly visible card at the edge signals there is more to see.
 const POPULAR_GAME_IDS = [
+    'f1-reaction-test',
     'double-decision',
     'reaction-time',
     'rotating-schulte-table',

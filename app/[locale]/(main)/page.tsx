@@ -19,6 +19,7 @@ import {
     BrainCircuit,
     BriefcaseBusiness,
     Check,
+    ClipboardCheck,
     Focus,
     Gamepad2,
     ScanEye,
@@ -168,7 +169,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const quickStartLinks = [
         {
             id: "focusGames",
-            href: "/games",
+            href: "/categories/sustained-attention",
             icon: Focus
         },
         {
@@ -185,9 +186,15 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             id: "adhdGames",
             href: "/categories/adhd-games",
             icon: BrainCircuit
+        },
+        {
+            id: "cognitiveTests",
+            href: "/tests",
+            icon: ClipboardCheck
         }
     ];
     const popularToolLinks = [
+        { id: "reactionTimeTest", href: "/games/reaction-time" },
         { id: "dualNBack", href: "/games/dual-n-back" },
         { id: "schulteTable", href: "/games/schulte-table" },
         { id: "pomodoroTimer", href: "/games/pomodoro-timer" },
@@ -266,7 +273,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                     aria-labelledby="training-goals-title"
                     className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6"
                 >
-                    <div className="rounded-2xl bg-secondary/20 px-4 py-7 sm:rounded-3xl sm:p-10 lg:p-12">
+                    <LinkClickTracker fromPage="home">
                         <div className="mb-8 max-w-2xl sm:mb-10">
                             <h2 id="training-goals-title" className="text-3xl font-bold tracking-tight sm:text-4xl">
                                 {t("home.searchPaths.title")}
@@ -276,7 +283,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             </p>
                         </div>
 
-                        <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-y-8 lg:grid-cols-4">
+                        <div data-link-location="home_goal_nav" className="grid gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-y-8 lg:grid-cols-5">
                             {quickStartLinks.map((item, index) => {
                                 const Icon = item.icon;
 
@@ -310,7 +317,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             })}
                         </div>
 
-                        <div className="mt-8 flex flex-col gap-3 border-t border-border/70 pt-5 sm:mt-10 sm:flex-row sm:items-center">
+                        <div data-link-location="home_goal_tools" className="mt-8 flex flex-col gap-3 border-t border-border/70 pt-5 sm:mt-10 sm:flex-row sm:items-center">
                             <span className="shrink-0 text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
                                 {t("home.searchPaths.popularTools")}
                             </span>
@@ -326,7 +333,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                 ))}
                             </nav>
                         </div>
-                    </div>
+                    </LinkClickTracker>
                 </section>
 
                 {/* Discovery Section - Rotating selection of fun games */}

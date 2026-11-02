@@ -482,7 +482,9 @@ export function getFeaturedGames(): Game[] {
 // 获取最新游戏（手动指定的3个游戏）
 export function getLatestGames(limit: number = 3): Game[] {
   const latestGameIds = [
-    'school-run-double-decision', // School Run Double Decision - Newest
+    'psychomotor-vigilance-test',
+    'focus-reaction-test', // Flanker Test, rebuilt
+    'school-run-double-decision', // School Run Double Decision
     'trail-making-test',
     'digit-span-test',
     'rotating-schulte-table', // Rotating Schulte Table - Newest

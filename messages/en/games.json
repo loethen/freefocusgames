@@ -2622,8 +2622,11 @@
         "average": "Average",
         "share": "Share",
         "shareTitle": "My F1 Reaction Test Result",
-        "shareText": "I reacted in {time} s at lights out on the F1 Reaction Test. Can you beat it?"
-      }
+        "shareText": "I reacted in {time} s at lights out on the F1 Reaction Test. Can you beat it?",
+        "leaderboardProgress": "Clean starts toward the leaderboard: {count}/{total}",
+        "leaderboardSubmitted": "Leaderboard: average of your last 5 starts, {time} s"
+      },
+      "leaderboardIntro": "Ranked by the average of five clean starts in a row. A jump start begins a new set, so guessing the lights does not pay."
     }
   }
 }

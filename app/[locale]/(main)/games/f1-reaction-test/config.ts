@@ -14,6 +14,10 @@ export const F1_RANGE_MS = { min: 200, max: 300 };
 // How many recent attempts the board shows
 export const HISTORY_SIZE = 5;
 
+// The leaderboard ranks the average of this many clean starts in a row;
+// a jump start begins a new set.
+export const LEADERBOARD_SET_SIZE = 5;
+
 export function randomHold() {
   return MIN_HOLD_MS + Math.random() * (MAX_HOLD_MS - MIN_HOLD_MS);
 }

@@ -57,15 +57,20 @@
           "description": "Hold and work with numbers, positions, sounds, and rules for short periods."
         },
         "reactionTime": {
-          "title": "Reaction Time Tests",
-          "description": "Measure visual reaction time and challenge yourself to respond faster and more consistently."
+          "title": "Reaction Time Games",
+          "description": "Reaction and reflex games that train you to respond faster and more consistently."
         },
         "adhdGames": {
           "title": "ADHD-Friendly Games",
           "description": "Choose short, clearly structured focus exercises that are easy to start."
+        },
+        "cognitiveTests": {
+          "title": "Cognitive Tests",
+          "description": "Free attention, memory and reaction tests such as the Flanker, PVT and Trail Making tests."
         }
       },
       "tools": {
+        "reactionTimeTest": "Reaction Time Test",
         "dualNBack": "Dual N-Back Training",
         "schulteTable": "Schulte Table Online",
         "pomodoroTimer": "Pomodoro Timer Online",

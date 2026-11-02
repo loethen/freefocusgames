@@ -57,15 +57,20 @@
           "description": "在短时间内记住并处理数字、位置、声音和规则。"
         },
         "reactionTime": {
-          "title": "反应速度测试",
-          "description": "测试视觉反应时间，挑战更快、更稳定的回应。"
+          "title": "反应速度游戏",
+          "description": "反应和反射类游戏，练习更快、更稳定地做出反应。"
         },
         "adhdGames": {
           "title": "ADHD 友好游戏",
           "description": "选择节奏短、反馈清晰、容易开始的专注练习。"
+        },
+        "cognitiveTests": {
+          "title": "认知测试",
+          "description": "免费的注意力、记忆和反应测试，例如 Flanker、PVT 和连线测试。"
         }
       },
       "tools": {
+        "reactionTimeTest": "反应时间测试",
         "dualNBack": "双重 N-Back 训练",
         "schulteTable": "在线舒尔特表格",
         "pomodoroTimer": "在线番茄钟",
