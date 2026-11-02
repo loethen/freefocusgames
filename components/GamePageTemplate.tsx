@@ -223,83 +223,66 @@ export function GamePageTemplate({
                     <h2 className="text-3xl font-bold mb-12 text-center">
                         {gameT("scienceBehindGame")}
                     </h2>
-                    <div className="relative rounded-xl overflow-hidden bg-black/5 p-2 outline outline-white/15 backdrop-blur-md dark:bg-white/10">
-                        {/* 点状背景 */}
-                        {/* <div className="absolute inset-0 opacity-30">
-                          <div
-                              className="absolute inset-0"
-                              style={{
-                                  backgroundImage:
-                                      "radial-gradient(circle, hsl(var(--muted-foreground)) 1px, transparent 1px)",
-                                  backgroundSize: "20px 20px",
-                              }}
-                          />
-                      </div> */}
+                    <div className="max-w-3xl mx-auto">
+                        <h3 className="text-xl md:text-2xl font-semibold mb-4 text-foreground">
+                            {science.title}
+                        </h3>
+                        <div className="space-y-4 text-base md:text-lg leading-8 text-muted-foreground">
+                            {science.description}
+                        </div>
 
-                        {/* 内容 */}
-                        <div className="relative z-10 bg-background p-8 rounded-xl">
-                            <div className="mb-6">
-                                <h3 className="text-2xl font-semibold mb-4 text-foreground">
-                                    {science.title}
-                                </h3>
-                                <div className="text-lg text-muted-foreground leading-relaxed">
-                                    {science.description}
-                                </div>
-                            </div>
-
-                            {/* Blog文章链接 */}
-                            {science.blogArticleUrl &&
-                                science.blogArticleTitle && (
-                                    <div className="mb-6">
-                                        <Link
-                                            href={science.blogArticleUrl}
-                                            className="group block rounded-xl border border-primary/15 bg-primary/5 p-4 hover:border-primary/40 hover:bg-primary/10 transition-colors"
-                                            title={science.blogArticleTitle}
-                                        >
-                                            <div className="flex items-center gap-2 text-sm font-medium text-primary mb-2">
-                                                <BookOpen className="w-4 h-4" />
-                                                {gameT("readDetailedArticle")}
-                                            </div>
-                                            <div className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-                                                {science.blogArticleTitle}
-                                            </div>
-                                        </Link>
+                        {/* Blog文章链接 */}
+                        {science.blogArticleUrl &&
+                            science.blogArticleTitle && (
+                                <Link
+                                    href={science.blogArticleUrl}
+                                    className="group mt-8 flex items-center justify-between gap-4 rounded-xl border border-border px-5 py-4 transition-colors hover:border-foreground/30 hover:bg-muted/40"
+                                    title={science.blogArticleTitle}
+                                >
+                                    <div className="min-w-0">
+                                        <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground mb-1">
+                                            <BookOpen className="w-3.5 h-3.5" />
+                                            {gameT("readDetailedArticle")}
+                                        </div>
+                                        <div className="font-semibold text-foreground">
+                                            {science.blogArticleTitle}
+                                        </div>
                                     </div>
-                                )}
+                                    <ArrowRight className="w-5 h-5 flex-shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-foreground" />
+                                </Link>
+                            )}
 
-                            {/* 权威链接 - 更紧凑的设计 */}
-                            {science.authorityLinks &&
-                                science.authorityLinks.length > 0 && (
-                                    <div>
-                                        <h4 className="text-lg font-semibold mb-3 text-foreground">
-                                            {gameT("authorityReferences")}
-                                        </h4>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                                            {science.authorityLinks.map(
-                                                (link, index) => (
+                        {/* 权威链接 */}
+                        {science.authorityLinks &&
+                            science.authorityLinks.length > 0 && (
+                                <div className="mt-8 border-t border-border pt-6">
+                                    <h4 className="text-sm font-semibold mb-3 text-foreground">
+                                        {gameT("authorityReferences")}
+                                    </h4>
+                                    <ul className="space-y-2">
+                                        {science.authorityLinks.map(
+                                            (link, index) => (
+                                                <li key={index}>
                                                     <a
-                                                        key={index}
                                                         href={link.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="group flex items-center gap-2 p-3 bg-background/60 dark:bg-background/40 rounded-lg border border-border hover:border-primary/50 transition-all duration-200 hover:shadow-sm"
+                                                        className="group inline-flex items-start gap-2 text-sm"
                                                     >
-                                                        <ExternalLink className="w-4 h-4 text-muted-foreground group-hover:text-primary flex-shrink-0" />
-                                                        <div className="min-w-0 flex-1">
-                                                            <div className="font-medium text-foreground text-sm truncate">
+                                                        <ExternalLink className="mt-0.5 w-3.5 h-3.5 flex-shrink-0 text-muted-foreground group-hover:text-foreground" />
+                                                        <span>
+                                                            <span className="font-medium text-foreground underline-offset-4 group-hover:underline">
                                                                 {link.title}
-                                                            </div>
-                                                            <div className="text-xs text-muted-foreground line-clamp-2">
-                                                                {link.description}
-                                                            </div>
-                                                        </div>
+                                                            </span>
+                                                            <span className="text-muted-foreground"> · {link.description}</span>
+                                                        </span>
                                                     </a>
-                                                )
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
-                        </div>
+                                                </li>
+                                            )
+                                        )}
+                                    </ul>
+                                </div>
+                            )}
                     </div>
                 </section>
             )}

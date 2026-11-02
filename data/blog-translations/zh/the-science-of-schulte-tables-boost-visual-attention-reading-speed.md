@@ -125,5 +125,5 @@ Posner 和 Petersen 的经典综述用警觉、定向和执行控制三个系统
 
 - **[在线舒尔特表格](/games/schulte-table)**：记录完成时间和错误次数的 5×5 数字搜索任务。
 - **[动态舒尔特表格](/games/rotating-schulte-table)**：移动数字带来不同搜索要求的变化版本。
-- **[专注反应测试](/games/focus-reaction-test)**：基于 Flanker 范式的选择性注意任务。
+- **[Flanker 侧翼测试](/games/flanker-test)**：基于 Flanker 范式的选择性注意任务。
 - **[Dual N-Back：玩法详解与研究怎么说](/blog/interactive-dual-n-back-tutorial-complete-guide)**：研究对工作记忆训练的真实结论，以及这些说法的边界。

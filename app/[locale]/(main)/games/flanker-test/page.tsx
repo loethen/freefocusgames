@@ -7,6 +7,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
 import { routing } from '@/i18n/routing'
+import { SITE_BASE_URL } from '@/lib/site-constants'
+
+const coverImage = "/games/flanker-test-cover.png";
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -20,26 +23,79 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     return {
         title: t('metadata.title'),
         description: t('metadata.description'),
-        keywords: t('metadata.keywords'),
+        keywords: t('metadata.keywords').split(',').map(keyword => keyword.trim()),
         openGraph: {
             title: t('metadata.ogTitle'),
             description: t('metadata.ogDescription'),
-            images: [{ url: "/games/focus-reaction-test.png", width: 1200, height: 630 }],
+            images: [{ url: coverImage, width: 1200, height: 675, alt: t('title') }],
         },
-        alternates: generateAlternates(locale, 'games/focus-reaction-test'),
+        twitter: {
+            card: "summary_large_image",
+            title: t('metadata.ogTitle'),
+            description: t('metadata.ogDescription'),
+            images: [coverImage],
+        },
+        alternates: generateAlternates(locale, 'games/flanker-test'),
     };
 }
 
-export default function FocusReactionTestPage({ params }: { params: Promise<{ locale: string }> }) {
+export default function FlankerTestPage({ params }: { params: Promise<{ locale: string }> }) {
     const { locale } = use(params);
     setRequestLocale(locale);
     const t = useTranslations('games.focusReactionTest');
+
+    const faq = ["whatIsFlankerTask", "congruent", "flankerEffect", "online", "nihToolbox", "howToImprove"].map((key) => ({
+        question: t(`faq.${key}.question`),
+        answer: t(`faq.${key}.answer`),
+    }));
+
+    const structuredData = [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            "name": t('title'),
+            "description": t('metadata.description'),
+            "keywords": t('metadata.keywords').split(',').map(keyword => keyword.trim()),
+            "url": `${SITE_BASE_URL}${locale === "en" ? "" : `/${locale}`}/games/flanker-test`,
+            "image": `${SITE_BASE_URL}${coverImage}`,
+            "applicationCategory": "EducationalApplication",
+            "operatingSystem": "Web Browser",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+            },
+            "featureList": [
+                "Arrow version of the Eriksen flanker task",
+                "4 practice trials and 40 scored trials",
+                "Congruent, incongruent and neutral trials",
+                "Accuracy, average reaction time and flanker effect",
+                "Keyboard and touch controls"
+            ],
+            "educationalUse": "Selective Attention Training",
+            "learningResourceType": "Interactive Game",
+            "interactivityType": "active"
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faq.map((item) => ({
+                "@type": "Question",
+                "name": item.question,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.answer
+                }
+            }))
+        }
+    ];
 
     return (
         <GamePageTemplate
             gameId="focus-reaction-test"
             title={t('title')}
             subtitle={t('subtitle')}
+            description={t('intro')}
             gameComponent={<Game />}
             howToPlay={
                 <>
@@ -82,44 +138,10 @@ export default function FocusReactionTestPage({ params }: { params: Promise<{ lo
             science={{
                 title: t('science.title'),
                 description: t('science.description'),
-                blogArticleTitle: t('science.blogArticleTitle'),
-                authorityLinks: [
-                    {
-                        title: "Eriksen Flanker Task Research",
-                        url: "https://en.wikipedia.org/wiki/Flanker_task",
-                        description: t('science.authorityLinks.eriksenTask')
-                    },
-                    {
-                        title: "Selective Attention Studies",
-                        url: "https://en.wikipedia.org/wiki/Selective_attention",
-                        description: t('science.authorityLinks.selectiveAttention')
-                    },
-                    {
-                        title: "Executive Control Research",
-                        url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2770873/",
-                        description: t('science.authorityLinks.executiveControl')
-                    }
-                ]
             }}
-            faq={[
-                {
-                    question: t('faq.whatIsFlankerTask.question'),
-                    answer: t('faq.whatIsFlankerTask.answer'),
-                },
-                {
-                    question: t('faq.whyDifficult.question'),
-                    answer: t('faq.whyDifficult.answer'),
-                },
-                {
-                    question: t('faq.howToImprove.question'),
-                    answer: t('faq.howToImprove.answer'),
-                },
-                {
-                    question: t('faq.realWorldApplications.question'),
-                    answer: t('faq.realWorldApplications.answer'),
-                },
-            ]}
-            relatedGames={["reaction-time", "stroop-effect-test", "double-decision"]}
+            faq={faq}
+            relatedGames={["stroop-effect-test", "reaction-time", "double-decision"]}
+            structuredData={structuredData}
         />
     );
 }

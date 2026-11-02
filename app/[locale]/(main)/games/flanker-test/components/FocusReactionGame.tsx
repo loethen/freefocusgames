@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useCallback, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { toast } from "sonner";
@@ -8,53 +8,89 @@ import { RotateCcw, Play, ChevronLeft, ChevronRight, Minus, Share2 } from "lucid
 import { useTranslations } from 'next-intl';
 import { ShareModal } from '@/components/ui/ShareModal';
 import { motion } from "framer-motion";
-import { 
+import {
   GameState,
+  TrialPhase,
   Trial,
   GameResult,
+  Response,
   generateTrials,
+  generatePracticeTrials,
   calculateStats,
   GAME_CONFIG
 } from '../config';
 
+const BEST_SCORE_KEY = 'focusReactionBestScore';
+
 // Arrow component using consistent styling
 const ArrowIcon = ({ direction }: { direction: 'left' | 'right' | 'neutral' }) => {
   // All arrows use same color - no highlighting for target
-  const iconClass = `w-8 h-8 text-foreground`;
-  
+  const iconClass = 'w-12 h-12 sm:w-16 sm:h-16 text-foreground';
+
   if (direction === 'left') {
-    return <ChevronLeft className={iconClass} />;
+    return <ChevronLeft className={iconClass} strokeWidth={2.5} />;
   } else if (direction === 'right') {
-    return <ChevronRight className={iconClass} />;
+    return <ChevronRight className={iconClass} strokeWidth={2.5} />;
   } else {
-    return <Minus className={iconClass} />;
+    return <Minus className={iconClass} strokeWidth={2.5} />;
   }
 };
 
+// Event timestamps share the performance.now() clock in modern browsers;
+// fall back to the current time if a browser reports something else.
+function responseTime(timeStamp: number) {
+  const now = performance.now();
+  return timeStamp > 0 && timeStamp <= now ? timeStamp : now;
+}
+
+interface Session {
+  trials: Trial[];
+  index: number;
+  practice: boolean;
+  results: GameResult[];
+}
+
 export default function FocusReactionGame() {
   const t = useTranslations('games.focusReactionTest.gameUI');
-  
+
   // Game state
   const [gameState, setGameState] = useState<GameState>(GameState.START);
-  const [trials, setTrials] = useState<Trial[]>([]);
-  const [currentTrialIndex, setCurrentTrialIndex] = useState<number>(0);
+  const [phase, setPhase] = useState<TrialPhase>('fixation');
+  const [currentTrial, setCurrentTrial] = useState<Trial | null>(null);
+  const [trialNumber, setTrialNumber] = useState<number>(0);
+  const [isPractice, setIsPractice] = useState<boolean>(true);
   const [results, setResults] = useState<GameResult[]>([]);
   const [countdown, setCountdown] = useState<number>(GAME_CONFIG.COUNTDOWN_DURATION);
   const [bestScore, setBestScore] = useState<number | null>(null);
-  const [trialStartTime, setTrialStartTime] = useState<number | null>(null);
-  
-  const [feedbackResult, setFeedbackResult] = useState<{ correct: boolean; visible: boolean }>({ correct: false, visible: false });
-  const [isProcessingResponse, setIsProcessingResponse] = useState<boolean>(false);
+  const [feedback, setFeedback] = useState<{ correct: boolean; timedOut: boolean } | null>(null);
   const [showShareModal, setShowShareModal] = useState<boolean>(false);
-  
-  // Refs
+
+  // Refs: timers read these, so they never see stale state
+  const sessionRef = useRef<Session>({ trials: [], index: 0, practice: true, results: [] });
+  const stimulusOnsetRef = useRef<number | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const gameRef = useRef<HTMLDivElement>(null);
-  
+
+  const clearTimers = useCallback(() => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (countdownRef.current) clearInterval(countdownRef.current);
+    timeoutRef.current = null;
+    countdownRef.current = null;
+    stimulusOnsetRef.current = null;
+  }, []);
+
+  useEffect(() => clearTimers, [clearTimers]);
+
   // Load best score from localStorage
   useEffect(() => {
-    const savedBestScore = localStorage.getItem('focusReactionBestScore');
-    if (savedBestScore) {
-      setBestScore(parseInt(savedBestScore));
+    try {
+      const savedBestScore = localStorage.getItem(BEST_SCORE_KEY);
+      if (savedBestScore) {
+        setBestScore(parseInt(savedBestScore));
+      }
+    } catch {
+      // Storage unavailable (private mode, blocked cookies)
     }
   }, []);
 
@@ -65,173 +101,151 @@ export default function FocusReactionGame() {
     }
   }, [gameState]);
 
-  // Handle keyboard input
-  const handleKeyDown = useCallback((e: KeyboardEvent) => {
-    if (gameState !== GameState.PLAYING || isProcessingResponse || !trialStartTime) return;
-    
-    let response: 'left' | 'right' | null = null;
-    
-    if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
-      response = 'left';
-    } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
-      response = 'right';
+  const finishSession = useCallback(() => {
+    const session = sessionRef.current;
+    if (session.practice) {
+      setGameState(GameState.PRACTICE_DONE);
+      return;
     }
-    
-    if (response) {
-      e.preventDefault();
-      // Direct call to avoid circular dependency
-      if (!trialStartTime || !trials[currentTrialIndex] || isProcessingResponse) return;
-      
-      setIsProcessingResponse(true);
-      
-      const currentTrial = trials[currentTrialIndex];
-      const responseTime = Date.now() - trialStartTime;
-      const isCorrect = response === currentTrial.correctResponse;
-      
-      console.log('Keyboard - Trial:', currentTrial);
-      console.log('Keyboard - Response:', response, 'Correct:', currentTrial.correctResponse, 'IsCorrect:', isCorrect);
-      
-      const result: GameResult = {
-        trial: { ...currentTrial, response, responseTime, isCorrect },
-        reactionTime: responseTime,
-        accuracy: isCorrect
-      };
-      
-      const newResults = [...results, result];
-      setResults(newResults);
-      setTrialStartTime(null);
-      setFeedbackResult({ correct: isCorrect, visible: true });
-      
-      setTimeout(() => {
-        setFeedbackResult({ correct: false, visible: false });
-        setIsProcessingResponse(false);
-        
-        if (currentTrialIndex + 1 >= trials.length) {
-          const stats = calculateStats(newResults);
-          if (stats && stats.accuracy > (bestScore || 0)) {
-            setBestScore(stats.accuracy);
-            localStorage.setItem('focusReactionBestScore', stats.accuracy.toString());
-            toast.success(t('newBestScore'));
-          }
-          setGameState(GameState.RESULTS);
-        } else {
-          setCurrentTrialIndex(prev => prev + 1);
-          
-          setFeedbackResult({ correct: false, visible: false });
-          setTrialStartTime(Date.now());
-        }
-      }, GAME_CONFIG.FEEDBACK_DURATION);
-    }
-  }, [gameState, isProcessingResponse, trialStartTime, trials, currentTrialIndex, results, bestScore, t]);
 
-  // Add keyboard event listener
-  useEffect(() => {
-    if (gameState === GameState.PLAYING) {
-      window.addEventListener('keydown', handleKeyDown);
-      return () => window.removeEventListener('keydown', handleKeyDown);
+    const finalResults = [...session.results];
+    setResults(finalResults);
+    const stats = calculateStats(finalResults);
+    if (stats && stats.accuracy > (bestScore || 0)) {
+      setBestScore(stats.accuracy);
+      try {
+        localStorage.setItem(BEST_SCORE_KEY, stats.accuracy.toString());
+      } catch {
+        // Storage unavailable; keep the score for this visit only
+      }
+      toast.success(t('newBestScore'));
     }
-  }, [gameState, handleKeyDown]);
+    setGameState(GameState.RESULTS);
+  }, [bestScore, t]);
 
-  const startTrial = useCallback(() => {
-    setFeedbackResult({ correct: false, visible: false });
-    setTrialStartTime(Date.now());
+  const runTrial = useCallback((index: number) => {
+    const session = sessionRef.current;
+    session.index = index;
+    stimulusOnsetRef.current = null;
+    setCurrentTrial(session.trials[index]);
+    setTrialNumber(index + 1);
+    setFeedback(null);
+    setPhase('fixation');
+    timeoutRef.current = setTimeout(() => setPhase('stimulus'), GAME_CONFIG.FIXATION_DURATION);
   }, []);
 
-  const handleResponse = useCallback((response: 'left' | 'right') => {
-    if (!trialStartTime || !trials[currentTrialIndex] || isProcessingResponse) return;
-    
-    setIsProcessingResponse(true);
-    
-    const currentTrial = trials[currentTrialIndex];
-    const responseTime = Date.now() - trialStartTime;
-    const isCorrect = response === currentTrial.correctResponse;
-    
-    // Debug logging
-    console.log('Trial:', currentTrial);
-    console.log('Response:', response, 'Correct:', currentTrial.correctResponse, 'IsCorrect:', isCorrect);
-    
-    // Create result
-    const result: GameResult = {
-      trial: { ...currentTrial, response, responseTime, isCorrect },
-      reactionTime: responseTime,
-      accuracy: isCorrect
-    };
-    
-    const newResults = [...results, result];
-    setResults(newResults);
-    
-    // Clear trial state
-    setTrialStartTime(null);
-    
-    // Show feedback
-    setFeedbackResult({ correct: isCorrect, visible: true });
-    
-    setTimeout(() => {
-      setFeedbackResult({ correct: false, visible: false });
-      setIsProcessingResponse(false);
-      
-      if (currentTrialIndex + 1 >= trials.length) {
-        // Game finished
-        const stats = calculateStats(newResults);
-        if (stats && stats.accuracy > (bestScore || 0)) {
-          setBestScore(stats.accuracy);
-          localStorage.setItem('focusReactionBestScore', stats.accuracy.toString());
-          toast.success(t('newBestScore'));
-        }
-        setGameState(GameState.RESULTS);
+  // Ends the current trial with a response, or with null when time runs out
+  const finishTrial = useCallback((response: Response | null, time: number) => {
+    const onset = stimulusOnsetRef.current;
+    if (onset === null) return;
+    stimulusOnsetRef.current = null;
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+
+    const session = sessionRef.current;
+    const trial = session.trials[session.index];
+    const isCorrect = response === trial.correctResponse;
+
+    if (!session.practice) {
+      session.results.push({
+        trial,
+        response,
+        reactionTime: response ? Math.max(0, Math.round(time - onset)) : GAME_CONFIG.TRIAL_DURATION,
+        accuracy: isCorrect
+      });
+    }
+
+    setFeedback({ correct: isCorrect, timedOut: response === null });
+    setPhase('feedback');
+
+    timeoutRef.current = setTimeout(() => {
+      if (session.index + 1 < session.trials.length) {
+        runTrial(session.index + 1);
       } else {
-        // Next trial
-        setCurrentTrialIndex(prev => prev + 1);
-        startTrial();
+        finishSession();
       }
     }, GAME_CONFIG.FEEDBACK_DURATION);
-  }, [trials, currentTrialIndex, results, trialStartTime, isProcessingResponse, bestScore, t, startTrial]);
+  }, [runTrial, finishSession]);
 
+  // Start timing on the frame that shows the arrows, then arm the time limit
+  useLayoutEffect(() => {
+    if (gameState !== GameState.PLAYING || phase !== 'stimulus') return;
+    const frame = requestAnimationFrame(() => {
+      stimulusOnsetRef.current = performance.now();
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => finishTrial(null, performance.now()), GAME_CONFIG.TRIAL_DURATION);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [gameState, phase, currentTrial, finishTrial]);
 
-  const startGame = useCallback(() => {
-    const newTrials = generateTrials();
-    setTrials(newTrials);
-    setCurrentTrialIndex(0);
+  // Handle keyboard input
+  useEffect(() => {
+    if (gameState !== GameState.PLAYING) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      let response: Response | null = null;
+      if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') {
+        response = 'left';
+      } else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') {
+        response = 'right';
+      }
+      if (!response) return;
+      e.preventDefault();
+      if (e.repeat) return;
+      finishTrial(response, responseTime(e.timeStamp));
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [gameState, finishTrial]);
+
+  const startBlock = useCallback((practice: boolean) => {
+    clearTimers();
+    sessionRef.current = {
+      trials: practice ? generatePracticeTrials() : generateTrials(),
+      index: 0,
+      practice,
+      results: []
+    };
+    setIsPractice(practice);
     setResults([]);
+    setCurrentTrial(null);
+    setFeedback(null);
     setGameState(GameState.COUNTDOWN);
-    setFeedbackResult({ correct: false, visible: false });
-    
+
     // Countdown
     let count = GAME_CONFIG.COUNTDOWN_DURATION;
     setCountdown(count);
-    
-    const countdownInterval = setInterval(() => {
+
+    countdownRef.current = setInterval(() => {
       count -= 1;
       setCountdown(count);
-      
+
       if (count <= 0) {
-        clearInterval(countdownInterval);
+        if (countdownRef.current) clearInterval(countdownRef.current);
+        countdownRef.current = null;
         setGameState(GameState.PLAYING);
-        startTrial();
+        runTrial(0);
       }
     }, 1000);
-  }, [startTrial]);
+  }, [clearTimers, runTrial]);
 
   const shareScore = useCallback(() => {
     setShowShareModal(true);
   }, []);
 
   const resetGame = useCallback(() => {
+    clearTimers();
     setGameState(GameState.START);
-    setTrials([]);
-    setCurrentTrialIndex(0);
+    setCurrentTrial(null);
     setResults([]);
-    setTrialStartTime(null);
-    
-    setFeedbackResult({ correct: false, visible: false });
-    setIsProcessingResponse(false);
+    setFeedback(null);
     setCountdown(GAME_CONFIG.COUNTDOWN_DURATION);
-  }, []);
+  }, [clearTimers]);
 
-
-  const progress = trials.length > 0 ? ((currentTrialIndex + 1) / trials.length) * 100 : 0;
+  const totalTrials = sessionRef.current.trials.length;
+  const progress = totalTrials > 0 ? (trialNumber / totalTrials) * 100 : 0;
   const stats = calculateStats(results);
-  const currentTrial = trials[currentTrialIndex];
+  const canRespond = phase === 'stimulus';
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4 space-y-6">
@@ -239,44 +253,29 @@ export default function FocusReactionGame() {
         <div className="p-8">
           {/* START STATE */}
           {gameState === GameState.START && (
-            <div className="text-center space-y-6">
-              <div className="space-y-6">
-                <p className="text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed">
-                  {t('instructions')}
-                </p>
-                
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 rounded-xl p-6 space-y-4">
-                  <div className="text-center">
-                    <h3 className="text-lg font-semibold mb-4 text-blue-700 dark:text-blue-300">{t('rulesTitle')}</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{t('rulesDescription')}</p>
-                  </div>
-                  
-                  <div className="flex justify-center">
-                    <div className="text-center p-4 bg-white/60 dark:bg-gray-800/60 rounded-lg">
-                      <div className="flex items-center justify-center gap-1 mb-2">
-                        <ArrowIcon direction="right" />
-                        <ArrowIcon direction="right" />
-                        <ArrowIcon direction="left" />
-                        <ArrowIcon direction="right" />
-                        <ArrowIcon direction="right" />
-                      </div>
-                      <div className="text-xs text-muted-foreground">{t('exampleLeft')}</div>
-                    </div>
-                  </div>
+            <div className="flex flex-col items-center gap-8 py-6 text-center">
+              <div className="space-y-3">
+                <div className="flex items-center justify-center gap-1">
+                  <ArrowIcon direction="right" />
+                  <ArrowIcon direction="right" />
+                  <ArrowIcon direction="left" />
+                  <ArrowIcon direction="right" />
+                  <ArrowIcon direction="right" />
                 </div>
-                
+                <p className="text-sm text-muted-foreground">{t('exampleLeft')}</p>
+              </div>
+
+              <div className="flex flex-col items-center gap-3">
+                <Button onClick={() => startBlock(true)} size="lg" className="px-8">
+                  <Play className="w-5 h-5 mr-2" />
+                  {t('startGame')}
+                </Button>
                 {bestScore && (
-                  <div className="text-center p-3 bg-green-50 dark:bg-green-950/20 rounded-lg">
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      🏆 {t('bestScore')}: <span className="font-semibold">{bestScore}%</span>
-                    </div>
-                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    {t('bestScore')}: <span className="font-semibold text-foreground">{bestScore}%</span>
+                  </p>
                 )}
               </div>
-              <Button onClick={startGame} size="lg" className="px-8">
-                <Play className="w-5 h-5 mr-2" />
-                {t('startGame')}
-              </Button>
             </div>
           )}
 
@@ -300,65 +299,91 @@ export default function FocusReactionGame() {
             <div className="space-y-6 outline-none" ref={gameRef} tabIndex={0}>
               <div className="flex justify-between items-center">
                 <div className="text-sm text-muted-foreground">
-                  {t('trial')} {currentTrialIndex + 1} / {trials.length}
+                  {isPractice ? (
+                    <span className="rounded-full bg-amber-100 px-2 py-0.5 font-medium text-amber-800 dark:bg-amber-900/30 dark:text-amber-300">
+                      {t('practiceLabel')} {trialNumber} / {totalTrials}
+                    </span>
+                  ) : (
+                    <>{t('trial')} {trialNumber} / {totalTrials}</>
+                  )}
                 </div>
                 <Progress value={progress} className="w-48" />
               </div>
-              
+
               <div className="text-center py-16 relative">
                 {/* Feedback display above arrows */}
-                {feedbackResult.visible && (
+                {phase === 'feedback' && feedback && (
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-10"
+                    className="absolute -top-2 left-1/2 transform -translate-x-1/2 z-10"
                   >
                     <div className={`text-3xl font-bold ${
-                      feedbackResult.correct ? 'text-green-500' : 'text-red-500'
+                      feedback.correct ? 'text-green-500' : 'text-red-500'
                     }`}>
-                      {feedbackResult.correct ? '✓' : '✗'}
+                      {feedback.timedOut ? (
+                        <span className="text-xl">{t('tooSlow')}</span>
+                      ) : feedback.correct ? '✓' : '✗'}
                     </div>
                   </motion.div>
                 )}
-                
-                {currentTrial ? (
-                  <div className="flex items-center justify-center gap-2">
-                    {currentTrial.stimuli.map((direction, index) => (
-                      <ArrowIcon 
-                        key={`${currentTrial.id}-${index}`}
-                        direction={direction}
-                      />
-                    ))}
-                  </div>
-                ) : null}
-                
+
+                <div className="flex h-16 sm:h-20 items-center justify-center">
+                  {phase === 'fixation' ? (
+                    <span className="text-5xl font-light text-muted-foreground" aria-hidden="true">+</span>
+                  ) : currentTrial ? (
+                    <div className="flex items-center justify-center gap-0 sm:gap-1">
+                      {currentTrial.stimuli.map((direction, index) => (
+                        <ArrowIcon
+                          key={`${currentTrial.id}-${index}`}
+                          direction={direction}
+                        />
+                      ))}
+                    </div>
+                  ) : null}
+                </div>
+
                 <div className="mt-8 text-sm text-muted-foreground">
                   {t('focusOnCenter')}
                 </div>
               </div>
-              
+
               <div className="flex justify-center gap-4">
                 <Button
-                  onClick={() => handleResponse('left')}
+                  onPointerDown={(e) => finishTrial('left', responseTime(e.timeStamp))}
                   variant="outline"
                   size="lg"
-                  className="flex items-center gap-2"
-                  disabled={isProcessingResponse || !trialStartTime}
+                  className="flex items-center gap-2 touch-manipulation"
+                  disabled={!canRespond}
                 >
                   <ChevronLeft className="w-5 h-5" />
                   {t('left')}
                 </Button>
                 <Button
-                  onClick={() => handleResponse('right')}
+                  onPointerDown={(e) => finishTrial('right', responseTime(e.timeStamp))}
                   variant="outline"
                   size="lg"
-                  className="flex items-center gap-2"
-                  disabled={isProcessingResponse || !trialStartTime}
+                  className="flex items-center gap-2 touch-manipulation"
+                  disabled={!canRespond}
                 >
                   {t('right')}
                   <ChevronRight className="w-5 h-5" />
                 </Button>
               </div>
+            </div>
+          )}
+
+          {/* PRACTICE DONE STATE */}
+          {gameState === GameState.PRACTICE_DONE && (
+            <div className="text-center space-y-6">
+              <h2 className="text-2xl font-bold">{t('practiceDoneTitle')}</h2>
+              <p className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+                {t('practiceDoneDescription')}
+              </p>
+              <Button onClick={() => startBlock(false)} size="lg" className="px-8">
+                <Play className="w-5 h-5 mr-2" />
+                {t('startTest')}
+              </Button>
             </div>
           )}
 
@@ -440,6 +465,27 @@ export default function FocusReactionGame() {
                 </div>
               </div>
 
+              {/* Congruent vs incongruent breakdown */}
+              <div className="rounded-xl border border-border p-5">
+                <h3 className="mb-4 text-sm font-semibold text-muted-foreground">{t('breakdownTitle')}</h3>
+                <div className="space-y-3">
+                  {[
+                    { label: t('congruentLabel'), example: '→ → → → →', rt: stats.avgCongruentRT, accuracy: stats.congruentAccuracy },
+                    { label: t('incongruentLabel'), example: '← ← → ← ←', rt: stats.avgIncongruentRT, accuracy: stats.incongruentAccuracy },
+                  ].map((row) => (
+                    <div key={row.label} className="flex flex-wrap items-center justify-between gap-2">
+                      <div className="flex items-center gap-3">
+                        <span className="font-medium">{row.label}</span>
+                        <span className="font-mono text-sm text-muted-foreground">{row.example}</span>
+                      </div>
+                      <span className="text-sm tabular-nums">
+                        {t('breakdownValue', { rt: row.rt, accuracy: row.accuracy })}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
               {/* Action Buttons */}
               <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
                 <Button
@@ -451,8 +497,8 @@ export default function FocusReactionGame() {
                   <Share2 className="w-4 h-4" />
                   {t('share')}
                 </Button>
-                <Button 
-                  onClick={resetGame} 
+                <Button
+                  onClick={resetGame}
                   size="lg"
                   className="flex items-center gap-3 px-6 py-3"
                 >
@@ -464,7 +510,7 @@ export default function FocusReactionGame() {
           )}
         </div>
       </div>
-      
+
       <ShareModal
         isOpen={showShareModal}
         onClose={() => setShowShareModal(false)}

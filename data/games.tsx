@@ -315,10 +315,16 @@ export const games: Game[] = [
   },
   {
     id: "focus-reaction-test",
-    title: "Focus Reaction Test",
-    slug: "focus-reaction-test",
-    coverImage: "/games/focus-reaction-test.png",
-    preview: <ImagePreview src="/games/focus-reaction-test.png" />,
+    title: "Flanker Test",
+    slug: "flanker-test",
+    coverImage: "/games/flanker-test-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/flanker-test-cover.png"
+        alt="Flanker Test preview"
+        fit="cover"
+      />
+    ),
     categories: [
       "selective-attention",
       "reaction-time",

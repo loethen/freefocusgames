@@ -31,6 +31,8 @@ const legacyRedirects: Record<string, string> = {
     '/guides': '/benchmarks',
     // 2026-10-28: renamed to match what people search for; the leaderboard keeps the old game id.
     '/games/block-memory-challenge': '/games/sequence-memory-test',
+    // 2026-11-02: renamed to the searched term; the game id stays focus-reaction-test.
+    '/games/focus-reaction-test': '/games/flanker-test',
 };
 
 function getLegacyRedirect(pathname: string) {

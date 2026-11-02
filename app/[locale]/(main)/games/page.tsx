@@ -77,7 +77,7 @@ const CHOICE_GROUPS = [
             ["schulte-table", "schulte-table"],
             ["rotating-schulte-table", "rotating-schulte-table"],
             ["fish-trace", "fish-trace"],
-            ["focus-reaction-test", "focus-reaction-test"],
+            ["focus-reaction-test", "flanker-test"],
         ],
     },
     {

@@ -1426,22 +1426,22 @@
       }
     },
     "focusReactionTest": {
-      "title": "专注反应测试",
-      "subtitle": "训练你的选择性注意力和处理速度",
-      "description": "基于经典的埃里克森侧翼任务，这个测试衡量你专注于相关信息同时忽略干扰的能力。挑战你的选择性注意力和执行控制技能。",
+      "title": "Flanker 侧翼测试",
+      "subtitle": "免费在线 Eriksen 侧翼任务，测试选择性注意力",
+      "description": "基于经典 Eriksen 侧翼任务（Flanker Task）的免费在线测试：只判断中间箭头的方向，忽略两侧的干扰箭头，看看干扰会让你慢多少。",
       "metadata": {
-        "title": "侧翼注意力测试：选择性注意力与反应速度",
-        "description": "通过经典的埃里克森侧翼任务（Eriksen Flanker Task）来衡量您的认知控制和选择性注意力。在这款免费的心理学测试中，训练大脑过滤干扰并提高毫秒级的反应时间。",
-        "keywords": "在线侧翼任务, 选择性注意力测试, 认知控制游戏, 过滤干扰训练, 心理学反应时间测试, adhd冲动控制练习, 执行功能训练",
-        "ogTitle": "侧翼注意力测试：选择性注意力与反应速度",
-        "ogDescription": "通过经典的埃里克森侧翼任务（Eriksen Flanker Task）来衡量您的认知控制和选择性注意力。在这款免费的心理学测试中，训练大脑过滤干扰并提高毫秒级的反应时间。"
+        "title": "Flanker 侧翼测试在线版：免费 Eriksen 侧翼任务",
+        "description": "免费在线 Flanker 测试（Eriksen 侧翼任务）。在浏览器里完成约 3 分钟的箭头侧翼任务，查看准确率、反应时间和侧翼效应。",
+        "keywords": "flanker测试, flanker task, 侧翼任务, 在线侧翼任务, eriksen侧翼任务, 侧翼效应, 选择性注意力测试, 抑制控制测试, 一致与不一致试次",
+        "ogTitle": "Flanker 侧翼测试在线版：免费 Eriksen 侧翼任务",
+        "ogDescription": "免费在线 Flanker 测试（Eriksen 侧翼任务）。在浏览器里完成约 3 分钟的箭头侧翼任务，查看准确率、反应时间和侧翼效应。"
       },
       "howToPlay": {
-        "description": "在这个注意力训练测试中，你需要识别中心箭头的方向，同时忽略周围的干扰物。",
-        "step1": "观看屏幕上显示的箭头模式",
-        "step2": "只专注于中心箭头的方向",
-        "step3": "忽略周围的箭头（侧翼）- 它们可能指向不同方向",
-        "step4": "使用方向键或点击方向按钮快速准确地回应"
+        "description": "每次试次会显示一排五个箭头，只有中间那个箭头有意义。",
+        "step1": "先看屏幕中央的 +，箭头会出现在它的位置。",
+        "step2": "中间箭头朝左按 ← 或 A，朝右按 → 或 D；手机上点击“左”或“右”按钮。",
+        "step3": "忽略两侧的四个箭头。它们可能方向一致（一致试次）、方向相反（不一致试次），或者只是横线（中性试次）。",
+        "step4": "请在 2 秒内作答。前 4 次是练习，不计分。"
       },
       "benefits": {
         "selectiveAttention": {
@@ -1458,38 +1458,37 @@
         }
       },
       "science": {
-        "title": "选择性注意力和执行控制训练",
-        "description": "专注反应测试基于埃里克森侧翼任务，这是认知心理学中衡量选择性注意力和执行控制的成熟范式。研究表明，这项任务激活负责冲突监控和认知控制的前扣带回皮层和前额区域。定期练习可以强化这些神经网络，改善日常生活中的专注力、注意力持续时间和抗干扰能力。",
-        "blogArticleTitle": "侧翼任务背后的科学：训练选择性注意力和专注力",
-        "authorityLinks": {
-          "eriksenTask": "关于侧翼效应和选择性注意力机制的经典研究",
-          "selectiveAttention": "选择性注意力研究和应用的综合概述",
-          "executiveControl": "关于执行控制和认知灵活性的神经科学研究"
-        }
+        "title": "Eriksen 侧翼任务与选择性注意力",
+        "description": "侧翼任务由 Barbara Eriksen 和 Charles Eriksen 于 1974 年提出，用来研究目标附近的干扰物如何影响反应。最初的版本使用字母，如今最常见的是箭头版本。当两侧箭头方向相反时，人们反应更慢、错误更多，这种变慢的幅度称为侧翼效应，常用来衡量选择性注意力和抑制控制。NIH Toolbox 认知测评中也包含一个有年龄常模的侧翼测试。本页采用同样的箭头设计，用于练习和自我检测，不用于诊断。"
       },
       "faq": {
         "whatIsFlankerTask": {
-          "question": "什么是侧翼任务？",
-          "answer": "侧翼任务是一个衡量选择性注意力的认知心理学实验。参与者需要识别目标刺激（中心箭头）同时忽略无关的侧翼刺激。当侧翼与目标冲突时，会产生干扰来测试你的专注能力。"
+          "question": "什么是侧翼任务（Flanker Task）？",
+          "answer": "侧翼任务，也叫 Eriksen 侧翼任务，是一种选择性注意力测试。你要对中间的目标（这里是箭头）作出反应，同时忽略两侧的干扰刺激，也就是“侧翼”。比较侧翼与目标方向一致和冲突时的表现，可以看出你过滤干扰的能力。"
         },
-        "whyDifficult": {
-          "question": "为什么这个测试具有挑战性？",
-          "answer": "挑战来自认知干扰。当周围箭头指向与中心箭头相反的方向时，你的大脑必须克服自动处理所有视觉信息的倾向，仅专注于目标。"
+        "congruent": {
+          "question": "一致试次和不一致试次是什么意思？",
+          "answer": "一致试次中五个箭头方向相同（→ → → → →）；不一致试次中两侧箭头方向相反（← ← → ← ←）；中性试次两侧是横线（– – → – –）。不一致试次更慢、更容易出错，因为两侧箭头会先激活错误的反应，你需要把它压下去。"
+        },
+        "flankerEffect": {
+          "question": "侧翼效应多少算正常？",
+          "answer": "侧翼效应等于不一致试次的平均正确反应时间减去一致试次的平均正确反应时间。在箭头版本中，成年人通常在不一致试次上慢几十毫秒，但具体数值取决于测试设置，所以这里的评级只作粗略参考。每种试次只有 16 次，单次结果波动较大，甚至可能为零或负数；建议多做几次，看你的典型数值。"
+        },
+        "online": {
+          "question": "可以免费在线做侧翼任务吗？",
+          "answer": "可以。这个 Flanker 测试在电脑或手机浏览器中运行，免费且无需账号，完整一轮约 3 分钟。你的最佳准确率只保存在你自己的浏览器里。"
+        },
+        "nihToolbox": {
+          "question": "这是 NIH Toolbox 的 Flanker 抑制控制与注意力测试吗？",
+          "answer": "不是。NIH Toolbox Flanker Inhibitory Control and Attention Test 是标准化测评，需要在规定条件下施测，并按年龄常模计分。这个免费测试采用同样的箭头侧翼设计，用于练习和个人记录，分数不能与 NIH Toolbox 的分数比较，也不是临床或诊断工具。"
         },
         "howToImprove": {
           "question": "如何提高我的表现？",
-          "answer": "专注于中心位置并尝试缩小你的注意力。通过练习，你可以学会更有效地忽略侧翼。定期训练可以强化你的选择性注意力并减少干扰效应。"
-        },
-        "realWorldApplications": {
-          "question": "这如何应用于现实生活？",
-          "answer": "选择性注意力技能可以转移到许多情况：在嘈杂房间中专注于对话，在有干扰的情况下保持任务专注，在忽略无关刺激的情况下安全驾驶，以及在工作或学习中保持专注。"
+          "answer": "每次试次前把视线放在 + 上，让注意力提前落在中心位置。先求准确，再求速度。规律练习通常能让反应更稳定，但这项任务上的进步不一定会迁移到日常生活中的注意力。"
         }
       },
       "gameUI": {
-        "title": "专注反应测试",
-        "instructions": "专注于中心箭头方向。使用方向键（← →）或A/D键快速准确回应。",
-        "rulesTitle": "游戏规则",
-        "rulesDescription": "专注中间箭头的方向，忽略两侧干扰。",
+        "title": "Flanker 侧翼测试",
         "exampleLeft": "中间箭头指向左，因此选择左。",
         "startGame": "开始测试",
         "getReady": "准备就绪",
@@ -1497,13 +1496,11 @@
         "trial": "试验",
         "left": "左",
         "right": "右",
-        "keyboardHelp": "使用键盘：A/←表示左，D/→表示右",
         "gameComplete": "测试完成！",
         "resultsSubtitle": "以下是本次测试结果摘要。",
         "accuracy": "准确率",
         "avgReactionTime": "平均反应时间",
         "flankerEffect": "侧翼效应",
-        "totalTrials": "总试验数",
         "flankerEffectDescription": "侧翼效应衡量周围箭头的干扰程度。值越低表示选择性注意力越好。",
         "bestScore": "最佳分数",
         "newBestScore": "新最佳分数！",
@@ -1524,9 +1521,19 @@
         "interferenceHigh": "两侧箭头造成了较明显的干扰",
         "playAgain": "再玩一次",
         "share": "分享结果",
-        "shareTitle": "我的专注反应测试结果",
-        "shareText": "我在专注反应测试中获得了{accuracy}%的准确率，平均反应时间{avgRT}毫秒，侧翼效应{flankerEffect}毫秒！"
-      }
+        "shareTitle": "我的 Flanker 侧翼测试结果",
+        "shareText": "我在 Flanker 侧翼测试中获得了{accuracy}%的准确率，平均反应时间{avgRT}毫秒，侧翼效应{flankerEffect}毫秒！",
+        "practiceLabel": "练习",
+        "practiceDoneTitle": "练习完成",
+        "practiceDoneDescription": "接下来是计分测试，共 40 次。保持注视中心，在不猜的前提下尽快作答。",
+        "startTest": "开始正式测试",
+        "tooSlow": "太慢了",
+        "breakdownTitle": "一致与冲突箭头对比",
+        "congruentLabel": "一致",
+        "incongruentLabel": "不一致",
+        "breakdownValue": "{rt} 毫秒 · 正确率 {accuracy}%"
+      },
+      "intro": "免费在线做 Flanker 测试，无需注册。先做 4 次练习，再完成 40 次计时试次，最后得到准确率、平均反应时间和侧翼效应，也就是方向冲突的箭头比方向一致时多花了多少毫秒。"
     },
     "babyAnimalMatching": {
       "title": "宝宝动物配对游戏",

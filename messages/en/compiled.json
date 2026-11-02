@@ -1860,22 +1860,22 @@
       }
     },
     "focusReactionTest": {
-      "title": "Focus Reaction Test",
-      "subtitle": "Train Your Selective Attention and Processing Speed",
-      "description": "Based on the classic Eriksen Flanker Task, this test measures your ability to focus on relevant information while ignoring distractions. Challenge your selective attention and executive control skills.",
+      "title": "Flanker Test",
+      "subtitle": "Free online Eriksen flanker task for selective attention",
+      "description": "A free online flanker test based on the classic Eriksen flanker task. Respond to the center arrow, ignore the arrows around it, and see how much the distractors slow you down.",
       "metadata": {
-        "title": "Focus Reaction Test | Selective Attention Training",
-        "description": "Test your selective attention and processing speed with our Eriksen Flanker Task-based game. Improve focus by identifying target directions while ignoring distracting flankers.",
-        "keywords": "flanker task, selective attention test, focus training, eriksen flanker, attention training, executive control, processing speed, reaction time, cognitive flexibility, attention span, distraction management, brain training",
-        "ogTitle": "Focus Reaction Test - Train Your Selective Attention",
-        "ogDescription": "Challenge your selective attention with the classic flanker task. Identify target directions while ignoring distracting stimuli."
+        "title": "Flanker Test Online – Free Flanker Task",
+        "description": "Take a free flanker test online. Play the Eriksen flanker task in your browser and get your accuracy, reaction time and flanker effect in about 3 minutes.",
+        "keywords": "flanker test, flanker task, flanker test online, flanker task online, flanker task online free, eriksen flanker task, flanker effect, flanker inhibitory control and attention test, selective attention test, congruent and incongruent trials",
+        "ogTitle": "Flanker Test Online – Free Eriksen Flanker Task",
+        "ogDescription": "Take a free flanker test online. Play the Eriksen flanker task in your browser and get your accuracy, reaction time and flanker effect in about 3 minutes."
       },
       "howToPlay": {
-        "description": "In this attention training test, you'll identify the direction of the center arrow while ignoring the surrounding distractors.",
-        "step1": "Look at the arrow pattern displayed on screen",
-        "step2": "Focus ONLY on the CENTER arrow's direction",
-        "step3": "Ignore the surrounding arrows (flankers) - they may point in different directions",
-        "step4": "Respond quickly and accurately using arrow keys or clicking the direction buttons"
+        "description": "Each trial shows a row of five arrows. Only the arrow in the middle matters.",
+        "step1": "Look at the + in the center of the screen. The arrows appear right where it was.",
+        "step2": "Press ← or A if the center arrow points left, → or D if it points right. On a phone, tap the Left or Right button.",
+        "step3": "Ignore the four flanking arrows. They point the same way (congruent), the opposite way (incongruent), or are plain dashes (neutral).",
+        "step4": "Answer within 2 seconds. The first 4 trials are practice and are not scored."
       },
       "benefits": {
         "selectiveAttention": {
@@ -1892,38 +1892,37 @@
         }
       },
       "science": {
-        "title": "Selective Attention and Executive Control Training",
-        "description": "The Focus Reaction Test is based on the Eriksen Flanker Task, a well-established paradigm in cognitive psychology for measuring selective attention and executive control. Research shows this task activates the anterior cingulate cortex and prefrontal regions responsible for conflict monitoring and cognitive control. Regular practice strengthens these neural networks, improving focus, attention span, and resistance to distractions in daily life.",
-        "blogArticleTitle": "The Science Behind the Flanker Task: Training Selective Attention and Focus",
-        "authorityLinks": {
-          "eriksenTask": "Classic research on flanker effects and selective attention mechanisms",
-          "selectiveAttention": "Comprehensive overview of selective attention research and applications",
-          "executiveControl": "Neuroscience research on executive control and cognitive flexibility"
-        }
+        "title": "The Eriksen Flanker Task and Selective Attention",
+        "description": "The flanker task was introduced by Barbara and Charles Eriksen in 1974 to study how nearby distractors affect the response to a target. The original used letters; arrow versions are now the most common. People answer more slowly and make more errors when the flankers point the opposite way, and the size of this slowdown, the flanker effect, is used as a measure of selective attention and inhibitory control. An age-normed flanker test is also part of the NIH Toolbox cognition battery. This page uses the same arrow design for practice and self-checks, not for diagnosis."
       },
       "faq": {
         "whatIsFlankerTask": {
-          "question": "What is the Flanker Task?",
-          "answer": "The Flanker Task is a cognitive psychology experiment that measures selective attention. Participants identify a target stimulus (center arrow) while ignoring irrelevant flanking stimuli. When flankers conflict with the target, it creates interference that tests your ability to focus."
+          "question": "What is the flanker task?",
+          "answer": "The flanker task, or Eriksen flanker task, is a selective attention test. You respond to a central target, here an arrow, while ignoring the stimuli on either side of it, called flankers. Comparing trials where the flankers agree with the target and trials where they conflict shows how well you filter out distraction."
         },
-        "whyDifficult": {
-          "question": "Why is this test challenging?",
-          "answer": "The challenge comes from cognitive interference. When surrounding arrows point in the opposite direction of the center arrow, your brain must override the automatic tendency to process all visual information and focus solely on the target."
+        "congruent": {
+          "question": "What are congruent and incongruent trials?",
+          "answer": "In a congruent trial all five arrows point the same way (→ → → → →). In an incongruent trial the flankers point the opposite way (← ← → ← ←). Neutral trials use dashes as flankers (– – → – –). Incongruent trials are slower and more error-prone because the flankers prime the wrong response, which you have to hold back."
+        },
+        "flankerEffect": {
+          "question": "What is a normal flanker effect?",
+          "answer": "The flanker effect is your average reaction time on correct incongruent trials minus your average on correct congruent trials. In arrow versions of the task, adults are usually a few tens of milliseconds slower on incongruent trials, but the exact value depends on the setup, so treat the rating here as a rough guide. With 16 trials of each type a single run is noisy and can even come out at zero or below; take the test a few times and look at your typical value."
+        },
+        "online": {
+          "question": "Can I take the flanker task online for free?",
+          "answer": "Yes. This flanker test runs in your browser on a computer or phone, is free and needs no account. A full run takes about 3 minutes. Your best accuracy is stored only in your browser."
+        },
+        "nihToolbox": {
+          "question": "Is this the NIH Toolbox Flanker Inhibitory Control and Attention Test?",
+          "answer": "No. The NIH Toolbox Flanker Inhibitory Control and Attention Test is a standardized assessment, given under set conditions and scored against age norms. This free test uses the same arrow-flanker idea for practice and personal tracking. Its scores are not comparable with NIH Toolbox scores and it is not a clinical or diagnostic tool."
         },
         "howToImprove": {
           "question": "How can I improve my performance?",
-          "answer": "Focus on the center position and try to narrow your attention. With practice, you can learn to ignore the flankers more effectively. Regular training strengthens your selective attention and reduces interference effects."
-        },
-        "realWorldApplications": {
-          "question": "How does this apply to real life?",
-          "answer": "Selective attention skills transfer to many situations: focusing on a conversation in a noisy room, staying on task with distractions around, driving safely while ignoring irrelevant stimuli, and maintaining concentration during work or study."
+          "answer": "Keep your eyes on the + before each trial so your attention is already on the center. Aim for accuracy first, then speed. Regular practice usually makes your responses more consistent, though gains on this task do not necessarily carry over to attention in daily life."
         }
       },
       "gameUI": {
-        "title": "Focus Reaction Test",
-        "instructions": "Focus on the CENTER arrow direction. Use arrow keys (← →) or A/D keys to respond quickly and accurately.",
-        "rulesTitle": "How it works",
-        "rulesDescription": "Focus on the center arrow and ignore the arrows on either side.",
+        "title": "Flanker Test",
         "exampleLeft": "The center arrow points left, so choose Left.",
         "startGame": "Start Test",
         "getReady": "Get Ready",
@@ -1931,13 +1930,11 @@
         "trial": "Trial",
         "left": "Left",
         "right": "Right",
-        "keyboardHelp": "Use keyboard: A/← for left, D/→ for right",
         "gameComplete": "Test Complete!",
         "resultsSubtitle": "Here is a summary of your test results.",
         "accuracy": "Accuracy",
         "avgReactionTime": "Avg Reaction Time",
         "flankerEffect": "Flanker Effect",
-        "totalTrials": "Total Trials",
         "flankerEffectDescription": "Flanker effect measures the interference from surrounding arrows. Lower values indicate better selective attention.",
         "bestScore": "Best Score",
         "newBestScore": "New Best Score!",
@@ -1958,9 +1955,19 @@
         "interferenceHigh": "Surrounding arrows caused more interference",
         "playAgain": "Play Again",
         "share": "Share Results",
-        "shareTitle": "My Focus Reaction Test Results",
-        "shareText": "I scored {accuracy}% accuracy with {avgRT}ms average reaction time and {flankerEffect}ms flanker effect on the Focus Reaction Test!"
-      }
+        "shareTitle": "My Flanker Test Results",
+        "shareText": "I scored {accuracy}% accuracy with {avgRT}ms average reaction time and {flankerEffect}ms flanker effect on the Flanker Test!",
+        "practiceLabel": "Practice",
+        "practiceDoneTitle": "Practice complete",
+        "practiceDoneDescription": "The scored test starts now: 40 trials. Keep your eyes on the center and answer as fast as you can without guessing.",
+        "startTest": "Start the test",
+        "tooSlow": "Too slow",
+        "breakdownTitle": "Matching vs conflicting arrows",
+        "congruentLabel": "Congruent",
+        "incongruentLabel": "Incongruent",
+        "breakdownValue": "{rt} ms · {accuracy}% correct"
+      },
+      "intro": "Take the flanker test online for free, no sign-up. After 4 practice trials you get 40 timed trials, then your accuracy, average reaction time and flanker effect: how many extra milliseconds conflicting arrows cost you compared with matching ones."
     },
     "babyAnimalMatching": {
       "title": "Baby Animal Matching Game",
