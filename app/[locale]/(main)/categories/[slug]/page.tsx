@@ -11,6 +11,7 @@ import { generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import LinkClickTracker from "@/components/link-click-tracker";
 import { ArrowRight, Play } from "lucide-react";
+import Image from "next/image";
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -35,6 +36,23 @@ const PRIMARY_GAME_BY_CATEGORY: Record<string, string> = {
   "visual-tracking": "schulte-table",
   "double-decision-games": "double-decision",
   "memory-games": "memory-matching-game",
+};
+
+// Grid order for categories whose registry order buries the best match.
+// Games not listed here follow in registry order.
+const CATEGORY_GAME_ORDER: Record<string, string[]> = {
+  "reaction-time": [
+    "reaction-time",
+    "f1-reaction-test",
+    "challenge10Seconds",
+    "psychomotor-vigilance-test",
+    "double-decision",
+    "larger-number",
+    "focus-reaction-test",
+    "stroop-effect-test",
+    "cps-test",
+    "spacebar-clicker",
+  ],
 };
 
 type HubGroup = { id: string; games: string[] };
@@ -123,8 +141,15 @@ export default async function CategoryPage({ params }: Props) {
   const hub = HUBS[category.id];
   // Hubs list games in the same order as their type groups.
   const hubOrder = hub ? hub.types.flatMap((group) => group.games) : [];
+  const listOrder = CATEGORY_GAME_ORDER[category.id];
+  const rank = (id: string) => {
+    const index = listOrder.indexOf(id);
+    return index === -1 ? listOrder.length : index;
+  };
   const games = getGamesByCategory(category.id).sort((a, b) =>
-    hub ? hubOrder.indexOf(a.id) - hubOrder.indexOf(b.id) : 0
+    hub ? hubOrder.indexOf(a.id) - hubOrder.indexOf(b.id)
+      : listOrder ? rank(a.id) - rank(b.id)
+      : 0
   );
   const primaryGame = games.find((game) => game.id === PRIMARY_GAME_BY_CATEGORY[category.id]) ?? games[0];
 
@@ -217,10 +242,24 @@ export default async function CategoryPage({ params }: Props) {
             <Link
               href={`/games/${primaryGame.slug}`}
               data-link-location="category_primary_cta"
-              className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
+              className="group inline-flex items-center gap-4 rounded-2xl bg-primary p-2 pr-6 text-base font-semibold text-primary-foreground shadow-sm transition-colors hover:bg-primary/90"
             >
-              <Play className="h-5 w-5" fill="currentColor" aria-hidden="true" />
-              {t('playNow', { game: allT(`games.${gameTitleKey(primaryGame.id)}.title`) })}
+              {/* The game's cover at full 16:9, so it is clear the button opens that game */}
+              <span className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-xl bg-background">
+                {primaryGame.coverImage && (
+                  <Image
+                    src={primaryGame.coverImage}
+                    alt=""
+                    fill
+                    sizes="128px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                )}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <Play className="h-5 w-5" fill="currentColor" aria-hidden="true" />
+                {t('playNow', { game: allT(`games.${gameTitleKey(primaryGame.id)}.title`) })}
+              </span>
             </Link>
             <Link
               href="/get-started"

@@ -263,7 +263,7 @@ export const games: Game[] = [
         fit="cover"
       />
     ),
-    categories: ["selective-attention", "visual-tracking", "reaction-time", "adhd-games", "brain-games-for-kids"],
+    categories: ["selective-attention", "visual-tracking", "adhd-games", "brain-games-for-kids"],
   },
   {
     id: "rotating-schulte-table",
@@ -279,7 +279,7 @@ export const games: Game[] = [
         className="bg-white"
       />
     ),
-    categories: ["selective-attention", "visual-tracking", "reaction-time", "sustained-attention"],
+    categories: ["selective-attention", "visual-tracking", "sustained-attention"],
   },
   {
     id: "reaction-time",
