@@ -114,7 +114,7 @@ export default function ReactionTimePage({ params }: { params: Promise<{ locale:
                 blogArticleUrl: '/blog/how-to-improve-reaction-time',
                 blogArticleTitle: t('science.blogArticleTitle'),
             }}
-            relatedGames={['challenge10Seconds', 'cps-test', 'spacebar-clicker']}
+            relatedGames={['psychomotor-vigilance-test', 'challenge10Seconds', 'cps-test', 'spacebar-clicker']}
             hasLeaderboard={true}
             leaderboardFormatterType="ms"
         />

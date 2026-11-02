@@ -2428,6 +2428,114 @@
         "title": "School Run Leaderboard",
         "description": "Ranked by the most rounds cleared in one run. Your best run is saved automatically when a game ends."
       }
+    },
+    "psychomotorVigilanceTest": {
+      "title": "Psychomotor Vigilance Test (PVT)",
+      "subtitle": "Free online alertness test: 3-minute PVT-B or 10-minute standard PVT",
+      "description": "Stop a red millisecond counter that starts at random moments. A 3- or 10-minute sustained attention test that counts your lapses and false starts.",
+      "intro": "Take the psychomotor vigilance test online for free, no sign-up. A red millisecond counter starts at random moments; stop it as fast as you can with Space or a tap. At the end you get your median reaction time, lapses, false starts and a chart of how your alertness held up during the test.",
+      "metadata": {
+        "title": "Psychomotor Vigilance Test Online – Free PVT",
+        "description": "Free psychomotor vigilance test (PVT) online. Take the 3-minute PVT-B or the 10-minute alertness test and get your reaction time, lapses and false starts.",
+        "keywords": "psychomotor vigilance test, psychomotor vigilance task, pvt test online, psychomotor vigilance test online free, psychomotor vigilance task online, pvt-b, alertness test, vigilance test online, sustained attention test online, fatigue test online",
+        "ogTitle": "Psychomotor Vigilance Test (PVT) Online – Free Alertness Test",
+        "ogDescription": "Take the 3-minute PVT-B or the 10-minute standard PVT in your browser and see your reaction time, lapses and false starts."
+      },
+      "howToPlay": {
+        "description": "The screen stays dark most of the time. Your only job is to react when the counter appears.",
+        "step1": "Choose 3 minutes (PVT-B) or 10 minutes (standard PVT), then press Start.",
+        "step2": "At random moments a red millisecond counter starts running in the middle of the board.",
+        "step3": "Stop it as fast as you can: press Space, or tap or click anywhere on the board. The counter freezes on your reaction time for a second.",
+        "step4": "Do not press before the counter appears. Early presses and responses under 100 ms count as false starts."
+      },
+      "benefits": {
+        "sustainedAttention": {
+          "title": "Sustained Attention",
+          "description": "See how well you keep responding quickly over minutes of nothing happening, the core of vigilance."
+        },
+        "alertness": {
+          "title": "Alertness Tracking",
+          "description": "Compare results after a short night, late in the day or after coffee to see how your alertness changes."
+        },
+        "reactionSpeed": {
+          "title": "Reaction Speed",
+          "description": "Get your median, fastest and slowest reaction times, not just one best click."
+        }
+      },
+      "science": {
+        "title": "Where the PVT comes from",
+        "description": "The psychomotor vigilance test was introduced by David Dinges and John Powell in 1985 as a simple way to measure sustained attention. It shows very little learning effect and reacts strongly to sleep loss, so it became one of the most widely used tests in sleep and fatigue research, including work for spaceflight. The standard version runs for 10 minutes with random gaps of 2 to 10 seconds and counts responses of 500 ms or slower as lapses. In 2011 Basner, Mollicone and Dinges validated a 3-minute version, the PVT-B, with gaps of 1 to 4 seconds and a 355 ms lapse threshold. This page offers both settings for personal tracking, not for diagnosis or fitness-for-duty decisions."
+      },
+      "faq": {
+        "whatIsPvt": {
+          "question": "What is the psychomotor vigilance test?",
+          "answer": "The psychomotor vigilance test (PVT) is a sustained attention test. A counter appears at unpredictable moments and you stop it as fast as possible. Because waiting is boring, your attention drifts, and the test measures how often and how much your responses slow down. Researchers use it to measure alertness and the effects of sleep loss."
+        },
+        "howLong": {
+          "question": "How long is the PVT: 3 or 10 minutes?",
+          "answer": "The standard PVT lasts 10 minutes and is the most sensitive version. The PVT-B lasts 3 minutes and was validated against the standard test in a sleep deprivation study; it uses shorter gaps and a lower lapse threshold to make up for its length. Choose 3 minutes for quick daily checks and 10 minutes when you want the most reliable result."
+        },
+        "lapses": {
+          "question": "What counts as a lapse, and how many is normal?",
+          "answer": "A lapse is a response at or above the threshold: 500 ms on the 10-minute test and 355 ms on the 3-minute test. Missed counters also count. In research, well-rested adults usually have only a few lapses, while sleep loss makes them rise sharply. Browser and screen delays add some milliseconds here, so compare results with your own earlier runs on the same device rather than with lab numbers."
+        },
+        "falseStart": {
+          "question": "What is a false start?",
+          "answer": "A false start is a press before the counter appears, or a response faster than 100 ms, which is too fast to be a real reaction. They often go up when you are tired or trying too hard to be fast. False starts are counted separately and do not add a reaction time."
+        },
+        "vsReactionTime": {
+          "question": "How is the PVT different from a reaction time test?",
+          "answer": "A regular reaction time test takes a few tries and looks at how fast you can be. The PVT runs for several minutes with long, random waits and looks at how consistently fast you stay. That is why lapses, the slowest 10% and response speed matter more on the PVT than your single fastest time."
+        },
+        "official": {
+          "question": "Is this an official PVT or a fatigue test?",
+          "answer": "No. It follows the published PVT settings, but it runs in a web browser without calibrated hardware and it is not a medical, fatigue or fitness-for-duty assessment. Use it to track your own alertness over time, ideally at the same time of day and on the same device."
+        }
+      },
+      "gameUI": {
+        "startTitle": "Ready for the vigilance test?",
+        "startHint": "When the red counter starts, stop it as fast as you can.",
+        "lengthLabel": "Test length",
+        "modes": {
+          "brief": {
+            "title": "3 minutes",
+            "note": "Brief PVT-B"
+          },
+          "standard": {
+            "title": "10 minutes",
+            "note": "Standard PVT"
+          }
+        },
+        "start": "Start test",
+        "keyboardHint": "Respond with",
+        "spaceKey": "Space",
+        "boardLabel": "Psychomotor vigilance test board. Press Space or tap when the counter starts.",
+        "timeLeft": "{time} left",
+        "stop": "Stop",
+        "noResponse": "Missed",
+        "falseStart": "Too early",
+        "falseStartHint": "Wait for the counter",
+        "results": {
+          "medianRT": "Median reaction time",
+          "responses": "{count} responses",
+          "lapses": "Lapses",
+          "lapsesHint": "Responses of {ms} ms or slower",
+          "falseStarts": "False starts",
+          "falseStartsHint": "Too early or under 100 ms",
+          "meanRT": "Mean reaction time",
+          "responseSpeed": "Response speed",
+          "responseSpeedHint": "Mean of 1/RT, per second",
+          "fastest10": "Fastest 10%",
+          "slowest10": "Slowest 10%",
+          "chartTitle": "Reaction time across the test",
+          "lapseLine": "Lapse",
+          "notEnough": "No responses were recorded. Try the test again."
+        },
+        "playAgain": "Test again",
+        "share": "Share results",
+        "shareTitle": "My PVT Results",
+        "shareText": "My psychomotor vigilance test: {median} ms median reaction time, {lapses} lapses and {falseStarts} false starts."
+      }
     }
   }
 }

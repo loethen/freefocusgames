@@ -295,6 +295,20 @@ export const games: Game[] = [
     ],
   },
   {
+    id: "psychomotor-vigilance-test",
+    title: "Psychomotor Vigilance Test",
+    slug: "psychomotor-vigilance-test",
+    coverImage: "/games/psychomotor-vigilance-test-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/psychomotor-vigilance-test-cover.png"
+        alt="Psychomotor Vigilance Test preview"
+        fit="cover"
+      />
+    ),
+    categories: ["sustained-attention", "reaction-time"],
+  },
+  {
     id: "stroop-effect-test",
     title: "Stroop Effect Test",
     slug: "stroop-effect-test",

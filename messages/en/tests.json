@@ -31,6 +31,16 @@
         "description": "Measure how quickly you respond to a visual signal, in milliseconds.",
         "meta": "5 rounds"
       },
+      "pvt": {
+        "title": "Psychomotor Vigilance Test",
+        "description": "Stop a red counter that starts at random moments and see your lapses and false starts.",
+        "meta": "3 or 10 min"
+      },
+      "flanker": {
+        "title": "Flanker Test",
+        "description": "Respond to the center arrow and see how much conflicting arrows slow you down.",
+        "meta": "40 trials"
+      },
       "childAdhd": {
         "title": "Children's ADHD Screening",
         "description": "A parent questionnaire based on the Vanderbilt ADHD Rating Scale for children aged 6–12.",

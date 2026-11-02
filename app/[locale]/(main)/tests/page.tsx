@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
 import LinkClickTracker from '@/components/link-click-tracker';
-import { ArrowRight, Baby, BriefcaseBusiness, Hash, ListChecks, Route, UserRound, Zap, type LucideIcon } from 'lucide-react';
+import { ArrowLeftRight, ArrowRight, Baby, BriefcaseBusiness, Hash, ListChecks, Route, Timer, UserRound, Zap, type LucideIcon } from 'lucide-react';
 import { use } from 'react';
 
 interface TestItem {
@@ -19,6 +19,8 @@ const COGNITIVE_TESTS: TestItem[] = [
   { id: 'digitSpan', href: '/games/digit-span-test', icon: Hash },
   { id: 'shortTermMemory', href: '/games/free-short-term-memory-test', icon: ListChecks },
   { id: 'reactionTime', href: '/games/reaction-time', icon: Zap },
+  { id: 'pvt', href: '/games/psychomotor-vigilance-test', icon: Timer },
+  { id: 'flanker', href: '/games/flanker-test', icon: ArrowLeftRight },
 ];
 
 const ADHD_TESTS: TestItem[] = [

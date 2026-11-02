@@ -31,6 +31,16 @@
         "description": "以毫秒测量你对视觉信号的反应速度。",
         "meta": "5 轮"
       },
+      "pvt": {
+        "title": "精神运动警觉测试（PVT）",
+        "description": "让随机出现的红色计数器尽快停下，查看走神和抢按次数。",
+        "meta": "3 或 10 分钟"
+      },
+      "flanker": {
+        "title": "Flanker 侧翼测试",
+        "description": "只判断中间箭头的方向，看看冲突箭头会让你慢多少。",
+        "meta": "40 次"
+      },
       "childAdhd": {
         "title": "儿童 ADHD 筛查",
         "description": "基于范德比尔特 ADHD 评定量表的家长问卷，适用于 6–12 岁儿童。",
