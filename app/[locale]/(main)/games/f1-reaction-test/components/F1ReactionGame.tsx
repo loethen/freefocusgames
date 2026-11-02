@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { Award, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { ShareModal } from '@/components/ui/ShareModal';
+import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
+import type { ProgressCardData } from '@/lib/progress-share';
 import { cn } from '@/lib/utils';
 import { submitScoreToLeaderboard } from '@/lib/leaderboard';
 import {
@@ -40,6 +41,8 @@ const scalePercent = (ms: number) =>
 
 export default function F1ReactionGame() {
   const t = useTranslations('games.f1ReactionTest.gameUI');
+  const pageT = useTranslations('games.f1ReactionTest');
+  const locale = useLocale();
 
   const [stage, setStage] = useState<Stage>('idle');
   const [lit, setLit] = useState(0);
@@ -49,7 +52,7 @@ export default function F1ReactionGame() {
   // Clean starts in a row since the last jump start, for the leaderboard set
   const [setTimes, setSetTimes] = useState<number[]>([]);
   const [submittedAverage, setSubmittedAverage] = useState<number | null>(null);
-  const [showShareModal, setShowShareModal] = useState(false);
+  const [shareCard, setShareCard] = useState<ProgressCardData | null>(null);
 
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const onsetRef = useRef<number | null>(null);
@@ -163,6 +166,44 @@ export default function F1ReactionGame() {
   }, [respond]);
 
   const average = history.length > 0 ? Math.round(history.reduce((a, b) => a + b, 0) / history.length) : null;
+
+  // Builds the share card from the latest start, best time and recent starts
+  const openShareCard = () => {
+    if (lastTime === null) return;
+    const seconds = (ms: number) => `${formatSeconds(ms)} s`;
+    setShareCard({
+      variant: 'score',
+      title: pageT('title'),
+      subtitle: t('shareCard.subtitle'),
+      primaryLabel: t('shareCard.reaction'),
+      primaryValue: seconds(lastTime),
+      trendText: t(`rating.${rateAgainstF1(lastTime)}`),
+      historyLabel: t('shareCard.recentStarts'),
+      // Oldest first, so the chart reads left to right
+      history: [...history].reverse(),
+      direction: 'lower',
+      metrics: [
+        { label: t('best'), value: best !== null ? seconds(best) : '-', highlight: true },
+        { label: t('average'), value: average !== null ? seconds(average) : '-' },
+        // Short form so it fits the metric box
+        { label: t('shareCard.f1Start'), value: `${F1_RANGE_MS.min / 1000}–${F1_RANGE_MS.max / 1000} s` },
+      ],
+      footer: t('shareCard.challenge'),
+      siteUrl: `freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/f1-reaction-test`,
+      coverImage: '/games/f1-reaction-test-cover.png',
+      description: t('shareCard.description'),
+      // Night grid palette from the cover: near-black with start-light red
+      theme: {
+        backgroundFrom: '#1b1f27',
+        backgroundTo: '#050608',
+        accent: '#ff3b30',
+        panel: 'rgba(12, 14, 19, 0.86)',
+        text: '#f7f7f8',
+        mutedText: 'rgba(235, 236, 240, 0.68)',
+        glow: '#ff3b30',
+      },
+    });
+  };
 
   return (
     <>
@@ -285,7 +326,7 @@ export default function F1ReactionGame() {
                   type="button"
                   size="sm"
                   variant="outline"
-                  onClick={() => setShowShareModal(true)}
+                  onClick={openShareCard}
                   className="ml-1 h-7 gap-1.5 border-white/25 bg-transparent px-2.5 text-xs text-white hover:bg-white/10 hover:text-white"
                 >
                   <Share2 className="h-3.5 w-3.5" aria-hidden="true" />
@@ -297,11 +338,11 @@ export default function F1ReactionGame() {
         </div>
       </div>
 
-      <ShareModal
-        isOpen={showShareModal}
-        onClose={() => setShowShareModal(false)}
-        title={t('shareTitle')}
-        shareText={lastTime !== null ? t('shareText', { time: formatSeconds(lastTime) }) : ''}
+      <ProgressShareModal
+        isOpen={shareCard !== null}
+        onClose={() => setShareCard(null)}
+        card={shareCard}
+        fileName="f1-reaction-test.png"
       />
     </>
   );

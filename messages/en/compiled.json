@@ -3129,11 +3129,17 @@
         "best": "Best",
         "recent": "Recent",
         "average": "Average",
-        "share": "Share",
-        "shareTitle": "My F1 Reaction Test Result",
-        "shareText": "I reacted in {time} s at lights out on the F1 Reaction Test. Can you beat it?",
+        "share": "Share card",
         "leaderboardProgress": "Clean starts toward the leaderboard: {count}/{total}",
-        "leaderboardSubmitted": "Leaderboard: average of your last 5 starts, {time} s"
+        "leaderboardSubmitted": "Leaderboard: average of your last 5 starts, {time} s",
+        "shareCard": {
+          "subtitle": "Lights out reaction time",
+          "reaction": "Reaction at lights out",
+          "recentStarts": "Recent starts",
+          "f1Start": "F1 start",
+          "challenge": "Can you beat me at lights out?",
+          "description": "Five red lights, a random pause, then lights out. React as fast as you can."
+        }
       },
       "leaderboardIntro": "Ranked by the average of five clean starts in a row. A jump start begins a new set, so guessing the lights does not pay."
     },

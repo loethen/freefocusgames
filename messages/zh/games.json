@@ -2617,11 +2617,17 @@
         "best": "最佳",
         "recent": "最近",
         "average": "平均",
-        "share": "分享",
-        "shareTitle": "我的 F1 反应测试成绩",
-        "shareText": "我在 F1 反应测试中熄灯反应用时 {time} 秒，你能超过我吗？",
+        "share": "分享卡片",
         "leaderboardProgress": "连续有效起步：{count}/{total}，满 5 次计入排行榜",
-        "leaderboardSubmitted": "排行榜：最近 5 次起步平均 {time} 秒"
+        "leaderboardSubmitted": "排行榜：最近 5 次起步平均 {time} 秒",
+        "shareCard": {
+          "subtitle": "熄灯起步反应时间",
+          "reaction": "熄灯反应时间",
+          "recentStarts": "最近几次起步",
+          "f1Start": "F1 起步",
+          "challenge": "熄灯那一刻，你能比我快吗？",
+          "description": "五盏红灯依次亮起，随机停顿后熄灭，看你能多快反应。"
+        }
       },
       "leaderboardIntro": "按连续 5 次有效起步的平均成绩排名。一旦抢跑就要重新计数，所以猜灯不会带来好处。"
     }
