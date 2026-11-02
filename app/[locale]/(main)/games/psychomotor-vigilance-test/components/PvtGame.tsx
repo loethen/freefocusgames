@@ -327,6 +327,13 @@ export default function PvtGame() {
                   </p>
                 </div>
 
+                {/* Lots of early presses make the run unreliable */}
+                {stats.falseStarts > stats.responses / 2 && (
+                  <p className="w-full rounded-xl bg-amber-400/10 px-4 py-3 text-sm text-amber-200">
+                    {t('results.tooManyFalseStarts')}
+                  </p>
+                )}
+
                 <div className="grid w-full grid-cols-2 gap-2 sm:grid-cols-3">
                   {[
                     { label: t('results.lapses'), value: stats.lapses, hint: t('results.lapsesHint', { ms: PVT_MODES[modeRef.current].lapseMs }), highlight: true },
@@ -356,7 +363,12 @@ export default function PvtGame() {
                 />
               </>
             ) : (
-              <p className="text-white/70">{t('results.notEnough')}</p>
+              <div className="space-y-2">
+                <p className="text-white/70">{t('results.notEnough')}</p>
+                {falseStarts > 0 && (
+                  <p className="text-sm text-amber-200">{t('results.falseStartsOnly', { count: falseStarts })}</p>
+                )}
+              </div>
             )}
 
             <div className="flex w-full flex-col gap-2 sm:flex-row">

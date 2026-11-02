@@ -2529,12 +2529,100 @@
           "slowest10": "Slowest 10%",
           "chartTitle": "Reaction time across the test",
           "lapseLine": "Lapse",
-          "notEnough": "No responses were recorded. Try the test again."
+          "notEnough": "No responses were recorded. Try the test again.",
+          "falseStartsOnly": "{count} false starts were recorded. Wait for the red counter to appear before you press.",
+          "tooManyFalseStarts": "Many false starts in this run, so the result may not reflect your real alertness. Next time, wait for the counter before you press."
         },
         "playAgain": "Test again",
         "share": "Share results",
         "shareTitle": "My PVT Results",
         "shareText": "My psychomotor vigilance test: {median} ms median reaction time, {lapses} lapses and {falseStarts} false starts."
+      }
+    },
+    "f1ReactionTest": {
+      "title": "F1 Reaction Test",
+      "subtitle": "Lights out reaction time test: wait for five red lights, then react",
+      "description": "Watch five red start lights come on, then react the moment they go out. Your time is shown in seconds, like an F1 start.",
+      "intro": "Test your F1 reaction time for free. Five red lights come on one by one, then go out after a random pause. Tap or press Space the instant they go out; press too early and it is a jump start. Your time is shown in seconds and compared with the 0.2 to 0.3 seconds F1 teams quote for a race start.",
+      "metadata": {
+        "title": "F1 Reaction Test: Lights Out Reaction Time",
+        "description": "Free F1 reaction test. Wait for the five red start lights to go out, then react. See your time in seconds and compare it with an F1 driver's 0.2–0.3 s start.",
+        "keywords": "f1 reaction test, f1 reaction time test, f1 lights out reaction test, f1 start lights reaction test, f1 reaction test game, f1 driver reaction time, f1 lights reaction, lights out reaction test",
+        "ogTitle": "F1 Reaction Test – How Fast Are You at Lights Out?",
+        "ogDescription": "Wait for the five red start lights to go out, then react. See your time in seconds and compare it with an F1 driver's start."
+      },
+      "howToPlay": {
+        "description": "The test copies the start of a Grand Prix: five red lights, a pause you cannot predict, then lights out.",
+        "step1": "Tap the board or press Space to start. The five pairs of red lights come on one at a time, one second apart.",
+        "step2": "Keep still while all five are lit. They go out after a random pause of 0.2 to 3 seconds.",
+        "step3": "The moment the lights go out, tap or press Space. Your reaction time appears in seconds.",
+        "step4": "Pressing while the lights are on, or within 0.1 seconds of lights out, is a jump start and does not count."
+      },
+      "benefits": {
+        "reactionSpeed": {
+          "title": "Reaction Speed",
+          "description": "Measure how quickly you respond to a single visual signal, down to the millisecond."
+        },
+        "impulseControl": {
+          "title": "Impulse Control",
+          "description": "The random pause punishes guessing. Waiting for the real signal trains you not to jump early."
+        },
+        "consistency": {
+          "title": "Consistency",
+          "description": "Your last five attempts and their average show whether you are fast every time or only once."
+        }
+      },
+      "science": {
+        "title": "How fast do F1 drivers react?",
+        "description": "At a Grand Prix start, five pairs of red lights come on one at a time, about a second apart. After a pause the drivers cannot predict, they all go out and the race begins. McLaren puts a typical start reaction at 0.2 to 0.3 seconds from lights out. One of the most talked-about starts is Valtteri Bottas at the 2017 Austrian Grand Prix, reported at 0.201 seconds; rivals questioned it as a possible jump start, but the FIA's start system judged it legal. Drivers react to a signal they have practised thousands of times, in a car built for it. Your screen, browser and mouse or keyboard add delay of their own, so compare your times with your own earlier attempts rather than expecting to match a driver."
+      },
+      "faq": {
+        "howItWorks": {
+          "question": "How does the F1 reaction test work?",
+          "answer": "Start the test and five pairs of red lights come on one second apart, like an F1 start gantry. After a random pause they all go out. Your reaction time is the time from lights out to your tap or key press, shown in seconds with three decimals."
+        },
+        "goodTime": {
+          "question": "What is a good F1 reaction time?",
+          "answer": "F1 teams quote 0.2 to 0.3 seconds for a race start. Online, device delay adds to every result. For comparison, on our Reaction Time Test the median player's best five-round average is 0.369 seconds, and only about 10% of players average under 0.284 seconds. A time under 0.25 seconds here is very fast."
+        },
+        "jumpStart": {
+          "question": "What counts as a jump start?",
+          "answer": "Pressing while any light is still on is a jump start. So is a press within 0.1 seconds of lights out: that is faster than a person can react to a light, so it means you guessed. Jump starts show a message and do not count toward your times."
+        },
+        "randomPause": {
+          "question": "Why do the lights go out after a random pause?",
+          "answer": "If the lights always went out at the same moment, you could time your press instead of reacting. F1 does not announce the gap after the fifth light for the same reason. This test picks a random pause between 0.2 and 3 seconds every time."
+        },
+        "worldRecord": {
+          "question": "Is there a world record for the F1 reaction test?",
+          "answer": "There is no official record. Online leaderboards mix different screens, browsers and input devices, and very low times are often guesses. This test treats anything under 0.1 seconds as a jump start, so your best time reflects a real reaction."
+        },
+        "official": {
+          "question": "Is this an official F1 game?",
+          "answer": "No. It is an independent reaction time test inspired by the start of a Grand Prix. It is not affiliated with or endorsed by Formula 1, the FIA or any team."
+        }
+      },
+      "gameUI": {
+        "boardLabel": "F1 reaction test board. Tap or press Space to start, then again when the lights go out.",
+        "startTitle": "Tap to start",
+        "startHint": "Or press Space. React when all five lights go out.",
+        "waitForLightsOut": "Wait for lights out",
+        "jumpStart": "Jump start!",
+        "jumpStartHint": "Wait until all the lights go out. Tap to try again.",
+        "rating": {
+          "faster": "Faster than a typical F1 start",
+          "inRange": "Inside the typical F1 start range",
+          "close": "Just behind the F1 grid",
+          "slower": "Keep practising your launch"
+        },
+        "f1Range": "F1 start 0.2–0.3 s",
+        "again": "Tap or press Space to go again",
+        "best": "Best",
+        "recent": "Recent",
+        "average": "Average",
+        "share": "Share",
+        "shareTitle": "My F1 Reaction Test Result",
+        "shareText": "I reacted in {time} s at lights out on the F1 Reaction Test. Can you beat it?"
       }
     }
   }

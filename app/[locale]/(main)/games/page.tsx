@@ -37,6 +37,7 @@ const LIBRARY_ORDER = [
     "rotating-schulte-table",
     "reaction-time",
     "psychomotor-vigilance-test",
+    "f1-reaction-test",
     "memory-matching-game",
     "block-memory-challenge",
     "stroop-effect-test",

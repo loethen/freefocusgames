@@ -295,6 +295,20 @@ export const games: Game[] = [
     ],
   },
   {
+    id: "f1-reaction-test",
+    title: "F1 Reaction Test",
+    slug: "f1-reaction-test",
+    coverImage: "/games/f1-reaction-test-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/f1-reaction-test-cover.png"
+        alt="F1 Reaction Test preview"
+        fit="cover"
+      />
+    ),
+    categories: ["reaction-time"],
+  },
+  {
     id: "psychomotor-vigilance-test",
     title: "Psychomotor Vigilance Test",
     slug: "psychomotor-vigilance-test",
