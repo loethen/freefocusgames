@@ -5,11 +5,39 @@ import { setRequestLocale } from "next-intl/server";
 import CritiCallPractice from "@/components/career-tests/CritiCallPractice";
 import { CareerTestPageShell } from "@/components/career-tests/CareerTestPageShell";
 import { getCareerTestBySlug } from "@/data/career-tests";
+import { Link } from "@/i18n/navigation";
 import { SITE_BASE_URL } from "@/lib/site-constants";
 
 const SLUG = "criticall-practice-test";
 const PAGE_PATH = `/career-tests/${SLUG}`;
 const test = getCareerTestBySlug(SLUG)!;
+
+const RELATED_SKILL_PRACTICE = [
+  {
+    href: "/career-tests/911-dispatcher-typing-test",
+    title: "911 Dispatcher Typing Test",
+    skill: "Data entry",
+    description: "Build typing speed and accuracy on call-taking style text.",
+  },
+  {
+    href: "/games/dual-n-back",
+    title: "Dual N-Back",
+    skill: "Memory",
+    description: "Hold and update details you just heard and saw.",
+  },
+  {
+    href: "/games/schulte-table",
+    title: "Schulte Table",
+    skill: "Visual scanning",
+    description: "Find numbers quickly to sharpen character search and comparison.",
+  },
+  {
+    href: "/games/double-decision",
+    title: "Double Decision",
+    skill: "Multitasking",
+    description: "Split attention between a center target and the edge of the screen.",
+  },
+] as const;
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -130,6 +158,31 @@ export default async function CritiCallPracticePage({ params }: { params: Promis
               Scores help you compare your own practice attempts. They do not predict an official result because agencies choose different modules and passing standards.
             </p>
           </div>
+        </section>
+
+        <section className="mx-auto mt-16 max-w-5xl">
+          <h2 className="text-xl font-semibold">Practice the skills behind each section</h2>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            Short, free drills that target the same abilities dispatcher tests measure.
+          </p>
+          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+            {RELATED_SKILL_PRACTICE.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="block h-full rounded-xl border border-border/60 p-5 transition-colors hover:border-primary/60 hover:bg-muted/40"
+                >
+                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                    {item.skill}
+                  </span>
+                  <span className="mt-1 block font-semibold">{item.title}</span>
+                  <span className="mt-1 block text-sm leading-6 text-muted-foreground">
+                    {item.description}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
         </section>
       </CareerTestPageShell>
     </>
