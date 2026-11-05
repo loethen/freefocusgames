@@ -58,16 +58,12 @@
       "title": "Progress Card",
       "preparing": "Preparing your progress card...",
       "previewAlt": "Progress card preview",
-      "shareImage": "Share Image",
       "copyImage": "Copy Image",
-      "downloadImage": "Download PNG",
       "copied": "Image copied to clipboard.",
       "downloaded": "PNG downloaded.",
       "copyFailed": "Couldn't copy the image.",
       "createFailed": "Couldn't generate the progress card.",
       "retry": "Try Again",
-      "shareFailed": "Couldn't share the image.",
-      "note": "Image sharing works best on mobile and native share sheets. Download and post it anywhere if your browser blocks direct image sharing.",
       "button": "Share Progress Card",
       "fasterThanLast": "{value} faster than your last run",
       "slowerThanLast": "{value} slower than your last run",
@@ -79,7 +75,13 @@
       "sessionTime": "Session time",
       "correctResponses": "Correct responses",
       "standardMode": "Standard dual mode",
-      "customSession": "Custom session"
+      "customSession": "Custom session",
+      "copyLink": "Copy link",
+      "linkCopied": "Link copied.",
+      "download": "Download",
+      "close": "Close",
+      "shareText": "My {title} result: {value}. Can you beat it?",
+      "linkCopyFailed": "Couldn't copy the link."
     },
     "captionCat": {
       "label": "CaptionCat, a pixel cat for your YouTube captions: read about it on the About page"

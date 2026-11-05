@@ -3129,7 +3129,7 @@
           "close": "离 F1 发车区只差一点",
           "slower": "继续练习你的起步"
         },
-        "f1Range": "F1 起步 0.2–0.3 秒",
+        "f1Range": "F1 车手 0.2–0.3 秒",
         "again": "点击或按空格键再来一次",
         "best": "最佳",
         "recent": "最近",
@@ -3144,7 +3144,10 @@
           "f1Start": "F1 起步",
           "challenge": "熄灯那一刻，你能比我快吗？",
           "description": "五盏红灯依次亮起，随机停顿后熄灭，看你能多快反应。"
-        }
+        },
+        "soundOn": "打开音效",
+        "soundOff": "关闭音效",
+        "you": "你"
       },
       "leaderboardIntro": "按连续 5 次有效起步的平均成绩排名。一旦抢跑就要重新计数，所以猜灯不会带来好处。"
     },
@@ -4016,16 +4019,12 @@
       "title": "进步卡片",
       "preparing": "正在生成进步卡片...",
       "previewAlt": "进步卡片预览",
-      "shareImage": "分享图片",
       "copyImage": "复制图片",
-      "downloadImage": "下载 PNG",
       "copied": "图片已复制到剪贴板。",
       "downloaded": "PNG 已下载。",
       "copyFailed": "复制图片失败。",
       "createFailed": "生成进步卡片失败。",
       "retry": "再试一次",
-      "shareFailed": "分享图片失败。",
-      "note": "在手机和系统分享面板里体验最好。如果浏览器不支持直接分享图片，也可以先下载再发。",
       "button": "分享进步卡片",
       "fasterThanLast": "比上一次快 {value}",
       "slowerThanLast": "比上一次慢 {value}",
@@ -4037,7 +4036,13 @@
       "sessionTime": "本次用时",
       "correctResponses": "正确反应",
       "standardMode": "标准双模式",
-      "customSession": "自定义训练"
+      "customSession": "自定义训练",
+      "copyLink": "复制链接",
+      "linkCopied": "链接已复制。",
+      "download": "下载",
+      "close": "关闭",
+      "shareText": "我在{title}的成绩：{value}，你能超过我吗？",
+      "linkCopyFailed": "复制链接失败。"
     },
     "captionCat": {
       "label": "CaptionCat：住在 YouTube 字幕上的像素猫，在“关于”页面了解更多"
