@@ -1,10 +1,13 @@
+import { Keyboard } from "lucide-react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
 import CritiCallPractice from "@/components/career-tests/CritiCallPractice";
 import { CareerTestPageShell } from "@/components/career-tests/CareerTestPageShell";
 import { getCareerTestBySlug } from "@/data/career-tests";
+import { getGameBySlug } from "@/data/games";
 import { Link } from "@/i18n/navigation";
 import { SITE_BASE_URL } from "@/lib/site-constants";
 
@@ -37,7 +40,12 @@ const RELATED_SKILL_PRACTICE = [
     skill: "Multitasking",
     description: "Split attention between a center target and the edge of the screen.",
   },
-] as const;
+].map((item) => ({
+  ...item,
+  coverImage: item.href.startsWith("/games/")
+    ? getGameBySlug(item.href.slice("/games/".length))?.coverImage
+    : undefined,
+}));
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -170,14 +178,31 @@ export default async function CritiCallPracticePage({ params }: { params: Promis
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block h-full rounded-xl border border-border/60 p-5 transition-colors hover:border-primary/60 hover:bg-muted/40"
+                  className="group flex h-full gap-4 rounded-xl border border-border/60 p-4 transition-colors hover:border-primary/60 hover:bg-muted/40"
                 >
-                  <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                    {item.skill}
+                  <span className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-lg bg-muted sm:w-36">
+                    {item.coverImage ? (
+                      <Image
+                        src={item.coverImage}
+                        alt=""
+                        fill
+                        sizes="144px"
+                        className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
+                      />
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center text-muted-foreground">
+                        <Keyboard className="h-8 w-8" aria-hidden="true" />
+                      </span>
+                    )}
                   </span>
-                  <span className="mt-1 block font-semibold">{item.title}</span>
-                  <span className="mt-1 block text-sm leading-6 text-muted-foreground">
-                    {item.description}
+                  <span className="min-w-0">
+                    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                      {item.skill}
+                    </span>
+                    <span className="mt-1 block font-semibold">{item.title}</span>
+                    <span className="mt-1 block text-sm leading-6 text-muted-foreground">
+                      {item.description}
+                    </span>
                   </span>
                 </Link>
               </li>
