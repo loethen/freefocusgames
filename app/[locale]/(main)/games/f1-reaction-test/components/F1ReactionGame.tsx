@@ -2,7 +2,7 @@
 
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { Award, Share2 } from 'lucide-react';
+import { Award, Share2, Volume2, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
 import type { ProgressCardData } from '@/lib/progress-share';
@@ -19,12 +19,14 @@ import {
   formatSeconds,
   rateAgainstF1,
 } from '../config';
+import { F1Sound } from '../sound';
 
 // idle: waiting to start; sequence: lights coming on and holding;
 // go: lights out, timing; result: reaction shown; jump: pressed too early
 type Stage = 'idle' | 'sequence' | 'go' | 'result' | 'jump';
 
 const BEST_KEY = 'f1ReactionBest';
+const MUTED_KEY = 'f1ReactionMuted';
 
 // Event timestamps share the performance.now() clock in modern browsers;
 // fall back to the current time if a browser reports something else.
@@ -53,10 +55,21 @@ export default function F1ReactionGame() {
   const [setTimes, setSetTimes] = useState<number[]>([]);
   const [submittedAverage, setSubmittedAverage] = useState<number | null>(null);
   const [shareCard, setShareCard] = useState<ProgressCardData | null>(null);
+  // Sound starts off; players turn it on with the speaker button
+  const [muted, setMuted] = useState(true);
 
   const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const onsetRef = useRef<number | null>(null);
   const boardRef = useRef<HTMLDivElement>(null);
+  const soundRef = useRef<F1Sound | null>(null);
+
+  // Created on first use, so nothing touches Web Audio during server rendering
+  const sound = useCallback(() => {
+    if (!soundRef.current) soundRef.current = new F1Sound();
+    return soundRef.current;
+  }, []);
+
+  useEffect(() => () => soundRef.current?.dispose(), []);
 
   const clearTimers = useCallback(() => {
     timersRef.current.forEach(clearTimeout);
@@ -69,24 +82,46 @@ export default function F1ReactionGame() {
     try {
       const saved = parseInt(localStorage.getItem(BEST_KEY) ?? '', 10);
       if (saved >= MIN_REACTION_MS) setBest(saved);
+      if (localStorage.getItem(MUTED_KEY) === '0') {
+        setMuted(false);
+        sound().setMuted(false);
+      }
     } catch {
       // Storage unavailable (private mode, blocked cookies)
     }
-  }, []);
+  }, [sound]);
+
+  const toggleMuted = () => {
+    const next = !muted;
+    setMuted(next);
+    sound().setMuted(next);
+    try {
+      localStorage.setItem(MUTED_KEY, next ? '1' : '0');
+    } catch {
+      // Keep the setting for this visit only
+    }
+  };
 
   const startSequence = useCallback(() => {
     clearTimers();
     onsetRef.current = null;
     setLit(0);
     setStage('sequence');
+    // Unlock audio during the tap, and cut any roar left from the last start
+    sound().unlock();
+    sound().stopEngines(0.15);
     for (let i = 1; i <= LIGHT_COUNT; i++) {
-      timersRef.current.push(setTimeout(() => setLit(i), i * LIGHT_INTERVAL_MS));
+      timersRef.current.push(setTimeout(() => {
+        setLit(i);
+        sound().light(i);
+      }, i * LIGHT_INTERVAL_MS));
     }
     timersRef.current.push(setTimeout(() => {
       setLit(0);
+      // Lights out is silent, so the sound never cues the press
       setStage('go');
     }, LIGHT_COUNT * LIGHT_INTERVAL_MS + randomHold()));
-  }, [clearTimers]);
+  }, [clearTimers, sound]);
 
   const jumpStart = useCallback(() => {
     clearTimers();
@@ -94,11 +129,13 @@ export default function F1ReactionGame() {
     setSetTimes([]);
     setSubmittedAverage(null);
     setStage('jump');
-  }, [clearTimers]);
+    sound().jumpStart();
+  }, [clearTimers, sound]);
 
   const recordTime = useCallback((ms: number) => {
     onsetRef.current = null;
     setLastTime(ms);
+    sound().launch();
     setHistory(prev => [ms, ...prev].slice(0, HISTORY_SIZE));
     setStage('result');
 
@@ -118,7 +155,7 @@ export default function F1ReactionGame() {
         // Keep the best time for this visit only
       }
     }
-  }, [best, setTimes]);
+  }, [best, setTimes, sound]);
 
   const respond = useCallback((time: number) => {
     if (stage === 'idle' || stage === 'result' || stage === 'jump') {
@@ -164,6 +201,10 @@ export default function F1ReactionGame() {
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [respond]);
+
+  // Positions on the comparison bar, as percentages of its width
+  const rangeCenter = (scalePercent(F1_RANGE_MS.min) + scalePercent(F1_RANGE_MS.max)) / 2;
+  const dotPercent = lastTime !== null ? scalePercent(lastTime) : 0;
 
   const average = history.length > 0 ? Math.round(history.reduce((a, b) => a + b, 0) / history.length) : null;
 
@@ -218,6 +259,17 @@ export default function F1ReactionGame() {
         tabIndex={0}
         aria-label={t('boardLabel')}
       >
+        <button
+          type="button"
+          onClick={toggleMuted}
+          className="absolute left-4 top-4 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/80 transition-colors hover:bg-white/20 hover:text-white"
+          aria-label={muted ? t('soundOn') : t('soundOff')}
+          aria-pressed={!muted}
+          title={muted ? t('soundOn') : t('soundOff')}
+        >
+          {muted ? <VolumeX className="h-4 w-4" aria-hidden="true" /> : <Volume2 className="h-4 w-4" aria-hidden="true" />}
+        </button>
+
         {best !== null && (
           <p className="absolute right-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-sm text-white/80">
             <Award className="h-3.5 w-3.5" aria-hidden="true" />
@@ -273,22 +325,36 @@ export default function F1ReactionGame() {
                 </p>
                 <p className="mt-2 text-sm text-white/70">{t(`rating.${rateAgainstF1(lastTime)}`)}</p>
 
-                {/* Your time against the typical F1 start range */}
+                {/* Your time against the typical F1 start range: the red band is F1 drivers, the dot is you */}
                 <div className="mt-5 w-64 sm:w-80">
-                  <div className="relative h-2 rounded-full bg-white/10">
+                  <div className="relative h-4 text-[11px] text-red-300/90">
+                    <span
+                      className="absolute bottom-0 -translate-x-1/2 whitespace-nowrap"
+                      style={{ left: `${rangeCenter}%` }}
+                    >
+                      {t('f1Range')}
+                    </span>
+                  </div>
+                  <div className="relative mt-1.5 h-2 rounded-full bg-white/10">
                     <span
                       className="absolute inset-y-0 rounded-full bg-red-500/50"
                       style={{ left: `${scalePercent(F1_RANGE_MS.min)}%`, width: `${scalePercent(F1_RANGE_MS.max) - scalePercent(F1_RANGE_MS.min)}%` }}
                     />
                     <span
                       className="absolute top-1/2 h-4 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-gray-950 bg-white"
-                      style={{ left: `${scalePercent(lastTime)}%` }}
+                      style={{ left: `${dotPercent}%` }}
                     />
                   </div>
-                  <div className="mt-1.5 flex justify-between text-[11px] text-white/45">
-                    <span>0.1 s</span>
-                    <span className="text-red-300/80">{t('f1Range')}</span>
-                    <span>0.6 s</span>
+                  <div className="relative mt-2 h-4 text-[11px] text-white/45">
+                    {/* Scale ends, hidden when the "You" label would sit on top of them */}
+                    {dotPercent > 16 && <span className="absolute left-0 top-0">0.1 s</span>}
+                    {dotPercent < 84 && <span className="absolute right-0 top-0">0.6 s</span>}
+                    <span
+                      className="absolute top-0 -translate-x-1/2 whitespace-nowrap font-semibold text-white"
+                      style={{ left: `${dotPercent}%` }}
+                    >
+                      {t('you')}
+                    </span>
                   </div>
                 </div>
 

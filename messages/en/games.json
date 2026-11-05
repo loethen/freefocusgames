@@ -2623,7 +2623,7 @@
           "close": "Just behind the F1 grid",
           "slower": "Keep practising your launch"
         },
-        "f1Range": "F1 start 0.2–0.3 s",
+        "f1Range": "F1 drivers 0.2–0.3 s",
         "again": "Tap or press Space to go again",
         "best": "Best",
         "recent": "Recent",
@@ -2638,7 +2638,10 @@
           "f1Start": "F1 start",
           "challenge": "Can you beat me at lights out?",
           "description": "Five red lights, a random pause, then lights out. React as fast as you can."
-        }
+        },
+        "soundOn": "Turn sound on",
+        "soundOff": "Turn sound off",
+        "you": "You"
       },
       "leaderboardIntro": "Ranked by the average of five clean starts in a row. A jump start begins a new set, so guessing the lights does not pay."
     }
