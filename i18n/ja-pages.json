@@ -126,13 +126,12 @@
     ],
     "games/flanker-test": [
       "games.focusReactionTest"
-    ]
-  },
-  "drafts": {
+    ],
     "get-started": [
       "getStarted"
     ]
   },
+  "drafts": {},
   "allowIdentical": [
     "games.cpsTest.faq.cpsMeaning.answer",
     "legal.privacy.thirdParty.cloudflare.title"
