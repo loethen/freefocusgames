@@ -82,13 +82,7 @@ export default function BlockMemoryPage({ params }: { params: Promise<{ locale: 
                 "price": "0",
                 "priceCurrency": "USD"
             },
-            "featureList": [
-                "Challenge mode starting with a 3-step sequence",
-                "Practice mode with adjustable starting sequence length",
-                "Forward and backward sequence recall inspired by the Corsi block-tapping test",
-                "Separate forward and backward leaderboards ranked by longest completed sequence",
-                "Visual working memory training"
-            ],
+            "featureList": t.raw('featureList'),
             "educationalUse": "Working Memory Training",
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"

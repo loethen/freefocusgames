@@ -93,7 +93,7 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
             "@type": "WebApplication",
             "name": t("schulteTable.title"),
             "description": t("schulteTable.metaDescription"),
-            "url": `${baseUrl}/games/schulte-table`,
+            "url": generateAlternates(locale, 'games/schulte-table').canonical,
             "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "EducationalApplication",
             "operatingSystem": "Web Browser",
@@ -102,12 +102,7 @@ export default function SchultePage({ params }: { params: Promise<{ locale: stri
                 "price": "0",
                 "priceCurrency": "USD"
             },
-            "featureList": [
-                "Timed 5x5 number-search task",
-                "Adjusted-time leaderboard with mistake penalties",
-                "Completion-time and mistake tracking",
-                "Personal baseline for repeated attempts"
-            ],
+            "featureList": t.raw('schulteTable.featureList'),
             "educationalUse": "Visual Search Practice",
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"

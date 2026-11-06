@@ -1,0 +1,63 @@
+{
+  "metadata": {
+    "title": "無料の脳トレゲーム｜集中力・記憶力・反射神経 | FreeFocusGames",
+    "description": "登録不要で遊べる無料の脳トレゲーム。反射神経テスト、連打測定、記憶力テストなどで、集中力や記憶力をブラウザで手軽にチェックできます。",
+    "keywords": "脳トレ 無料, 脳トレ ゲーム, 集中力 ゲーム, 記憶力 ゲーム, 反射神経 テスト, 頭を使うゲーム"
+  },
+  "buttons": {
+    "startPlaying": "無料でトレーニングを始める",
+    "viewAll": "すべて見る",
+    "start": "スタート"
+  },
+  "charts": {
+    "units": {
+      "ms": "ms",
+      "s": "秒",
+      "cps": "CPS",
+      "digits": "桁"
+    },
+    "players": "{count, number}人のプレイヤー",
+    "reactionDistribution": {
+      "title": "みんなの反応速度は？ 5回平均のベスト記録の分布",
+      "aria": "8,791人のプレイヤーの反応速度（5回平均のベスト記録）のヒストグラム。多くのプレイヤーは280〜440msに収まり、最も多いのは340〜359ms。中央値は369msです。",
+      "axis": "平均反応速度（ms）",
+      "caption": "2026年3月8日〜10月23日の8,791人。1人につきベスト記録1回のみを集計。棒の幅は20ms。800〜1,000msの218人は表示していません。",
+      "method": "データの集め方と除外条件"
+    }
+  },
+  "games": {
+    "template": {
+      "howToPlay": "遊び方",
+      "leaderboard": "ランキング",
+      "cognitiveBenefits": "このゲームで練習できること",
+      "scienceBehindGame": "ゲームの背景にある研究",
+      "readDetailedArticle": "詳しい記事を読む",
+      "authorityReferences": "参考文献",
+      "faq": "よくある質問",
+      "relatedGames": "関連するゲーム",
+      "moreMemoryGames": "ほかの無料記憶力ゲーム",
+      "trainingCategories": "トレーニングカテゴリー",
+      "share": "シェア"
+    },
+    "newBadge": "NEW"
+  },
+  "categories": {
+    "title": "カテゴリー",
+    "categoryNames": {
+      "working-memory": "ワーキングメモリ",
+      "visual-tracking": "視覚追跡",
+      "sustained-attention": "持続的注意",
+      "selective-attention": "選択的注意",
+      "divided-attention": "注意の分配",
+      "reaction-time": "反射神経",
+      "cognitive-flexibility": "認知的柔軟性",
+      "spatial-memory": "空間記憶",
+      "memory-games": "記憶力",
+      "adhd-games": "大人のADHD向けゲーム",
+      "brain-games-for-kids": "子ども向け集中力ゲーム",
+      "relaxation": "リラックス",
+      "personality-tests": "話題の性格診断",
+      "double-decision-games": "ダブルディシジョン"
+    }
+  }
+}

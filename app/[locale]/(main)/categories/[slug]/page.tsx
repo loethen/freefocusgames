@@ -12,7 +12,7 @@ import { Link } from "@/i18n/navigation";
 import LinkClickTracker from "@/components/link-click-tracker";
 import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
-import { isPathAvailable } from '@/lib/locale-availability';
+import { filterGamesForLocale, isPathAvailable } from '@/lib/locale-availability';
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -149,7 +149,8 @@ export default async function CategoryPage({ params }: Props) {
     const index = listOrder.indexOf(id);
     return index === -1 ? listOrder.length : index;
   };
-  const games = getGamesByCategory(category.id).sort((a, b) =>
+  // A partially translated locale (Japanese) lists only its own games.
+  const games = filterGamesForLocale(locale, getGamesByCategory(category.id)).sort((a, b) =>
     hub ? hubOrder.indexOf(a.id) - hubOrder.indexOf(b.id)
       : listOrder ? rank(a.id) - rank(b.id)
       : 0
@@ -192,7 +193,9 @@ export default async function CategoryPage({ params }: Props) {
       "@type": "BreadcrumbList",
       itemListElement: [
         { name: allT('common.home'), url: generateAlternates(locale).canonical },
-        { name: categoriesTitle, url: generateAlternates(locale, 'categories').canonical },
+        ...(isPathAvailable(locale, 'categories')
+          ? [{ name: categoriesTitle, url: generateAlternates(locale, 'categories').canonical }]
+          : []),
         { name: categoryName, url: pageUrl },
       ].map((item, index) => ({ "@type": "ListItem", position: index + 1, name: item.name, item: item.url })),
     },
@@ -206,7 +209,7 @@ export default async function CategoryPage({ params }: Props) {
         }))
       )
     : [];
-  const readingLinks = category.id === 'working-memory'
+  const readingLinks = (category.id === 'working-memory'
     ? [
         ...workingMemoryReads.filter((link) => link.label),
         { href: '/categories/memory-games', label: t('hubs.memory-games.backlink') },
@@ -216,7 +219,13 @@ export default async function CategoryPage({ params }: Props) {
           href: '/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed',
           label: allT('games.schulteTable.science.blogArticleTitle'),
         }]
-      : [];
+      : []).filter((link) => isPathAvailable(locale, link.href));
+  const hubGroups = (part: 'types' | 'audiences') => (hub?.[part] ?? [])
+    .map((group) => ({ ...group, games: group.games.filter((id) => {
+      const game = getGame(id);
+      return !!game && isPathAvailable(locale, `games/${game.slug}`);
+    }) }))
+    .filter((group) => group.games.length > 0);
 
   return (
     <LinkClickTracker fromPage={`categories/${category.slug}`} className="max-w-7xl mx-auto py-8">
@@ -264,14 +273,16 @@ export default async function CategoryPage({ params }: Props) {
                 {t('playNow', { game: allT(`games.${gameTitleKey(primaryGame.id)}.title`) })}
               </span>
             </Link>
-            <Link
-              href="/get-started"
-              data-link-location="category_game_picker"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
-            >
-              {t('notSure')}
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            {isPathAvailable(locale, 'get-started') && (
+              <Link
+                href="/get-started"
+                data-link-location="category_game_picker"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+              >
+                {t('notSure')}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            )}
           </div>
         )}
       </header>
@@ -295,7 +306,7 @@ export default async function CategoryPage({ params }: Props) {
                 {t(`hubs.${category.id}.${part}Title`)}
               </h2>
               <dl className="mt-6 divide-y divide-border border-y border-border">
-                {hub[part].map((group) => (
+                {hubGroups(part).map((group) => (
                   <div key={group.id} className="grid gap-2 py-5 sm:grid-cols-[12rem_1fr] sm:gap-6">
                     <dt className="font-semibold">{t(`hubs.${category.id}.${part}.${group.id}.title`)}</dt>
                     <dd className="space-y-2 text-sm leading-7 text-muted-foreground">
@@ -359,11 +370,13 @@ export default async function CategoryPage({ params }: Props) {
             ))}
           </ul>
         )}
-        <p>
-          <Link href="/categories" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
-            {t('backToAll')}
-          </Link>
-        </p>
+        {isPathAvailable(locale, 'categories') && (
+          <p>
+            <Link href="/categories" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
+              {t('backToAll')}
+            </Link>
+          </p>
+        )}
       </section>
     </LinkClickTracker>
   );

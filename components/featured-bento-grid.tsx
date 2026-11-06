@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { getGame, Game } from "@/data/games";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { filterGamesForLocale } from "@/lib/locale-availability";
 import { ArrowLeft, ArrowRight, TrendingUp, type LucideIcon } from "lucide-react";
 import GameCard from "@/components/game-card";
 import { cn } from "@/lib/utils";
@@ -30,6 +31,7 @@ const HALO_CARD = cn(
 
 export default function FeaturedBentoGrid() {
     const t = useTranslations("home");
+    const locale = useLocale();
 
     const railRef = useRef<HTMLUListElement>(null);
     const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -37,9 +39,9 @@ export default function FeaturedBentoGrid() {
     // "idle" renders cards as-is; "hidden" → "shown" plays a staggered entrance when the rail scrolls into view.
     const [entrance, setEntrance] = useState<'idle' | 'hidden' | 'shown'>('idle');
 
-    const popularGames = POPULAR_GAME_IDS
+    const popularGames = filterGamesForLocale(locale, POPULAR_GAME_IDS
         .map((id) => getGame(id))
-        .filter((game): game is Game => !!game);
+        .filter((game): game is Game => !!game));
 
     const updateScrollState = useCallback(() => {
         const rail = railRef.current;

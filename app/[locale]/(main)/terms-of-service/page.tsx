@@ -1,9 +1,11 @@
 import { Metadata } from 'next';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
-import { getTranslations } from 'next-intl/server';
+import { use } from 'react';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
-import { CONTENT_LAST_UPDATED_EN } from '@/lib/site-constants';
+import { CONTENT_LAST_UPDATED_DATE } from '@/lib/site-constants';
+import { getLocaleMeta } from '@/lib/locale-meta';
 import { pageLocaleParams } from '@/lib/locale-availability';
 
 export function generateStaticParams() {
@@ -23,8 +25,14 @@ export async function generateMetadata(
   };
 }
 
-export default function TermsOfServicePage() {
+export default function TermsOfServicePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = use(params);
+  // Without this the statically rendered body falls back to English.
+  setRequestLocale(locale);
   const t = useTranslations('legal.terms');
+  const lastUpdated = CONTENT_LAST_UPDATED_DATE.toLocaleDateString(getLocaleMeta(locale).intl, {
+    year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC',
+  });
   
   return (
     <div className="container max-w-4xl mx-auto py-8 px-4">
@@ -38,7 +46,7 @@ export default function TermsOfServicePage() {
         <h1 className="text-3xl font-bold mb-6">{t('title')}</h1>
         <div className="prose prose-gray dark:prose-invert max-w-none">
           <p className="text-lg text-muted-foreground mb-8">
-            <strong>{t('lastUpdated')}</strong> {CONTENT_LAST_UPDATED_EN}
+            <strong>{t('lastUpdated')}</strong> {lastUpdated}
           </p>
           
           <section className="mb-8">

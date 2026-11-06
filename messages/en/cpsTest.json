@@ -97,7 +97,14 @@
                 "proGamer": "Pro Gamer",
                 "modes": "Modes",
                 "types": "4 Types"
-            }
+            },
+            "featureList": [
+                "1 second CPS test mode",
+                "3 second CPS test mode",
+                "5 second CPS test mode",
+                "10 second click speed mode",
+                "5 second CPS leaderboard"
+            ]
         }
     }
 }

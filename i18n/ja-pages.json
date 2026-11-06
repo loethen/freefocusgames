@@ -1,11 +1,126 @@
 {
-  "_doc": "Japanese is rolled out page by page. A path is served under /ja/, listed in hreflang and the sitemap only when it is listed in `pages`. Paths have no locale prefix and no leading slash ('' is the home page). Each page lists the message key prefixes it renders; `shared` lists the prefixes every page renders (site chrome). `npm run check:i18n` requires every listed prefix to be fully translated before a build passes. `allowIdentical` lists message keys whose Japanese text may equal the English (brand names).",
+  "_doc": "Japanese is rolled out page by page. A path is served under /ja/, listed in hreflang and the sitemap only when it is listed in `pages`. Paths have no locale prefix and no leading slash ('' is the home page). Each page lists the message key prefixes it renders; `shared` lists the prefixes every page renders (site chrome). `drafts` holds translated pages that are not live yet; `npm run check:i18n -- --drafts` checks them too. Move a page from `drafts` to `pages` to publish it. `npm run check:i18n` requires every listed prefix to be fully translated before a build passes. `allowIdentical` lists message keys whose Japanese text may equal the English (brand names).",
   "shared": [
     "common",
     "metadata",
+    "buttons",
+    "charts",
     "games.template",
+    "games.newBadge",
+    "categories.title",
     "categories.categoryNames"
   ],
   "pages": {},
-  "allowIdentical": []
+  "drafts": {
+    "games/spacebar-clicker": [
+      "games.spacebarClicker"
+    ],
+    "games/reaction-time": [
+      "games.reactionTime"
+    ],
+    "games/cps-test": [
+      "games.cpsTest"
+    ],
+    "categories/reaction-time": [
+      "categories.categoryGamesHeading",
+      "categories.playNow",
+      "categories.gridTitle",
+      "categories.aboutTitle",
+      "categories.categoryDescriptions.reaction-time",
+      "categories.keywords.reaction-time",
+      "categories.categoryMetaTitle",
+      "categories.categoryMetaDescription",
+      "categories.categoryOgTitle",
+      "categories.categoryOgDescription",
+      "categories.categoryIntro"
+    ],
+    "": [
+      "home.title",
+      "home.subtitle",
+      "home.heroImageAlt",
+      "home.heroFeatures",
+      "home.ctaSecondary",
+      "home.popularGames",
+      "home.featuredGames",
+      "home.featuredPrev",
+      "home.featuredNext",
+      "home.latestGames",
+      "home.tryLuck",
+      "home.forFun",
+      "home.searchPaths",
+      "home.benefitsTitle",
+      "home.benefitsIntro",
+      "home.familyLifeTitle",
+      "home.familyLifeDesc",
+      "home.workPerformanceTitle",
+      "home.workPerformanceDesc",
+      "home.personalGrowthTitle",
+      "home.personalGrowthDesc",
+      "home.dailyPractice",
+      "home.benefitsConclusion",
+      "home.metaTitle",
+      "home.metaDescription",
+      "home.metaKeywords",
+      "home.ogTitle",
+      "home.ogDescription"
+    ],
+    "games": [
+      "games.title",
+      "games.breadcrumbHome",
+      "games.eyebrow",
+      "games.heading",
+      "games.description",
+      "games.categoryNav",
+      "games.library",
+      "games.chooseGame",
+      "games.metaTitle",
+      "games.metaDescription",
+      "games.metaKeywords",
+      "games.ogTitle",
+      "games.ogDescription"
+    ],
+    "categories/memory-games": [
+      "categories.categoryGamesHeading",
+      "categories.playNow",
+      "categories.gridTitle",
+      "categories.aboutTitle",
+      "categories.categoryDescriptions.memory-games",
+      "categories.keywords.memory-games",
+      "categories.hubs.memory-games"
+    ],
+    "games/sequence-memory-test": [
+      "games.blockMemoryChallenge"
+    ],
+    "games/memory-matching-game": [
+      "games.memoryMatchingGame"
+    ],
+    "games/stroop-effect-test": [
+      "games.stroopEffectTest"
+    ],
+    "games/dual-n-back": [
+      "games.dualNBack"
+    ],
+    "games/challenge-10-seconds": [
+      "games.challenge10Seconds"
+    ],
+    "games/schulte-table": [
+      "games.schulteTable"
+    ],
+    "games/f1-reaction-test": [
+      "games.f1ReactionTest"
+    ],
+    "about": [
+      "about"
+    ],
+    "privacy-policy": [
+      "legal.privacy"
+    ],
+    "terms-of-service": [
+      "legal.terms"
+    ]
+  },
+  "allowIdentical": [
+    "games.cpsTest.faq.cpsMeaning.answer",
+    "legal.privacy.thirdParty.cloudflare.title"
+  ]
 }

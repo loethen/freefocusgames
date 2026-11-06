@@ -11,8 +11,9 @@ import {
 import { cn } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import GameCard from '@/components/game-card';
-import { getGame } from '@/data/games';
-import { useTranslations } from 'next-intl';
+import { getGame, type Game } from '@/data/games';
+import { useLocale, useTranslations } from 'next-intl';
+import { isPathAvailable } from '@/lib/locale-availability';
 import { ExternalLink, BookOpen, ArrowRight } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
 import {
@@ -95,6 +96,11 @@ export function GamePageTemplate({
 }: GamePageTemplateProps) {
     const t = useTranslations('common');
     const gameT = useTranslations('games.template');
+    const locale = useLocale();
+    // Recommend only games that exist in this language (Japanese is rolled out page by page).
+    const relatedGameItems = (relatedGames ?? [])
+        .map((id) => getGame(id))
+        .filter((game): game is Game => !!game && isPathAvailable(locale, `games/${game.slug}`));
     const structuredDataItems = Array.isArray(structuredData)
         ? structuredData
         : structuredData
@@ -313,18 +319,15 @@ export function GamePageTemplate({
             )}
 
             {/* 相关游戏推荐 - 可选 */}
-            {relatedGames && relatedGames.length > 0 && (
+            {relatedGameItems.length > 0 && (
                 <section className="max-w-6xl mx-auto mb-16">
                     <h2 className="text-3xl font-bold mb-12 text-center">
                         {gameT("relatedGames")}
                     </h2>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-                        {relatedGames.map((gameId) => {
-                            const game = getGame(gameId);
-                            if (!game) return null;
-
-                            return <GameCard key={gameId} game={game} className="h-full" />;
-                        })}
+                        {relatedGameItems.map((game) => (
+                            <GameCard key={game.id} game={game} className="h-full" />
+                        ))}
                     </div>
                 </section>
             )}

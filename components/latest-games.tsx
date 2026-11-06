@@ -2,7 +2,8 @@
 
 import { Link } from "@/i18n/navigation";
 import { getLatestGames } from "@/data/games";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { filterGamesForLocale } from "@/lib/locale-availability";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import GameCard from "@/components/game-card";
@@ -10,7 +11,8 @@ import GameCard from "@/components/game-card";
 export default function LatestGames() {
     const t = useTranslations("home");
     const buttonsT = useTranslations("buttons");
-    const latestGames = getLatestGames(3);
+    const locale = useLocale();
+    const latestGames = filterGamesForLocale(locale, getLatestGames(3));
 
     if (latestGames.length === 0) return null;
 

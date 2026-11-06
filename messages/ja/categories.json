@@ -1,0 +1,110 @@
+{
+  "categories": {
+    "categoryMetaTitle": "{categoryName}ゲーム｜無料で{categoryName}を鍛えるゲーム集",
+    "categoryMetaDescription": "無料で遊べる{categoryName}ゲーム。{categoryDescription}",
+    "categoryOgTitle": "{categoryName}ゲーム｜無料のゲーム集",
+    "categoryOgDescription": "{categoryName}を測って練習できる無料のゲームを、ブラウザですぐに遊べます。",
+    "categoryGamesHeading": "{categoryName}ゲーム",
+    "categoryIntro": "このカテゴリーには、主に{categoryName}を使うゲームを集めています。すべてのゲームから探すより、目的をしぼって練習したいときに使ってください。",
+    "playNow": "{game}で遊ぶ",
+    "gridTitle": "{categoryName}ゲーム {count}件",
+    "aboutTitle": "{categoryName}ゲームについて",
+    "categoryDescriptions": {
+      "reaction-time": "反射神経テスト、F1反応速度テスト、連打測定など、ブラウザで無料で遊べる反射神経ゲームをまとめました。目や耳で受け取った合図への反応速度を測り、練習の成果を記録できます。",
+      "memory-games": "神経衰弱タイプのカード合わせ、順番を覚える記憶力テスト、デュアルNバックなど、無料の記憶力ゲームをまとめました。登録不要で、パソコンでもスマホでもブラウザですぐに遊べます。"
+    },
+    "keywords": {
+      "reaction-time": {
+        "reaction time training": "反射神経 トレーニング",
+        "reaction games": "反射神経 ゲーム",
+        "improve response speed": "反応速度 上げる",
+        "faster reflexes exercises": "反射神経 鍛える",
+        "reflex games": "反射神経 ゲーム 無料",
+        "quick reaction games": "反応速度 ゲーム",
+        "speed training cognitive": "反射神経 鍛える ゲーム",
+        "processing speed improvement": "処理速度 トレーニング",
+        "reflex training": "反射神経 練習",
+        "cognitive speed exercises": "反応速度 トレーニング",
+        "faster brain response": "反射神経 測定",
+        "neurological speed training": "反射神経 テスト"
+      },
+      "memory-games": {
+        "memory games": "記憶力 ゲーム",
+        "memory game": "記憶 ゲーム",
+        "free memory games": "記憶力 ゲーム 無料",
+        "memory games online": "記憶力 ゲーム オンライン",
+        "memory games for adults": "記憶力 トレーニング 大人",
+        "memory games for seniors": "記憶力 トレーニング 高齢者",
+        "memory games for kids": "記憶力 ゲーム 子ども",
+        "card matching game": "神経衰弱 オンライン",
+        "sequence memory game": "順番 記憶 ゲーム",
+        "brain games for memory": "記憶力 脳トレ"
+      }
+    },
+    "hubs": {
+      "memory-games": {
+        "metaTitle": "記憶力ゲーム｜無料の記憶力トレーニング",
+        "metaDescription": "神経衰弱タイプのカード合わせ、記憶力テスト、デュアルNバックなど、短期記憶やワーキングメモリを使う無料の記憶力ゲーム。登録不要でブラウザですぐに始められます。",
+        "intro": "ここにある記憶力ゲームは、カードをめくってペアを探すものから、順番を覚えて再現するものまで、使う記憶の種類がさまざまです。ワーキングメモリへの負荷が特に大きいゲームだけを見たい場合は、<wm>ワーキングメモリ</wm>のカテゴリー（英語）をご覧ください。",
+        "backlink": "記憶力ゲーム一覧：カード合わせ、順番記憶など",
+        "typesTitle": "記憶力ゲームの種類",
+        "types": {
+          "matching": {
+            "title": "カード合わせ（神経衰弱）",
+            "body": "定番の記憶力ゲームです。カードを2枚ずつめくり、見た絵柄を覚えてすべてのペアをそろえます。気軽に始めたい人に。"
+          },
+          "sequence": {
+            "title": "順番を覚える",
+            "body": "光ったブロックの順番を覚えて、同じ順に押していきます。正解するたびに1つずつ増えるので、自分の限界がすぐにわかります。"
+          },
+          "recall": {
+            "title": "数字や単語を思い出す",
+            "body": "数字の並びや身近な物のリストを覚えて、少し後に思い出します。昔ながらの短期記憶テストで使われる形式です。"
+          },
+          "nBack": {
+            "title": "Nバック",
+            "body": "いま表示された位置や音が、N回前と同じかどうかを答えます。ここでいちばん難しい形式で、ワーキングメモリの研究でもよく使われています。"
+          },
+          "spatial": {
+            "title": "空間記憶",
+            "body": "立体的に積まれた箱を思い浮かべ、見えない箱も含めてすべて数えます。速さよりパズルが好きな人に。"
+          }
+        },
+        "audiencesTitle": "大人・高齢者・子ども向けの記憶力ゲーム",
+        "audiences": {
+          "adults": {
+            "title": "大人向け",
+            "body": "休憩時間に遊べる短いラウンド。まずはカード合わせから始めて、手ごたえがほしくなったらデュアルNバックに挑戦しましょう。"
+          },
+          "seniors": {
+            "title": "高齢者向け",
+            "body": "まずはやさしい動物のカード合わせで肩慣らしを。短期記憶テストで、ふだんの記憶の状態を手軽に確かめられます。"
+          },
+          "kids": {
+            "title": "子ども向け",
+            "body": "親しみやすいキャラクター、かんたんなルール、すぐにわかる達成感。小さな子どもでも遊びやすいゲームです。"
+          }
+        },
+        "faqTitle": "記憶力ゲームのよくある質問",
+        "faq": {
+          "free": {
+            "q": "記憶力ゲームは無料？",
+            "a": "はい。すべてのゲームがブラウザで無料で遊べます。ダウンロードやアカウント登録は不要で、パソコン、タブレット、スマホに対応しています。"
+          },
+          "best": {
+            "q": "どのゲームから始めればいい？",
+            "a": "気軽に遊びたいならカード合わせゲーム、スコアに挑戦したいなら記憶力テストがおすすめです。デュアルNバックはいちばん難しいので、ほかのゲームに慣れてから試してみてください。"
+          },
+          "improve": {
+            "q": "記憶力ゲームで記憶力は良くなる？",
+            "a": "練習したゲームは確実に上達します。ただし、それが日常の記憶力にどれだけ役立つかについては研究結果が一様ではありません。治療ではなく、練習と楽しいチャレンジとして取り組んでください。"
+          },
+          "howOften": {
+            "q": "どのくらいの頻度で遊べばいい？",
+            "a": "週に数回、短い時間で十分です。疲れているときに長く続けるより、集中して10〜15分遊ぶほうが効果的です。"
+          }
+        }
+      }
+    }
+  }
+}

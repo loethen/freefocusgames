@@ -90,14 +90,7 @@ export default function Challenge10SecondsPage({ params }: { params: Promise<{ l
                 "price": "0",
                 "priceCurrency": "USD"
             },
-            "featureList": [
-                "10 second challenge online",
-                "Stop the timer at exactly 10 seconds",
-                "10 second timer challenge game",
-                "Hidden timer mode for stopwatch accuracy and time guessing",
-                "Closest to 10 seconds leaderboard",
-                "Keyboard and click controls"
-            ],
+            "featureList": t.raw('featureList'),
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"
         },

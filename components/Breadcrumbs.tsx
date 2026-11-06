@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { ChevronRight } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { isPathAvailable } from "@/lib/locale-availability";
 
 // 定义面包屑项的接口
 export interface BreadcrumbItem {
@@ -15,6 +16,7 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
     const t = useTranslations("common");
+    const locale = useLocale();
 
     return (
         <nav className={`text-sm mb-4 ${className}`} aria-label="Breadcrumb">
@@ -33,7 +35,8 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
                 {items.map((item, index) => (
                     <li key={index} className="flex items-center">
                         <ChevronRight className="h-4 w-4 mx-1" />
-                        {item.href ? (
+                        {/* A parent page missing in this language is shown as plain text. */}
+                        {item.href && isPathAvailable(locale, item.href) ? (
                             <Link
                                 href={item.href}
                                 className="hover:text-foreground transition-colors"

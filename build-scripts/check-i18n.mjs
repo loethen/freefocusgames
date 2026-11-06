@@ -3,6 +3,8 @@
 //
 //   node build-scripts/check-i18n.mjs                 check; exit 1 on any error
 //   node build-scripts/check-i18n.mjs --report        also print coverage per namespace
+//   node build-scripts/check-i18n.mjs --drafts        also check pages in `drafts` (translated, not live)
+//   node build-scripts/check-i18n.mjs --verbose       print every problem instead of the first 60
 //   node build-scripts/check-i18n.mjs --stamp games.reactionTime common
 //       record the current English text of every translated key under these
 //       prefixes as the source of its Japanese translation (run after translating
@@ -93,7 +95,10 @@ if (args[0] === '--stamp') {
 }
 
 const errors = [];
-const pages = Object.entries(registry.pages || {});
+const pages = Object.entries({ ...(registry.pages || {}), ...(args.includes('--drafts') ? registry.drafts || {} : {}) });
+for (const page of Object.keys(registry.pages || {})) {
+  if (registry.drafts && page in registry.drafts) errors.push(`ja-pages: "${page}" is in both pages and drafts`);
+}
 
 for (const [page, prefixes] of pages) {
   if (page !== page.replace(/^\/+|\/+$/g, '')) errors.push(`ja-pages: "${page}" must have no leading or trailing slash`);
@@ -116,7 +121,7 @@ for (const prefix of required) {
     if (value === undefined || value === '') { errors.push(`${key}: missing`); continue; }
     if (placeholders(source) !== placeholders(value)) errors.push(`${key}: placeholders differ (en {${placeholders(source)}} / ja {${placeholders(value)}})`);
     if (tags(source) !== tags(value)) errors.push(`${key}: rich-text tags differ`);
-    if (!allowIdentical.has(key) && typeof value === 'string' && (value === source ? /[a-z]{3,}/.test(value) : looksEnglish(value))) {
+    if (!allowIdentical.has(key) && typeof value === 'string' && (value === source ? /[a-z]{3,}/.test(value.replace(/\{[^}]*\}|<[^>]+>/g, ' ')) : looksEnglish(value))) {
       errors.push(`${key}: still English: ${JSON.stringify(value).slice(0, 80)}`);
     }
     if (!hashes[key]) errors.push(`${key}: not stamped (run --stamp after translating)`);
@@ -133,8 +138,10 @@ if (args.includes('--report')) {
 }
 
 if (errors.length) {
-  const shown = errors.slice(0, 60);
+  const shown = args.includes('--verbose') ? errors : errors.slice(0, 60);
   console.error(`Japanese i18n check failed: ${errors.length} problem(s)\n${shown.map(e => `  - ${e}`).join('\n')}${errors.length > shown.length ? `\n  … ${errors.length - shown.length} more` : ''}`);
-  process.exit(1);
+  // exitCode instead of exit(): a long report written to a pipe must flush first.
+  process.exitCode = 1;
+} else {
+  console.log(`Japanese i18n check passed: ${pages.length} page(s), ${checked} key(s) checked`);
 }
-console.log(`Japanese i18n check passed: ${pages.length} page(s), ${checked} key(s) checked`);

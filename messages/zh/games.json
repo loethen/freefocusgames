@@ -210,7 +210,13 @@
         "resumeGame": "继续游戏",
         "stop": "暂停",
         "leaderboardDescription": "排行榜按排位时间排序：完成时间再加上每次点错的惩罚时间。"
-      }
+      },
+      "featureList": [
+        "限时 5x5 数字搜索任务",
+        "计入失误惩罚的调整用时排行榜",
+        "记录完成用时与失误次数",
+        "建立多次练习的个人基线"
+      ]
     },
     "rotatingSchulteTable": {
       "title": "动态舒尔特表",
@@ -578,7 +584,14 @@
       "ogTitle": "免费 Dual N-Back 在线训练：工作记忆训练游戏",
       "ogDescription": "免费在线玩 Dual N-Back。先用 30 秒互动教程熟悉规则，再在浏览器里训练视觉与声音回忆，建立更稳定的工作记忆练习。",
       "digitSpanLink": "数字广度测试：正背与倒背数字回忆",
-      "digitSpanLinkSuffix": "提供与 N-Back 更新任务不同的序列回忆练习。"
+      "digitSpanLinkSuffix": "提供与 N-Back 更新任务不同的序列回忆练习。",
+      "featureList": [
+        "免费在线双重 N-Back",
+        "30 秒互动教程",
+        "可调节 N-Back 难度",
+        "视觉与听觉回忆训练",
+        "在浏览器中每天练习"
+      ]
     },
     "mahjongDualNBack": {
       "title": "麻将双重N-Back",
@@ -1189,7 +1202,8 @@
         "leaderboardDefaultOnly": "只有图形主题的 4×4 棋盘成绩会计入公开排行榜。",
         "shareResults": "分享结果",
         "shareTitle": "我的记忆配对成绩",
-        "shareText": "我完成了 {difficulty} {theme} 记忆配对棋盘，用了 {moves} 步，耗时 {time}。"
+        "shareText": "我完成了 {difficulty} {theme} 记忆配对棋盘，用了 {moves} 步，耗时 {time}。",
+        "loading": "正在加载记忆卡牌…"
       }
     },
     "largerNumber": {
@@ -1399,7 +1413,14 @@
         "backward": "倒序",
         "directionLabel": "回忆顺序",
         "repeatBackward": "倒序点击"
-      }
+      },
+      "featureList": [
+        "挑战模式从 3 步序列开始",
+        "练习模式可调整起始序列长度",
+        "受 Corsi 方块敲击测试启发的正序与倒序回忆",
+        "正序与倒序分开排行，按完成的最长序列排名",
+        "视觉工作记忆训练"
+      ]
     },
     "reactionTime": {
       "title": "反应时间测试",
@@ -2645,7 +2666,14 @@
         "soundOff": "关闭音效",
         "you": "你"
       },
-      "leaderboardIntro": "按连续 5 次有效起步的平均成绩排名。一旦抢跑就要重新计数，所以猜灯不会带来好处。"
+      "leaderboardIntro": "按连续 5 次有效起步的平均成绩排名。一旦抢跑就要重新计数，所以猜灯不会带来好处。",
+      "featureList": [
+        "五盏起步灯每隔一秒依次亮起",
+        "灭灯前随机等待 0.2–3 秒",
+        "抢跑检测，包括灭灯后 0.1 秒内的按键",
+        "以秒显示反应时间，并与 F1 起步的常见区间比较",
+        "个人最佳与最近五次成绩"
+      ]
     }
   }
 }

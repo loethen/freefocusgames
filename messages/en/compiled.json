@@ -122,7 +122,15 @@
           "good": "Good (<0.1s)",
           "normal": "Keep Trying"
         }
-      }
+      },
+      "featureList": [
+        "10 second challenge online",
+        "Stop the timer at exactly 10 seconds",
+        "10 second timer challenge game",
+        "Hidden timer mode for stopwatch accuracy and time guessing",
+        "Closest to 10 seconds leaderboard",
+        "Keyboard and click controls"
+      ]
     },
     "boxBreathing": {
       "title": "Box Breathing Exercise",
@@ -507,7 +515,14 @@
         "proGamer": "Pro Gamer",
         "modes": "Modes",
         "types": "4 Types"
-      }
+      },
+      "featureList": [
+        "1 second CPS test mode",
+        "3 second CPS test mode",
+        "5 second CPS test mode",
+        "10 second click speed mode",
+        "5 second CPS leaderboard"
+      ]
     },
     "title": "Games",
     "breadcrumbHome": "Home",
@@ -719,7 +734,13 @@
         "resumeGame": "Resume Game",
         "stop": "Pause",
         "leaderboardDescription": "The leaderboard ranks your adjusted time: completion time plus a small penalty for each mistake."
-      }
+      },
+      "featureList": [
+        "Timed 5x5 number-search task",
+        "Adjusted-time leaderboard with mistake penalties",
+        "Completion-time and mistake tracking",
+        "Personal baseline for repeated attempts"
+      ]
     },
     "rotatingSchulteTable": {
       "title": "Rotating Schulte Table",
@@ -1087,7 +1108,14 @@
       "ogTitle": "Free Dual N-Back Online: Working Memory Training Game",
       "ogDescription": "Play dual n-back online for free. Start with a 30-second interactive tutorial, train visual and audio recall, and build working memory with a beginner-friendly browser game.",
       "digitSpanLink": "Digit Span Test: forward and backward digit recall",
-      "digitSpanLinkSuffix": " offers sequence recall alongside the different N-Back updating task."
+      "digitSpanLinkSuffix": " offers sequence recall alongside the different N-Back updating task.",
+      "featureList": [
+        "Free dual n-back online gameplay",
+        "30-second interactive tutorial",
+        "Adjustable N-back difficulty",
+        "Visual and audio recall training",
+        "Browser-based daily practice"
+      ]
     },
     "mahjongDualNBack": {
       "title": "Mahjong Dual N-Back",
@@ -1562,7 +1590,14 @@
         "backward": "Backward",
         "directionLabel": "Recall order",
         "repeatBackward": "Repeat in reverse"
-      }
+      },
+      "featureList": [
+        "Challenge mode starting with a 3-step sequence",
+        "Practice mode with adjustable starting sequence length",
+        "Forward and backward sequence recall inspired by the Corsi block-tapping test",
+        "Separate forward and backward leaderboards ranked by longest completed sequence",
+        "Visual working memory training"
+      ]
     },
     "reactionTime": {
       "title": "Reaction Time Test",
@@ -2136,7 +2171,8 @@
         "leaderboardDefaultOnly": "Only Shapes on the 4×4 board count toward the public leaderboard.",
         "shareResults": "Share Result",
         "shareTitle": "My Memory Matching Result",
-        "shareText": "I cleared the {difficulty} {theme} memory matching board in {moves} moves and {time}."
+        "shareText": "I cleared the {difficulty} {theme} memory matching board in {moves} moves and {time}.",
+        "loading": "Loading memory board..."
       }
     },
     "freeShortTermMemoryTest": {
@@ -3157,7 +3193,14 @@
         "soundOff": "Turn sound off",
         "you": "You"
       },
-      "leaderboardIntro": "Ranked by the average of five clean starts in a row. A jump start begins a new set, so guessing the lights does not pay."
+      "leaderboardIntro": "Ranked by the average of five clean starts in a row. A jump start begins a new set, so guessing the lights does not pay.",
+      "featureList": [
+        "Five start lights that come on one second apart",
+        "Random 0.2–3 second pause before lights out",
+        "Jump start detection, including presses within 0.1 s of lights out",
+        "Reaction time in seconds compared with the typical F1 start range",
+        "Personal best and last five attempts"
+      ]
     },
     "spacebarClicker": {
       "title": "Spacebar Clicker Test",
@@ -3261,7 +3304,14 @@
           "localBest": "Best for Mode"
         },
         "noBestYet": "No best yet"
-      }
+      },
+      "featureList": [
+        "5 second spacebar speed test",
+        "10 second spacebar speed test",
+        "30 second spacebar endurance test",
+        "Keyboard and touch support",
+        "Local best score tracking"
+      ]
     }
   },
   "about": {
@@ -4072,6 +4122,12 @@
     },
     "captionCat": {
       "label": "CaptionCat, a pixel cat for your YouTube captions: read about it on the About page"
+    },
+    "shareModal": {
+      "title": "Share",
+      "copyLink": "Copy Link",
+      "copied": "Link copied to clipboard!",
+      "defaultText": "Check out this focus training game!"
     }
   },
   "getStarted": {

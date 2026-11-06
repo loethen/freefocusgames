@@ -1,7 +1,8 @@
 'use client';
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { filterGamesForLocale } from "@/lib/locale-availability";
 import { RefreshCw, Shuffle } from "lucide-react";
 
 import { games, getGame, getLatestGames, type Game } from "@/data/games";
@@ -24,12 +25,10 @@ const EXCLUDED_GAME_IDS = new Set([
     ...HOMEPAGE_POPULAR_GAME_IDS,
     ...getLatestGames(3).map((game) => game.id),
 ]);
-const TRY_YOUR_LUCK_GAME_IDS = games
-    .filter((game) => !EXCLUDED_GAME_IDS.has(game.id) && !game.categories.includes("relaxation"))
-    .map((game) => game.id);
+const TRY_YOUR_LUCK_GAMES = games
+    .filter((game) => !EXCLUDED_GAME_IDS.has(game.id) && !game.categories.includes("relaxation"));
 
 const PICKS_PER_REFRESH = 3;
-const INITIAL_GAME_IDS = TRY_YOUR_LUCK_GAME_IDS.slice(0, PICKS_PER_REFRESH);
 
 function shuffle<T>(items: readonly T[]): T[] {
     const shuffled = [...items];
@@ -42,18 +41,23 @@ function shuffle<T>(items: readonly T[]): T[] {
     return shuffled;
 }
 
-function pickNewGameIds(currentIds: readonly string[]): string[] {
-    const availableIds = TRY_YOUR_LUCK_GAME_IDS.filter((id) => !currentIds.includes(id));
+function pickNewGameIds(poolIds: readonly string[], currentIds: readonly string[]): string[] {
+    const availableIds = poolIds.filter((id) => !currentIds.includes(id));
     return shuffle(availableIds).slice(0, PICKS_PER_REFRESH);
 }
 
 export default function TryYourLuck() {
     const t = useTranslations("home");
-    const [gameIds, setGameIds] = useState<string[]>(INITIAL_GAME_IDS);
+    const locale = useLocale();
+    // Only games that exist in this language (Japanese is rolled out page by page).
+    const poolIds = filterGamesForLocale(locale, TRY_YOUR_LUCK_GAMES).map((game) => game.id);
+    const [gameIds, setGameIds] = useState<string[]>(() => poolIds.slice(0, PICKS_PER_REFRESH));
 
     const refreshGames = () => {
-        setGameIds((currentIds) => pickNewGameIds(currentIds));
+        setGameIds((currentIds) => pickNewGameIds(poolIds, currentIds));
     };
+
+    if (poolIds.length === 0) return null;
 
     const selectedGames = gameIds
         .map((id) => getGame(id))

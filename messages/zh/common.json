@@ -85,6 +85,12 @@
     },
     "captionCat": {
       "label": "CaptionCat：住在 YouTube 字幕上的像素猫，在“关于”页面了解更多"
+    },
+    "shareModal": {
+      "title": "分享",
+      "copyLink": "复制链接",
+      "copied": "链接已复制到剪贴板！",
+      "defaultText": "来试试这个专注力训练游戏！"
     }
   }
 }

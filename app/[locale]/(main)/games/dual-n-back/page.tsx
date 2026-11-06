@@ -138,13 +138,7 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
         price: '0',
         priceCurrency: 'USD',
       },
-      featureList: [
-        'Free dual n-back online gameplay',
-        '30-second interactive tutorial',
-        'Adjustable N-back difficulty',
-        'Visual and audio recall training',
-        'Browser-based daily practice'
-      ],
+      featureList: t.raw('featureList'),
       educationalUse: 'Working Memory Training',
       learningResourceType: 'Interactive Game',
       interactivityType: 'active',

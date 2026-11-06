@@ -65,13 +65,7 @@ export default function F1ReactionTestPage({ params }: { params: Promise<{ local
                 "price": "0",
                 "priceCurrency": "USD"
             },
-            "featureList": [
-                "Five start lights that come on one second apart",
-                "Random 0.2–3 second pause before lights out",
-                "Jump start detection, including presses within 0.1 s of lights out",
-                "Reaction time in seconds compared with the typical F1 start range",
-                "Personal best and last five attempts"
-            ],
+            "featureList": t.raw('featureList'),
             "educationalUse": "Reaction Time Training",
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"

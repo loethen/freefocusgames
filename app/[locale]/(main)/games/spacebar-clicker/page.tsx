@@ -78,7 +78,7 @@ export default function SpacebarClickerPage({ params }: { params: Promise<{ loca
             "@type": "WebApplication",
             "name": t('title'),
             "description": t('metadata.description'),
-            "url": `${baseUrl}/games/spacebar-clicker`,
+            "url": generateAlternates(locale, 'games/spacebar-clicker').canonical,
             "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "GameApplication",
             "operatingSystem": "Web Browser",
@@ -87,13 +87,7 @@ export default function SpacebarClickerPage({ params }: { params: Promise<{ loca
                 "price": "0",
                 "priceCurrency": "USD"
             },
-            "featureList": [
-                "5 second spacebar speed test",
-                "10 second spacebar speed test",
-                "30 second spacebar endurance test",
-                "Keyboard and touch support",
-                "Local best score tracking"
-            ],
+            "featureList": t.raw('featureList'),
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"
         },

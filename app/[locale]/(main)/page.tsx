@@ -26,7 +26,7 @@ import {
     Timer
 } from "lucide-react";
 import TrustpilotSection from "@/components/trustpilot-section";
-import { pageLocaleParams } from '@/lib/locale-availability';
+import { filterGamesForLocale, isFullLocale, isPathAvailable, pageLocaleParams } from '@/lib/locale-availability';
 
 export function generateStaticParams() {
   return pageLocaleParams('');
@@ -66,6 +66,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const t = await getTranslations({ locale });
     const testimonials = await getTranslations({ locale, namespace: 'home.testimonials' });
     const posts = await getBlogPosts(locale);
+    // Japanese is rolled out page by page: sections and links whose target has no
+    // Japanese version are left out, and so is copy written for the full site.
+    const has = (href: string) => isPathAvailable(locale, href);
+    const fullSite = isFullLocale(locale);
     const postsBySlug = new Map(posts.map((post) => [post.slug, post]));
     const featuredResources = [
         {
@@ -92,14 +96,14 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             description: postsBySlug.get("adult-adhd-asrs-comprehensive-guide")?.excerpt || "",
             cta: t("blog.readMore")
         }
-    ];
+    ].filter((resource) => resource.title && has(resource.href));
 
     // Schema Markup for SEO
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "Free Focus Games",
-        "url": "https://www.freefocusgames.com",
+        "url": generateAlternates(locale).canonical,
         "description": t("home.metaDescription")
     };
 
@@ -197,7 +201,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             href: "/tests",
             icon: ClipboardCheck
         }
-    ];
+    ].filter((item) => has(item.href));
     const popularToolLinks = [
         { id: "reactionTimeTest", href: "/games/reaction-time" },
         { id: "dualNBack", href: "/games/dual-n-back" },
@@ -205,7 +209,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         { id: "pomodoroTimer", href: "/games/pomodoro-timer" },
         { id: "visualTracking", href: "/categories/visual-tracking" },
         { id: "allGames", href: "/games" }
-    ];
+    ].filter((item) => has(item.href));
+    const relaxationGames = filterGamesForLocale(locale, games.filter(g => g.categories.includes('relaxation')));
+    const forFunGames = filterGamesForLocale(locale, games.filter(g => g.categories.includes('for-fun')));
     const getIdKey = (id: string) => id.replace(/-([a-z])/g, (_: string, c: string) => c.toUpperCase()).replace(/-/g, '');
 
     return (
@@ -226,18 +232,28 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                 {t("home.subtitle")}
                             </p>
                             <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row md:items-start md:justify-start">
-                                <Link href="/get-started">
-                                    <InteractiveHoverButton>
-                                        {t("home.ctaButton")}
-                                    </InteractiveHoverButton>
-                                </Link>
-                                <Link
-                                    href="/games/challenge-10-seconds"
-                                    className="inline-flex items-center gap-1.5 text-base font-medium text-primary underline-offset-4 hover:underline sm:self-center"
-                                >
-                                    {t("home.ctaSecondary")}
-                                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                                </Link>
+                                {has("/get-started") ? (
+                                    <>
+                                        <Link href="/get-started">
+                                            <InteractiveHoverButton>
+                                                {t("home.ctaButton")}
+                                            </InteractiveHoverButton>
+                                        </Link>
+                                        <Link
+                                            href="/games/challenge-10-seconds"
+                                            className="inline-flex items-center gap-1.5 text-base font-medium text-primary underline-offset-4 hover:underline sm:self-center"
+                                        >
+                                            {t("home.ctaSecondary")}
+                                            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                                        </Link>
+                                    </>
+                                ) : (
+                                    <Link href="/games/challenge-10-seconds">
+                                        <InteractiveHoverButton>
+                                            {t("home.ctaSecondary")}
+                                        </InteractiveHoverButton>
+                                    </Link>
+                                )}
                             </div>
 
                             {/* SEO Feature Badges */}
@@ -352,6 +368,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 </section>
 
                 {/* Breathing break: a quiet pause between game sections */}
+                {relaxationGames.length > 0 && (
                 <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                     <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-teal-50 via-emerald-50/50 to-transparent px-6 py-12 dark:from-teal-950/40 dark:via-emerald-950/20 sm:px-12 sm:py-14">
                         <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-teal-200/30 blur-3xl dark:bg-teal-800/20" />
@@ -364,7 +381,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                     className="mt-2 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-muted-foreground md:justify-start"
                                 >
                                     <span>{t("home.quickBreathing.moreLabel")}</span>
-                                    {games.filter(g => g.categories.includes('relaxation')).map(game => (
+                                    {relaxationGames.map(game => (
                                         <Link
                                             key={game.id}
                                             href={`/games/${game.slug}`}
@@ -378,9 +395,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         </LinkClickTracker>
                     </div>
                 </section>
+                )}
 
                 {/* For Fun */}
-                {games.filter(g => g.categories.includes('for-fun')).length > 0 && (
+                {forFunGames.length > 0 && (
                     <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                         <div className="mb-6 flex items-center gap-2 sm:mb-8">
                             <Gamepad2 className="h-6 w-6" />
@@ -389,7 +407,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             </h2>
                         </div>
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 md:grid-cols-3 lg:grid-cols-4">
-                            {games.filter(g => g.categories.includes('for-fun')).map(game => (
+                            {forFunGames.map(game => (
                                 <Link key={game.id} href={`/games/${game.slug}`} className="group block">
                                     <div className="relative aspect-video rounded-xl overflow-hidden border border-purple-200 dark:border-purple-900 shadow-sm transition-all hover:shadow-lg hover:scale-[1.02] bg-purple-50/50 dark:bg-purple-950/20">
                                         <div className="w-full h-full flex items-center justify-center">
@@ -406,6 +424,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                 )}
 
                 {/* Featured Guides */}
+                {featuredResources.length > 0 && (
                 <section className="mb-20 max-w-7xl mx-auto px-2 sm:mb-24 sm:px-6">
                     <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
                         <div>
@@ -448,6 +467,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         ))}
                     </div>
                 </section>
+                )}
 
                 {/* Benefits Section */}
                 <section className="mb-20 max-w-3xl mx-auto px-4 sm:mb-24 sm:px-6">
@@ -479,15 +499,17 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                                     {t("home.workPerformanceTitle")}
                                 </h3>
                                 <p>{t("home.workPerformanceDesc")}</p>
-                                <div className="mt-3 flex flex-wrap gap-4 text-sm">
-                                    <Link
-                                        href="/games/pomodoro-timer"
-                                        className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
-                                    >
-                                        {t("games.pomodoroTimer.title")}
-                                        <ArrowRight className="h-4 w-4" />
-                                    </Link>
-                                </div>
+                                {has("/games/pomodoro-timer") && (
+                                    <div className="mt-3 flex flex-wrap gap-4 text-sm">
+                                        <Link
+                                            href="/games/pomodoro-timer"
+                                            className="inline-flex items-center gap-1 font-medium text-primary hover:underline"
+                                        >
+                                            {t("games.pomodoroTimer.title")}
+                                            <ArrowRight className="h-4 w-4" />
+                                        </Link>
+                                    </div>
+                                )}
                             </div>
                         </div>
 
@@ -531,6 +553,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
 
 
                 {/* Testimonials Section */}
+                {fullSite && (
                 <section className="mb-20 max-w-7xl mx-auto sm:mb-24">
                     <h2 className="mb-8 px-4 text-center text-3xl font-bold sm:mb-12 sm:px-0">
                         {t("home.testimonialsTitle")}
@@ -593,9 +616,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-linear-to-l from-background" />
                     </div>
                 </section>
+                )}
 
                 {/* Trustpilot Reviews Section */}
-                <TrustpilotSection />
+                {fullSite && <TrustpilotSection />}
             </div>
         </>
     );

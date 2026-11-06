@@ -10,6 +10,11 @@ export function normalizePagePath(path: string): string {
     return path.split(/[?#]/, 1)[0].replace(/^\/+|\/+$/g, "");
 }
 
+// True for locales that have every page; Japanese has only the pages listed in the registry.
+export function isFullLocale(locale: string): boolean {
+    return FULL_LOCALES.includes(locale);
+}
+
 export function isPathAvailable(locale: string, path: string): boolean {
     if (FULL_LOCALES.includes(locale)) return true;
     if (locale === "ja") return JA_PATHS.has(normalizePagePath(path));
@@ -22,4 +27,9 @@ export function getPageLocales(path: string): string[] {
 
 export function pageLocaleParams(path: string) {
     return getPageLocales(path).map((locale) => ({ locale }));
+}
+
+// Game lists on a page show only games that exist in the page's language.
+export function filterGamesForLocale<T extends { slug: string }>(locale: string, items: readonly T[]): T[] {
+    return items.filter((item) => isPathAvailable(locale, `games/${item.slug}`));
 }

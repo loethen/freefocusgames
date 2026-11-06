@@ -85,6 +85,12 @@
     },
     "captionCat": {
       "label": "CaptionCat, a pixel cat for your YouTube captions: read about it on the About page"
+    },
+    "shareModal": {
+      "title": "Share",
+      "copyLink": "Copy Link",
+      "copied": "Link copied to clipboard!",
+      "defaultText": "Check out this focus training game!"
     }
   }
 }

@@ -81,7 +81,7 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
             "@type": "WebApplication",
             "name": t('title'),
             "description": t('metadata.description'),
-            "url": `${baseUrl}/games/cps-test`,
+            "url": generateAlternates(locale, 'games/cps-test').canonical,
             "image": `${baseUrl}${coverImage}`,
             "applicationCategory": "GameApplication",
             "operatingSystem": "Web Browser",
@@ -90,13 +90,7 @@ export default function CPSTestPage({ params }: { params: Promise<{ locale: stri
                 "price": "0",
                 "priceCurrency": "USD"
             },
-            "featureList": [
-                "1 second CPS test mode",
-                "3 second CPS test mode",
-                "5 second CPS test mode",
-                "10 second click speed mode",
-                "5 second CPS leaderboard"
-            ],
+            "featureList": t.raw('featureList'),
             "educationalUse": "Reaction Speed Training",
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"

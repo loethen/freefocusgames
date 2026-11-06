@@ -102,7 +102,14 @@
           "localBest": "Best for Mode"
         },
         "noBestYet": "No best yet"
-      }
+      },
+      "featureList": [
+        "5 second spacebar speed test",
+        "10 second spacebar speed test",
+        "30 second spacebar endurance test",
+        "Keyboard and touch support",
+        "Local best score tracking"
+      ]
     }
   }
 }

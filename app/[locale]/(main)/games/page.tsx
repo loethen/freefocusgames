@@ -9,7 +9,7 @@ import { getGames } from "@/data/games";
 import { Link } from "@/i18n/navigation";
 import { SITE_BASE_URL } from "@/lib/site-constants";
 import { generateAlternates } from "@/lib/utils";
-import { pageLocaleParams } from '@/lib/locale-availability';
+import { filterGamesForLocale, isPathAvailable, pageLocaleParams } from '@/lib/locale-availability';
 
 export function generateStaticParams() {
   return pageLocaleParams('games');
@@ -117,15 +117,29 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
     const t = await getTranslations({ locale, namespace: "games" });
     const categoryT = await getTranslations({ locale, namespace: "categories.categoryNames" });
     const orderById = new Map(LIBRARY_ORDER.map((id, index) => [id, index]));
-    const games = [...getGames()].sort(
+    // A partially translated locale (Japanese) lists only the games and
+    // categories it has, so no link on the page leads to another language.
+    const games = filterGamesForLocale(locale, getGames()).sort(
         (a, b) =>
             (orderById.get(a.id) ?? Number.MAX_SAFE_INTEGER) -
             (orderById.get(b.id) ?? Number.MAX_SAFE_INTEGER)
     );
     const categoryById = new Map(categories.map((category) => [category.id, category]));
-    const categoryLinks = CATEGORY_LINK_IDS
+    const hasCategory = (category: (typeof categories)[number]) => isPathAvailable(locale, `categories/${category.slug}`);
+    const preferredCategories = CATEGORY_LINK_IDS
         .map((id) => categoryById.get(id))
         .filter((category): category is (typeof categories)[number] => Boolean(category));
+    const categoryLinks = preferredCategories.every(hasCategory)
+        ? preferredCategories
+        : categories.filter(hasCategory);
+    const choiceGroups = CHOICE_GROUPS
+        .map((group) => ({ ...group, games: group.games.filter(([, slug]) => isPathAvailable(locale, `games/${slug}`)) }))
+        .filter((group) => group.games.length > 0);
+    const resourceLinks = [
+        { href: "/blog", label: t("resources.workingMemory") },
+        { href: "/categories", label: t("resources.categories") },
+        { href: "/games/pomodoro-timer", label: t("resources.pomodoro") },
+    ].filter((link) => isPathAvailable(locale, link.href));
     const localePrefix = locale === "en" ? "" : `/${locale}`;
     const pageUrl = `${SITE_BASE_URL}${localePrefix}/games`;
     const getGameTitle = (id: string) => t(`${gameTitleKey(id)}.title`);
@@ -205,13 +219,15 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
                             {categoryT(category.slug)}
                         </Link>
                     ))}
-                    <Link
-                        href="/categories"
-                        className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
-                    >
-                        {t("categoryNav.all")}
-                        <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-                    </Link>
+                    {isPathAvailable(locale, "categories") && (
+                        <Link
+                            href="/categories"
+                            className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground underline-offset-4 hover:underline"
+                        >
+                            {t("categoryNav.all")}
+                            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+                        </Link>
+                    )}
                 </div>
             </nav>
 
@@ -247,7 +263,7 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
                     </div>
 
                     <div className="mt-10 grid gap-10 border-t border-border/70 pt-8 md:grid-cols-3">
-                        {CHOICE_GROUPS.map((group, index) => (
+                        {choiceGroups.map((group, index) => (
                             <article key={group.id}>
                                 <p className="mb-4 font-mono text-sm text-muted-foreground">
                                     {String(index + 1).padStart(2, "0")}
@@ -276,40 +292,31 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
                     </div>
                 </section>
 
-                <section
-                    className="mb-12 rounded-[2rem] bg-muted/45 p-6 sm:mb-16 sm:p-9"
-                    aria-labelledby="resources-title"
-                >
-                    <h2 id="resources-title" className="text-2xl font-semibold tracking-tight">
-                        {t("resources.title")}
-                    </h2>
-                    <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-                        {t("resources.description")}
-                    </p>
-                    <div className="mt-6 flex flex-wrap gap-x-7 gap-y-3">
-                        <Link
-                            href="/blog"
-                            className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
-                        >
-                            {t("resources.workingMemory")}
-                            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-                        </Link>
-                        <Link
-                            href="/categories"
-                            className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
-                        >
-                            {t("resources.categories")}
-                            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-                        </Link>
-                        <Link
-                            href="/games/pomodoro-timer"
-                            className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
-                        >
-                            {t("resources.pomodoro")}
-                            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-                        </Link>
-                    </div>
-                </section>
+                {resourceLinks.length > 0 && (
+                    <section
+                        className="mb-12 rounded-[2rem] bg-muted/45 p-6 sm:mb-16 sm:p-9"
+                        aria-labelledby="resources-title"
+                    >
+                        <h2 id="resources-title" className="text-2xl font-semibold tracking-tight">
+                            {t("resources.title")}
+                        </h2>
+                        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+                            {t("resources.description")}
+                        </p>
+                        <div className="mt-6 flex flex-wrap gap-x-7 gap-y-3">
+                            {resourceLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className="inline-flex items-center gap-2 text-sm font-medium hover:underline"
+                                >
+                                    {link.label}
+                                    <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+                                </Link>
+                            ))}
+                        </div>
+                    </section>
+                )}
             </main>
         </div>
     );
