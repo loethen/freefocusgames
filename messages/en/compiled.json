@@ -2013,7 +2013,14 @@
         "incongruentLabel": "Incongruent",
         "breakdownValue": "{rt} ms · {accuracy}% correct"
       },
-      "intro": "Take the flanker test online for free, no sign-up. After 4 practice trials you get 40 timed trials, then your accuracy, average reaction time and flanker effect: how many extra milliseconds conflicting arrows cost you compared with matching ones."
+      "intro": "Take the flanker test online for free, no sign-up. After 4 practice trials you get 40 timed trials, then your accuracy, average reaction time and flanker effect: how many extra milliseconds conflicting arrows cost you compared with matching ones.",
+      "featureList": [
+        "Arrow version of the Eriksen flanker task",
+        "4 practice trials and 40 scored trials",
+        "Congruent, incongruent and neutral trials",
+        "Accuracy, average reaction time and flanker effect",
+        "Keyboard and touch controls"
+      ]
     },
     "babyAnimalMatching": {
       "title": "Baby Animal Matching Game",

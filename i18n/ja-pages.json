@@ -76,7 +76,8 @@
       "games.metaDescription",
       "games.metaKeywords",
       "games.ogTitle",
-      "games.ogDescription"
+      "games.ogDescription",
+      "games.resources"
     ],
     "categories/memory-games": [
       "categories.categoryGamesHeading",
@@ -118,7 +119,14 @@
       "legal.terms"
     ]
   },
-  "drafts": {},
+  "drafts": {
+    "games/pomodoro-timer": [
+      "games.pomodoroTimer"
+    ],
+    "games/flanker-test": [
+      "games.focusReactionTest"
+    ]
+  },
   "allowIdentical": [
     "games.cpsTest.faq.cpsMeaning.answer",
     "legal.privacy.thirdParty.cloudflare.title"

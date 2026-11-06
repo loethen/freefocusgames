@@ -65,13 +65,7 @@ export default function FlankerTestPage({ params }: { params: Promise<{ locale: 
                 "price": "0",
                 "priceCurrency": "USD"
             },
-            "featureList": [
-                "Arrow version of the Eriksen flanker task",
-                "4 practice trials and 40 scored trials",
-                "Congruent, incongruent and neutral trials",
-                "Accuracy, average reaction time and flanker effect",
-                "Keyboard and touch controls"
-            ],
+            "featureList": t.raw('featureList'),
             "educationalUse": "Selective Attention Training",
             "learningResourceType": "Interactive Game",
             "interactivityType": "active"
