@@ -31,7 +31,8 @@
       "categories.categoryMetaDescription",
       "categories.categoryOgTitle",
       "categories.categoryOgDescription",
-      "categories.categoryIntro"
+      "categories.categoryIntro",
+      "categories.notSure"
     ],
     "": [
       "home.title",
@@ -61,7 +62,8 @@
       "home.metaDescription",
       "home.metaKeywords",
       "home.ogTitle",
-      "home.ogDescription"
+      "home.ogDescription",
+      "home.ctaButton"
     ],
     "games": [
       "games.title",
@@ -86,7 +88,8 @@
       "categories.aboutTitle",
       "categories.categoryDescriptions.memory-games",
       "categories.keywords.memory-games",
-      "categories.hubs.memory-games"
+      "categories.hubs.memory-games",
+      "categories.notSure"
     ],
     "games/sequence-memory-test": [
       "games.blockMemoryChallenge"
@@ -125,7 +128,11 @@
       "games.focusReactionTest"
     ]
   },
-  "drafts": {},
+  "drafts": {
+    "get-started": [
+      "getStarted"
+    ]
+  },
   "allowIdentical": [
     "games.cpsTest.faq.cpsMeaning.answer",
     "legal.privacy.thirdParty.cloudflare.title"

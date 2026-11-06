@@ -4257,7 +4257,11 @@
         "focus": "Picked for practicing focus and ignoring distractions.",
         "speed": "Picked for practicing reaction speed.",
         "relax": "Short guided breathing exercises for a calm break.",
-        "justPlay": "Our most played games. Pick one and start."
+        "justPlay": "Our most played games. Pick one and start.",
+        "memoryCheck": {
+          "strong": "You recalled {value}% of the sequence correctly. These picks add more working memory challenge.",
+          "building": "You recalled {value}% of the sequence correctly. Start with steady sequence practice, then build up."
+        }
       }
     },
     "browseAllPrefix": "Already know what you want?",

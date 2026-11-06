@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { ArrowLeft, ArrowRight, RotateCcw } from 'lucide-react';
 import { Link } from '@/i18n/navigation';
 import { analytics } from '@/lib/analytics';
 import GameCard from '@/components/game-card';
-import { getGame, getGamesByCategory, type Game } from '@/data/games';
+import { games, getGame, getGamesByCategory, type Game } from '@/data/games';
+import { filterGamesForLocale, isPathAvailable } from '@/lib/locale-availability';
 
 import ReactionTimeTest from './tests/ReactionTimeTest';
 import MemoryTest from './tests/MemoryTest';
@@ -85,12 +86,18 @@ function getLevel(result: CheckResult | null): Level {
   return result.value >= 75 ? 'strong' : 'building';
 }
 
-function getPicks(goal: GoalId, level: Level): Game[] {
+// Picks are limited to games that exist in the visitor's language (Japanese is
+// rolled out page by page); the category, then the rest of the library, fill gaps.
+function getPicks(goal: GoalId, level: Level, locale: string): Game[] {
   const plan = GOAL_PLANS[goal];
-  const picked = plan.picks[level]
+  const picked = filterGamesForLocale(locale, plan.picks[level]
     .map((id) => getGame(id))
-    .filter((game): game is Game => Boolean(game));
-  for (const game of getGamesByCategory(plan.category)) {
+    .filter((game): game is Game => Boolean(game)));
+  const fillers = [
+    ...filterGamesForLocale(locale, getGamesByCategory(plan.category)),
+    ...(goal === 'relax' ? [] : filterGamesForLocale(locale, games)),
+  ];
+  for (const game of fillers) {
     if (picked.length >= PICK_COUNT) break;
     if (!picked.some((item) => item.id === game.id)) picked.push(game);
   }
@@ -100,6 +107,9 @@ function getPicks(goal: GoalId, level: Level): Game[] {
 export default function OnboardingFlow() {
   const t = useTranslations('getStarted');
   const categoryT = useTranslations('categories.categoryNames');
+  const locale = useLocale();
+  // A goal with nothing to recommend in this language is not offered.
+  const goalOrder = GOAL_ORDER.filter((id) => getPicks(id, 'building', locale).length > 0);
 
   const [goal, setGoal] = useState<GoalId | null>(null);
   const [stage, setStage] = useState<'goal' | 'check' | 'results'>('goal');
@@ -122,10 +132,10 @@ export default function OnboardingFlow() {
     setResult(checkResult);
     analytics.assessment.complete({
       test_type: `assessment_${goal}`,
-      recommendations: getPicks(goal, getLevel(checkResult)).map((game) => game.slug),
+      recommendations: getPicks(goal, getLevel(checkResult), locale).map((game) => game.slug),
     });
     setStage('results');
-  }, [goal]);
+  }, [goal, locale]);
 
   const restart = useCallback(() => {
     setGoal(null);
@@ -138,7 +148,7 @@ export default function OnboardingFlow() {
       <h2 className="mb-2 text-2xl font-semibold">{t('goalSetting.title')}</h2>
       <p className="mb-6 text-muted-foreground">{t('goalSetting.subtitle')}</p>
       <div className="grid grid-cols-1 gap-3">
-        {GOAL_ORDER.map((id) => (
+        {goalOrder.map((id) => (
           <button
             key={id}
             type="button"
@@ -193,12 +203,13 @@ export default function OnboardingFlow() {
     if (!goal) return null;
     const plan = GOAL_PLANS[goal];
     const level = getLevel(result);
-    const picks = getPicks(goal, level);
+    const picks = getPicks(goal, level, locale);
     const [topPick, ...alsoTry] = picks;
     const categoryName = categoryT(plan.category);
 
     const summary = result
-      ? t(`results.summary.${result.type}.${level}`, { value: Math.round(result.value) })
+      // summary.memory is the no-check text, so the memory check has its own key.
+      ? t(`results.summary.${result.type === 'memory' ? 'memoryCheck' : result.type}.${level}`, { value: Math.round(result.value) })
       : t(`results.summary.${goal}`);
 
     const renderCard = (game: Game) => (
@@ -252,13 +263,15 @@ export default function OnboardingFlow() {
             <RotateCcw className="h-4 w-4" aria-hidden="true" />
             {t('results.startOver')}
           </button>
-          <Link
-            href={`/categories/${plan.category}`}
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
-          >
-            {t('results.browseCategory', { category: categoryName })}
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
+          {isPathAvailable(locale, `categories/${plan.category}`) && (
+            <Link
+              href={`/categories/${plan.category}`}
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+            >
+              {t('results.browseCategory', { category: categoryName })}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          )}
         </div>
       </div>
     );
