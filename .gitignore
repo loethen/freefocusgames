@@ -65,3 +65,4 @@ build-scripts/seo-opportunities.mjs
 
 .agents/
 build-scripts/gsc-keywords.js
+build-scripts/seo/
