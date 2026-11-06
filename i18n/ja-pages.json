@@ -10,8 +10,7 @@
     "categories.title",
     "categories.categoryNames"
   ],
-  "pages": {},
-  "drafts": {
+  "pages": {
     "games/spacebar-clicker": [
       "games.spacebarClicker"
     ],
@@ -119,6 +118,7 @@
       "legal.terms"
     ]
   },
+  "drafts": {},
   "allowIdentical": [
     "games.cpsTest.faq.cpsMeaning.answer",
     "legal.privacy.thirdParty.cloudflare.title"
