@@ -7,6 +7,11 @@ import { Link } from '@/i18n/navigation';
 import LinkClickTracker from '@/components/link-click-tracker';
 import { ArrowLeftRight, ArrowRight, Baby, BriefcaseBusiness, Hash, ListChecks, Route, Timer, UserRound, Zap, type LucideIcon } from 'lucide-react';
 import { use } from 'react';
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('tests');
+}
 
 interface TestItem {
   id: string;

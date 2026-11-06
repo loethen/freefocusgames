@@ -5,14 +5,14 @@ import { Keyboard, Gauge, TimerReset } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { generateAlternates } from '@/lib/utils'
-import { routing } from '@/i18n/routing'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import Game from './components/Game'
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/spacebar-clicker-cover.png';
 
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/spacebar-clicker');
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

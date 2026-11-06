@@ -6,6 +6,9 @@ import { useTheme } from "next-themes"
 import { Link, usePathname, useRouter } from "@/i18n/navigation"
 import { useState } from "react"
 import { useLocale, useTranslations } from "next-intl"
+import { routing } from "@/i18n/routing"
+import { isPathAvailable } from "@/lib/locale-availability"
+import { getLocaleMeta } from "@/lib/locale-meta"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,30 +36,24 @@ function LanguageSwitcher() {
     // })
   }
   
-  // 获取当前语言显示名称
-  const getLanguageDisplay = () => {
-    switch(locale) {
-      case 'zh': return '中文';
-      default: return 'English';
-    }
-  };
-  
+  // 只列出当前页面实际存在的语言（日语逐页上线）
+  const availableLocales = routing.locales.filter((l) => isPathAvailable(l, pathname))
+
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="flex items-center gap-1 text-muted-foreground" aria-label={t('language')}>
           <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">{getLanguageDisplay()}</span>
+          <span className="hidden sm:inline">{getLocaleMeta(locale).label}</span>
           <ChevronDown className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="bg-background">
-        <DropdownMenuItem onSelect={() => handleLocaleChange('en')}>
-          English
-        </DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => handleLocaleChange('zh')}>
-          中文
-        </DropdownMenuItem>
+        {availableLocales.map((l) => (
+          <DropdownMenuItem key={l} lang={getLocaleMeta(l).schema} onSelect={() => handleLocaleChange(l)}>
+            {getLocaleMeta(l).label}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )

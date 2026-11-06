@@ -5,6 +5,11 @@ import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('methodology');
+}
 
 const SOURCE_URL = 'https://github.com/loethen/freefocusgames';
 

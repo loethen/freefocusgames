@@ -4,6 +4,11 @@ import { getTranslations } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { generateAlternates } from '@/lib/utils';
 import { CONTENT_LAST_UPDATED_EN } from '@/lib/site-constants';
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('terms-of-service');
+}
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }

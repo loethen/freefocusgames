@@ -558,7 +558,8 @@
           "needBothButtons": "还需要点击另一个匹配按钮 👆",
           "correct": "🎉 正确！继续...",
           "incorrect": "❌ 再试一次！",
-          "perfectForBeginners": "新手友好"
+          "perfectForBeginners": "新手友好",
+          "waitingForAction": "等待你的操作..."
         },
         "testMyLevel": "不确定适合我的难度？先测试我的水平 →",
         "startTraining": "立即开始训练",
@@ -575,7 +576,9 @@
       "metaDescription": "免费在线玩 Dual N-Back。先用 30 秒互动教程熟悉规则，再在浏览器里训练视觉与声音回忆，建立更稳定的工作记忆练习。",
       "metaKeywords": "dual n-back 在线, 免费 dual n-back 游戏, 双重 n-back 训练, 工作记忆训练游戏, n-back 教程, dual n-back 练习",
       "ogTitle": "免费 Dual N-Back 在线训练：工作记忆训练游戏",
-      "ogDescription": "免费在线玩 Dual N-Back。先用 30 秒互动教程熟悉规则，再在浏览器里训练视觉与声音回忆，建立更稳定的工作记忆练习。"
+      "ogDescription": "免费在线玩 Dual N-Back。先用 30 秒互动教程熟悉规则，再在浏览器里训练视觉与声音回忆，建立更稳定的工作记忆练习。",
+      "digitSpanLink": "数字广度测试：正背与倒背数字回忆",
+      "digitSpanLinkSuffix": "提供与 N-Back 更新任务不同的序列回忆练习。"
     },
     "mahjongDualNBack": {
       "title": "麻将双重N-Back",
@@ -1754,7 +1757,9 @@
         "钥匙",
         "眼镜",
         "手表"
-      ]
+      ],
+      "digitSpanLink": "数字广度测试：尝试正背与倒背数字序列",
+      "digitSpanLinkSuffix": "，与单词回忆和 N-Back 更新任务不同。"
     },
     "pomodoroTimer": {
       "title": "在线番茄钟计时器",

@@ -558,7 +558,8 @@
           "needBothButtons": "Need to click the other match button 👆",
           "correct": "🎉 Correct! Continue...",
           "incorrect": "❌ Try again!",
-          "perfectForBeginners": "Perfect for beginners"
+          "perfectForBeginners": "Perfect for beginners",
+          "waitingForAction": "Waiting for your action..."
         },
         "testMyLevel": "Not sure what level suits you? Test my level first →",
         "startTraining": "Start Training Now",
@@ -575,7 +576,9 @@
       "metaDescription": "Play dual n-back online for free. Start with a 30-second interactive tutorial, train visual and audio recall, and build working memory with a beginner-friendly browser game.",
       "metaKeywords": "dual n-back online, free dual n-back game, dual n-back training, working memory training game, n-back tutorial, dual n-back practice",
       "ogTitle": "Free Dual N-Back Online: Working Memory Training Game",
-      "ogDescription": "Play dual n-back online for free. Start with a 30-second interactive tutorial, train visual and audio recall, and build working memory with a beginner-friendly browser game."
+      "ogDescription": "Play dual n-back online for free. Start with a 30-second interactive tutorial, train visual and audio recall, and build working memory with a beginner-friendly browser game.",
+      "digitSpanLink": "Digit Span Test: forward and backward digit recall",
+      "digitSpanLinkSuffix": " offers sequence recall alongside the different N-Back updating task."
     },
     "mahjongDualNBack": {
       "title": "Mahjong Dual N-Back",
@@ -1754,7 +1757,9 @@
         "keys",
         "glasses",
         "watch"
-      ]
+      ],
+      "digitSpanLink": "Digit Span Test: try forward and backward digit sequences",
+      "digitSpanLinkSuffix": ", a different task from word recall and N-Back updating."
     },
     "pomodoroTimer": {
       "title": "Pomodoro Timer Online",

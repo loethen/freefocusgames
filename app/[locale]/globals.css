@@ -35,6 +35,14 @@
   body {
     font-family: Arial, Helvetica, sans-serif;
   }
+
+  /* Japanese pages: system Japanese fonts (no web font download) and
+     Japanese line-breaking rules for punctuation and long katakana words. */
+  html:lang(ja) body {
+    font-family: Arial, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic UI", "Yu Gothic", Meiryo, "Noto Sans JP", sans-serif;
+    line-break: strict;
+    overflow-wrap: anywhere;
+  }
 }
 
 @layer base {

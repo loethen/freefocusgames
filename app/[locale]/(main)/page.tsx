@@ -26,6 +26,11 @@ import {
     Timer
 } from "lucide-react";
 import TrustpilotSection from "@/components/trustpilot-section";
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('');
+}
 
 export const dynamic = "force-static";
 export const revalidate = false;

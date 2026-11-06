@@ -8,6 +8,11 @@ import { cn, generateAlternates } from "@/lib/utils";
 import { getGamesByCategory } from "@/data/games";
 import { categories, type Category } from "@/data/categories";
 import { Link } from "@/i18n/navigation";
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('categories');
+}
 
 export const dynamic = "force-static";
 export const revalidate = false;

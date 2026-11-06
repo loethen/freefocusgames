@@ -2,14 +2,14 @@ import { Metadata } from 'next';
 import { GamePageTemplate } from '@/components/GamePageTemplate';
 import FocusSudokuClient from './components/FocusSudokuClient';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { routing } from '@/i18n/routing';
 import { generateAlternates } from '@/lib/utils';
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/focus-sudoku-cover.png';
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/focus-sudoku');
 }
 
 export async function generateMetadata(

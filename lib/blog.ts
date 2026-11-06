@@ -3,6 +3,7 @@
 
 import { blogData } from '@/data/generated';
 import type { BlogPost } from '@/data/generated';
+import { isPathAvailable } from '@/lib/locale-availability';
 
 export type { BlogPost, BlogSource } from '@/data/generated';
 
@@ -24,7 +25,9 @@ export async function getBlogPosts(locale: string = 'en'): Promise<BlogPost[]> {
 }
 
 export function getBlogLocales(slug: string): string[] {
-  return Object.keys(blogData).filter(locale => blogData[locale].some(post => post.slug === slug));
+  return Object.keys(blogData).filter(locale =>
+    blogData[locale].some(post => post.slug === slug) && isPathAvailable(locale, `blog/${slug}`)
+  );
 }
 
 // Never silently render an English article at an indexable Chinese URL.

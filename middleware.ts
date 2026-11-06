@@ -1,6 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { NextRequest, NextResponse } from "next/server";
+import { isPathAvailable } from "./lib/locale-availability";
 
 const handleI18nRouting = createMiddleware(routing);
 
@@ -36,12 +37,14 @@ const legacyRedirects: Record<string, string> = {
 };
 
 function getLegacyRedirect(pathname: string) {
-    const match = pathname.match(/^(\/zh)?(\/.*)$/);
+    const match = pathname.match(/^(\/zh|\/ja)?(\/.*)$/);
     if (!match) return null;
     const [, localePrefix = '', path] = match;
     const target = legacyRedirects[path]
         ?? (path.startsWith('/games/games/') ? path.replace(/^\/games\/games\//, '/games/') : null);
-    return target ? localePrefix + target : null;
+    if (!target) return null;
+    // Land on a page that exists in that language, so the redirect never chains.
+    return localePrefix === '/ja' && !isPathAvailable('ja', target) ? target : localePrefix + target;
 }
 
 export default async function middleware(request: NextRequest) {
@@ -54,8 +57,8 @@ export default async function middleware(request: NextRequest) {
 
     // Career Tests are intentionally English-only. Keep their public URLs
     // unprefixed and ignore any previously selected site-language cookie.
-    if (/^\/(?:en|zh)\/career-tests(?:\/|$)/.test(pathname)) {
-        const englishOnlyPath = pathname.replace(/^\/(?:en|zh)/, '') || '/career-tests';
+    if (/^\/(?:en|zh|ja)\/career-tests(?:\/|$)/.test(pathname)) {
+        const englishOnlyPath = pathname.replace(/^\/(?:en|zh|ja)/, '') || '/career-tests';
         return NextResponse.redirect(
             new URL(englishOnlyPath + request.nextUrl.search, request.url),
             301
@@ -75,7 +78,7 @@ export default async function middleware(request: NextRequest) {
         const firstSegment = pathSegments[0];
 
         // 定义已知的无效语言代码（之前支持但现在不支持的）
-        const removedLanguageCodes = ['de', 'ja', 'es', 'ko', 'fr', 'jp'];
+        const removedLanguageCodes = ['de', 'es', 'ko', 'fr'];
 
         if (removedLanguageCodes.includes(firstSegment)) {
             // 移除这些已知的无效语言前缀，重定向到正确的路径
@@ -83,6 +86,23 @@ export default async function middleware(request: NextRequest) {
             const searchParams = request.nextUrl.search;
 
             return NextResponse.redirect(new URL(newPath + searchParams, request.url), 301);
+        }
+
+        // Japanese is rolled out page by page (i18n/ja-pages.json). A page that
+        // has no Japanese version yet goes to its English URL; /jp is a common typo.
+        if (firstSegment === 'ja' || firstSegment === 'jp') {
+            const rest = '/' + pathSegments.slice(1).join('/');
+            const legacy = getLegacyRedirect(rest === '/' ? '/ja' : `/ja${rest}`);
+            if (legacy) {
+                return NextResponse.redirect(new URL(legacy + request.nextUrl.search, request.url), 301);
+            }
+            if (!isPathAvailable('ja', rest)) {
+                return NextResponse.redirect(new URL(rest + request.nextUrl.search, request.url), 301);
+            }
+            if (firstSegment === 'jp') {
+                const jaPath = rest === '/' ? '/ja' : `/ja${rest}`;
+                return NextResponse.redirect(new URL(jaPath + request.nextUrl.search, request.url), 301);
+            }
         }
 
         // English is unprefixed; make the /en alias a permanent redirect

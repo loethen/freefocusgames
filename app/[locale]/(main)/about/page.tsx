@@ -7,6 +7,11 @@ import { generateAlternates } from '@/lib/utils';
 import { use } from 'react';
 import { Link } from '@/i18n/navigation';
 import './style.css';
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('about');
+}
 
 const CAPTIONCAT_URL = "https://captioncat.app/";
 const CAPTIONCAT_SOURCE_URL = "https://github.com/loethen/captioncat";

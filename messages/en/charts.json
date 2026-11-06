@@ -1,0 +1,18 @@
+{
+  "charts": {
+    "units": {
+      "ms": "ms",
+      "s": "s",
+      "cps": "CPS",
+      "digits": "digits"
+    },
+    "players": "{count, number} players",
+    "reactionDistribution": {
+      "title": "How fast are players? Best five-round averages",
+      "aria": "Histogram of best reaction time averages from 8,791 players. Most players fall between 280 and 440 ms, peaking at 340 to 359 ms. The median is 369 ms.",
+      "axis": "Average reaction time (ms)",
+      "caption": "8,791 players, March 8 to October 23, 2026, each counted once with their best result. Bars are 20 ms wide; 218 players between 800 and 1,000 ms are not shown.",
+      "method": "How we collect and filter this data"
+    }
+  }
+}

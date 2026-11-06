@@ -6,13 +6,13 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
-import { routing } from '@/i18n/routing';
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/pomodoro-timer-cover-v2.png';
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/pomodoro-timer');
 }
 
 export async function generateMetadata(

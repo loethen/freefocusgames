@@ -11,14 +11,14 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
-import { routing } from '@/i18n/routing';
 import { RANKED_LEADERBOARD_MODE } from '@/lib/leaderboard-config';
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/schulte-table-cover.png';
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/schulte-table');
 }
 
 // 将静态元数据改为动态生成函数

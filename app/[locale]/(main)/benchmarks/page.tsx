@@ -9,6 +9,12 @@ import { Link } from '@/i18n/navigation';
 import { BENCHMARKS, NBACK_BENCHMARK, type Benchmark } from '@/lib/benchmarks';
 import { SITE_BASE_URL } from '@/lib/site-constants';
 import { generateAlternates } from '@/lib/utils';
+import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+
+export function generateStaticParams() {
+  return pageLocaleParams('benchmarks');
+}
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -28,7 +34,7 @@ export default async function BenchmarksPage({ params }: { params: Promise<{ loc
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: 'benchmarks' });
 
-  const formatCount = (n: number) => n.toLocaleString(locale === 'zh' ? 'zh-CN' : 'en-US');
+  const formatCount = (n: number) => n.toLocaleString(getLocaleMeta(locale).intl);
   const withUnit = (benchmark: Benchmark, value: string) => `${value} ${t(`units.${benchmark.unit}`)}`;
   const pageUrl = `${SITE_BASE_URL}${locale === 'en' ? '' : `/${locale}`}/benchmarks`;
   const faq = t.raw('faq.items') as { q: string; a: string }[];

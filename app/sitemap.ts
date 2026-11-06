@@ -5,8 +5,11 @@ import { blogData } from '@/data/generated'
 import { generateAlternates } from '@/lib/utils'
 import { getBlogLocales } from '@/lib/blog'
 import { PAGE_UPDATED_AT } from '@/lib/page-updates'
+import { isPathAvailable } from '@/lib/locale-availability'
+import { routing } from '@/i18n/routing'
 
-const LOCALES = ['en', 'zh'] // 支持的语言列表
+// 每种语言只输出该语言实际存在的页面（日语按 i18n/ja-pages.json 逐页上线）
+const LOCALES = routing.locales
 export const revalidate = false
 
 function lastModified(path: string): Date | undefined {
@@ -32,7 +35,7 @@ function generateBaseRoutes(locale: string): MetadataRoute.Sitemap {
     { path: 'terms-of-service', changeFrequency: 'yearly' as const, priority: 0.4 },
   ]
 
-  return basePages.map((page) => ({
+  return basePages.filter((page) => isPathAvailable(locale, page.path)).map((page) => ({
     url: generateAlternates(locale, page.path).canonical,
     lastModified: lastModified(`${localePrefix}${page.path ? `/${page.path}` : ''}` || '/'),
     changeFrequency: page.changeFrequency,
@@ -46,7 +49,7 @@ function generateBaseRoutes(locale: string): MetadataRoute.Sitemap {
 // 生成游戏页面路由
 function generateGameRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
-  return games.map((game) => ({
+  return games.filter((game) => isPathAvailable(locale, `games/${game.slug}`)).map((game) => ({
     url: generateAlternates(locale, `games/${game.slug}`).canonical,
     lastModified: lastModified(`${localePrefix}/games/${game.slug}`),
     changeFrequency: 'weekly' as const,
@@ -73,7 +76,7 @@ function generateEnglishOnlyRoutes(): MetadataRoute.Sitemap {
 // 生成分类页面路由
 function generateCategoryRoutes(locale: string): MetadataRoute.Sitemap {
   const localePrefix = locale === 'en' ? '' : `/${locale}`
-  return categories.map((category) => ({
+  return categories.filter((category) => isPathAvailable(locale, `categories/${category.slug}`)).map((category) => ({
     url: generateAlternates(locale, `categories/${category.slug}`).canonical,
     lastModified: lastModified(`${localePrefix}/categories/${category.slug}`),
     changeFrequency: 'weekly' as const,
@@ -88,7 +91,7 @@ function generateCategoryRoutes(locale: string): MetadataRoute.Sitemap {
 function generateBlogRoutes(locale: string): MetadataRoute.Sitemap {
   const posts = blogData[locale] || []
 
-  return posts.filter((post) => !post.noindex).map((post) => ({
+  return posts.filter((post) => !post.noindex && isPathAvailable(locale, `blog/${post.slug}`)).map((post) => ({
     url: generateAlternates(locale, `blog/${post.slug}`).canonical,
     lastModified: post.updatedAt || post.date ? new Date(post.updatedAt || post.date) : undefined,
     changeFrequency: 'monthly' as const,

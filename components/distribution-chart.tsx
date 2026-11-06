@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 export type DistributionBin = {
     // Shown in the tooltip, e.g. "300–319 ms".
@@ -49,7 +49,7 @@ export function DistributionChart({
     tickPosition = "start",
     endTick,
 }: DistributionChartProps) {
-    const locale = useLocale();
+    const t = useTranslations("charts");
     const [active, setActive] = useState<number | null>(null);
 
     const binW = PLOT_W / bins.length;
@@ -57,8 +57,7 @@ export function DistributionChart({
     const { max, ticks } = yScale(Math.max(...shares));
     const xFor = (index: number) => PAD.left + index * binW;
     const yFor = (percent: number) => PAD.top + PLOT_H - (percent / max) * PLOT_H;
-    const formatCount = (n: number) => n.toLocaleString(locale === "zh" ? "zh-CN" : "en-US");
-    const playersLabel = (n: number) => (locale === "zh" ? `${formatCount(n)} 名玩家` : `${formatCount(n)} players`);
+    const playersLabel = (n: number) => t("players", { count: n });
 
     const activeBin = active !== null ? bins[active] : null;
 

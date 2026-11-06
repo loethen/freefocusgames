@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Clock3, Sparkles, Trophy, Users } from 'lucide-react';
 import { useLocale, useTranslations } from 'next-intl';
+import { getLocaleMeta } from '@/lib/locale-meta';
 
 type ClearEntry = {
     accuracy: number;
@@ -55,7 +56,7 @@ export default function DualNBackClearLeaderboard() {
 
     const formatDate = useCallback((value: string) => {
         return new Intl.DateTimeFormat(
-            locale === 'zh' ? 'zh-CN' : 'en-US',
+            getLocaleMeta(locale).intl,
             {
                 day: 'numeric',
                 hour: 'numeric',

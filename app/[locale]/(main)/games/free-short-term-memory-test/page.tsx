@@ -7,11 +7,11 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
-import { routing } from '@/i18n/routing'
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/free-short-term-memory-test');
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -44,7 +44,7 @@ export default function FreeShortTermMemoryTestPage({ params }: { params: Promis
             gameComponent={<Game />}
             howToPlay={
                 <>
-                    <p><Link href="/games/digit-span-test" className="underline">{locale === 'zh' ? '数字广度测试：尝试正背与倒背数字序列' : 'Digit Span Test: try forward and backward digit sequences'}</Link>{locale === 'zh' ? '，与单词回忆和 N-Back 更新任务不同。' : ', a different task from word recall and N-Back updating.'}</p>
+                    <p><Link href="/games/digit-span-test" className="underline">{t('digitSpanLink')}</Link>{t('digitSpanLinkSuffix')}</p>
                     <p>
                         {t('howToPlay.description')}
                     </p>

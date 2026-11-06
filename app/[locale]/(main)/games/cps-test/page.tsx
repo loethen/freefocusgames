@@ -7,13 +7,13 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
-import { routing } from '@/i18n/routing'
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/cps-test-cover.png';
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/cps-test');
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

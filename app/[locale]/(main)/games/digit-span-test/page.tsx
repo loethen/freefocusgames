@@ -4,13 +4,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { GamePageTemplate } from "@/components/GamePageTemplate";
 import { generateAlternates } from "@/lib/utils";
 import { SITE_BASE_URL } from "@/lib/site-constants";
-import { routing } from "@/i18n/routing";
 import DigitSpanGame from "./Game";
 import DigitSpanLeaderboard from "./Leaderboard";
 import DigitSpanWorksheet from "./Worksheet";
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return pageLocaleParams('games/digit-span-test');
 }
 
 export async function generateMetadata({

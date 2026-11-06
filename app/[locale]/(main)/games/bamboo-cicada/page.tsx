@@ -6,13 +6,14 @@ import { useTranslations } from 'next-intl';
 import BambooCicadaGame from './components/BambooCicadaGame';
 import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { generateAlternates } from '@/lib/utils';
-import { routing } from '@/i18n/routing';
+import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
 
 const UPSTREAM_URL = 'https://github.com/imsai-sh/zhuzhiliao';
 const coverImage = '/games/bamboo-cicada-cover.png';
 
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/bamboo-cicada');
 }
 
 export async function generateMetadata({
@@ -31,7 +32,7 @@ export async function generateMetadata({
             title: t('metadata.ogTitle'),
             description: t('metadata.ogDescription'),
             type: 'website',
-            locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+            locale: getLocaleMeta(locale).openGraph,
             images: [{
                 url: coverImage,
                 width: 1200,
@@ -74,7 +75,7 @@ export default function BambooCicadaPage({
             alternateName: t('title'),
             description: t('metadata.description'),
             url: pageUrl,
-            inLanguage: locale === 'zh' ? 'zh-CN' : 'en',
+            inLanguage: getLocaleMeta(locale).schema,
             applicationCategory: 'GameApplication',
             operatingSystem: 'Web Browser',
             gamePlatform: ['Web Browser', 'Mobile', 'Desktop'],
@@ -91,7 +92,7 @@ export default function BambooCicadaPage({
         {
             '@context': 'https://schema.org',
             '@type': 'FAQPage',
-            inLanguage: locale === 'zh' ? 'zh-CN' : 'en',
+            inLanguage: getLocaleMeta(locale).schema,
             mainEntity: faq.map((item) => ({
                 '@type': 'Question',
                 name: item.question,

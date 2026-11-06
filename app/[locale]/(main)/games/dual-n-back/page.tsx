@@ -9,19 +9,19 @@ import { use } from 'react';
 import TutorialButton from './components/TutorialButton';
 import DualNBackClearLeaderboard from './components/DualNBackClearLeaderboard';
 import { Link } from '@/i18n/navigation'
-import { routing } from '@/i18n/routing'
 import { generateAlternates } from '@/lib/utils';
 import {
   DUAL_N_BACK_CLEAR_MIN_ACCURACY,
   DUAL_N_BACK_CLEAR_MIN_LEVEL,
   DUAL_N_BACK_CLEAR_MIN_TRIALS,
 } from '@/lib/dual-n-back-clear-rules';
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/dual-n-back-cover.png';
 
 // Generate static params for all locales
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return pageLocaleParams('games/dual-n-back');
 }
 
 // 将静态元数据改为动态生成函数
@@ -173,7 +173,7 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
       gameComponent={<Game />}
       howToPlay={
         <>
-          <p><Link href="/games/digit-span-test" className="underline">{locale === "zh" ? "数字广度测试：正背与倒背数字回忆" : "Digit Span Test: forward and backward digit recall"}</Link>{locale === "zh" ? "提供与 N-Back 更新任务不同的序列回忆练习。" : " offers sequence recall alongside the different N-Back updating task."}</p>
+          <p><Link href="/games/digit-span-test" className="underline">{t('digitSpanLink')}</Link>{t('digitSpanLinkSuffix')}</p>
           <p>{t('howToPlayIntro')}</p>
           <div className="my-6 p-5 bg-gradient-to-r from-amber-50 to-orange-50 border-l-4 border-orange-400 rounded-r-lg">
             <div className="flex items-center justify-between">

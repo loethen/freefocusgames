@@ -4,13 +4,13 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { GamePageTemplate } from "@/components/GamePageTemplate";
 import { generateAlternates } from "@/lib/utils";
 import { SITE_BASE_URL } from "@/lib/site-constants";
-import { routing } from "@/i18n/routing";
 import TrailMakingGame from "./Game";
 import TrailMakingWorksheet from "./Worksheet";
 import { TRAIL_LEADERBOARD_MODE } from "@/lib/trail-making";
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return pageLocaleParams('games/trail-making-test');
 }
 
 export async function generateMetadata({

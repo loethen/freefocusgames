@@ -157,7 +157,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               <div className="text-sm text-muted-foreground">
                 <time dateTime={post.date}>{formatDate(post.date, locale)}</time>
                 {post.updatedAt && (
-                  <span> · {locale === 'zh' ? '更新于' : 'Updated'} <time dateTime={post.updatedAt}>{formatDate(post.updatedAt, locale)}</time></span>
+                  <span> · {t('updatedLabel')} <time dateTime={post.updatedAt}>{formatDate(post.updatedAt, locale)}</time></span>
                 )}
               </div>
             </div>
@@ -190,7 +190,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ local
               className="mt-12 pt-8 border-t border-border"
             >
               <h2 id="references-heading" className="text-2xl font-bold mb-4">
-                {locale === 'zh' ? '参考文献与权威来源' : 'References & Sources'}
+                {t('referencesTitle')}
               </h2>
               <ol className="list-decimal pl-5 space-y-2 text-sm text-muted-foreground">
                 {post.sources.map((source, index) => (

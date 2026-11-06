@@ -26,6 +26,8 @@
       "takeTest": "Take the screener",
       "play": "Play",
       "start": "Start"
-    }
+    },
+    "updatedLabel": "Updated",
+    "referencesTitle": "References & Sources"
   }
 }

@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { cn } from "@/lib/utils";
 import { Volume2, Square, CheckCircle, XCircle, Brain, ChevronLeft, ChevronRight } from "lucide-react";
 import { Howl } from "howler";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 import { analytics } from "@/lib/analytics";
 
 // 互动教程序列：1-back逻辑，与实际游戏一致
@@ -56,7 +56,6 @@ interface GameDemoProps {
 
 export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps) {
     const t = useTranslations('games.dualNBack.gameUI.tutorial');
-    const locale = useLocale();
     
     const [currentStep, setCurrentStep] = useState(0);
     const [userResponse, setUserResponse] = useState<{ position: boolean; audio: boolean }>({
@@ -308,7 +307,7 @@ export default function GameDemo({ isOpen, onClose, onComplete }: GameDemoProps)
                         </div>
                         {isWaitingForUser && (
                             <div className="text-xs text-primary animate-pulse">
-                                👆 {locale === 'zh' ? '等待你的操作...' : 'Waiting for your action...'}
+                                👆 {t('waitingForAction')}
                             </div>
                         )}
                     </div>

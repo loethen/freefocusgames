@@ -2,6 +2,11 @@ import OnboardingFlow from "./components/OnboardingFlow";
 import { getTranslations } from 'next-intl/server';
 import type { Metadata } from 'next';
 import { generateAlternates } from '@/lib/utils';
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('get-started');
+}
 
 export async function generateMetadata({
   params,

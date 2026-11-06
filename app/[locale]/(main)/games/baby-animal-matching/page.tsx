@@ -5,8 +5,8 @@ import { Brain, Eye, Search } from 'lucide-react'; // Example icons
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server'; // Import server-side translator
 import { use } from 'react';
-import { routing } from '@/i18n/routing';
 import { generateAlternates } from '@/lib/utils';
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/baby-animal-matching-cover.png';
 
@@ -23,7 +23,7 @@ interface FAQItem {
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/baby-animal-matching');
 }
 
 // Enhanced metadata generation for better SEO

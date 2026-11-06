@@ -2,7 +2,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const LOCALES = ["en", "zh"];
+const LOCALES = ["en", "zh", "ja"];
 
 function isPlainObject(value) {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -23,6 +23,7 @@ function deepMerge(target, source) {
 
 for (const locale of LOCALES) {
   const localeDir = path.join(process.cwd(), "messages", locale);
+  fs.mkdirSync(localeDir, { recursive: true });
   const files = fs
     .readdirSync(localeDir)
     .filter((file) => file.endsWith(".json") && file !== "_index.json" && file !== "compiled.json")

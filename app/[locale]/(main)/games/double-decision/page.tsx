@@ -6,15 +6,16 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { generateAlternates } from '@/lib/utils'
-import { routing } from '@/i18n/routing'
 import { PeripheralSpeedGame } from './components/PeripheralSpeedGame'
+import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
 
 const NEW_SCIENTIST_ARTICLE =
   'https://www.newscientist.com/article/2578806-game-that-reduces-dementia-risk-clears-amyloid-from-mens-brains/'
 const coverImage = '/games/double-decision-cover.png'
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }))
+  return pageLocaleParams('games/double-decision')
 }
 
 export async function generateMetadata({
@@ -37,7 +38,7 @@ export async function generateMetadata({
       title: t('metadata.title'),
       description: t('metadata.description'),
       type: 'website',
-      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      locale: getLocaleMeta(locale).openGraph,
       images: [{
         url: coverImage,
         width: 1200,

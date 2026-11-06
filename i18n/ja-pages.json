@@ -1,0 +1,11 @@
+{
+  "_doc": "Japanese is rolled out page by page. A path is served under /ja/, listed in hreflang and the sitemap only when it is listed in `pages`. Paths have no locale prefix and no leading slash ('' is the home page). Each page lists the message key prefixes it renders; `shared` lists the prefixes every page renders (site chrome). `npm run check:i18n` requires every listed prefix to be fully translated before a build passes. `allowIdentical` lists message keys whose Japanese text may equal the English (brand names).",
+  "shared": [
+    "common",
+    "metadata",
+    "games.template",
+    "categories.categoryNames"
+  ],
+  "pages": {},
+  "allowIdentical": []
+}

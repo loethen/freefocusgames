@@ -5,14 +5,14 @@ import { Eye, Focus, Target } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
-import { routing } from '@/i18n/routing'
 import { generateAlternates } from '@/lib/utils'
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/fish-trace-cover.png';
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/fish-trace');
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

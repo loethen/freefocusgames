@@ -7,13 +7,14 @@ import { useTranslations } from 'next-intl'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { Link } from '@/i18n/navigation'
 import { generateAlternates } from '@/lib/utils'
-import { routing } from '@/i18n/routing'
 import { SITE_BASE_URL } from '@/lib/site-constants'
 
 import { RotatingSchulteGame } from './components/RotatingSchulteGame'
+import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }))
+  return pageLocaleParams('games/rotating-schulte-table')
 }
 
 export async function generateMetadata({
@@ -34,7 +35,7 @@ export async function generateMetadata({
       title: t('ogTitle'),
       description: t('ogDescription'),
       type: 'website',
-      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      locale: getLocaleMeta(locale).openGraph,
       images: [{ url: '/games/rotating-schulte-table.png', width: 1130, height: 950 }],
     },
     twitter: {

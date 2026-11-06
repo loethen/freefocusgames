@@ -9,6 +9,11 @@ import { getGames } from "@/data/games";
 import { Link } from "@/i18n/navigation";
 import { SITE_BASE_URL } from "@/lib/site-constants";
 import { generateAlternates } from "@/lib/utils";
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('games');
+}
 
 export async function generateMetadata(
     { params }: { params: Promise<{ locale: string }> }

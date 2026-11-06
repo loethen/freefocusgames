@@ -6,12 +6,12 @@ import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
-import { routing } from '@/i18n/routing'
 import { Link } from '@/i18n/navigation'
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/reaction-time');
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

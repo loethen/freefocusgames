@@ -11,6 +11,11 @@ const canonicalBase = String(args.canonicalBase || 'https://www.freefocusgames.c
 const output = String(args.output || `reports/seo/audit-${new Date().toISOString().replace(/[:.]/g, '-')}.json`);
 const mainPaths = ['', '/categories/reaction-time', '/categories/working-memory', '/games/challenge-10-seconds', '/games/sbti-test', '/games/schulte-table', '/blog/the-science-of-schulte-tables-boost-visual-attention-reading-speed', '/games/cps-test', '/games/spacebar-clicker', '/games/reaction-time', '/games/dual-n-back', '/adult-adhd-assessment'];
 const career = ['/career-tests', '/career-tests/criticall-practice-test', '/career-tests/911-dispatcher-typing-test'];
+// Japanese pages that are live; everything else under /ja/ must redirect to English.
+const jaPages = JSON.parse(await fs.readFile(new URL('../../i18n/ja-pages.json', import.meta.url), 'utf8')).pages;
+const jaPaths = Object.keys(jaPages).map(p => (p ? `/${p}` : ''));
+const isJaPath = pathname => pathname === '/ja' || pathname.startsWith('/ja/');
+const jaLive = pathname => jaPaths.includes(pathname.replace(/^\/ja(?=\/|$)/, '').replace(/\/$/, ''));
 function elements(node, predicate, out = []) {
   if (predicate(node)) out.push(node);
   for (const child of node.childNodes || []) elements(child, predicate, out);
@@ -40,7 +45,7 @@ const sitemapEntries = urlNodes.map(n => ({
   languages: Object.fromEntries(elements(n, c => c.tagName === 'xhtml:link').map(c => [attr(c, 'hreflang'), attr(c, 'href')]))
 }));
 const robots = await request(`${base}/robots.txt`);
-let urls = [...mainPaths, ...mainPaths.map(p => `/zh${p}`), ...career].map(p => `${base}${p || '/'}`);
+let urls = [...mainPaths, ...mainPaths.map(p => `/zh${p}`), ...jaPaths.map(p => `/ja${p}`), ...career].map(p => `${base}${p || '/'}`);
 if (args.all) urls = [...new Set([...urls, ...sitemapEntries.map(e => `${base}${new URL(e.url).pathname}`)])];
 const rows = [];
 let next = 0;
@@ -57,12 +62,17 @@ await Promise.all(Array.from({ length: 3 }, async () => {
       const expected = `${canonicalBase}${new URL(url).pathname}`.replace(/\/$/, '');
       const robotValues = metas.filter(n => ['robots', 'googlebot'].includes(attr(n, 'name'))).map(n => attr(n, 'content'));
       const scenarios = elements(doc, n => attr(n, 'data-use-case') !== undefined).map(n => attr(n, 'data-use-case'));
-      const row = { url, status: response.status, title: byTag('title').map(text), h1: byTag('h1').map(text), description: metas.filter(n => attr(n, 'name') === 'description').map(n => attr(n, 'content')), canonicals, languages, robots: robotValues, xRobotsTag: response.headers.match(/^x-robots-tag:\s*(.*)$/im)?.[1]?.trim() || null, elapsedMs: response.elapsedMs, htmlBytes: Buffer.byteLength(response.body), useCases: scenarios, issues: [] };
+      const htmlLang = attr(byTag('html')[0] || {}, 'lang');
+      const row = { url, status: response.status, htmlLang, title: byTag('title').map(text), h1: byTag('h1').map(text), description: metas.filter(n => attr(n, 'name') === 'description').map(n => attr(n, 'content')), canonicals, languages, robots: robotValues, xRobotsTag: response.headers.match(/^x-robots-tag:\s*(.*)$/im)?.[1]?.trim() || null, elapsedMs: response.elapsedMs, htmlBytes: Buffer.byteLength(response.body), useCases: scenarios, issues: [] };
       if (response.status !== 200) row.issues.push(`HTTP ${response.status}`);
       if (canonicals.length !== 1 || canonicals[0].replace(/\/$/, '') !== expected) row.issues.push('canonical mismatch');
       if (robotValues.some(v => /noindex/i.test(v)) || /noindex/i.test(row.xRobotsTag || '')) row.issues.push('noindex');
       if (row.title.length !== 1 || !row.title[0]) row.issues.push('missing/duplicate title');
       if (row.h1.length !== 1) row.issues.push(`H1 count ${row.h1.length}`);
+      const pagePath = new URL(url).pathname;
+      if (isJaPath(pagePath) && htmlLang !== 'ja') row.issues.push(`html lang ${htmlLang}`);
+      if (isJaPath(pagePath) && languages.ja?.replace(/\/$/, '') !== expected) row.issues.push('ja hreflang does not point to itself');
+      if (languages.ja && !jaLive(new URL(languages.ja).pathname)) row.issues.push(`hreflang ja points to an unlisted page: ${languages.ja}`);
       if (['/', '/zh'].includes(new URL(url).pathname) && (scenarios.length !== 10 || new Set(scenarios).size !== 10)) row.issues.push('duplicate/missing use cases');
       rows.push(row);
     } catch (error) { rows.push({ url, issues: [error.message.slice(0, 250)] }); }
@@ -78,11 +88,17 @@ for (const [pathname, headers, expected] of [
   ['/zh/career-tests?utm_source=seo-week1', [], 301],
   ['/partnerships', [], 404],
   ['/zh/partnerships?utm_source=seo-week1', [], 404],
-  ['/de/games/cps-test?utm_source=seo-week1', [], 301]
+  ['/de/games/cps-test?utm_source=seo-week1', [], 301],
+  // sbti-test is out of the Japanese scope, so these must land on English.
+  ['/ja/games/sbti-test?utm_source=seo-ja', [], 301],
+  ['/jp/games/sbti-test?utm_source=seo-ja', [], 301],
+  ['/ja/career-tests?utm_source=seo-ja', [], 301],
+  ['/ja/partnerships?utm_source=seo-ja', [], 301]
 ]) {
   const r = await request(`${base}${pathname}`, headers);
   const location = r.headers.match(/^location:\s*(.*)$/im)?.[1]?.trim();
-  const expectedLocation = expected === 308 ? pathname.replace('/?', '?') : pathname.replace(/^\/(en|zh|de)(?=\/)/, '');
+  const expectedLocation = pathname === '/ja/partnerships?utm_source=seo-ja' ? '/about?utm_source=seo-ja'
+    : expected === 308 ? pathname.replace('/?', '?') : pathname.replace(/^\/(en|zh|de|ja|jp)(?=\/)/, '');
   const target = location ? new URL(location, base) : null;
   probes.push({ pathname, expected, status: r.status, location, pass: r.status === expected && (expected < 300 || expected >= 400 || `${target?.pathname}${target?.search}` === expectedLocation) });
 }
@@ -92,6 +108,8 @@ if (sitemap.status !== 200 || !sitemapEntries.length) sitemapIssues.push('sitema
 if (sitemapUrls.size !== sitemapEntries.length) sitemapIssues.push('duplicate sitemap URLs');
 for (const entry of sitemapEntries) {
   if (new URL(entry.url).origin !== canonicalBase) sitemapIssues.push(`wrong sitemap origin: ${entry.url}`);
+  if (isJaPath(new URL(entry.url).pathname) && !jaLive(new URL(entry.url).pathname)) sitemapIssues.push(`unlisted Japanese page in sitemap: ${entry.url}`);
+  if (entry.languages.ja && !jaLive(new URL(entry.languages.ja).pathname)) sitemapIssues.push(`hreflang ja points to an unlisted page: ${entry.url}`);
   for (const alternate of Object.values(entry.languages)) if (!sitemapUrls.has(alternate)) sitemapIssues.push(`alternate not in sitemap: ${alternate}`);
   for (const alternate of Object.values(entry.languages)) {
     const target = sitemapEntries.find(e => e.url === alternate);

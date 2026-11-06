@@ -9,6 +9,11 @@ import LinkClickTracker from '@/components/link-click-tracker';
 import { GrainBanner } from '@/components/grain-banner';
 import { Inter } from 'next/font/google';
 import { generateAlternates } from '@/lib/utils';
+import { pageLocaleParams } from '@/lib/locale-availability';
+
+export function generateStaticParams() {
+  return pageLocaleParams('blog');
+}
 
 export const dynamic = "force-static";
 export const revalidate = false;

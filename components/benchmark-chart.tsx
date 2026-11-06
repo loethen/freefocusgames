@@ -1,22 +1,17 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 import { DistributionChart, type DistributionBin } from "@/components/distribution-chart";
-import type { Benchmark, BenchmarkUnit } from "@/lib/benchmarks";
-
-const UNITS: Record<"en" | "zh", Record<BenchmarkUnit, string>> = {
-    en: { ms: "ms", s: "s", cps: "CPS", digits: "digits" },
-    zh: { ms: "毫秒", s: "秒", cps: "CPS", digits: "位" },
-};
+import type { Benchmark } from "@/lib/benchmarks";
 
 // Number formatting for bin edges: 0.5 steps keep one decimal, the rest are whole numbers.
 function edge(value: number) {
     return Number.isInteger(value) ? String(value) : value.toFixed(1);
 }
 
-export function toDistributionBins(benchmark: Benchmark, locale: string): DistributionBin[] {
-    const unit = UNITS[locale === "zh" ? "zh" : "en"][benchmark.unit];
+// `unit` is the localized unit label (messages: charts.units).
+export function toDistributionBins(benchmark: Benchmark, unit: string): DistributionBin[] {
     const chart = benchmark.chart;
 
     if (chart.kind === "categories") {
@@ -41,7 +36,7 @@ export function BenchmarkChart({ benchmark, axisLabel, ariaLabel }: {
     axisLabel: string;
     ariaLabel: string;
 }) {
-    const locale = useLocale();
+    const t = useTranslations("charts.units");
     const chart = benchmark.chart;
     const endTick = chart.kind === "histogram" && chart.end
         ? edge(chart.start + chart.counts.length * chart.step)
@@ -49,7 +44,7 @@ export function BenchmarkChart({ benchmark, axisLabel, ariaLabel }: {
 
     return (
         <DistributionChart
-            bins={toDistributionBins(benchmark, locale)}
+            bins={toDistributionBins(benchmark, t(benchmark.unit))}
             total={benchmark.chartTotal}
             axisLabel={axisLabel}
             ariaLabel={ariaLabel}

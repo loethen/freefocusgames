@@ -12,16 +12,19 @@ import { Link } from "@/i18n/navigation";
 import LinkClickTracker from "@/components/link-click-tracker";
 import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
+import { isPathAvailable } from '@/lib/locale-availability';
 
 export const dynamic = "force-static";
 export const revalidate = false;
 
 export function generateStaticParams() {
   return routing.locales.flatMap((locale) =>
-    categories.map((category) => ({
-      locale,
-      slug: category.slug,
-    }))
+    categories
+      .filter((category) => isPathAvailable(locale, `categories/${category.slug}`))
+      .map((category) => ({
+        locale,
+        slug: category.slug,
+      }))
   );
 }
 

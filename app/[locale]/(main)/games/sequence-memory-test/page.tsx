@@ -9,15 +9,15 @@ import { GamePreview } from "./components/GamePreview"
 import { useTranslations } from 'next-intl'
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { use } from "react";
-import { routing } from '@/i18n/routing';
 import { generateAlternates } from "@/lib/utils";
 import { BlockMemoryLeaderboard, RecallDirectionProvider } from "./components/RecallDirection";
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = "/games/sequence-memory-test-cover.png";
 
 // Generate static params for all locales
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/sequence-memory-test');
 }
 
 export async function generateMetadata({

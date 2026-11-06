@@ -6,10 +6,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
 import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
-import { routing } from '@/i18n/routing'
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }))
+    return pageLocaleParams('games/memory-matching-game')
 }
 
 export async function generateMetadata(

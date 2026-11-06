@@ -4,15 +4,15 @@ import { use } from 'react';
 import { useTranslations } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { GamePageTemplate } from '@/components/GamePageTemplate';
-import { routing } from '@/i18n/routing';
 import { generateAlternates } from '@/lib/utils';
 import Game from './components/Game';
 import SbtiTypeLeaderboard from './components/SbtiTypeLeaderboard';
+import { pageLocaleParams } from '@/lib/locale-availability';
 
 const coverImage = '/games/sbti-test-cover.png';
 
 export function generateStaticParams() {
-    return routing.locales.map((locale) => ({ locale }));
+    return pageLocaleParams('games/sbti-test');
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {

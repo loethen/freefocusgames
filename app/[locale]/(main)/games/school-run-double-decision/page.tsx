@@ -6,13 +6,14 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { useTranslations } from 'next-intl'
 import { GamePageTemplate } from '@/components/GamePageTemplate'
 import { generateAlternates } from '@/lib/utils'
-import { routing } from '@/i18n/routing'
 import { SchoolRunGame } from './components/SchoolRunGame'
+import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
 
 const coverImage = '/games/school-run-double-decision-cover.png'
 
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }))
+  return pageLocaleParams('games/school-run-double-decision')
 }
 
 export async function generateMetadata({
@@ -32,7 +33,7 @@ export async function generateMetadata({
       title: t('metadata.title'),
       description: t('metadata.description'),
       type: 'website',
-      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      locale: getLocaleMeta(locale).openGraph,
       images: [{ url: coverImage, width: 1200, height: 675, alt: t('title') }],
     },
     twitter: {
