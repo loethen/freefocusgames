@@ -92,17 +92,18 @@ export default function WhiteNoisePage({
                 </>
             }
             additionalContent={
-                <div className="mx-auto max-w-3xl space-y-8 rounded-xl border border-border bg-muted/30 p-6">
+                <div className="mx-auto max-w-3xl space-y-10">
                     <section>
                         <h2 className="mb-3 text-2xl font-semibold">{t('sounds.title')}</h2>
-                        <dl className="space-y-3 text-lg leading-relaxed">
+                        <div className="space-y-3 text-lg leading-relaxed text-muted-foreground">
                             {sounds.map((id) => (
-                                <div key={id}>
-                                    <dt className="font-semibold">{t(`sounds.${id}.name`)}</dt>
-                                    <dd className="text-muted-foreground">{t(`sounds.${id}.description`)}</dd>
-                                </div>
+                                <p key={id}>
+                                    <strong className="font-semibold text-foreground">{t(`sounds.${id}.name`)}</strong>
+                                    {' — '}
+                                    {t(`sounds.${id}.description`)}
+                                </p>
                             ))}
-                        </dl>
+                        </div>
                     </section>
                     <section>
                         <h2 className="mb-3 text-2xl font-semibold">{t('about.title')}</h2>

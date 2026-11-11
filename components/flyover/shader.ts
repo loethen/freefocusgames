@@ -391,7 +391,7 @@ void main() {
     a = max(a, gm);
   }
 
-  // clouds above everything, allowed past the edge
+  // clouds above everything, kept inside the feathered edge
   float cd = cloudD(q);
   if (cd > -0.05) {
     float ca = smoothstep(0.0, 0.1, cd);
@@ -399,7 +399,6 @@ void main() {
     float shade = clamp((cd - cbr) * 5.0, 0.0, 1.0);
     vec3 cc = mix(vec3(1.0), vec3(0.84, 0.87, 0.91), shade * 0.6);
     col = mix(col, cc, ca);
-    a = max(a, ca);
   }
 
   gl_FragColor = vec4(col * a, a);
