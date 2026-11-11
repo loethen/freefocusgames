@@ -7,32 +7,33 @@
       "ogTitle": "Not Sure What to Play? Get 3 Brain Game Picks",
       "ogDescription": "Pick a goal and take an optional 30-second check to get three free brain games to try next."
     },
-    "title": "Not sure what to play?",
+    "headline": "Get your brain game picks in 30 seconds",
     "goalSetting": {
-      "title": "What do you want to practice?",
-      "subtitle": "There is no wrong answer. Pick the one that sounds right today.",
+      "title": "What brings you here today?",
       "goals": {
         "focus": {
-          "title": "Improve my focus for work/study",
-          "subtitle": "Stay on task and reduce distractions"
+          "title": "I get distracted easily",
+          "subtitle": "Practice keeping your attention on one thing"
         },
         "memory": {
-          "title": "Sharpen my memory for daily life",
-          "subtitle": "Remember names, tasks, and details better"
+          "title": "I keep forgetting things",
+          "subtitle": "Practice holding names, tasks, and details in mind"
         },
         "speed": {
-          "title": "Boost my reaction time",
-          "subtitle": "Think and respond faster"
+          "title": "I want to know how fast I am",
+          "subtitle": "Measure your reaction time, then try to beat it"
         },
         "relax": {
-          "title": "Calm down and reset",
-          "subtitle": "Guided breathing for a short break"
+          "title": "I need to quiet my mind",
+          "subtitle": "A few minutes of guided breathing"
         },
         "justPlay": {
           "title": "Just give me something fun",
           "subtitle": "Skip the check and jump into a popular game"
         }
-      }
+      },
+      "noCheck": "No check",
+      "justPlayLink": "I just want to play for a few minutes"
     },
     "reactionTimeTest": {
       "title": "Reaction Speed Test",
@@ -93,7 +94,7 @@
         "yellow": "Yellow"
       }
     },
-    "intro": "Pick what you want to practice. Take an optional 30-second check, then get three games to try.",
+    "intro": "Not sure what to play? Pick the one that sounds like you and get three games to try.",
     "check": {
       "hint": "Quick check, about 30 seconds. It only helps pick your games.",
       "skip": "Skip the check and show my games",
@@ -124,7 +125,20 @@
           "strong": "You recalled {value}% of the sequence correctly. These picks add more working memory challenge.",
           "building": "You recalled {value}% of the sequence correctly. Start with steady sequence practice, then build up."
         }
-      }
+      },
+      "meter": {
+        "reaction": "Average reaction time",
+        "memory": "Sequence recall",
+        "stroop": "Color-word accuracy",
+        "slower": "Slower",
+        "faster": "Faster",
+        "typical": "Most people score about {from}–{to} ms on a browser test like this."
+      },
+      "level": {
+        "strong": "Strong start",
+        "building": "Room to grow"
+      },
+      "playNow": "Play {game} now"
     },
     "browseAllPrefix": "Already know what you want?",
     "browseAll": "Browse all games"

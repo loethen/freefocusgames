@@ -207,6 +207,62 @@
   .tests-rise { animation: none; }
 }
 
+/* Get-started result meter: the bar grows from the left */
+@keyframes meter-fill {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.meter-fill {
+  animation: meter-fill 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .meter-fill { animation: none; }
+}
+
+/* Get-started goal visuals: small looping demos of each kind of game.
+   Paused until the card (.group) is hovered or focused; touch screens and .gs-live always play. */
+@keyframes gs-swap {
+  0%, 28% { opacity: 1; transform: none; }
+  33% { opacity: 0; transform: translateY(-6px); }
+  95% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes gs-lit {
+  0%, 18% { opacity: 1; }
+  26%, 100% { opacity: 0; }
+}
+@keyframes gs-signal {
+  0%, 26% { background-color: #22c55e; transform: scale(1); }
+  32%, 86% { background-color: #ef4444; transform: scale(0.94); }
+  92%, 100% { background-color: #22c55e; transform: scale(1); }
+}
+@keyframes gs-readout {
+  0%, 26% { opacity: 1; }
+  32%, 90% { opacity: 0; }
+  96%, 100% { opacity: 1; }
+}
+@keyframes gs-breathe {
+  0%, 100% { transform: scale(0.6); }
+  45%, 55% { transform: scale(1); }
+}
+.gs-swap { animation: gs-swap 4.8s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+.gs-lit { animation: gs-lit 3.2s ease-out infinite; }
+.gs-signal { animation: gs-signal 3.6s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+.gs-readout { animation: gs-readout 3.6s ease-out infinite; }
+.gs-breathe { animation: gs-breathe 7s ease-in-out infinite; }
+
+@media (hover: hover) {
+  .gs-anim { animation-play-state: paused; }
+  .group:hover .gs-anim,
+  .group:focus-visible .gs-anim,
+  .gs-live .gs-anim { animation-play-state: running; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gs-anim { animation: none; }
+}
+
 /* Grain banner: colour blobs drift and breathe slowly */
 @keyframes grain-drift-a { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(6%, 8%) scale(1.08); } }
 @keyframes grain-drift-b { 0%, 100% { transform: translate(0, 0) scale(1.04); } 50% { transform: translate(-7%, 6%) scale(0.96); } }

@@ -29,6 +29,24 @@ export async function generateMetadata({
   };
 }
 
-export default function GetStartedPage() {
-  return <OnboardingFlow />;
+export default async function GetStartedPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'getStarted' });
+
+  return (
+    <div className="py-6 sm:py-10">
+      <OnboardingFlow
+        header={
+          <header className="mx-auto mb-8 max-w-3xl text-center">
+            <h1 className="mb-2 text-2xl font-bold tracking-tight sm:text-3xl">{t('headline')}</h1>
+            <p className="mx-auto max-w-xl text-muted-foreground">{t('intro')}</p>
+          </header>
+        }
+      />
+    </div>
+  );
 }

@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Check, Brain, Grid3X3, Eye, Hand } from 'lucide-react';
+import { Check, Eye, Hand } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { checkIconBadge, checkPrimaryButton } from './check-styles';
+import CheckIntro from './CheckIntro';
 
 interface MemoryTestProps {
   onComplete: (memoryScore: number) => void;
@@ -68,59 +70,7 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
   }, [score, onComplete]);
 
   if (testState === 'instruction') {
-    return (
-      <div className="text-center space-y-8">
-        {/* 测试图标和标题 */}
-        <div className="space-y-4">
-          <div className="flex justify-center">
-            <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
-              <Brain className="w-8 h-8 text-purple-600" />
-            </div>
-          </div>
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('title')}</h3>
-          <p className="text-lg text-gray-600 dark:text-gray-400">{t('subtitle')}</p>
-        </div>
-
-        {/* 测试说明卡片 */}
-        <div className="bg-purple-50 dark:bg-purple-950 border border-purple-200 dark:border-purple-800 rounded-xl p-6 space-y-4">
-          <h4 className="text-lg font-semibold text-purple-900 dark:text-purple-100 mb-4">{t('testFlow')}</h4>
-          
-          <div className="space-y-3">
-                         <div className="flex items-center gap-3 text-sm">
-               <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">1</div>
-               <span className="text-gray-700 dark:text-gray-300">
-                 <Eye className="inline w-4 h-4 mr-1" />
-                 {t('step1')}
-               </span>
-             </div>
-            
-            <div className="flex items-center gap-3 text-sm">
-              <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">2</div>
-              <span className="text-gray-700 dark:text-gray-300">
-                <Grid3X3 className="inline w-4 h-4 mr-1" />
-                {t('step2')}
-              </span>
-            </div>
-            
-            <div className="flex items-center gap-3 text-sm">
-              <div className="w-6 h-6 bg-purple-500 text-white rounded-full flex items-center justify-center font-semibold text-xs">3</div>
-              <span className="text-gray-700 dark:text-gray-300">
-                <Hand className="inline w-4 h-4 mr-1" />
-                {t('step3')}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* 开始按钮 */}
-        <button
-          onClick={startMemoryTest}
-          className="px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors shadow-lg hover:shadow-xl"
-        >
-          {t('startButton')}
-        </button>
-      </div>
-    );
+    return <CheckIntro visual="memory" title={t('title')} instructions={t('instructions')} startLabel={t('startButton')} onStart={startMemoryTest} />;
   }
 
   if (testState === 'playing') {
@@ -132,17 +82,17 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
           <div className="flex items-center justify-center gap-4">
             <div className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
               showingSequence 
-                ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' 
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-500'
+                ? 'bg-primary/10 text-primary' 
+                : 'bg-muted text-muted-foreground'
             }`}>
               <Eye className="inline w-4 h-4 mr-1" />
               {t('observationPhase')}
             </div>
-            <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+            <div className="w-2 h-2 bg-border rounded-full"></div>
             <div className={`px-3 py-1 rounded-full text-sm font-medium transition-all ${
               !showingSequence 
-                ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' 
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-500'
+                ? 'bg-primary/10 text-primary' 
+                : 'bg-muted text-muted-foreground'
             }`}>
               <Hand className="inline w-4 h-4 mr-1" />
               {t('recallPhase')}
@@ -152,18 +102,18 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
 
         {/* 3x3 网格 */}
         <div className="flex justify-center">
-          <div className="grid grid-cols-3 gap-3 p-6 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+          <div className="grid grid-cols-3 gap-3">
             {Array.from({length: 9}, (_, i) => (
               <div
                 key={i}
                 className={`w-16 h-16 border-2 rounded-lg cursor-pointer transition-all duration-200 flex items-center justify-center font-bold text-lg ${
                   showingSequence && sequenceIndex < memorySequence.length && memorySequence[sequenceIndex] === i
-                    ? 'bg-blue-500 border-blue-600 text-white scale-110 shadow-lg'
+                    ? 'bg-primary border-primary text-primary-foreground scale-110 shadow-lg'
                     : userSequence.includes(i)
-                    ? 'bg-green-400 border-green-500 text-white scale-105'
+                    ? 'bg-primary/70 border-primary text-primary-foreground scale-105'
                     : showingSequence
-                    ? 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-400'
-                    : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 hover:border-purple-400 text-gray-600 dark:text-gray-400'
+                    ? 'bg-background border-border text-muted-foreground'
+                    : 'bg-background border-border hover:bg-muted hover:border-primary/50 text-muted-foreground'
                 }`}
                 onClick={() => handleMemoryClick(i)}
               >
@@ -177,13 +127,13 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
         <div className="space-y-2">
           {showingSequence ? (
             <div className="space-y-2">
-              <p className="text-lg font-medium text-blue-600 animate-pulse">{t('rememberSequence')}</p>
+              <p className="text-lg font-medium text-primary animate-pulse">{t('rememberSequence')}</p>
                              <div className="flex justify-center gap-1">
                  {Array.from({length: 6}, (_, i) => (
                    <div
                      key={i}
                      className={`w-2 h-2 rounded-full transition-all ${
-                       i <= sequenceIndex ? 'bg-blue-500' : 'bg-gray-300'
+                       i <= sequenceIndex ? 'bg-primary' : 'bg-border'
                      }`}
                    />
                  ))}
@@ -191,8 +141,8 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
             </div>
           ) : (
             <div className="space-y-2">
-              <p className="text-lg font-medium text-green-600">{t('clickInOrder')}</p>
-              <p className="text-sm text-gray-500">
+              <p className="text-lg font-medium text-primary">{t('clickInOrder')}</p>
+              <p className="text-sm text-muted-foreground">
                 {t('progress')}: {userSequence.length}/{memorySequence.length}
               </p>
             </div>
@@ -206,24 +156,24 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
     return (
       <div className="text-center space-y-6">
         <div className="flex justify-center">
-          <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-            <Check className="w-8 h-8 text-green-600" />
+          <div className={checkIconBadge}>
+            <Check className="w-7 h-7" />
           </div>
         </div>
         
         <h3 className="text-xl font-semibold">{t('testComplete')}</h3>
         
-        <div className="bg-green-50 dark:bg-green-950 border border-green-200 dark:border-green-800 rounded-xl p-4 space-y-2">
-          <div className="text-2xl font-bold text-green-600">{score}%</div>
-          <p className="text-sm text-gray-600 dark:text-gray-400">{t('memoryAccuracy')}</p>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+        <div className="bg-primary/5 border border-primary/20 rounded-xl p-4 space-y-2">
+          <div className="text-3xl font-bold text-primary">{score}%</div>
+          <p className="text-sm text-muted-foreground">{t('memoryAccuracy')}</p>
+          <p className="text-sm text-muted-foreground">
             {t('correctRecall')}: {Math.round(score / 100 * 6)}/6 {t('positions')}
           </p>
         </div>
 
         {/* 表现评价 */}
-        <div className="bg-purple-50 dark:bg-purple-950 border border-purple-200 dark:border-purple-800 rounded-xl p-4">
-          <p className="text-sm text-purple-800 dark:text-purple-200">
+        <div className="bg-muted/50 border border-border rounded-xl p-4">
+          <p className="text-sm text-foreground/80">
             {score >= 75 ? 
               t('excellentMemory') : 
               score >= 50 ? 
@@ -235,7 +185,8 @@ export default function MemoryTest({ onComplete }: MemoryTestProps) {
         
         <button
           onClick={handleComplete}
-          className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-colors shadow-lg"
+          type="button"
+          className={checkPrimaryButton}
         >
           {t('continueNext')}
         </button>

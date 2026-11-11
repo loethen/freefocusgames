@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Check, Brain } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { checkIconBadge, checkPrimaryButton } from './check-styles';
+import CheckIntro from './CheckIntro';
 
 interface StroopTestProps {
   onComplete: (stroopScore: number, avgReactionTime: number) => void;
@@ -132,25 +134,7 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
   }, [finalScore, avgReactionTime, onComplete]);
 
   if (testState === 'instruction') {
-    return (
-      <div className="text-center space-y-6">
-        <div className="flex justify-center">
-          <Brain className="w-8 h-8 text-purple-500" />
-        </div>
-        <h3 className="text-xl font-semibold">{t('title')}</h3>
-        <p className="text-muted-foreground">{t('subtitle')}</p>
-        <div className="text-sm space-y-2">
-          <p>{t('instructions')}</p>
-          <p>{t('example')}</p>
-        </div>
-        <button
-          onClick={startTest}
-          className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-colors"
-        >
-          {t('startButton')}
-        </button>
-      </div>
-    );
+    return <CheckIntro visual="focus" title={t('title')} instructions={t('instructions')} note={t('example')} startLabel={t('startButton')} onStart={startTest} />;
   }
 
   if (testState === 'playing' && currentTrial) {
@@ -158,7 +142,7 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
       <div className="text-center space-y-6">
         <h3 className="text-xl font-semibold">{t('title')} ({currentRound + 1}/8)</h3>
 
-        <div className="p-8 bg-white dark:bg-gray-800 rounded-xl border">
+        <div className="mx-auto max-w-md">
           <p className="text-lg mb-6">{t('whatColor')}</p>
           <div
             className="text-5xl font-bold mb-8"
@@ -172,7 +156,7 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
               <button
                 key={color.name}
                 onClick={() => handleColorSelect(color.name)}
-                className="px-4 py-3 border-2 border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 hover:border-gray-400 dark:hover:border-gray-500 transition-all"
+                className="cursor-pointer px-4 py-3 bg-background border-2 border-border rounded-lg hover:border-primary/50 transition-colors"
               >
                 <span className="font-medium">{color.key}. {color.text}</span>
               </button>
@@ -190,9 +174,7 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
   if (testState === 'completed') {
     return (
       <div className="text-center space-y-6">
-        <div className="flex justify-center text-green-500">
-          <Check size={48} />
-        </div>
+        <div className="flex justify-center"><div className={checkIconBadge}><Check className="w-7 h-7" /></div></div>
         <h3 className="text-xl font-semibold">{t('testComplete')}</h3>
         <div className="space-y-2">
           <p>{t('accuracy')}: {finalScore}%</p>
@@ -200,7 +182,8 @@ export default function StroopTest({ onComplete }: StroopTestProps) {
         </div>
         <button
           onClick={handleComplete}
-          className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-colors"
+          type="button"
+          className={checkPrimaryButton}
         >
           {t('nextTest')}
         </button>

@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useState, useCallback } from 'react';
-import { Check, Zap } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { checkIconBadge, checkPrimaryButton } from './check-styles';
+import CheckIntro from './CheckIntro';
 
 interface ReactionTimeTestProps {
   onComplete: (avgReactionTime: number) => void;
@@ -60,22 +62,7 @@ export default function ReactionTimeTest({ onComplete }: ReactionTimeTestProps) 
   }, [avgTime, onComplete]);
 
   if (testState === 'instruction') {
-    return (
-      <div className="text-center space-y-6">
-        <div className="flex justify-center">
-          <Zap className="w-8 h-8 text-yellow-500" />
-        </div>
-        <h3 className="text-xl font-semibold">{t('title')}</h3>
-        <p className="text-muted-foreground">{t('subtitle')}</p>
-        <p className="text-sm">{t('instructions')}</p>
-        <button
-          onClick={startReactionTest}
-          className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-colors"
-        >
-          {t('startButton')}
-        </button>
-      </div>
-    );
+    return <CheckIntro visual="speed" title={t('title')} instructions={t('instructions')} startLabel={t('startButton')} onStart={startReactionTest} />;
   }
 
   if (testState === 'playing') {
@@ -87,7 +74,7 @@ export default function ReactionTimeTest({ onComplete }: ReactionTimeTestProps) 
               ? 'bg-red-500'
               : reactionState === 'ready'
                 ? 'bg-green-500'
-                : 'bg-gray-300'
+                : 'bg-muted-foreground/40'
             }`}
           onClick={handleReactionClick}
         >
@@ -115,14 +102,13 @@ export default function ReactionTimeTest({ onComplete }: ReactionTimeTestProps) 
   if (testState === 'completed') {
     return (
       <div className="text-center space-y-6">
-        <div className="flex justify-center text-green-500">
-          <Check size={48} />
-        </div>
+        <div className="flex justify-center"><div className={checkIconBadge}><Check className="w-7 h-7" /></div></div>
         <h3 className="text-xl font-semibold">{t('testComplete')}</h3>
         <p>{t('averageReactionTime')}: {avgTime} {t('milliseconds')}</p>
         <button
           onClick={handleComplete}
-          className="px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl transition-colors"
+          type="button"
+          className={checkPrimaryButton}
         >
           {t('nextTest')}
         </button>

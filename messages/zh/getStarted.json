@@ -7,32 +7,33 @@
       "ogTitle": "不知道玩什么？3 个脑力游戏推荐",
       "ogDescription": "选择目标，可选做 30 秒小测，获得 3 个接下来可以玩的免费脑力游戏。"
     },
-    "title": "不知道玩什么？",
+    "headline": "30 秒拿到适合你的游戏推荐",
     "goalSetting": {
-      "title": "你想练什么？",
-      "subtitle": "没有标准答案，选今天最想练的就好。",
+      "title": "你今天是因为什么来的？",
       "goals": {
         "focus": {
-          "title": "提升我工作/学习的专注力",
-          "subtitle": "保持专注，减少分心"
+          "title": "我总是分心",
+          "subtitle": "练习把注意力留在一件事上"
         },
         "memory": {
-          "title": "增强我日常生活中的记忆力",
-          "subtitle": "更好地记住姓名、任务和细节"
+          "title": "我老是忘事",
+          "subtitle": "练习记住名字、任务和细节"
         },
         "speed": {
-          "title": "加快我的反应速度",
-          "subtitle": "思考和反应更迅速"
+          "title": "我想知道自己反应有多快",
+          "subtitle": "先测出你的反应时间，再试着刷新它"
         },
         "relax": {
-          "title": "放松一下",
-          "subtitle": "跟着引导做几分钟呼吸练习"
+          "title": "我脑子很乱，想静一下",
+          "subtitle": "几分钟的引导呼吸"
         },
         "justPlay": {
           "title": "随便玩玩",
           "subtitle": "跳过小测，直接玩热门游戏"
         }
-      }
+      },
+      "noCheck": "无需小测",
+      "justPlayLink": "我就想玩几分钟"
     },
     "reactionTimeTest": {
       "title": "反应速度测试",
@@ -93,7 +94,7 @@
         "yellow": "黄色"
       }
     },
-    "intro": "选一个你想练的方向，可选做 30 秒小测，然后获得 3 个推荐游戏。",
+    "intro": "不知道玩什么？选一个最像你的情况，马上推荐 3 个游戏给你。",
     "check": {
       "hint": "快速小测，约 30 秒，只用于挑选游戏。",
       "skip": "跳过小测，直接看推荐",
@@ -124,7 +125,20 @@
           "strong": "你正确回忆了 {value}% 的序列。这些推荐会给工作记忆更多挑战。",
           "building": "你正确回忆了 {value}% 的序列。先从稳定的序列记忆练习开始，再逐步提高。"
         }
-      }
+      },
+      "meter": {
+        "reaction": "平均反应时间",
+        "memory": "序列记忆正确率",
+        "stroop": "颜色识别正确率",
+        "slower": "较慢",
+        "faster": "较快",
+        "typical": "在类似的网页测试中，大多数人约为 {from}–{to} 毫秒。"
+      },
+      "level": {
+        "strong": "起点不错",
+        "building": "还有提升空间"
+      },
+      "playNow": "开始玩 {game}"
     },
     "browseAllPrefix": "已经知道想玩什么？",
     "browseAll": "浏览全部游戏"

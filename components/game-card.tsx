@@ -30,7 +30,7 @@ interface GameCardProps {
     className?: string;
 }
 
-function gameTitleKey(id: string) {
+export function gameTitleKey(id: string) {
     return id.replace(/-([a-z])/g, (_, char: string) => char.toUpperCase()).replace(/-/g, "");
 }
 
