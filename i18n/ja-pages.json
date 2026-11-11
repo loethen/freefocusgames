@@ -63,7 +63,8 @@
       "home.metaKeywords",
       "home.ogTitle",
       "home.ogDescription",
-      "home.ctaButton"
+      "home.ctaButton",
+      "games.whiteNoise.heroLink"
     ],
     "games": [
       "games.title",
@@ -129,6 +130,9 @@
     ],
     "get-started": [
       "getStarted"
+    ],
+    "games/white-noise": [
+      "games.whiteNoise"
     ]
   },
   "drafts": {},

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { ArrowRight, Headphones } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { startFlyover } from "./flyover/engine";
 
@@ -54,14 +55,20 @@ export default function HeroFlyover({
 
     if (!href) return <div className="w-full max-w-[560px]">{stage}</div>;
 
+    // One link around the scene and its caption; the caption names it and tells visitors it is clickable.
     return (
         <Link
             href={href}
-            aria-label={linkLabel}
-            title={linkLabel}
-            className="block w-full max-w-[560px] cursor-pointer rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4"
+            className="group block w-full max-w-[560px] cursor-pointer rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4"
         >
             {stage}
+            <span className="-mt-1 flex items-center justify-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+                <Headphones className="h-4 w-4" aria-hidden="true" />
+                <span className="underline decoration-muted-foreground/40 underline-offset-4 transition-[text-decoration-color] duration-300 group-hover:decoration-foreground">
+                    {linkLabel}
+                </span>
+                <ArrowRight className="h-3.5 w-3.5 -translate-x-1.5 opacity-0 transition-[opacity,translate] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 motion-reduce:transition-none" aria-hidden="true" />
+            </span>
         </Link>
     );
 }
