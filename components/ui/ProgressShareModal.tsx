@@ -14,6 +14,12 @@ type ProgressShareModalProps = {
     onClose: () => void;
     card: ProgressCardData | null;
     fileName: string;
+    /** Draws a custom image instead of a progress card; keep it stable (useCallback). */
+    renderImage?: () => Promise<Blob>;
+    /** Text for social posts when renderImage is used. */
+    shareText?: string;
+    /** Translation namespace for the dialog's labels. */
+    messages?: string;
 };
 
 type ShareAction = {
@@ -37,8 +43,11 @@ export function ProgressShareModal({
     onClose,
     card,
     fileName,
+    renderImage,
+    shareText: customShareText,
+    messages = "common.progressShare",
 }: ProgressShareModalProps) {
-    const t = useTranslations("common.progressShare");
+    const t = useTranslations(messages);
     const [imageBlob, setImageBlob] = useState<Blob | null>(null);
     const [previewUrl, setPreviewUrl] = useState<string>("");
     const [isGenerating, setIsGenerating] = useState(false);
@@ -54,7 +63,8 @@ export function ProgressShareModal({
 
 
     useEffect(() => {
-        if (!isOpen || !card) {
+        const render = renderImage ?? (card ? () => renderProgressCardBlob(card) : null);
+        if (!isOpen || !render) {
             return;
         }
 
@@ -65,7 +75,7 @@ export function ProgressShareModal({
         setPreviewUrl("");
         setGenerationFailed(false);
         setIsGenerating(true);
-        void renderProgressCardBlob(card)
+        void render()
             .then((blob) => {
                 if (isCancelled) {
                     return;
@@ -93,7 +103,7 @@ export function ProgressShareModal({
                 URL.revokeObjectURL(localPreviewUrl);
             }
         };
-    }, [card, isOpen, attempt]);
+    }, [card, renderImage, isOpen, attempt]);
 
     useEffect(() => {
         if (!isOpen) {
@@ -115,9 +125,9 @@ export function ProgressShareModal({
 
     // The game page without query or hash, so shared links stay clean.
     const pageUrl = `${window.location.origin}${window.location.pathname}`;
-    const shareText = card
+    const shareText = customShareText ?? (card
         ? t("shareText", { title: card.title, value: card.primaryValue })
-        : "";
+        : "");
 
     const openShareWindow = (url: string) => {
         window.open(url, "_blank", "noopener,noreferrer");

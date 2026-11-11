@@ -66,6 +66,7 @@ const LIBRARY_ORDER = [
     "digit-span-test",
     "trail-making-test",
     "bamboo-cicada",
+    "white-noise",
 ];
 
 const CATEGORY_LINK_IDS = [

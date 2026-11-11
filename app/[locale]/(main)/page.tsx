@@ -10,7 +10,7 @@ import LatestGames from "@/components/latest-games";
 import TryYourLuck from "@/components/try-your-luck";
 import BreathingGame from "@/app/[locale]/(main)/games/resonance-breathing/components/Game";
 import LinkClickTracker from "@/components/link-click-tracker";
-import Image from "next/image";
+import HeroFlyover from "@/components/hero-flyover";
 import { games } from "@/data/games";
 import {
     ArrowRight,
@@ -265,18 +265,10 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             </div>
                         </div>
                         <div className="w-full md:w-2/5 flex items-center justify-center py-4">
-                            <Image
-                                src="/herocat.png"
-                                alt={t("home.heroImageAlt")}
-                                width={400}
-                                height={400}
-                                style={{
-                                    maxWidth: "400px",
-                                    width: "100%",
-                                    height: "auto",
-                                }}
-                                priority
-                                className="floating-image rounded-full overflow-hidden"
+                            <HeroFlyover
+                                fallbackAlt={t("home.heroImageAlt")}
+                                href={has("/games/white-noise") ? "/games/white-noise" : undefined}
+                                linkLabel={t("games.whiteNoise.heroLink")}
                             />
                         </div>
                     </div>

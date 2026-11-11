@@ -47,6 +47,10 @@ interface ScienceInfo {
 
 interface GamePageTemplateProps {
     gameBackground?: string;
+    /** Drop the bordered box around the game, for scenes that blend into the page. */
+    frameless?: boolean;
+    /** Hide the generic share row, for games that offer their own sharing. */
+    hideShare?: boolean;
     gameId: string;
     title: string;
     subtitle: string;
@@ -72,6 +76,8 @@ interface GamePageTemplateProps {
 
 export function GamePageTemplate({
     gameBackground,
+    frameless = false,
+    hideShare = false,
     gameId,
     title,
     subtitle,
@@ -132,7 +138,8 @@ export function GamePageTemplate({
             {/* 游戏组件 */}
             <section
                 className={cn(
-                    "mb-4 rounded-xl p-2 md:p-4 border border-border",
+                    "mb-4",
+                    !frameless && "rounded-xl p-2 md:p-4 border border-border",
                     gameBackground
                 )}
             >
@@ -140,12 +147,16 @@ export function GamePageTemplate({
             </section>
 
             {/* 分享部分 */}
-            <section className="max-w-6xl mx-auto mb-12">
-                <div className="flex flex-wrap items-center gap-2">
-                    <ShareButton title={title} />
-                    {shareActions}
-                </div>
-            </section>
+            {hideShare ? (
+                <div className="mb-12" />
+            ) : (
+                <section className="max-w-6xl mx-auto mb-12">
+                    <div className="flex flex-wrap items-center gap-2">
+                        <ShareButton title={title} />
+                        {shareActions}
+                    </div>
+                </section>
+            )}
 
             {/* 游戏玩法说明 */}
             <section className="max-w-6xl mx-auto mb-16 space-y-6">

@@ -98,6 +98,20 @@ export const games: Game[] = [
     categories: ["focus-games", "reaction-time", "spring-festival", "for-fun"],
   },
   {
+    id: "white-noise",
+    title: "White Noise for Focus",
+    slug: "white-noise",
+    coverImage: "/games/white-noise-cover.png",
+    preview: (
+      <ImagePreview
+        src="/games/white-noise-cover.png"
+        alt="White Noise for Focus preview"
+        fit="cover"
+      />
+    ),
+    categories: ["relaxation", "sustained-attention"],
+  },
+  {
     id: "bamboo-cicada",
     title: "Bamboo Cicada",
     slug: "bamboo-cicada",

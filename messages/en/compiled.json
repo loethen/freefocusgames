@@ -3319,6 +3319,80 @@
         "Keyboard and touch support",
         "Local best score tracking"
       ]
+    },
+    "whiteNoise": {
+      "title": "White Noise for Focus",
+      "heading": "White Noise for Focus",
+      "subtitle": "A free focus sound mixer with brown noise, wind and a brook, set to a slow flight over green grassland",
+      "description": "Mix brown noise, wind and a babbling brook into your own focus sound while a gull glides over a calm grassland.",
+      "metadata": {
+        "title": "White Noise for Focus: Free Brown Noise Mixer",
+        "description": "Free white noise for focus and studying. Mix brown noise, wind and a babbling brook while a calm grassland flyover plays. No sign-up, no download.",
+        "keywords": "white noise for focus, focus sounds, brown noise for studying, white noise generator, study background noise, nature sounds for concentration, ambient sound mixer",
+        "ogTitle": "White Noise for Focus: Brown Noise & Nature Sound Mixer",
+        "ogDescription": "Mix brown noise, wind and a brook into your own focus sound while a gull glides over an endless green grassland."
+      },
+      "controls": {
+        "play": "Play sound",
+        "pause": "Pause",
+        "wind": "Wind",
+        "stream": "Brook",
+        "deep": "Brown noise",
+        "fullscreen": "Full screen",
+        "exitFullscreen": "Exit full screen",
+        "hint": "Move your mouse to turn the gull",
+        "stageLabel": "Grassland flyover. Move the pointer or press the left and right arrow keys to turn the gull.",
+        "unsupported": "This scene needs WebGL, which your browser has turned off. Try another browser to see the flyover.",
+        "settings": "Sound settings",
+        "mixTitle": "Sound mix"
+      },
+      "howToPlay": {
+        "intro": "Press Play sound, open the settings button to set the mix you like, then leave it running while you study or work.",
+        "steer": "Move your mouse over the scene, or touch it, to point the gull in a new direction. It turns slowly and keeps its own pace, so you only nudge the flight.",
+        "keys": "Click the scene and use the left and right arrow keys if you prefer the keyboard.",
+        "river": "The brook gets louder and moves from ear to ear as you fly near the river; headphones make this easy to hear.",
+        "background": "The sound keeps playing in a background tab, and the picture pauses to save battery."
+      },
+      "about": {
+        "title": "About This White Noise Generator",
+        "description": "Every sound here is generated live in your browser instead of looping a recording, so there is no audible seam however long you listen. Mix the three layers to taste, keep the tab open while you work, and the sound carries on in the background. The scenery is generated too: a winding river with the occasional fish, dirt roads and wooden bridges, grazing cattle and passing clouds, with the frame rate kept low to save battery."
+      },
+      "heroLink": "Open White Noise for Focus",
+      "share": {
+        "button": "Share card",
+        "title": "Share Card",
+        "preparing": "Preparing your share card...",
+        "previewAlt": "White Noise for Focus share card preview",
+        "copyImage": "Copy Image",
+        "copied": "Image copied to clipboard.",
+        "downloaded": "PNG downloaded.",
+        "copyFailed": "Couldn't copy the image.",
+        "createFailed": "Couldn't create the share card.",
+        "retry": "Try Again",
+        "copyLink": "Copy link",
+        "linkCopied": "Link copied.",
+        "download": "Download",
+        "close": "Close",
+        "linkCopyFailed": "Couldn't copy the link.",
+        "text": "My focus spot today: a quiet flight over green grassland with wind, a brook and brown noise.",
+        "cardLine": "Wind, a brook and soft brown noise over an endless green grassland. Free in your browser.",
+        "mixLabel": "My focus mix"
+      },
+      "sounds": {
+        "title": "Which Focus Sound Should You Use?",
+        "wind": {
+          "name": "Wind",
+          "description": "A soft, shifting hiss with slow gusts. It suits reading and writing when complete silence feels too quiet."
+        },
+        "stream": {
+          "name": "Brook",
+          "description": "Running water with small bubbles. The gentle variation keeps it pleasant over long sessions, and it grows louder as you fly near the river."
+        },
+        "deep": {
+          "name": "Brown noise",
+          "description": "A deep, steady rumble that covers voices, traffic and household noise better than brighter white noise. A common choice for long study sessions."
+        }
+      }
     }
   },
   "about": {
