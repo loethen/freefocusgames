@@ -1,6 +1,6 @@
 import { cn, generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
-import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button";
+import { InteractiveHoverLink } from "@/components/magicui/interactive-hover-button";
 import { SingleTrackMarquee } from "@/components/magicui/marquee";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Metadata } from "next";
@@ -234,25 +234,23 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
                             <div className="mb-4 flex flex-col items-center gap-4 sm:flex-row md:items-start md:justify-start">
                                 {has("/get-started") ? (
                                     <>
-                                        <Link href="/get-started">
-                                            <InteractiveHoverButton>
-                                                {t("home.ctaButton")}
-                                            </InteractiveHoverButton>
-                                        </Link>
+                                        <InteractiveHoverLink href="/get-started">
+                                            {t("home.ctaButton")}
+                                        </InteractiveHoverLink>
                                         <Link
                                             href="/games/challenge-10-seconds"
-                                            className="inline-flex items-center gap-1.5 text-base font-medium text-primary underline-offset-4 hover:underline sm:self-center"
+                                            className="group inline-flex items-center gap-1.5 rounded-sm text-base font-medium text-muted-foreground transition-colors duration-300 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 sm:self-center"
                                         >
-                                            {t("home.ctaSecondary")}
-                                            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                                            <span className="underline decoration-muted-foreground/40 decoration-1 underline-offset-[5px] transition-[text-decoration-color] duration-300 group-hover:decoration-foreground">
+                                                {t("home.ctaSecondary")}
+                                            </span>
+                                            <ArrowRight className="h-4 w-4 -translate-x-1.5 opacity-0 transition-[opacity,translate] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 motion-reduce:transition-none" aria-hidden="true" />
                                         </Link>
                                     </>
                                 ) : (
-                                    <Link href="/games/challenge-10-seconds">
-                                        <InteractiveHoverButton>
-                                            {t("home.ctaSecondary")}
-                                        </InteractiveHoverButton>
-                                    </Link>
+                                    <InteractiveHoverLink href="/games/challenge-10-seconds">
+                                        {t("home.ctaSecondary")}
+                                    </InteractiveHoverLink>
                                 )}
                             </div>
 
