@@ -5,11 +5,12 @@ const SPEED = 0.02;
 // Steering only nudges the heading; the gull turns at most this fast (radians per second).
 const TURN_RATE = 0.45;
 // Largest canvas we render, in device pixels; keeps big screens cool.
-const MAX_PIXELS = 2_000_000;
-// Power saving: the scene moves slowly, so 30 fps is plenty. The canvas renders at a
-// modest pixel ratio and is scaled up by CSS; the soft painted look hides the difference.
+const MAX_PIXELS = 4_500_000;
+// Power saving: the scene moves slowly, so 30 fps is plenty. Render at the screen's own
+// pixel ratio (up to 2): an upscaled canvas looks blurry and its fine texture shimmers while
+// scrolling, which is tiring to watch for long.
 const FRAME_MS = 1000 / 30;
-const MAX_DPR = { hero: 1.5, steer: 1 } as const;
+const MAX_DPR = { hero: 2, steer: 2 } as const;
 // With no input for a while, slow the frame rate gradually to a near-still picture.
 const IDLE_AFTER_MS = 5 * 60 * 1000;
 const IDLE_RAMP_MS = 20 * 1000;

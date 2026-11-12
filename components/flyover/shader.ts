@@ -38,6 +38,8 @@ float fbm(vec2 p) {
 mat2 rot(float a) { float c = cos(a), s = sin(a); return mat2(c, -s, s, c); }
 float sdEll(vec2 p, vec2 r) { return (length(p / r) - 1.0) * min(r.x, r.y); }
 float fill(float sd) { return 1.0 - smoothstep(-px, px, sd); }
+// Fades out detail finer than a pixel (freq in cycles per world unit), so it does not shimmer as the view scrolls.
+float lod(float freq) { return 1.0 - smoothstep(0.18, 0.45, freq * px); }
 
 // Rivers and main roads repeat across the land so the flight can go in any direction.
 #define GAP 1.6
@@ -65,7 +67,7 @@ vec3 grassCol(vec2 w) {
   vec2 sq = rot(noise(w * 6.0) * 2.0 * PI) * w;
   float s = noise(vec2(sq.x * 320.0, sq.y * 70.0));
   float s2 = noise(vec2(sq.x * 140.0, sq.y * 35.0) + 17.0);
-  c *= 0.92 + 0.09 * s + 0.05 * s2;
+  c *= 0.92 + 0.09 * mix(0.5, s, lod(320.0)) + 0.05 * mix(0.5, s2, lod(140.0));
   return c;
 }
 
@@ -94,7 +96,7 @@ vec4 trees(vec2 w, out float shadow) {
     if (inside > 0.0) {
       float lit = clamp(dot(d / rr, vec2(-0.6, 0.6)) * 0.5 + 0.5, 0.0, 1.0);
       vec3 tc = mix(vec3(0.17, 0.36, 0.14), vec3(0.42, 0.64, 0.25), lit);
-      tc *= 0.85 + 0.3 * noise(d * 700.0 + c * 31.0);
+      tc *= 0.85 + 0.3 * mix(0.5, noise(d * 700.0 + c * 31.0), lod(700.0));
       res = vec4(mix(res.rgb, tc, inside), max(res.a, inside));
     }
   }
@@ -153,14 +155,14 @@ void roads(vec2 w, inout vec3 col) {
   float rw = 0.0034;
   col *= 1.0 - 0.35 * bridgeShadow * (1.0 - onBridge);
   if (onBridge > 0.0) {
-    float plank = step(0.25, fract(w.x * 700.0));
+    float plank = mix(0.75, step(0.25, fract(w.x * 700.0)), lod(700.0));
     vec3 bc = mix(vec3(0.45, 0.31, 0.21), vec3(0.66, 0.49, 0.33), plank);
     float rail = 1.0 - smoothstep(0.0038, 0.0046, d);
     col = mix(col, mix(vec3(0.36, 0.25, 0.17), bc, rail), fill(d - 0.0055));
     return;
   }
   vec3 rc = mix(vec3(0.82, 0.69, 0.50), vec3(0.67, 0.53, 0.37), smoothstep(rw * 0.45, rw, d));
-  rc *= 0.93 + 0.12 * noise(w * 900.0);
+  rc *= 0.93 + 0.12 * mix(0.5, noise(w * 900.0), lod(900.0));
   col = mix(col * (1.0 - 0.12 * (1.0 - smoothstep(rw, rw * 2.2, d))), rc, fill(d - rw));
 }
 
@@ -317,7 +319,7 @@ void main() {
   float rw = riverW(w.y), lat = riverLat(w), rk = riverK(w);
   float rd = abs(lat) - rw + (noise(vec2(w.y * 40.0, sign(lat) * 5.0 + rk)) - 0.5) * 0.003;
   // wet sand, then a darker damp line right at the waterline
-  col = mix(col, vec3(0.86, 0.79, 0.6) * (0.94 + 0.12 * noise(w * 400.0)), 1.0 - smoothstep(0.0028, 0.0042, rd));
+  col = mix(col, vec3(0.86, 0.79, 0.6) * (0.94 + 0.12 * mix(0.5, noise(w * 400.0), lod(400.0))), 1.0 - smoothstep(0.0028, 0.0042, rd));
   col = mix(col, vec3(0.62, 0.6, 0.45), (1.0 - smoothstep(0.0, 0.0012, abs(rd - 0.0004))) * 0.5);
   if (rd < px * 3.0) {
     float depth = clamp(-rd / rw, 0.0, 1.0);
