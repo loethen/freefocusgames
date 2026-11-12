@@ -1,5 +1,6 @@
 // Fragment shader for the homepage hero: a painted grassland seen from above,
-// with a winding river, fish, a dirt road, bridges, cattle, a gull and clouds.
+// with a winding river, fish, egrets, a dirt road, bridges, cattle, flower fields,
+// windmills, a gull and clouds.
 export const FLYOVER_FRAG = `
 #ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
@@ -13,6 +14,7 @@ uniform float uUnit; // canvas pixels per world unit
 uniform float uCamX;
 uniform float uFeather;
 uniform vec4 uGull; // x, y, bank, flap
+uniform float uSail; // windmill sail angle
 
 #define PI 3.14159265
 float px;
@@ -135,7 +137,10 @@ void roads(vec2 w, inout vec3 col) {
   float d = roadDist(w);
   float wob = (noise(vec2(w.y * 60.0, 3.0)) - 0.5) * 0.0008;
   // Side roads run from one main road to the next and cross the river between them on a bridge.
+  // Pick the pair of main roads by where they actually run (they bend), so both ends meet a road.
   float g = floor((w.x + 0.3) / GAP);
+  if (w.x < roadX(w.y, g)) g -= 1.0;
+  else if (w.x > roadX(w.y, g + 1.0)) g += 1.0;
   float xa = roadX(w.y, g), xb = roadX(w.y, g + 1.0);
   float cy = floor(w.y / 1.1);
   float onBridge = 0.0, bridgeShadow = 0.0;
@@ -198,7 +203,7 @@ void cows(vec2 w, inout vec3 col) {
     vec2 id = id0 + vec2(float(i), float(j));
     vec2 cc = (id + 0.5) * cs;
     float herd = smoothstep(0.64, 0.72, herdField(cc));
-    if (herd <= 0.0 || h21(id + vec2(41.0, 17.0)) > herd * 0.3) continue;
+    if (herd <= 0.0 || h21(id + vec2(41.0, 17.0)) > herd * 0.15) continue;
     if (abs(riverLat(cc)) < riverW(cc.y) + 0.035 || roadDist(cc) < 0.018) continue;
     float sheep = step(0.66, noise(cc * 2.5 + 50.0));
     vec2 c = (id + 0.35 + 0.3 * vec2(h21(id + 2.0), h21(id + 8.0))) * cs;
@@ -271,6 +276,113 @@ float fish(vec2 w, float rk) {
   return m;
 }
 
+float sdSeg(vec2 p, vec2 a, vec2 b) { vec2 pa = p - a, ba = b - a; float h = clamp(dot(pa, ba) / dot(ba, ba), 0.0, 1.0); return length(pa - ba * h); }
+
+// Wildflower meadows: irregular patches where small round clumps of flowers bloom in clusters.
+void meadows(vec2 w, inout vec3 col) {
+  float f = noise(w * 2.4 + vec2(40.0, 9.0)) * 0.6 + noise(w * 6.0 + vec2(3.0, 30.0)) * 0.4;
+  float pa = smoothstep(0.66, 0.76, f);
+  if (pa <= 0.0) return;
+  col = mix(col, vec3(0.66, 0.78, 0.3), 0.2 * pa);
+  vec2 cs = vec2(0.0065);
+  vec2 id = floor(w / cs);
+  vec2 c = (id + 0.5) * cs;
+  float h = h21(id + vec2(61.0, 5.0));
+  // clumps gather where a mid-scale field is high, so they cluster instead of spreading evenly
+  float present = step(h21(id + 4.4), pa * smoothstep(0.3, 0.75, noise(c * 28.0 + 3.0)) * 0.9);
+  vec2 o = c + (vec2(h21(id + 2.7), h21(id + 6.1)) - 0.5) * cs * 0.35;
+  float r = 0.0014 + 0.0012 * h21(id + 8.3);
+  vec3 fc = h < 0.55 ? vec3(0.99, 0.85, 0.32) : h < 0.85 ? vec3(0.78, 0.62, 0.92) : vec3(0.98, 0.97, 0.92);
+  float fl = fill(length(w - o) - r) * present;
+  // where the clumps would be smaller than a pixel, show their average colour instead
+  vec3 avg = mix(col, vec3(0.95, 0.84, 0.5), 0.14 * pa);
+  col = mix(avg, mix(col, fc, fl * 0.9), lod(154.0));
+}
+
+// Egrets standing in the shallows; now and then one dips its head to fish.
+float egretSd(vec2 p, vec2 c, vec2 fwd, vec2 sd, vec2 nb, vec2 hd) {
+  vec2 d = p - c;
+  vec2 lp = vec2(dot(d, sd), dot(d, fwd));
+  float body = sdEll(lp - vec2(0.0, -0.0006), vec2(0.0023, 0.0046));
+  return min(body, min(sdSeg(p, nb, hd) - 0.0007, length(p - hd) - 0.0012));
+}
+
+void egrets(vec2 w, float rk, inout vec3 col) {
+  float P = 0.42;
+  float cy = floor(w.y / P);
+  vec2 id = vec2(cy, rk * 13.0 + 7.0);
+  if (h21(id) > 0.35) return;
+  float y0 = (cy + 0.15 + 0.7 * h21(id + 1.0)) * P;
+  float side = h21(id + 2.0) < 0.5 ? -1.0 : 1.0;
+  float dx = riverDX(y0, rk), inv = 1.0 / sqrt(1.0 + dx * dx);
+  vec2 tang = vec2(dx, 1.0) * inv, nrm = vec2(1.0, -dx) * inv;
+  vec2 c = vec2(riverX(y0, rk), y0) + nrm * side * (riverW(y0) - 0.008);
+  vec2 d = w - c;
+  if (dot(d, d) > 0.0004) return;
+  float ph = h21(id + 3.0) * 6.283;
+  // faces the water, looking slowly up and down the river
+  vec2 fwd = normalize(-side * nrm + tang * (1.2 * (h21(id + 4.0) - 0.5) + 0.35 * sin(uTime * 0.13 + ph)));
+  vec2 sd = vec2(fwd.y, -fwd.x);
+  float u = fract(uTime * (0.07 + 0.04 * h21(id + 5.0)) + ph);
+  float strike = smoothstep(0.86, 0.9, u) * (1.0 - smoothstep(0.93, 0.99, u));
+  vec2 nb = c + fwd * 0.003;
+  vec2 hd = c + fwd * (0.0068 + 0.0036 * strike) + sd * 0.0011 * sin(uTime * 0.5 + ph) * (1.0 - strike);
+  // a ring spreads on the water after each strike
+  float rt = clamp((u - 0.9) / 0.1, 0.0, 1.0);
+  float ring = (1.0 - smoothstep(0.0, 0.0006, abs(length(w - c - fwd * 0.0105) - rt * 0.012))) * (1.0 - rt) * step(0.9, u);
+  col = mix(col, vec3(0.85, 0.94, 0.97), ring * 0.5);
+  col *= 1.0 - 0.25 * fill(egretSd(w - vec2(0.0035, -0.0042), c, fwd, sd, nb, hd));
+  float m = fill(egretSd(w, c, fwd, sd, nb, hd));
+  vec3 ec = mix(vec3(0.8, 0.83, 0.85), vec3(0.98, 0.98, 0.96), clamp(dot(d, vec2(-0.6, 0.6)) / 0.0042 * 0.5 + 0.6, 0.0, 1.0));
+  col = mix(col, ec, m);
+  col = mix(col, vec3(0.93, 0.8, 0.3), fill(sdSeg(w, hd, hd + fwd * 0.0034) - 0.0003));
+}
+
+// Windmills on open grass, seen from straight above. The sails turn in an upright plane, so
+// from above they show edge-on as a bar that lengthens and shortens; their low-sun shadow on
+// the grass shows the whole cross turning. uSail turns faster when the wind is turned up.
+void windmill(vec2 w, inout vec3 col) {
+  vec2 cs = vec2(0.9);
+  vec2 id = floor(w / cs);
+  if (h21(id + vec2(83.0, 29.0)) > 0.22) return;
+  vec2 c = (id + 0.2 + 0.6 * vec2(h21(id + 31.0), h21(id + 37.0))) * cs;
+  if (abs(riverLat(c)) < riverW(c.y) + 0.06 || roadDist(c) < 0.05) return;
+  vec2 p = w - c;
+  if (dot(p, p) > 0.0016) return;
+  // every mill faces the same wind; the sails sit just in front of the cap
+  vec2 axle = normalize(vec2(-0.55, 0.85));
+  vec2 side = vec2(axle.y, -axle.x);
+  vec2 hub = axle * 0.0058;
+  float L = 0.0155;
+  // shadows: a unit of height falls this far across the grass
+  vec2 fall = vec2(0.62, -0.72);
+  float hubH = 0.018;
+  vec2 hubS = hub + fall * hubH;
+  float sh = fill(sdSeg(p, vec2(0.0), fall * hubH * 0.85) - 0.0058);
+  float bar = 1e5;
+  for (int i = 0; i < 4; i++) {
+    float a = uSail + float(i) * PI * 0.5;
+    sh = max(sh, fill(sdSeg(p, hubS, hubS + side * cos(a) * L + fall * sin(a) * L) - 0.0013) * 0.85);
+    bar = min(bar, sdSeg(p, hub, hub + side * cos(a) * L));
+  }
+  col *= 1.0 - 0.26 * sh;
+  // tapering eight-sided tower: its sloped walls show around the cap
+  float lit = clamp(dot(normalize(p + 1e-5), vec2(-0.6, 0.6)) * 0.5 + 0.5, 0.0, 1.0);
+  vec2 ap = abs(p);
+  float oct = max(max(ap.x, ap.y), (ap.x + ap.y) * 0.7071) - 0.0064;
+  col = mix(col, mix(vec3(0.66, 0.63, 0.58), vec3(0.96, 0.94, 0.89), lit), fill(oct));
+  // thatched cap with a ridge along the axle
+  vec2 cp = vec2(dot(p, side), dot(p, axle));
+  vec3 cap = mix(vec3(0.33, 0.25, 0.19), vec3(0.58, 0.44, 0.31), step(0.0, -cp.x * 0.6 + cp.y * 0.6) * 0.5 + lit * 0.5);
+  cap = mix(cap, vec3(0.68, 0.53, 0.38), (1.0 - smoothstep(0.0, px * 1.5, abs(cp.x))) * 0.5);
+  col = mix(col, cap, fill(sdEll(cp, vec2(0.0036, 0.0046))));
+  // the axle, then the sails edge-on: pale cloth over a dark stock
+  col = mix(col, vec3(0.3, 0.22, 0.17), fill(sdSeg(p, vec2(0.0), hub) - 0.0006));
+  col = mix(col, vec3(0.93, 0.9, 0.82), fill(bar - 0.0011));
+  col = mix(col, vec3(0.38, 0.28, 0.2), fill(bar - 0.00035));
+  col = mix(col, vec3(0.25, 0.18, 0.14), fill(length(p - hub) - 0.0009));
+}
+
 float cloudD(vec2 q) {
   vec2 cs = vec2(1.0, 0.9);
   vec2 id = floor(q / cs);
@@ -314,6 +426,7 @@ void main() {
   vec2 w = uv + vec2(uCamX, uScroll);
 
   vec3 col = grassCol(w);
+  meadows(w, col);
 
   // river with sandy banks and slow current
   float rw = riverW(w.y), lat = riverLat(w), rk = riverK(w);
@@ -335,8 +448,12 @@ void main() {
     wc = mix(wc, vec3(0.5, 0.76, 0.9), smoothstep(0.58, 0.8, cur) * 0.35 * smoothstep(0.1, 0.5, depth));
     float cur2 = noise(vec2(across * 9.0 - warp, s * 5.0 + 4.0));
     wc *= 1.0 - 0.1 * smoothstep(0.55, 0.8, cur2);
-    // fish under the surface, fainter where the water is deep
-    wc = mix(wc, vec3(0.04, 0.13, 0.2), fish(w, rk) * 0.85);
+    // fish under the surface: a soft shadow on the bed, then a translucent olive-grey body
+    float fsh = fish(w - vec2(0.0022, -0.0028), rk);
+    wc *= 1.0 - 0.22 * fsh;
+    float fb = fish(w, rk);
+    vec3 fishCol = mix(vec3(0.42, 0.5, 0.42), vec3(0.3, 0.42, 0.46), depth);
+    wc = mix(wc, fishCol, fb * mix(0.75, 0.5, depth));
     // glints on small ripples
     float glint = noise(vec2(across * 40.0, (w.y + uTime * 0.065) * 300.0)) * noise(vec2(across * 13.0 + 7.0, (w.y + uTime * 0.04) * 90.0));
     wc += vec3(0.9, 0.95, 1.0) * smoothstep(0.66, 0.78, glint) * 0.12 * smoothstep(0.3, 0.8, depth);
@@ -346,6 +463,7 @@ void main() {
     wc = mix(wc, vec3(0.9, 0.95, 0.96), (1.0 - smoothstep(0.0, 0.05, depth)) * 0.4);
     col = mix(col, wc, fill(rd));
   }
+  egrets(w, rk, col);
 
   roads(w, col);
   house(w, col);
@@ -356,6 +474,7 @@ void main() {
   vec4 tr = trees(w, tsh);
   col *= 1.0 - 0.3 * tsh;
   col = mix(col, tr.rgb, tr.a);
+  windmill(w, col);
 
   // big soft light variation, like sun through haze
   col *= 0.95 + 0.08 * smoothstep(0.2, 0.8, fbm(w * 0.7 + vec2(uTime * 0.004, 0.0)));

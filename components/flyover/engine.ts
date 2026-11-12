@@ -32,6 +32,8 @@ export type Flyover = {
     /** Turn the gull's target heading by an angle in radians, for keyboard control. */
     turn(delta: number): void;
     setFeather(feather: boolean): void;
+    /** Wind strength (0..1); the windmills turn faster as it rises. */
+    setWind(level: number): void;
     /** Renders the current moment at a given pixel size and scale (pixels per world unit), feathered, as a 2D canvas. */
     snapshot(width: number, height: number, pxPerUnit: number): HTMLCanvasElement | null;
     state(): FlyoverState;
@@ -89,7 +91,7 @@ export function startFlyover(
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     const u = (name: string) => gl.getUniformLocation(prog, name);
     const uUnit = u("uUnit"), uRes = u("uRes"), uTime = u("uTime"), uScroll = u("uScroll"), uCamX = u("uCamX"),
-        uFeather = u("uFeather"), uGull = u("uGull");
+        uFeather = u("uFeather"), uGull = u("uGull"), uSail = u("uSail");
 
     let feather = options.feather;
     let t = 40 + Math.random() * 200;
@@ -104,6 +106,8 @@ export function startFlyover(
     let heading = 0; // radians clockwise from "up the screen"
     let targetHeading = 0;
     let turnSpeed = 0;
+    let wind = 0.5;
+    let sail = Math.random() * 6.283;
     const gull = { x: 0, y: -0.02, vx: 0, vy: 0, rot: 0, flapPhase: 0, flapAmt: 0 };
 
     const wander = (time: number, scale: number) => ({
@@ -113,6 +117,8 @@ export function startFlyover(
 
     const step = (dt: number) => {
         t += dt;
+        // Sails turn with the wind, easing up and down a little like gusts.
+        sail += dt * (0.15 + 1.4 * wind) * (1 + 0.2 * Math.sin(t * 0.45));
         // The steered gull stays near the middle and drifts only a little.
         const goal = wander(t, options.mode === "steer" ? 0.35 : 1);
         const k = 1.2;
@@ -155,6 +161,7 @@ export function startFlyover(
         gl.uniform1f(uScroll, camY);
         gl.uniform1f(uCamX, camX);
         gl.uniform1f(uFeather, (override ? override.feather : feather) ? 1 : 0);
+        gl.uniform1f(uSail, sail);
         gl.uniform4f(uGull, gull.x, gull.y, gull.rot, Math.sin(gull.flapPhase) * 1.3 * gull.flapAmt);
         gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
@@ -249,6 +256,9 @@ export function startFlyover(
         setFeather(value) {
             feather = value;
             if (!raf) draw();
+        },
+        setWind(level) {
+            wind = Math.min(1, Math.max(0, level));
         },
         state() {
             const gx = camX + gull.x, gy = camY + gull.y;

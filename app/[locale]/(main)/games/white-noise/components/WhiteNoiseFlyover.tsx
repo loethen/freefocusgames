@@ -40,6 +40,7 @@ export default function WhiteNoiseFlyover() {
             return;
         }
         flyoverRef.current = flyover;
+        flyover.setWind(DEFAULT_LEVELS.wind);
         const sound = createFocusSound(DEFAULT_LEVELS);
         soundRef.current = sound;
 
@@ -107,6 +108,7 @@ export default function WhiteNoiseFlyover() {
     const setLevel = (layer: SoundLayer, value: number) => {
         setLevels((prev) => ({ ...prev, [layer]: value }));
         soundRef.current?.setLevel(layer, value);
+        if (layer === 'wind') flyoverRef.current?.setWind(value);
     };
 
     // Read the latest text and mix through a ref so the card is drawn once per opening,
