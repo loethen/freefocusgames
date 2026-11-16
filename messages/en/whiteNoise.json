@@ -4,13 +4,13 @@
       "title": "White Noise for Focus",
       "heading": "White Noise for Focus",
       "subtitle": "Brown noise, wind and a gentle river, set to a slow flight over green grassland",
-      "description": "Mix brown noise, wind and a babbling brook into your own focus sound while a gull glides over a calm grassland.",
+      "description": "Mix brown noise, wind and a babbling brook into your own focus sound while a bird glides over a calm grassland.",
       "metadata": {
         "title": "White Noise for Focus: River, Wind & Brown Noise",
-        "description": "Fly a gull over a calm green grassland while a river, soft wind and brown noise help you focus. Free white noise for studying and work, no sign-up.",
+        "description": "Fly a bird over a calm green grassland while a river, soft wind and brown noise help you focus. Free white noise for studying and work, no sign-up.",
         "keywords": "white noise for focus, focus sounds, brown noise for studying, river sounds for studying, nature sounds for focus, wind sounds, white noise generator, study background noise",
         "ogTitle": "Fly Over a Calm Grassland with White Noise for Focus",
-        "ogDescription": "A river, soft wind and brown noise to help you focus, while a gull glides over an endless green grassland."
+        "ogDescription": "A river, soft wind and brown noise to help you focus, while a bird glides over an endless green grassland."
       },
       "controls": {
         "play": "Play sound",
@@ -20,15 +20,15 @@
         "deep": "Brown noise",
         "fullscreen": "Full screen",
         "exitFullscreen": "Exit full screen",
-        "hint": "Move your mouse to turn the gull",
-        "stageLabel": "Grassland flyover. Move the pointer or press the left and right arrow keys to turn the gull.",
+        "hint": "Move your mouse to guide the bird",
+        "stageLabel": "Grassland flyover. Move the pointer or press the left and right arrow keys to turn the bird.",
         "unsupported": "This scene needs WebGL, which your browser has turned off. Try another browser to see the flyover.",
         "settings": "Sound settings",
         "mixTitle": "Sound mix"
       },
       "howToPlay": {
         "intro": "Press Play sound, open the settings button to set the mix you like, then leave it running while you study or work.",
-        "steer": "Move your mouse over the scene, or touch it, to point the gull in a new direction. It turns slowly and keeps its own pace, so you only nudge the flight.",
+        "steer": "Move your mouse over the scene, or touch it, to point the bird in a new direction. It turns slowly and keeps its own pace, so you only nudge the flight.",
         "keys": "Click the scene and use the left and right arrow keys if you prefer the keyboard.",
         "river": "The brook gets louder and moves from ear to ear as you fly near the river; headphones make this easy to hear.",
         "background": "The sound keeps playing in a background tab, and the picture pauses to save battery."
@@ -71,6 +71,23 @@
         "deep": {
           "name": "Brown noise",
           "description": "A deep, steady rumble that covers voices, traffic and household noise better than brighter white noise. A common choice for long study sessions."
+        }
+      },
+      "explore": {
+        "title": "Find your next rhythm",
+        "description": "Make room for focused work, take a quiet breath, or try a little challenge.",
+        "allGames": "Explore all games",
+        "focus": {
+          "eyebrow": "Settle into focus",
+          "description": "Give one task your attention with a simple Pomodoro timer."
+        },
+        "breathe": {
+          "eyebrow": "Take a softer pace",
+          "description": "Follow a gentle breathing rhythm and take a moment for yourself."
+        },
+        "challenge": {
+          "eyebrow": "Try a little challenge",
+          "description": "Find the numbers in order. See how smoothly your eyes can follow."
         }
       }
     }

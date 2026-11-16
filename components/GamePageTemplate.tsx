@@ -56,7 +56,9 @@ interface GamePageTemplateProps {
     subtitle: string;
     description?: React.ReactNode;
     gameComponent: React.ReactNode;
-    howToPlay: React.ReactNode;
+    howToPlay?: React.ReactNode;
+    /** Custom content below the game, replacing the standard information sections. */
+    belowGameContent?: React.ReactNode;
     additionalContent?: React.ReactNode;
     shareActions?: React.ReactNode;
     benefits?: BenefitItem[];
@@ -84,6 +86,7 @@ export function GamePageTemplate({
     description,
     gameComponent,
     howToPlay,
+    belowGameContent,
     additionalContent,
     shareActions,
     benefits,
@@ -146,6 +149,7 @@ export function GamePageTemplate({
                 {gameComponent}
             </section>
 
+            {belowGameContent ?? (<>
             {/* 分享部分 */}
             {hideShare ? (
                 <div className="mb-12" />
@@ -159,7 +163,7 @@ export function GamePageTemplate({
             )}
 
             {/* 游戏玩法说明 */}
-            <section className="max-w-6xl mx-auto mb-16 space-y-6">
+            {howToPlay && <section className="max-w-6xl mx-auto mb-16 space-y-6">
                 <div className="p-6 rounded-lg bg-muted/50">
                     <h2 className="text-xl font-semibold mb-3">
                         🎯 {gameT("howToPlay")}
@@ -168,7 +172,7 @@ export function GamePageTemplate({
                         {howToPlay}
                     </div>
                 </div>
-            </section>
+            </section>}
 
             {additionalContent && (
                 <section className="max-w-6xl mx-auto mb-16 space-y-8">
@@ -364,6 +368,7 @@ export function GamePageTemplate({
                     )}
                 </div>
             </section>
+            </>)}
         </>
     );
 } 

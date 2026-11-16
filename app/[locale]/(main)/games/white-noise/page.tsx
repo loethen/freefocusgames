@@ -4,6 +4,7 @@ import { use } from 'react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import WhiteNoiseFlyover from './components/WhiteNoiseFlyover';
+import WhiteNoiseExplore from './components/WhiteNoiseExplore';
 import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { generateAlternates } from '@/lib/utils';
 import { pageLocaleParams } from '@/lib/locale-availability';
@@ -80,38 +81,7 @@ export default function WhiteNoisePage({
             gameComponent={<WhiteNoiseFlyover />}
             frameless
             hideShare
-            howToPlay={
-                <>
-                    <p>{t('howToPlay.intro')}</p>
-                    <ul className="mt-2 list-disc space-y-1 pl-5">
-                        <li>{t('howToPlay.steer')}</li>
-                        <li>{t('howToPlay.keys')}</li>
-                        <li>{t('howToPlay.river')}</li>
-                        <li>{t('howToPlay.background')}</li>
-                    </ul>
-                </>
-            }
-            additionalContent={
-                <div className="mx-auto max-w-3xl space-y-10">
-                    <section>
-                        <h2 className="mb-3 text-2xl font-semibold">{t('sounds.title')}</h2>
-                        <div className="space-y-3 text-lg leading-relaxed text-muted-foreground">
-                            {sounds.map((id) => (
-                                <p key={id}>
-                                    <strong className="font-semibold text-foreground">{t(`sounds.${id}.name`)}</strong>
-                                    {' — '}
-                                    {t(`sounds.${id}.description`)}
-                                </p>
-                            ))}
-                        </div>
-                    </section>
-                    <section>
-                        <h2 className="mb-3 text-2xl font-semibold">{t('about.title')}</h2>
-                        <p className="text-lg leading-relaxed text-muted-foreground">{t('about.description')}</p>
-                    </section>
-                </div>
-            }
-            relatedGames={['pomodoro-timer', 'resonance-breathing', 'box-breathing']}
+            belowGameContent={<WhiteNoiseExplore />}
             structuredData={structuredData}
         />
     );

@@ -34,7 +34,6 @@ export default function WhiteNoiseFlyover() {
     const [levels, setLevels] = useState(DEFAULT_LEVELS);
     const [fullscreen, setFullscreen] = useState(false);
     const [panelOpen, setPanelOpen] = useState(false);
-    const [steered, setSteered] = useState(false);
     const [shareOpen, setShareOpen] = useState(false);
 
     useEffect(() => {
@@ -98,7 +97,6 @@ export default function WhiteNoiseFlyover() {
         if (!stage) return;
         const r = stage.getBoundingClientRect();
         flyoverRef.current?.aimAt((clientX - r.left) / r.width, (clientY - r.top) / r.height);
-        setSteered(true);
     }, []);
 
     const startSound = async () => {
@@ -168,7 +166,6 @@ export default function WhiteNoiseFlyover() {
         if (!delta) return;
         e.preventDefault();
         flyoverRef.current?.turn(delta);
-        setSteered(true);
     };
 
     if (failed) {
@@ -294,7 +291,7 @@ export default function WhiteNoiseFlyover() {
                 )}
             </div>
 
-            <p className={`pointer-events-none px-3 py-2 text-center text-xs leading-relaxed text-[#56634e] transition-opacity duration-700 sm:text-sm ${steered ? 'opacity-0' : 'opacity-100'}`}>
+            <p className="pointer-events-none px-3 py-2 text-center text-xs leading-relaxed text-[#56634e] sm:text-sm">
                 {t('hint')}
             </p>
 
