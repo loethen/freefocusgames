@@ -1,19 +1,22 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react';
 import { useTranslations } from 'next-intl';
-import { Maximize2, Minimize2, Pause, Play, Share2, SlidersHorizontal } from 'lucide-react';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { Cancel01Icon, CollapseIcon, FullScreenIcon, Settings02Icon, Share08Icon, Volume02Icon, VolumeMute02Icon, WaveIcon, WavesIcon, WindIcon } from '@hugeicons/core-free-icons';
 import { startFlyover, type Flyover } from '@/components/flyover/engine';
 import { createFocusSound, type FocusSound, type SoundLayer } from '@/components/flyover/focus-sound';
 import { CARD_SCENE_HEIGHT, CARD_SCENE_SCALE, CARD_WIDTH, renderFlyoverCard } from '@/components/flyover/share-card';
 import { ProgressShareModal } from '@/components/ui/ProgressShareModal';
+import styles from './WhiteNoiseFlyover.module.css';
 
 const LAYERS: SoundLayer[] = ['wind', 'stream', 'deep'];
 const DEFAULT_LEVELS: Record<SoundLayer, number> = { wind: 0.5, stream: 0.6, deep: 0.35 };
 const KEY_TURN = Math.PI / 12;
+const LAYER_ICONS = { wind: WindIcon, stream: WavesIcon, deep: WaveIcon };
 
-const glassButton =
-    'inline-flex h-10 items-center justify-center rounded-full bg-white/85 text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-md transition hover:bg-white hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900';
+const controlButton =
+    'inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white transition-colors hover:text-white/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white';
 
 export default function WhiteNoiseFlyover() {
     const t = useTranslations('games.whiteNoise.controls');
@@ -22,8 +25,10 @@ export default function WhiteNoiseFlyover() {
     const stageRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const panelRef = useRef<HTMLDivElement>(null);
+    const settingsButtonRef = useRef<HTMLButtonElement>(null);
     const flyoverRef = useRef<Flyover | null>(null);
     const soundRef = useRef<FocusSound | null>(null);
+    const soundStartingRef = useRef(false);
     const [failed, setFailed] = useState(false);
     const [playing, setPlaying] = useState(false);
     const [levels, setLevels] = useState(DEFAULT_LEVELS);
@@ -75,7 +80,10 @@ export default function WhiteNoiseFlyover() {
             if (!panelRef.current?.contains(e.target as Node)) setPanelOpen(false);
         };
         const onKey = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') setPanelOpen(false);
+            if (e.key === 'Escape') {
+                setPanelOpen(false);
+                settingsButtonRef.current?.focus({ preventScroll: true });
+            }
         };
         document.addEventListener('pointerdown', onDown);
         document.addEventListener('keydown', onKey);
@@ -93,6 +101,21 @@ export default function WhiteNoiseFlyover() {
         setSteered(true);
     }, []);
 
+    const startSound = async () => {
+        const sound = soundRef.current;
+        if (!sound || sound.playing || soundStartingRef.current) return;
+        // Dragging emits many changes while the audio context is still resuming.
+        soundStartingRef.current = true;
+        try {
+            await sound.start();
+            if (soundRef.current === sound) setPlaying(sound.playing);
+        } catch (error) {
+            console.error('Unable to start focus sound', error);
+        } finally {
+            soundStartingRef.current = false;
+        }
+    };
+
     const toggleSound = async () => {
         const sound = soundRef.current;
         if (!sound) return;
@@ -100,8 +123,7 @@ export default function WhiteNoiseFlyover() {
             sound.stop();
             setPlaying(false);
         } else {
-            await sound.start();
-            setPlaying(true);
+            await startSound();
         }
     };
 
@@ -109,6 +131,7 @@ export default function WhiteNoiseFlyover() {
         setLevels((prev) => ({ ...prev, [layer]: value }));
         soundRef.current?.setLevel(layer, value);
         if (layer === 'wind') flyoverRef.current?.setWind(value);
+        void startSound();
     };
 
     // Read the latest text and mix through a ref so the card is drawn once per opening,
@@ -155,87 +178,102 @@ export default function WhiteNoiseFlyover() {
     return (
         <div
             ref={shellRef}
-            className={fullscreen ? 'relative h-screen w-screen bg-background' : 'relative aspect-[3/4] w-full sm:aspect-[16/10]'}
+            className={fullscreen ? 'relative flex h-screen w-screen flex-col bg-background' : 'relative flex w-full flex-col'}
         >
-            <div
-                ref={stageRef}
-                tabIndex={0}
-                role="application"
-                aria-label={t('stageLabel')}
-                onKeyDown={onKeyDown}
-                onPointerMove={(e) => {
-                    if (e.pointerType === 'mouse' || e.buttons) aimAt(e.clientX, e.clientY);
-                }}
-                onPointerDown={(e) => aimAt(e.clientX, e.clientY)}
-                className="absolute inset-0 touch-none outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-slate-900/40"
-            >
-                <canvas ref={canvasRef} aria-hidden="true" className="block h-full w-full" />
+            <div className={fullscreen ? 'relative min-h-0 flex-1' : 'relative aspect-[3/4] w-full sm:aspect-[16/10]'}>
+                <div
+                    ref={stageRef}
+                    tabIndex={0}
+                    role="application"
+                    aria-label={t('stageLabel')}
+                    onKeyDown={onKeyDown}
+                    onPointerMove={(e) => {
+                        if (e.pointerType === 'mouse' || e.buttons) aimAt(e.clientX, e.clientY);
+                    }}
+                    onPointerDown={(e) => aimAt(e.clientX, e.clientY)}
+                    className="absolute inset-0 touch-none outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-slate-900/40"
+                >
+                    <canvas ref={canvasRef} aria-hidden="true" className="block h-full w-full" />
+                </div>
             </div>
-
-            <p
-                className={`pointer-events-none absolute bottom-[8%] left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/30 px-4 py-1.5 text-sm text-white backdrop-blur-sm transition-opacity duration-700 ${steered ? 'opacity-0' : 'opacity-100'}`}
-            >
-                {t('hint')}
-            </p>
 
             <div
                 ref={panelRef}
-                className={`absolute flex items-start gap-2 ${fullscreen ? 'right-5 top-5' : 'right-[6%] top-[7%]'}`}
+                className="absolute right-4 top-4 z-10 sm:right-6 sm:top-6"
             >
-                <button
-                    type="button"
-                    onClick={toggleSound}
-                    aria-pressed={playing}
-                    aria-label={playing ? t('pause') : t('play')}
-                    className={`${glassButton} gap-2 ${playing ? 'w-10' : 'px-4 text-sm font-semibold'}`}
-                >
-                    {playing ? <Pause className="h-4 w-4" aria-hidden="true" /> : <Play className="h-4 w-4" aria-hidden="true" />}
-                    {!playing && t('play')}
-                </button>
-                <button
-                    type="button"
-                    onClick={toggleFullscreen}
-                    aria-label={fullscreen ? t('exitFullscreen') : t('fullscreen')}
-                    title={fullscreen ? t('exitFullscreen') : t('fullscreen')}
-                    className={`${glassButton} w-10`}
-                >
-                    {fullscreen ? <Minimize2 className="h-4 w-4" aria-hidden="true" /> : <Maximize2 className="h-4 w-4" aria-hidden="true" />}
-                </button>
-                <button
-                    type="button"
-                    onClick={openShare}
-                    aria-label={pageT('share.button')}
-                    title={pageT('share.button')}
-                    className={`${glassButton} w-10`}
-                >
-                    <Share2 className="h-4 w-4" aria-hidden="true" />
-                </button>
-                <div className="relative">
+                <div className="flex items-center gap-0.5">
                     <button
+                        type="button"
+                        onClick={toggleSound}
+                        aria-pressed={playing}
+                        aria-label={playing ? t('pause') : t('play')}
+                        title={playing ? t('pause') : t('play')}
+                        className={controlButton}
+                    >
+                        <HugeiconsIcon icon={playing ? Volume02Icon : VolumeMute02Icon} size={24} strokeWidth={1.5} aria-hidden="true" />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={toggleFullscreen}
+                        aria-label={fullscreen ? t('exitFullscreen') : t('fullscreen')}
+                        title={fullscreen ? t('exitFullscreen') : t('fullscreen')}
+                        className={controlButton}
+                    >
+                        <HugeiconsIcon icon={fullscreen ? CollapseIcon : FullScreenIcon} size={24} strokeWidth={1.5} aria-hidden="true" />
+                    </button>
+                    <button
+                        type="button"
+                        onClick={openShare}
+                        aria-label={pageT('share.button')}
+                        title={pageT('share.button')}
+                        className={controlButton}
+                    >
+                        <HugeiconsIcon icon={Share08Icon} size={24} strokeWidth={1.5} aria-hidden="true" />
+                    </button>
+                    <button
+                        ref={settingsButtonRef}
                         type="button"
                         onClick={() => setPanelOpen((open) => !open)}
                         aria-expanded={panelOpen}
                         aria-controls="white-noise-mix"
                         aria-label={t('settings')}
                         title={t('settings')}
-                        className={`${glassButton} w-10 ${panelOpen ? 'bg-white text-slate-900' : ''}`}
+                        className={controlButton}
                     >
-                        <SlidersHorizontal className="h-4 w-4" aria-hidden="true" />
+                        <HugeiconsIcon icon={Settings02Icon} size={24} strokeWidth={1.5} aria-hidden="true" />
                     </button>
-                    {panelOpen && (
-                        <div
-                            id="white-noise-mix"
-                            role="group"
-                            aria-label={t('mixTitle')}
-                            className="absolute right-0 top-12 z-10 w-52 space-y-3.5 rounded-2xl bg-white px-4 py-3.5 text-slate-800 shadow-lg ring-1 ring-black/5"
-                        >
+                </div>
+                {panelOpen && (
+                    <div
+                        id="white-noise-mix"
+                        role="group"
+                        aria-labelledby="white-noise-mix-title"
+                        className={`${styles.panel} absolute right-0 top-full mt-3 max-h-[60vh] overflow-y-auto rounded-2xl border px-5 pb-4 pt-3`}
+                    >
+                        <div className="mb-2 flex items-center justify-between gap-3">
+                            <h2 id="white-noise-mix-title" className="m-0 text-xs font-normal leading-4 text-[#66735c]">{t('mixTitle')}</h2>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setPanelOpen(false);
+                                    settingsButtonRef.current?.focus({ preventScroll: true });
+                                }}
+                                aria-label={pageT('share.close')}
+                                title={pageT('share.close')}
+                                className="-mr-1 flex h-8 w-8 cursor-pointer items-center justify-center rounded-lg text-[#66735c] hover:bg-black/5 hover:text-[#34412d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#627456]"
+                            >
+                                <HugeiconsIcon icon={Cancel01Icon} size={14} strokeWidth={1.5} aria-hidden="true" />
+                            </button>
+                        </div>
+                        <div className="space-y-3">
                             {LAYERS.map((id) => {
                                 const pct = Math.round(levels[id] * 100);
                                 return (
                                     <label key={id} className="block">
-                                        <span className="mb-2 flex items-center justify-between text-[13px]">
-                                            {t(id)}
-                                            <span className="tabular-nums text-slate-400">{pct}</span>
+                                        <span className="flex items-center gap-2.5 text-sm">
+                                            <HugeiconsIcon icon={LAYER_ICONS[id]} size={18} strokeWidth={1.5} className="text-[#66735c]" aria-hidden="true" />
+                                            <span className="flex-1">{t(id)}</span>
+                                            <span className="text-xs tabular-nums text-[#66735c]">{pct}%</span>
                                         </span>
                                         <input
                                             type="range"
@@ -243,17 +281,22 @@ export default function WhiteNoiseFlyover() {
                                             max={1}
                                             step={0.01}
                                             value={levels[id]}
+                                            aria-valuetext={`${pct}%`}
                                             onChange={(e) => setLevel(id, Number(e.target.value))}
-                                            style={{ background: `linear-gradient(to right, #1e293b ${pct}%, #e2e8f0 ${pct}%)` }}
-                                            className="block h-[3px] w-full cursor-pointer appearance-none rounded-full focus-visible:outline-none [&::-moz-range-thumb]:h-3 [&::-moz-range-thumb]:w-3 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-slate-800 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-slate-800 focus-visible:[&::-webkit-slider-thumb]:ring-2 focus-visible:[&::-webkit-slider-thumb]:ring-slate-400"
+                                            style={{ '--level': `${pct}%` } as CSSProperties}
+                                            className={styles.slider}
                                         />
                                     </label>
                                 );
                             })}
                         </div>
-                    )}
-                </div>
+                    </div>
+                )}
             </div>
+
+            <p className={`pointer-events-none px-3 py-2 text-center text-xs leading-relaxed text-[#56634e] transition-opacity duration-700 sm:text-sm ${steered ? 'opacity-0' : 'opacity-100'}`}>
+                {t('hint')}
+            </p>
 
             <ProgressShareModal
                 isOpen={shareOpen}
