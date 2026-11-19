@@ -223,7 +223,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <div>
                 {/* Hero Section */}
                 <section className="max-w-7xl mx-auto rounded-3xl sm:p-6 md:p-12 mb-16 dark:from-transparent dark:to-transparent">
-                    <div className="flex flex-col-reverse md:flex-row items-center gap-8">
+                    <div className="flex flex-col md:flex-row items-center gap-8">
                         <div className="w-full md:w-3/5 text-center md:text-left flex flex-col justify-center">
                             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-6 leading-tight">
                                 {t("home.title")}
