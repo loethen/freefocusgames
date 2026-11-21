@@ -72,6 +72,8 @@ const LIBRARY_ORDER = [
 const CATEGORY_LINK_IDS = [
     "working-memory",
     "reaction-time",
+    "cognitive-flexibility",
+    "adhd-games",
     "visual-tracking",
     "sustained-attention",
     "selective-attention",
@@ -129,8 +131,8 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
     const hasCategory = (category: (typeof categories)[number]) => isPathAvailable(locale, `categories/${category.slug}`);
     const preferredCategories = CATEGORY_LINK_IDS
         .map((id) => categoryById.get(id))
-        .filter((category): category is (typeof categories)[number] => Boolean(category));
-    const categoryLinks = preferredCategories.every(hasCategory)
+        .filter((category): category is (typeof categories)[number] => category !== undefined && hasCategory(category));
+    const categoryLinks = preferredCategories.length > 0
         ? preferredCategories
         : categories.filter(hasCategory);
     const choiceGroups = CHOICE_GROUPS

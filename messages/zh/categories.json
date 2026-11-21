@@ -153,6 +153,7 @@
         "brain games for memory": "记忆力训练游戏"
       },
       "adhd-games": {
+        "ADHD focus games": "ADHD 专注力游戏",
         "ADHD games for adults": "成人ADHD游戏",
         "games for adhd adults": "ADHD成人游戏",
         "concentration games for adhd": "ADHD专注力游戏",
@@ -312,6 +313,11 @@
           }
         }
       }
+    },
+    "categoryIntros": {
+      "working-memory": "工作记忆训练是通过特定的认知任务（如双重 N-back、数字广度与序列记忆）锻炼大脑实时处理和暂存信息能力的过程。认知心理学研究表明，保持短时规律练习有助于强化专注力与执行功能。",
+      "adhd-games": "ADHD 专注力游戏将注意力练习拆分为短小、规则清晰的回合，针对工作记忆、冲动抑制与持续警觉等核心执行功能进行训练。它适合作为学习或工作前的轻量专注热身，但不用于诊断或替代专业医疗。",
+      "cognitive-flexibility": "认知灵活性训练旨在锻炼大脑在不同规则、任务与干扰线索之间快速切换的能力。基于斯特鲁普效应（Stroop）与连线测试 B 部分等实验心理学范式，规律练习有助于减少切换失误并提升思维敏捷度。"
     }
   }
 }

@@ -9,6 +9,7 @@ import { CareerTestPageShell } from "@/components/career-tests/CareerTestPageShe
 import { getCareerTestBySlug } from "@/data/career-tests";
 import { getGameBySlug } from "@/data/games";
 import { Link } from "@/i18n/navigation";
+import { buildFaqSchema, buildHowToSchema } from "@/lib/schema";
 import { SITE_BASE_URL } from "@/lib/site-constants";
 
 const SLUG = "criticall-practice-test";
@@ -121,15 +122,33 @@ export default async function CritiCallPracticePage({ params }: { params: Promis
       isAccessibleForFree: true,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
     },
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      mainEntity: faq.map((item) => ({
-        "@type": "Question",
-        name: item.question,
-        acceptedAnswer: { "@type": "Answer", text: item.answer },
-      })),
-    },
+    buildFaqSchema(faq),
+    buildHowToSchema({
+      name: "How to Practice for the CritiCall Dispatcher Test Online",
+      description:
+        "Use four free browser-based modules—written entry, audio entry, character comparison, and memory recall—then train weak executive functions with targeted focus games.",
+      url: `${SITE_BASE_URL}${PAGE_PATH}`,
+      inLanguage: "en-US",
+      totalTime: "PT15M",
+      steps: [
+        {
+          name: "Choose a dispatcher skill module",
+          text: "Select Written Data Entry, Audio Data Entry, Character Comparison, or Memory Recall from the practice terminal.",
+        },
+        {
+          name: "Complete the timed scenario",
+          text: "Enter caller names, callback numbers, addresses, and vehicle details or compare alphanumeric codes as accurately as possible.",
+        },
+        {
+          name: "Review accuracy and field-by-field errors",
+          text: "Check your instant accuracy score, response time, and exact corrections on every missed field.",
+        },
+        {
+          name: "Optionally build core focus skills",
+          text: "Between practice sessions, use the related working memory, visual scanning, or multitasking drills below the test to reinforce weak areas.",
+        },
+      ],
+    }),
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",

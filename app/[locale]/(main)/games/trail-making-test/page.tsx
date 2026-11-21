@@ -8,6 +8,8 @@ import TrailMakingGame from "./Game";
 import TrailMakingWorksheet from "./Worksheet";
 import { TRAIL_LEADERBOARD_MODE } from "@/lib/trail-making";
 import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+import { buildFaqSchema, buildHowToSchema } from '@/lib/schema';
 
 export function generateStaticParams() {
   return pageLocaleParams('games/trail-making-test');
@@ -148,6 +150,18 @@ export default async function Page({
           keywords: t.raw("seoKeywords") as string[],
           featureList: t.raw("features") as string[],
         },
+        buildFaqSchema(faq),
+        buildHowToSchema({
+          name: t("title"),
+          description: t("metaDescription"),
+          url,
+          inLanguage: getLocaleMeta(locale).schema,
+          steps: [
+            { text: t("howToPlay.choose") },
+            { text: t("howToPlay.progress") },
+            { text: t("howToPlay.interruption") },
+          ],
+        }),
       ]}
     />
   );

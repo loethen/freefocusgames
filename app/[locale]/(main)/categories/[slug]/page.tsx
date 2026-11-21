@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { routing } from "@/i18n/routing";
 import { getBlogPost } from "@/lib/blog";
+import { buildFaqSchema } from "@/lib/schema";
 import { generateAlternates } from "@/lib/utils";
 import { Link } from "@/i18n/navigation";
 import LinkClickTracker from "@/components/link-click-tracker";
@@ -79,6 +80,13 @@ const HUBS: Record<string, { types: HubGroup[]; audiences: HubGroup[]; faq: stri
     faq: ["free", "best", "improve", "howOften"],
   },
 };
+
+// Categories with dedicated psychology-grounded definitions inside the existing About section.
+const CUSTOM_INTRO_CATEGORIES = new Set([
+  "working-memory",
+  "adhd-games",
+  "cognitive-flexibility",
+]);
 
 type Props = {
   params: Promise<{ slug: string; locale: string }>;
@@ -172,9 +180,17 @@ export default async function CategoryPage({ params }: Props) {
           </Link>
         ),
       })
-    : t('categoryIntro', { categoryName });
+    : CUSTOM_INTRO_CATEGORIES.has(category.id)
+      ? t(`categoryIntros.${category.id}`)
+      : t('categoryIntro', { categoryName });
   const gameTitle = (id: string) => allT(`games.${gameTitleKey(id)}.title`);
   const pageUrl = generateAlternates(locale, `categories/${category.slug}`).canonical;
+  const faqSchemaItems = hub
+    ? hub.faq.map((id) => ({
+        question: t(`hubs.${category.id}.faq.${id}.q`),
+        answer: t(`hubs.${category.id}.faq.${id}.a`),
+      }))
+    : [];
   const structuredData = [
     {
       "@context": "https://schema.org",
@@ -188,6 +204,7 @@ export default async function CategoryPage({ params }: Props) {
         url: generateAlternates(locale, `games/${game.slug}`).canonical,
       })),
     },
+    ...(faqSchemaItems.length > 0 ? [buildFaqSchema(faqSchemaItems)] : []),
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",

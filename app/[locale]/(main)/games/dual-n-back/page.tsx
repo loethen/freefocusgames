@@ -16,6 +16,8 @@ import {
   DUAL_N_BACK_CLEAR_MIN_TRIALS,
 } from '@/lib/dual-n-back-clear-rules';
 import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+import { buildFaqSchema, buildHowToSchema } from '@/lib/schema';
 
 const coverImage = '/games/dual-n-back-cover.png';
 
@@ -145,18 +147,19 @@ export default function DualNBackPage({ params }: { params: Promise<{ locale: st
       inLanguage: locale,
       isAccessibleForFree: true,
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faq.map((item) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: item.answer,
-        },
-      })),
-    },
+    buildFaqSchema(faq),
+    buildHowToSchema({
+      name: t('title'),
+      description: t('howToPlayIntro'),
+      url: pageUrl,
+      inLanguage: getLocaleMeta(locale).schema,
+      steps: [
+        { text: t('howToPlay1') },
+        { text: t('howToPlay2') },
+        { text: t('howToPlay3') },
+        { text: t('howToPlay4') },
+      ],
+    }),
   ];
 
   return (

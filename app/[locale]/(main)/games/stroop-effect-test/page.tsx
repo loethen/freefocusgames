@@ -7,6 +7,9 @@ import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
 import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+import { buildFaqSchema, buildHowToSchema } from '@/lib/schema';
+import { SITE_BASE_URL } from '@/lib/site-constants';
 
 const coverImage = '/games/stroop-effect-cover.png';
 
@@ -42,6 +45,44 @@ export default function StroopEffectTestPage({ params }: { params: Promise<{ loc
     const { locale } = use(params);
     setRequestLocale(locale);
     const t = useTranslations('games.stroopEffectTest');
+    const localePrefix = locale === 'en' ? '' : `/${locale}`;
+    const pageUrl = `${SITE_BASE_URL}${localePrefix}/games/stroop-effect-test`;
+    const schemaLang = getLocaleMeta(locale).schema;
+    const faq = [
+        { question: t('faq.purpose.question'), answer: t('faq.purpose.answer') },
+        { question: t('faq.whatIsStroop.question'), answer: t('faq.whatIsStroop.answer') },
+        { question: t('faq.whyDifficult.question'), answer: t('faq.whyDifficult.answer') },
+        { question: t('faq.howToImprove.question'), answer: t('faq.howToImprove.answer') },
+        { question: t('faq.realWorldApps.question'), answer: t('faq.realWorldApps.answer') },
+    ];
+    const structuredData = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            name: t('title'),
+            description: t('metadata.description'),
+            url: pageUrl,
+            inLanguage: schemaLang,
+            applicationCategory: 'EducationalApplication',
+            operatingSystem: 'Web Browser',
+            isAccessibleForFree: true,
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            image: `${SITE_BASE_URL}${coverImage}`,
+        },
+        buildFaqSchema(faq),
+        buildHowToSchema({
+            name: t('title'),
+            description: t('howToPlay.description'),
+            url: pageUrl,
+            inLanguage: schemaLang,
+            steps: [
+                { text: t('howToPlay.step1') },
+                { text: t('howToPlay.step2') },
+                { text: t('howToPlay.step3') },
+                { text: t('howToPlay.step4') },
+            ],
+        }),
+    ];
 
     return (
         <GamePageTemplate
@@ -49,6 +90,7 @@ export default function StroopEffectTestPage({ params }: { params: Promise<{ loc
             title={t('title')}
             subtitle={t('subtitle')}
             gameComponent={<Game />}
+            structuredData={structuredData}
             howToPlay={
                 <>
                     <p>
@@ -94,28 +136,7 @@ export default function StroopEffectTestPage({ params }: { params: Promise<{ loc
                 blogArticleUrl: "/blog/the-science-of-stroop-effect-cognitive-flexibility-training",
                 blogArticleTitle: t('science.blogArticleTitle'),
             }}
-            faq={[
-                {
-                    question: t('faq.purpose.question'),
-                    answer: t('faq.purpose.answer'),
-                },
-                {
-                    question: t('faq.whatIsStroop.question'),
-                    answer: t('faq.whatIsStroop.answer'),
-                },
-                {
-                    question: t('faq.whyDifficult.question'),
-                    answer: t('faq.whyDifficult.answer'),
-                },
-                {
-                    question: t('faq.howToImprove.question'),
-                    answer: t('faq.howToImprove.answer'),
-                },
-                {
-                    question: t('faq.realWorldApps.question'),
-                    answer: t('faq.realWorldApps.answer'),
-                },
-            ]}
+            faq={faq}
             relatedGames={["trail-making-test", "schulte-table", "digit-span-test"]}
             hasLeaderboard={true}
             leaderboardFormatterType="sec3"

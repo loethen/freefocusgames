@@ -153,6 +153,7 @@
         "brain games for memory": "Brain games for memory"
       },
       "adhd-games": {
+        "ADHD focus games": "ADHD focus games",
         "ADHD games for adults": "ADHD games for adults",
         "games for adhd adults": "games for adhd adults",
         "concentration games for adhd": "Concentration games for ADHD",
@@ -312,6 +313,11 @@
           }
         }
       }
+    },
+    "categoryIntros": {
+      "working-memory": "Working memory training uses structured cognitive psychology tasks—such as Dual N-Back, Digit Span, and sequence recall—to exercise your ability to temporarily hold and update information. Practicing in brief, repeatable browser sessions helps build task focus and executive control without downloads.",
+      "adhd-games": "ADHD focus games break attention practice into short, clearly structured rounds targeting working memory, impulse inhibition, and sustained vigilance—the core executive functions studied in cognitive psychology. They offer a low-friction warm-up before study or work, though they do not diagnose or replace clinical ADHD care.",
+      "cognitive-flexibility": "Cognitive flexibility training exercises the prefrontal skill of switching smoothly between changing rules, cues, or competing stimuli. Grounded in experimental psychology paradigms such as the Stroop Effect and Trail Making Test Part B, regular browser practice helps sharpen mental agility and reduce switching errors."
     }
   }
 }

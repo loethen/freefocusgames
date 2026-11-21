@@ -8,6 +8,11 @@ import { use } from 'react'
 import { generateAlternates } from '@/lib/utils'
 import { Link } from '@/i18n/navigation'
 import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+import { buildFaqSchema, buildHowToSchema } from '@/lib/schema';
+import { SITE_BASE_URL } from '@/lib/site-constants';
+
+const coverImage = '/games/reaction-time-cover.png';
 
 // Generate static params for all locales
 export function generateStaticParams() {
@@ -35,6 +40,45 @@ export default function ReactionTimePage({ params }: { params: Promise<{ locale:
     const { locale } = use(params);
     setRequestLocale(locale);
     const t = useTranslations('games.reactionTime');
+    const localePrefix = locale === 'en' ? '' : `/${locale}`;
+    const pageUrl = `${SITE_BASE_URL}${localePrefix}/games/reaction-time`;
+    const schemaLang = getLocaleMeta(locale).schema;
+    const goodAnswerPlain = String(t.raw('faq.good.answer')).replace(/<\/?link>/g, '');
+
+    const structuredData = [
+        {
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            name: t('title'),
+            description: t('metadata.description'),
+            url: pageUrl,
+            inLanguage: schemaLang,
+            applicationCategory: 'GameApplication',
+            operatingSystem: 'Web Browser',
+            isAccessibleForFree: true,
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            image: `${SITE_BASE_URL}${coverImage}`,
+        },
+        buildFaqSchema([
+            { question: t('faq.good.question'), answer: goodAnswerPlain },
+            { question: t('faq.what.question'), answer: t('faq.what.answer') },
+            { question: t('faq.limitations.question'), answer: t('faq.limitations.answer') },
+            { question: t('faq.factors.question'), answer: t('faq.factors.answer') },
+            { question: t('faq.significance.question'), answer: t('faq.significance.answer') },
+        ]),
+        buildHowToSchema({
+            name: t('title'),
+            description: t('howToPlay.description'),
+            url: pageUrl,
+            inLanguage: schemaLang,
+            steps: [
+                { text: t('howToPlay.step1') },
+                { text: t('howToPlay.step2') },
+                { text: t('howToPlay.step3') },
+                { text: t('howToPlay.step4') },
+            ],
+        }),
+    ];
 
     return (
         <GamePageTemplate
@@ -42,6 +86,7 @@ export default function ReactionTimePage({ params }: { params: Promise<{ locale:
             title={t('title')}
             subtitle={t('subtitle')}
             gameComponent={<Game />}
+            structuredData={structuredData}
             howToPlay={
                 <>
                     <p>

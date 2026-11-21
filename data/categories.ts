@@ -183,11 +183,12 @@ export const categories: Category[] = [
   },
   {
     id: "adhd-games",
-    name: "Traffic-Boosting Collection: ADHD Games for Adults",
+    name: "ADHD Focus Games for Adults",
     description: "Short, clearly structured games that practice working memory, inhibition, and sustained attention, the executive functions often affected by ADHD. These games are not a treatment for ADHD and do not replace professional care, but they offer an easy way to practice focus.",
     slug: "adhd-games",
     icon: "BrainCircuit",
     keywords: [
+      "ADHD focus games",
       "ADHD games for adults",
       "games for adhd adults",
       "concentration games for adhd",
@@ -202,7 +203,7 @@ export const categories: Category[] = [
   },
   {
     id: "brain-games-for-kids",
-    name: "Traffic-Boosting Collection: Focus Games for Kids",
+    name: "Focus Games for Kids",
     description: "Fun brain games for children that practice attention, memory, following instructions, and impulse control in short, game-like rounds. Use them as playful practice alongside schoolwork, not as a replacement for it.",
     slug: "brain-games-for-kids",
     icon: "Gamepad2",
