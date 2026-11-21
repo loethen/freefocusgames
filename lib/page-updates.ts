@@ -1,6 +1,8 @@
 // Record substantive content revisions, not builds or metadata-only deployments.
 // Unknown dates are omitted from the sitemap rather than guessed.
 export const PAGE_UPDATED_AT: Record<string, string> = {
+  '/career-tests/10-key-typing-test': '2026-11-21T00:00:00.000Z',
+  '/career-tests': '2026-11-21T00:00:00.000Z',
   '/games/f1-reaction-test': '2026-11-02T00:00:00.000Z',
   '/zh/games/f1-reaction-test': '2026-11-02T00:00:00.000Z',
   '/games/psychomotor-vigilance-test': '2026-11-02T00:00:00.000Z',

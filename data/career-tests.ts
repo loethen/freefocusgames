@@ -62,6 +62,28 @@ export const careerTests: CareerTest[] = [
     ],
     lastReviewed: "August 17, 2026",
   },
+  {
+    id: "10-key-typing-test",
+    title: "Free 10-Key Typing Test (KPH)",
+    shortTitle: "10-Key Typing Test",
+    slug: "10-key-typing-test",
+    description:
+      "Practice numeric keypad speed in Keystrokes Per Hour (KPH) with numbers, currency decimals, and ZIP or account codes for 1, 3, or 5 minutes.",
+    audience: "data entry clerk, bank teller, accounts payable, and dispatcher applicants",
+    estimatedTime: "1–5 minutes",
+    modules: ["Net & Gross KPH", "Numbers & currency", "Numpad finger guide"],
+    sources: [
+      {
+        label: "U.S. Bureau of Labor Statistics: Information Clerks & Data Entry",
+        url: "https://www.bls.gov/ooh/office-and-administrative-support/information-clerks.htm",
+      },
+      {
+        label: "Official CritiCall test descriptions (Data Entry)",
+        url: "https://criticall911.com/dispatcher-testing/agencieshr/test-descriptions",
+      },
+    ],
+    lastReviewed: "November 21, 2026",
+  },
 ];
 
 export function getCareerTestBySlug(slug: string) {

@@ -1,0 +1,174 @@
+.svg {
+  overflow: visible;
+}
+
+/* 1. Briefcase (CritiCall): handle lifts, clasp clicks, case settles cleanly */
+.briefcaseGroup {
+  transform-origin: 12px 14px;
+}
+
+.briefcaseHandle {
+  transform-origin: 12px 6px;
+}
+
+.briefcaseClasp {
+  transform-origin: 12px 12px;
+}
+
+:global(.group:hover) .briefcaseGroup,
+:global(.group:focus-visible) .briefcaseGroup {
+  animation: briefcaseTilt 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:global(.group:hover) .briefcaseHandle,
+:global(.group:focus-visible) .briefcaseHandle {
+  animation: briefcaseHandleLift 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:global(.group:hover) .briefcaseClasp,
+:global(.group:focus-visible) .briefcaseClasp {
+  animation: briefcaseClaspPop 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes briefcaseTilt {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(-7deg); }
+  55% { transform: rotate(4deg); }
+  80% { transform: rotate(-1.5deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes briefcaseHandleLift {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(-1.5px); }
+  65% { transform: translateY(0.4px); }
+}
+
+@keyframes briefcaseClaspPop {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  35% { transform: translateY(-1.4px); opacity: 0.45; }
+  70% { transform: translateY(0.3px); opacity: 1; }
+}
+
+/* 2. Clock (911 Typing Test): minute hand sweeps 360deg, hour hand ticks forward, progress arc draws */
+.clockMinute {
+  transform-origin: 12px 12px;
+  transition: transform 0.8s cubic-bezier(0.34, 1.15, 0.64, 1);
+}
+
+.clockHour {
+  transform-origin: 12px 12px;
+  transition: transform 0.8s cubic-bezier(0.34, 1.15, 0.64, 1);
+}
+
+.clockArc {
+  transform-origin: 12px 12px;
+  transform: rotate(-90deg);
+  stroke-dasharray: 63;
+  stroke-dashoffset: 0;
+}
+
+:global(.group:hover) .clockMinute,
+:global(.group:focus-visible) .clockMinute {
+  transform: rotate(360deg);
+}
+
+:global(.group:hover) .clockHour,
+:global(.group:focus-visible) .clockHour {
+  transform: rotate(30deg);
+}
+
+:global(.group:hover) .clockArc,
+:global(.group:focus-visible) .clockArc {
+  animation: clockRimSweep 0.8s cubic-bezier(0.34, 1.15, 0.64, 1);
+}
+
+@keyframes clockRimSweep {
+  0% { stroke-dashoffset: 63; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* 3. Calculator / 10-Key: LCD bar fills in while numpad keys tap in a typing burst */
+.calcDisplay {
+  stroke-dasharray: 8;
+  stroke-dashoffset: 0;
+}
+
+.calcKey1,
+.calcKey2,
+.calcKey3,
+.calcKey4,
+.calcKey5,
+.calcEnter {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+:global(.group:hover) .calcDisplay,
+:global(.group:focus-visible) .calcDisplay {
+  animation: calcDisplayDraw 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:global(.group:hover) .calcKey1,
+:global(.group:focus-visible) .calcKey1 {
+  animation: keyTap 0.32s ease-out 0.04s;
+}
+
+:global(.group:hover) .calcKey2,
+:global(.group:focus-visible) .calcKey2 {
+  animation: keyTap 0.32s ease-out 0.14s;
+}
+
+:global(.group:hover) .calcKey3,
+:global(.group:focus-visible) .calcKey3 {
+  animation: keyTap 0.32s ease-out 0.24s;
+}
+
+:global(.group:hover) .calcKey4,
+:global(.group:focus-visible) .calcKey4 {
+  animation: keyTap 0.32s ease-out 0.34s;
+}
+
+:global(.group:hover) .calcKey5,
+:global(.group:focus-visible) .calcKey5 {
+  animation: keyTap 0.32s ease-out 0.44s;
+}
+
+:global(.group:hover) .calcEnter,
+:global(.group:focus-visible) .calcEnter {
+  animation: enterPress 0.36s ease-out 0.54s;
+}
+
+@keyframes calcDisplayDraw {
+  0% { stroke-dashoffset: 8; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes keyTap {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  45% { transform: translateY(1.2px); opacity: 0.35; }
+}
+
+@keyframes enterPress {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  45% { transform: translateY(1.4px); opacity: 0.3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .briefcaseGroup,
+  .briefcaseHandle,
+  .briefcaseClasp,
+  .clockMinute,
+  .clockHour,
+  .clockArc,
+  .calcDisplay,
+  .calcKey1,
+  .calcKey2,
+  .calcKey3,
+  .calcKey4,
+  .calcKey5,
+  .calcEnter {
+    animation: none !important;
+    transition: none !important;
+  }
+}

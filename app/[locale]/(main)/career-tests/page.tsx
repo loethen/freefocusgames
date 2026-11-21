@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { ArrowRight, BriefcaseBusiness, Check, Clock3, ShieldCheck } from "lucide-react";
+import { ArrowRight, Check, ShieldCheck } from "lucide-react";
 
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { CareerTestCardIcon } from "@/components/career-tests/CareerTestCardIcon";
 import { careerTests } from "@/data/career-tests";
 import { Link } from "@/i18n/navigation";
 import { SITE_BASE_URL } from "@/lib/site-constants";
@@ -130,37 +131,38 @@ export default async function CareerTestsPage({
             </div>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
-            {careerTests.map((test, index) => (
-              <article key={test.id} className="group flex flex-col rounded-2xl border border-border/60 bg-muted/25 p-6 transition hover:-translate-y-0.5 hover:border-primary/30 hover:bg-muted/45 sm:p-8">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="rounded-xl bg-primary/10 p-3 text-primary">
-                    {index === 0 ? (
-                      <BriefcaseBusiness aria-hidden="true" className="h-7 w-7" />
-                    ) : (
-                      <Clock3 aria-hidden="true" className="h-7 w-7" />
-                    )}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {careerTests.map((test) => (
+              <article key={test.id} className="h-full">
+                <Link
+                  href={`/career-tests/${test.slug}`}
+                  className="group flex h-full flex-col rounded-2xl border border-border/60 bg-muted/25 p-6 transition hover:-translate-y-0.5 hover:border-primary/30 hover:bg-muted/45 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring sm:p-8"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="rounded-xl bg-primary/10 p-3 text-primary">
+                      <CareerTestCardIcon testId={test.id} />
+                    </div>
+                    <span className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-700 dark:text-green-400">
+                      Free
+                    </span>
                   </div>
-                  <span className="rounded-full bg-green-500/10 px-3 py-1 text-xs font-semibold text-green-700 dark:text-green-400">
-                    Free
-                  </span>
-                </div>
-                <h3 className="mt-6 text-2xl font-semibold group-hover:text-primary">{test.title}</h3>
-                <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">{test.description}</p>
-                <ul className="mt-5 flex flex-wrap gap-2">
-                  {test.modules.map((module) => (
-                    <li key={module} className="rounded-full bg-background/80 px-3 py-1 text-xs text-muted-foreground">
-                      {module}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-8 flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">{test.estimatedTime}</span>
-                  <Link href={`/career-tests/${test.slug}`} className="inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline">
-                    Start free
-                    <ArrowRight aria-hidden="true" className="h-4 w-4" />
-                  </Link>
-                </div>
+                  <h3 className="mt-6 text-2xl font-semibold group-hover:text-primary">{test.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-6 text-muted-foreground">{test.description}</p>
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {test.modules.map((module) => (
+                      <li key={module} className="rounded-full bg-background/80 px-3 py-1 text-xs text-muted-foreground">
+                        {module}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-8 flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">{test.estimatedTime}</span>
+                    <span className="inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 group-hover:underline">
+                      Start free
+                      <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
+                </Link>
               </article>
             ))}
           </div>

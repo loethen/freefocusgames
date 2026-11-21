@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Calculator } from "lucide-react";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
@@ -16,6 +17,12 @@ const PAGE_PATH = `/career-tests/${SLUG}`;
 const test = getCareerTestBySlug(SLUG)!;
 
 const RELATED_FOCUS_DRILLS = [
+  {
+    href: "/career-tests/10-key-typing-test",
+    title: "10-Key Typing Test (KPH)",
+    skill: "Numeric keypad",
+    description: "Measure numeric keypad KPH and accuracy across numbers, amounts, and ZIP codes.",
+  },
   {
     href: "/games/psychomotor-vigilance-test",
     title: "Psychomotor Vigilance Test",
@@ -34,15 +41,11 @@ const RELATED_FOCUS_DRILLS = [
     skill: "Visual scanning",
     description: "Train faster eye tracking so you read ahead cleanly while typing.",
   },
-  {
-    href: "/games/reaction-time",
-    title: "Reaction Time Test",
-    skill: "Reflex speed",
-    description: "Warm up visual-motor response speed in milliseconds before timed runs.",
-  },
 ].map((item) => ({
   ...item,
-  coverImage: getGameBySlug(item.href.slice("/games/".length))?.coverImage,
+  coverImage: item.href.startsWith("/games/")
+    ? getGameBySlug(item.href.slice("/games/".length))?.coverImage
+    : undefined,
 }));
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
@@ -193,7 +196,7 @@ export default async function DispatcherTypingPage({ params }: { params: Promise
                   className="group flex h-full gap-4 rounded-xl border border-border/60 p-4 transition-colors hover:border-primary/60 hover:bg-muted/40"
                 >
                   <span className="relative aspect-video w-32 shrink-0 overflow-hidden rounded-lg bg-muted sm:w-36">
-                    {item.coverImage && (
+                    {item.coverImage ? (
                       <Image
                         src={item.coverImage}
                         alt=""
@@ -201,6 +204,10 @@ export default async function DispatcherTypingPage({ params }: { params: Promise
                         sizes="144px"
                         className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none"
                       />
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center text-muted-foreground">
+                        <Calculator className="h-8 w-8" aria-hidden="true" />
+                      </span>
                     )}
                   </span>
                   <span className="min-w-0">

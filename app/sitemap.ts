@@ -65,6 +65,7 @@ function generateEnglishOnlyRoutes(): MetadataRoute.Sitemap {
     '/career-tests',
     '/career-tests/criticall-practice-test',
     '/career-tests/911-dispatcher-typing-test',
+    '/career-tests/10-key-typing-test',
   ].map((path) => ({
     url: generateAlternates('en', path, ['en']).canonical,
     lastModified: lastModified(path),
