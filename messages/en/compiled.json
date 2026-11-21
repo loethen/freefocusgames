@@ -3344,7 +3344,11 @@
         "stageLabel": "Grassland flyover. Move the pointer or press the left and right arrow keys to turn the bird.",
         "unsupported": "This scene needs WebGL, which your browser has turned off. Try another browser to see the flyover.",
         "settings": "Sound settings",
-        "mixTitle": "Sound mix"
+        "mixTitle": "Sound mix",
+        "timerTitle": "Session timer",
+        "timerLoop": "Loop",
+        "timerMinutes": "{minutes}m",
+        "backgroundHint": "Seamless background & lock-screen loop supported."
       },
       "howToPlay": {
         "intro": "Press Play sound, open the settings button to set the mix you like, then leave it running while you study or work.",
@@ -3409,6 +3413,10 @@
           "eyebrow": "Try a little challenge",
           "description": "Find the numbers in order. See how smoothly your eyes can follow."
         }
+      },
+      "howToSchema": {
+        "name": "How to Use White Noise for Deep Focus",
+        "description": "Start seamless brown noise, wind, and brook sounds in your browser with background and mobile lock-screen playback."
       }
     }
   },

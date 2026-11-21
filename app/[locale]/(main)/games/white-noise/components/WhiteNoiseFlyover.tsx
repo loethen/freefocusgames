@@ -12,8 +12,16 @@ import styles from './WhiteNoiseFlyover.module.css';
 
 const LAYERS: SoundLayer[] = ['wind', 'stream', 'deep'];
 const DEFAULT_LEVELS: Record<SoundLayer, number> = { wind: 0.5, stream: 0.6, deep: 0.35 };
+const TIMER_OPTIONS = [0, 15, 30, 60] as const;
+type TimerMinutes = (typeof TIMER_OPTIONS)[number];
 const KEY_TURN = Math.PI / 12;
 const LAYER_ICONS = { wind: WindIcon, stream: WavesIcon, deep: WaveIcon };
+
+function formatRemaining(seconds: number) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${String(secs).padStart(2, '0')}`;
+}
 
 const controlButton =
     'inline-flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white transition-colors hover:text-white/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white';
@@ -32,9 +40,14 @@ export default function WhiteNoiseFlyover() {
     const [failed, setFailed] = useState(false);
     const [playing, setPlaying] = useState(false);
     const [levels, setLevels] = useState(DEFAULT_LEVELS);
+    const [timerMinutes, setTimerMinutes] = useState<TimerMinutes>(0);
+    const [remainingSeconds, setRemainingSeconds] = useState<number | null>(null);
     const [fullscreen, setFullscreen] = useState(false);
     const [panelOpen, setPanelOpen] = useState(false);
     const [shareOpen, setShareOpen] = useState(false);
+    const timerEndAtRef = useRef<number | null>(null);
+    const mediaTitleRef = useRef(pageT('heading'));
+    mediaTitleRef.current = pageT('heading');
 
     useEffect(() => {
         if (!stageRef.current || !canvasRef.current) return;
@@ -45,12 +58,22 @@ export default function WhiteNoiseFlyover() {
         }
         flyoverRef.current = flyover;
         flyover.setWind(DEFAULT_LEVELS.wind);
-        const sound = createFocusSound(DEFAULT_LEVELS);
+        const sound = createFocusSound(DEFAULT_LEVELS, {
+            metadata: {
+                title: mediaTitleRef.current,
+                artist: 'Free Focus Games',
+                artwork: '/games/white-noise-cover.png',
+            },
+            onPlayingChange: (nextPlaying) => {
+                setPlaying(nextPlaying);
+            },
+        });
         soundRef.current = sound;
 
         // The brook gets louder near the river and sits on the side the river is on.
+        // Skip polling while hidden so background playback keeps a steady stereo image.
         const timer = window.setInterval(() => {
-            if (!sound.playing) return;
+            if (!sound.playing || document.hidden) return;
             const { riverOffsetRight, riverDistance } = flyover.state();
             sound.setRiver(Math.max(0, 1 - riverDistance / 0.3), riverOffsetRight / 0.3);
         }, 250);
@@ -71,6 +94,35 @@ export default function WhiteNoiseFlyover() {
             soundRef.current = null;
         };
     }, []);
+
+    // Track optional focus timer by wall-clock deadline so it stays accurate across screen lock.
+    useEffect(() => {
+        if (!playing || timerMinutes === 0) {
+            timerEndAtRef.current = null;
+            setRemainingSeconds(null);
+            return;
+        }
+        if (!timerEndAtRef.current) {
+            timerEndAtRef.current = Date.now() + timerMinutes * 60 * 1000;
+            setRemainingSeconds(timerMinutes * 60);
+        }
+        const checkTimer = () => {
+            if (!timerEndAtRef.current) return;
+            const left = Math.max(0, Math.ceil((timerEndAtRef.current - Date.now()) / 1000));
+            setRemainingSeconds(left);
+            if (left <= 0) {
+                timerEndAtRef.current = null;
+                soundRef.current?.stop();
+                setPlaying(false);
+            }
+        };
+        const interval = window.setInterval(checkTimer, 1000);
+        document.addEventListener('visibilitychange', checkTimer);
+        return () => {
+            window.clearInterval(interval);
+            document.removeEventListener('visibilitychange', checkTimer);
+        };
+    }, [playing, timerMinutes]);
 
     // Close the settings panel on an outside click or Escape.
     useEffect(() => {
@@ -129,6 +181,18 @@ export default function WhiteNoiseFlyover() {
         setLevels((prev) => ({ ...prev, [layer]: value }));
         soundRef.current?.setLevel(layer, value);
         if (layer === 'wind') flyoverRef.current?.setWind(value);
+        void startSound();
+    };
+
+    const selectTimer = (minutes: TimerMinutes) => {
+        setTimerMinutes(minutes);
+        if (minutes === 0) {
+            timerEndAtRef.current = null;
+            setRemainingSeconds(null);
+            return;
+        }
+        timerEndAtRef.current = Date.now() + minutes * 60 * 1000;
+        setRemainingSeconds(minutes * 60);
         void startSound();
     };
 
@@ -199,6 +263,14 @@ export default function WhiteNoiseFlyover() {
                 className="absolute right-4 top-4 z-10 sm:right-6 sm:top-6"
             >
                 <div className="flex items-center gap-0.5">
+                    {playing && remainingSeconds !== null && (
+                        <span
+                            aria-live="off"
+                            className="mr-1 rounded-md bg-black/25 px-2 py-1 text-xs font-medium tabular-nums text-white backdrop-blur-xs"
+                        >
+                            {formatRemaining(remainingSeconds)}
+                        </span>
+                    )}
                     <button
                         type="button"
                         onClick={toggleSound}
@@ -287,6 +359,30 @@ export default function WhiteNoiseFlyover() {
                                 );
                             })}
                         </div>
+                        <div className="mt-4 border-t border-black/10 pt-3">
+                            <p className="mb-2 text-xs font-normal leading-4 text-[#66735c]">{t('timerTitle')}</p>
+                            <div className="grid grid-cols-4 gap-1.5" role="group" aria-label={t('timerTitle')}>
+                                {TIMER_OPTIONS.map((minutes) => {
+                                    const active = timerMinutes === minutes;
+                                    return (
+                                        <button
+                                            key={minutes}
+                                            type="button"
+                                            onClick={() => selectTimer(minutes)}
+                                            aria-pressed={active}
+                                            className={`cursor-pointer rounded-lg px-2 py-1.5 text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#627456] ${
+                                                active
+                                                    ? 'bg-[#34412d] text-white'
+                                                    : 'bg-black/5 text-[#34412d] hover:bg-black/10'
+                                            }`}
+                                        >
+                                            {minutes === 0 ? t('timerLoop') : t('timerMinutes', { minutes })}
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        <p className="mt-3 text-[11px] leading-4 text-[#66735c]">{t('backgroundHint')}</p>
                     </div>
                 )}
             </div>

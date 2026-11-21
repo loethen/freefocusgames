@@ -24,7 +24,11 @@
         "stageLabel": "草原飞行画面。移动指针，或按左右方向键改变飞鸟的方向。",
         "unsupported": "这个画面需要 WebGL，你的浏览器目前关闭了它。换一个浏览器即可看到飞行画面。",
         "settings": "声音设置",
-        "mixTitle": "声音混合"
+        "mixTitle": "声音混合",
+        "timerTitle": "专注定时",
+        "timerLoop": "循环",
+        "timerMinutes": "{minutes}分",
+        "backgroundHint": "支持无缝循环与后台/锁屏持续播放。"
       },
       "howToPlay": {
         "intro": "点击“播放声音”，在右上角的设置按钮里调好混音，然后让它在学习或工作时一直播放。",
@@ -89,6 +93,10 @@
           "eyebrow": "来一点小挑战",
           "description": "按顺序找到数字，看看目光能多流畅地跟上。"
         }
+      },
+      "howToSchema": {
+        "name": "如何使用专注白噪音进入深度工作",
+        "description": "在浏览器中实时混合风声、溪流与棕噪音，支持无缝循环、定时关闭与手机锁屏持续播放。"
       }
     }
   }
