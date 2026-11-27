@@ -8,12 +8,15 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { cn } from "@/lib/utils";
+import { cn, generateAlternates } from "@/lib/utils";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import GameCard from '@/components/game-card';
 import { getGame, type Game } from '@/data/games';
 import { useLocale, useTranslations } from 'next-intl';
 import { isPathAvailable } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+import { buildFaqSchema } from '@/lib/schema';
+import { SITE_BASE_URL } from '@/lib/site-constants';
 import { ExternalLink, BookOpen, ArrowRight } from 'lucide-react';
 import { ShareButton } from '@/components/share-button';
 import {
@@ -107,14 +110,37 @@ export function GamePageTemplate({
     const gameT = useTranslations('games.template');
     const locale = useLocale();
     // Recommend only games that exist in this language (Japanese is rolled out page by page).
+    const currentGame = getGame(gameId);
     const relatedGameItems = (relatedGames ?? [])
         .map((id) => getGame(id))
         .filter((game): game is Game => !!game && isPathAvailable(locale, `games/${game.slug}`));
+    const fallbackStructuredData: Array<Record<string, unknown>> = [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebApplication",
+            name: title,
+            description: subtitle,
+            url: generateAlternates(locale, `games/${currentGame?.slug ?? gameId}`).canonical,
+            inLanguage: getLocaleMeta(locale).schema,
+            applicationCategory: currentGame?.categories.includes('relaxation') ? 'HealthApplication' : 'GameApplication',
+            operatingSystem: 'Web Browser',
+            isAccessibleForFree: true,
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+            ...(currentGame?.coverImage ? { image: `${SITE_BASE_URL}${currentGame.coverImage}` } : {}),
+        },
+    ];
+    const plainFaqItems = (faq ?? []).filter(
+        (item): item is { question: string; answer: string } =>
+            typeof item.answer === 'string' && item.answer.trim().length > 0
+    );
+    if (plainFaqItems.length > 0) {
+        fallbackStructuredData.push(buildFaqSchema(plainFaqItems));
+    }
     const structuredDataItems = Array.isArray(structuredData)
         ? structuredData
         : structuredData
             ? [structuredData]
-            : [];
+            : fallbackStructuredData;
 
     return (
         <>
@@ -324,7 +350,7 @@ export function GamePageTemplate({
                                 <AccordionTrigger className="text-lg">
                                     {item.question}
                                 </AccordionTrigger>
-                                <AccordionContent className="text-muted-foreground text-lg">
+                                <AccordionContent forceMount className="text-muted-foreground text-lg">
                                     {item.answer}
                                 </AccordionContent>
                             </AccordionItem>

@@ -95,6 +95,18 @@ export default async function RootLayout({
     setRequestLocale(locale);
 
     const messages = await getMessages({ locale });
+    const organizationSchema = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": `${SITE_BASE_URL}/#organization`,
+        name: "FreeFocusGames",
+        url: SITE_BASE_URL,
+        logo: `${SITE_BASE_URL}/og/oglogo.png`,
+        sameAs: [
+            "https://github.com/loethen/freefocusgames",
+            "https://x.com/2also397879",
+        ],
+    };
 
     return (
         <html lang={locale} suppressHydrationWarning>
@@ -112,19 +124,11 @@ export default async function RootLayout({
                     }}
                 />
 
-                {/* 结构化数据 */}
-                <script type="application/ld+json">
-                    {JSON.stringify({
-                        "@context": "https://schema.org",
-                        "@type": "WebSite",
-                        name: "FreeFocusGames",
-                        url: "https://www.freefocusgames.com",
-                        description:
-                            "Free online platform with science-based games to improve focus, memory and concentration for kids, adults, and seniors",
-                        keywords:
-                            "free focus games, memory games, brain training, concentration games, focus games for kids, memory games for seniors",
-                    })}
-                </script>
+                {/* 站点实体结构化数据 */}
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+                />
             </head>
             <body
                 className={cn(

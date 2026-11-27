@@ -8,6 +8,8 @@ import LinkClickTracker from '@/components/link-click-tracker';
 import { ArrowLeftRight, ArrowRight, Baby, BriefcaseBusiness, Hash, ListChecks, Route, Timer, UserRound, Zap, type LucideIcon } from 'lucide-react';
 import { use } from 'react';
 import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+import { SITE_BASE_URL } from '@/lib/site-constants';
 
 export function generateStaticParams() {
   return pageLocaleParams('tests');
@@ -70,9 +72,34 @@ export default function TestsPage({ params }: { params: Promise<{ locale: string
     // Career tests are English-only.
     ...(locale === 'en' ? [{ id: 'career', items: CAREER_TESTS }] : []),
   ];
+  const localePrefix = locale === 'en' ? '' : `/${locale}`;
+  const visibleItems = sections.flatMap((section) => section.items);
+  const collectionSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: t('metaTitle'),
+    description: t('metaDescription'),
+    url: generateAlternates(locale, 'tests').canonical,
+    inLanguage: getLocaleMeta(locale).schema,
+    publisher: { '@id': `${SITE_BASE_URL}/#organization` },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: visibleItems.length,
+      itemListElement: visibleItems.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: t(`items.${item.id}.title`),
+        url: `${SITE_BASE_URL}${item.href.startsWith('/career-tests') ? '' : localePrefix}${item.href}`,
+      })),
+    },
+  };
 
   return (
     <LinkClickTracker fromPage="tests" className="mx-auto max-w-4xl px-0 py-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
       <Breadcrumbs items={[{ label: t('title') }]} />
 
       <header className="mx-auto mt-10 mb-12 max-w-2xl text-center">

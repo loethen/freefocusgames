@@ -6,6 +6,8 @@ import { use } from 'react';
 import { generateAlternates } from '@/lib/utils';
 import { Link } from '@/i18n/navigation';
 import { pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+import { SITE_BASE_URL } from '@/lib/site-constants';
 
 export function generateStaticParams() {
   return pageLocaleParams('methodology');
@@ -47,9 +49,22 @@ export default function MethodologyPage({ params }: { params: Promise<{ locale: 
       {(t.raw(key) as string[]).map((item) => <li key={item}>{item}</li>)}
     </ul>
   );
+  const webPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: t('metaTitle'),
+    description: t('metaDescription'),
+    url: generateAlternates(locale, 'methodology').canonical,
+    inLanguage: getLocaleMeta(locale).schema,
+    publisher: { '@id': `${SITE_BASE_URL}/#organization` },
+  };
 
   return (
     <div className="container max-w-4xl mx-auto py-8 px-4">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
       <Breadcrumbs items={[{ label: t('title') }]} />
 
       <div className="mt-8">

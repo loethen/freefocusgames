@@ -27,6 +27,8 @@ import {
 } from "lucide-react";
 import TrustpilotSection from "@/components/trustpilot-section";
 import { filterGamesForLocale, isFullLocale, isPathAvailable, pageLocaleParams } from '@/lib/locale-availability';
+import { getLocaleMeta } from '@/lib/locale-meta';
+import { SITE_BASE_URL } from '@/lib/site-constants';
 
 export function generateStaticParams() {
   return pageLocaleParams('');
@@ -102,9 +104,13 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
     const jsonLd = {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "Free Focus Games",
+        "name": "FreeFocusGames",
         "url": generateAlternates(locale).canonical,
-        "description": t("home.metaDescription")
+        "inLanguage": getLocaleMeta(locale).schema,
+        "description": t("home.metaDescription"),
+        "publisher": {
+            "@id": `${SITE_BASE_URL}/#organization`
+        }
     };
 
     // 第一组评价

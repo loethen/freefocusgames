@@ -59,23 +59,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
             images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/baby-animal-matching'),
-        other: {
-            'script:ld+json': JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "WebApplication",
-                "name": t('title'),
-                "description": description,
-                "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/baby-animal-matching`,
-                "image": `https://www.freefocusgames.com${coverImage}`,
-                "applicationCategory": "GameApplication",
-                "operatingSystem": "Web Browser",
-                "offers": {
-                    "@type": "Offer",
-                    "price": "0",
-                    "priceCurrency": "USD"
-                }
-            })
-        },
     };
 }
 

@@ -50,8 +50,8 @@ function getLegacyRedirect(pathname: string) {
 export default async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
-    // sitemap.xml 和 robots.txt 直接放行
-    if (pathname === '/sitemap.xml' || pathname === '/robots.txt') {
+    // sitemap.xml、robots.txt 和 llms.txt 直接放行
+    if (pathname === '/sitemap.xml' || pathname === '/robots.txt' || pathname === '/llms.txt') {
         return NextResponse.next();
     }
 

@@ -41,35 +41,6 @@ export async function generateMetadata(
             images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/478-breathing'),
-        other: {
-            'script:ld+json': JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "WebApplication",
-                "name": t('title'),
-                "description": t('metadata.description'),
-                "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/478-breathing`,
-                "image": `https://www.freefocusgames.com${coverImage}`,
-                "applicationCategory": "HealthApplication",
-                "operatingSystem": "Web Browser",
-                "offers": {
-                    "@type": "Offer",
-                    "price": "0",
-                    "priceCurrency": "USD"
-                },
-                "featureList": [
-                    "4-7-8 Breathing Technique",
-                    "Natural Sleep Aid",
-                    "Dr. Weil Breathing Method",
-                    "Anxiety Relief Breathing",
-                    "Visual Lotus Animation Guide"
-                ],
-                "healthCondition": "Insomnia, Anxiety, Stress",
-                "audience": {
-                    "@type": "PeopleAudience",
-                    "healthCondition": "Sleep Disorders, Anxiety"
-                }
-            })
-        }
     };
 }
 

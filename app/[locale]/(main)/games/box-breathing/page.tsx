@@ -42,35 +42,6 @@ export async function generateMetadata(
             images: [coverImage],
         },
         alternates: generateAlternates(locale, 'games/box-breathing'),
-        other: {
-            'script:ld+json': JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "WebApplication",
-                "name": t('title'),
-                "description": t('metadata.description'),
-                "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/box-breathing`,
-                "image": `https://www.freefocusgames.com${coverImage}`,
-                "applicationCategory": "HealthApplication",
-                "operatingSystem": "Web Browser",
-                "offers": {
-                    "@type": "Offer",
-                    "price": "0",
-                    "priceCurrency": "USD"
-                },
-                "featureList": [
-                    "Box Breathing (4-4-4-4)",
-                    "Navy SEAL Tactical Breathing",
-                    "Square Breathing Exercise",
-                    "Stress Relief Under Pressure",
-                    "Visual Lotus Animation Guide"
-                ],
-                "healthCondition": "Anxiety, Stress, Performance Anxiety",
-                "audience": {
-                    "@type": "PeopleAudience",
-                    "healthCondition": "Stress Management"
-                }
-            })
-        }
     };
 }
 

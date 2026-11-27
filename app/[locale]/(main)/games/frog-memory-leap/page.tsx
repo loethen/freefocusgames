@@ -40,23 +40,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       images: [coverImage],
     },
     alternates: generateAlternates(locale, 'games/frog-memory-leap'),
-    other: {
-      'script:ld+json': JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": t('title'),
-        "description": t('metadata.description'),
-        "url": `https://www.freefocusgames.com${locale === 'en' ? '' : `/${locale}`}/games/frog-memory-leap`,
-        "image": `https://www.freefocusgames.com${coverImage}`,
-        "applicationCategory": "GameApplication",
-        "operatingSystem": "Web Browser",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        }
-      })
-    },
   };
 }
 

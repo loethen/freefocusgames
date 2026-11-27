@@ -11,6 +11,7 @@ import { SITE_BASE_URL } from '@/lib/site-constants';
 import { generateAlternates } from '@/lib/utils';
 import { pageLocaleParams } from '@/lib/locale-availability';
 import { getLocaleMeta } from '@/lib/locale-meta';
+import { buildFaqSchema } from '@/lib/schema';
 
 export function generateStaticParams() {
   return pageLocaleParams('benchmarks');
@@ -46,6 +47,7 @@ export default async function BenchmarksPage({ params }: { params: Promise<{ loc
     name: t('metaTitle'),
     description: t('metaDescription'),
     url: pageUrl,
+    inLanguage: getLocaleMeta(locale).schema,
     isAccessibleForFree: true,
     license: 'https://creativecommons.org/licenses/by/4.0/',
     temporalCoverage: '2026-03-08/2026-11-27',
@@ -57,12 +59,13 @@ export default async function BenchmarksPage({ params }: { params: Promise<{ loc
     },
     variableMeasured: BENCHMARKS.map((benchmark) => t(`items.${benchmark.id}.name`)),
   };
+  const faqSchema = buildFaqSchema(faq.map((item) => ({ question: item.q, answer: item.a })));
 
   return (
     <LinkClickTracker fromPage="benchmarks" className="container mx-auto max-w-4xl px-4 py-8">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([datasetSchema, faqSchema]) }}
       />
       <Breadcrumbs items={[{ label: t('title') }]} />
 
