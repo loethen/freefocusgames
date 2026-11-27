@@ -250,6 +250,70 @@
     "gridTitle": "{count} {categoryName} games",
     "aboutTitle": "About {categoryName} games",
     "hubs": {
+      "reaction-time": {
+        "metaTitle": "Free Reaction Time Games Online",
+        "metaDescription": "Play free reaction time games and reflex tests right in your browser: instant visual reaction speed test, F1 start lights, 10-second timing, choice reaction, and click speed games.",
+        "fullTestLink": "Open full reaction time test & leaderboard",
+        "benchmarksLink": "Reaction time & focus benchmarks from real players",
+        "intro": "Reaction time games here train different parts of fast response—from clicking the instant a color changes in the <test>Reaction Time Test</test> to filtering competing cues or timing a stop to the millisecond. Use the instant test at the top for a five-round baseline, then explore the specialized drills below.",
+        "typesTitle": "Types of reaction time games",
+        "types": {
+          "simple": {
+            "title": "Simple reflexes, timing & vigilance",
+            "body": "React to a single clear signal—green screen, F1 start lights out, a 10-second stop clock, or a random millisecond counter. Best for baseline speed and steady alertness."
+          },
+          "choice": {
+            "title": "Choice & inhibition reaction",
+            "body": "Spot targets while ignoring distractors or switching rules under time pressure. Closer to real driving, sports, and fast-paced gaming decisions than a single-button click."
+          },
+          "clicking": {
+            "title": "Clicking & tapping speed",
+            "body": "Measure raw mouse clicks or spacebar taps per second over short bursts. Useful for testing finger speed and input hardware responsiveness."
+          }
+        },
+        "audiencesTitle": "Who reaction games help most",
+        "audiences": {
+          "gamers": {
+            "title": "Competitive & FPS gamers",
+            "body": "Warm up visual-motor response before ranked matches, compare F1 start reactions, or test mouse click speed across sessions."
+          },
+          "sports": {
+            "title": "Athletes & everyday drivers",
+            "body": "Combine simple reflex drills with peripheral vision and Flanker interference tasks to practice spotting cues fast without false starts."
+          },
+          "quickBreaks": {
+            "title": "Quick 1-minute focus breaks",
+            "body": "Every game loads straight in the browser with no sign-up, making it easy to run a five-round check between study or work blocks."
+          }
+        },
+        "faqTitle": "Reaction time games FAQ",
+        "faq": {
+          "free": {
+            "q": "Are these reaction time games free?",
+            "a": "Yes. Every reaction and reflex game on FreeFocusGames runs free in your browser with no download or account required on desktop, tablet, or phone."
+          },
+          "goodTime": {
+            "q": "What is a good reaction time on an online test?",
+            "a": "Across 8,791 players who completed our five-round reaction time test, the median average is 369 ms. Scoring under 300 ms beats about 84% of players, and under 250 ms puts you in the top 3%. Browser tests read higher than ~200 ms lab averages because monitors, mice, and touchscreens add display and input delay."
+          },
+          "whichGame": {
+            "q": "Which reaction game should I start with?",
+            "a": "Start with the five-round Reaction Time Test right above for a clear millisecond baseline, then try F1 Reaction Test for start-light reflexes or Double Decision and Flanker Test when you want decision-making under distractions."
+          },
+          "improve": {
+            "q": "Can playing reaction games improve your reaction time?",
+            "a": "Practice sharpens anticipation, cue recognition, and consistency on the tasks you train, while real-world speed also depends heavily on sleep, alertness, and input lag. Treat short sessions as a warm-up and measurement tool alongside healthy rest."
+          }
+        },
+        "guides": {
+          "dataEyebrow": "Player data",
+          "guideEyebrow": "Training guide",
+          "benchmarksEyebrow": "Benchmarks",
+          "benchmarksDescription": "Compare your reaction time, click speed, and focus scores against real player medians and top-10% percentiles.",
+          "readMore": "Read guide",
+          "viewBenchmarks": "View benchmarks"
+        }
+      },
       "memory-games": {
         "metaTitle": "Free Memory Games Online for Adults, Seniors & Kids",
         "metaDescription": "Play free memory games online: card matching, sequence and route recall, digit span, dual n-back and more. No sign-up, with picks for adults, seniors and kids.",

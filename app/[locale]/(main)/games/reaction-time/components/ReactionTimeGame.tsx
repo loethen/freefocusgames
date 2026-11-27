@@ -31,7 +31,7 @@ enum GameStates {
   SUMMARY
 }
 
-export default function ReactionTimeGame() {
+export default function ReactionTimeGame({ variant = 'full' }: { variant?: 'full' | 'embedded' }) {
   const t = useTranslations('games.reactionTime.gameUI');
   const pageT = useTranslations('games.reactionTime');
   const shareT = useTranslations('common.progressShare');
@@ -247,6 +247,7 @@ export default function ReactionTimeGame() {
       if (event.repeat || (event.key !== ' ' && event.key !== 'Enter')) return;
       const target = event.target as HTMLElement | null;
       if (target && target !== containerRef.current && target.closest('input, textarea, select, button, a, [contenteditable="true"]')) return;
+      if (variant === 'embedded' && gameState === GameStates.START && document.activeElement !== containerRef.current) return;
       const board = containerRef.current?.getBoundingClientRect();
       if (!board || board.bottom <= 0 || board.top >= window.innerHeight) return;
       event.preventDefault();
@@ -254,7 +255,7 @@ export default function ReactionTimeGame() {
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [gameState]);
+  }, [gameState, variant]);
 
   // Cleanup timers on unmount
   useEffect(() => {
@@ -305,7 +306,7 @@ export default function ReactionTimeGame() {
         {/* Game board */}
         <div className="relative w-full">
           <div
-            className={`${bgStyle.className} w-full min-h-80 rounded-2xl flex items-center justify-center relative select-none outline-none ${isSummary ? '' : 'cursor-pointer'}`}
+            className={`${bgStyle.className} w-full ${variant === 'embedded' ? 'min-h-64 sm:min-h-72' : 'min-h-80'} rounded-2xl flex items-center justify-center relative select-none outline-none ${isSummary ? '' : 'cursor-pointer'}`}
             onClick={isSummary ? undefined : handleClick}
             tabIndex={isSummary ? -1 : 0}
             ref={containerRef}
@@ -467,7 +468,7 @@ export default function ReactionTimeGame() {
                   <Link
                     href="/blog/what-is-a-good-reaction-time"
                     onClick={() => analytics.navigation.recommendation({
-                      from_page: 'games/reaction-time',
+                      from_page: variant === 'embedded' ? 'categories/reaction-time' : 'games/reaction-time',
                       to_page: '/blog/what-is-a-good-reaction-time',
                       game_from: 'reaction-time',
                       link_location: 'reaction_result_benchmark',

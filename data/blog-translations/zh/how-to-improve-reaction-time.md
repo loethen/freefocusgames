@@ -91,7 +91,7 @@ tool: "/games/reaction-time"
 - Aim Lab、KovaaK's 等瞄准训练软件适合射击游戏玩家练习目标捕捉。
 - 复盘自己的游戏：很多"反应慢"其实是站位或预判问题，而不是手速问题。
 
-在 FreeFocusGames 上，你可以用 [10 秒挑战](/games/challenge-10-seconds) 练节奏感，用 [CPS 测试](/games/cps-test) 练点击速度，用 [Double Decision](/games/double-decision) 练带周边注意力的快速视觉判断。
+在 FreeFocusGames 上，你可以用 [10 秒挑战](/games/challenge-10-seconds) 练节奏感，用 [CPS 测试](/games/cps-test) 练点击速度，用 [Double Decision](/games/double-decision) 练带周边注意力的快速视觉判断，或浏览全部[反应时间游戏](/categories/reaction-time)。
 
 ## 年龄有影响吗？
 

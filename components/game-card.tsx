@@ -27,6 +27,7 @@ export const CATEGORY_DOT: Record<string, string> = {
 interface GameCardProps {
     game: Game;
     isNew?: boolean;
+    priority?: boolean;
     className?: string;
 }
 
@@ -34,13 +35,14 @@ export function gameTitleKey(id: string) {
     return id.replace(/-([a-z])/g, (_, char: string) => char.toUpperCase()).replace(/-/g, "");
 }
 
-export function GameCover({ game, title, sizes }: { game: Game; title: string; sizes: string }) {
+export function GameCover({ game, title, sizes, priority = false }: { game: Game; title: string; sizes: string; priority?: boolean }) {
     if (game.coverImage) {
         return (
             <Image
                 src={game.coverImage}
                 alt={title}
                 fill
+                priority={priority}
                 sizes={sizes}
                 className={cn(
                     "transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none",
@@ -84,7 +86,7 @@ export function GameCategoryLabel({ game }: { game: Game }) {
     );
 }
 
-export default function GameCard({ game, isNew = false, className }: GameCardProps) {
+export default function GameCard({ game, isNew = false, priority = false, className }: GameCardProps) {
     const t = useTranslations("games");
     const titleKey = gameTitleKey(game.id);
     const title = t(`${titleKey}.title`);
@@ -101,6 +103,7 @@ export default function GameCard({ game, isNew = false, className }: GameCardPro
                 <GameCover
                     game={game}
                     title={title}
+                    priority={priority}
                     sizes="(max-width: 639px) 92vw, (max-width: 1279px) 46vw, 31vw"
                 />
             </span>

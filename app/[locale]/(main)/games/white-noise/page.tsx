@@ -9,7 +9,6 @@ import { GamePageTemplate } from '@/components/GamePageTemplate';
 import { generateAlternates } from '@/lib/utils';
 import { pageLocaleParams } from '@/lib/locale-availability';
 import { getLocaleMeta } from '@/lib/locale-meta';
-import { buildHowToSchema } from '@/lib/schema';
 
 const coverImage = '/games/white-noise-cover.png';
 
@@ -73,17 +72,6 @@ export default function WhiteNoisePage({
             image: `${SITE_BASE_URL}${coverImage}`,
             featureList: sounds.map((id) => t(`sounds.${id}.name`)).join(', '),
         },
-        buildHowToSchema({
-            name: t('howToSchema.name'),
-            description: t('howToSchema.description'),
-            url: pageUrl,
-            inLanguage: schemaLang,
-            steps: [
-                { text: t('howToPlay.intro') },
-                { text: t('howToPlay.river') },
-                { text: t('howToPlay.background') },
-            ],
-        }),
     ];
 
     return (

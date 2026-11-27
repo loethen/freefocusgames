@@ -91,7 +91,7 @@ Pure "click when it turns green" reaction time is hard to change much. What does
 - Aim trainers such as Aim Lab or KovaaK's help shooter players practice target acquisition.
 - In your own game, review deaths and missed reactions. Often the fix is better positioning or anticipation, not faster hands.
 
-On FreeFocusGames you can practice related skills with the [10 Second Challenge](/games/challenge-10-seconds) for timing, the [CPS Test](/games/cps-test) for clicking speed, and [Double Decision](/games/double-decision) for fast visual decisions with peripheral attention.
+On FreeFocusGames you can practice related skills with the [10 Second Challenge](/games/challenge-10-seconds) for timing, the [CPS Test](/games/cps-test) for clicking speed, and [Double Decision](/games/double-decision) for fast visual decisions with peripheral attention, or browse all [reaction time games](/categories/reaction-time).
 
 ## What About Age?
 

@@ -64,7 +64,7 @@ tool: "/games/reaction-time"
 - 多测几次，看你的常见平均值，而不只是最好的一次。
 - 想对比几周的变化时，固定在一天中同一时间测。
 
-想变得更快，可以读读[如何提升游戏反应速度](/blog/how-to-improve-reaction-time)：睡眠、设备延迟和练习都会带来差别。
+想变得更快，可以读读[如何提升游戏反应速度](/blog/how-to-improve-reaction-time)，或试试更多[反应时间游戏](/categories/reaction-time)（含 F1 起步、卡秒与选择反应练习）：睡眠、设备延迟和练习都会带来差别。
 
 ## 数据是怎么算的
 

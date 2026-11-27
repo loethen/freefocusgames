@@ -14,6 +14,14 @@ import LinkClickTracker from "@/components/link-click-tracker";
 import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";
 import { filterGamesForLocale, isPathAvailable } from '@/lib/locale-availability';
+import ReactionTimeGame from "@/app/[locale]/(main)/games/reaction-time/components/ReactionTimeGame";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { CategoryGameRail } from "@/components/category-game-rail";
 
 export const dynamic = "force-static";
 export const revalidate = false;
@@ -64,6 +72,19 @@ type HubGroup = { id: string; games: string[] };
 // Hub categories target a broad search term, so they get their own title and
 // grouped content. Copy lives under categories.hubs.<category id>.
 const HUBS: Record<string, { types: HubGroup[]; audiences: HubGroup[]; faq: string[] }> = {
+  "reaction-time": {
+    types: [
+      { id: "simple", games: ["reaction-time", "f1-reaction-test", "challenge10Seconds", "psychomotor-vigilance-test"] },
+      { id: "choice", games: ["double-decision", "larger-number", "focus-reaction-test", "stroop-effect-test"] },
+      { id: "clicking", games: ["cps-test", "spacebar-clicker"] },
+    ],
+    audiences: [
+      { id: "gamers", games: ["reaction-time", "f1-reaction-test", "cps-test"] },
+      { id: "sports", games: ["reaction-time", "double-decision", "focus-reaction-test"] },
+      { id: "quickBreaks", games: ["challenge10Seconds", "spacebar-clicker", "stroop-effect-test"] },
+    ],
+    faq: ["free", "goodTime", "whichGame", "improve"],
+  },
   "memory-games": {
     types: [
       { id: "matching", games: ["memory-matching-game", "baby-animal-matching"] },
@@ -153,17 +174,18 @@ export default async function CategoryPage({ params }: Props) {
   // Hubs list games in the same order as their type groups.
   const hubOrder = hub ? hub.types.flatMap((group) => group.games) : [];
   const listOrder = CATEGORY_GAME_ORDER[category.id];
+  const order = listOrder ?? (hub ? hubOrder : null);
   const rank = (id: string) => {
-    const index = listOrder.indexOf(id);
-    return index === -1 ? listOrder.length : index;
+    if (!order) return 0;
+    const index = order.indexOf(id);
+    return index === -1 ? order.length : index;
   };
   // A partially translated locale (Japanese) lists only its own games.
-  const games = filterGamesForLocale(locale, getGamesByCategory(category.id)).sort((a, b) =>
-    hub ? hubOrder.indexOf(a.id) - hubOrder.indexOf(b.id)
-      : listOrder ? rank(a.id) - rank(b.id)
-      : 0
+  const games = filterGamesForLocale(locale, getGamesByCategory(category.id)).sort(
+    (a, b) => rank(a.id) - rank(b.id)
   );
   const primaryGame = games.find((game) => game.id === PRIMARY_GAME_BY_CATEGORY[category.id]) ?? games[0];
+  const isReactionHub = category.id === 'reaction-time';
 
   // 获取服务器端翻译
   const t = await getTranslations({ locale, namespace: 'categories' });
@@ -176,6 +198,11 @@ export default async function CategoryPage({ params }: Props) {
     ? t.rich(`hubs.${category.id}.intro`, {
         wm: (chunks) => (
           <Link href="/categories/working-memory" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
+            {chunks}
+          </Link>
+        ),
+        test: (chunks) => (
+          <Link href="/games/reaction-time" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
             {chunks}
           </Link>
         ),
@@ -226,6 +253,42 @@ export default async function CategoryPage({ params }: Props) {
         }))
       )
     : [];
+  const reactionPosts = isReactionHub
+    ? await Promise.all(
+        ['what-is-a-good-reaction-time', 'how-to-improve-reaction-time'].map((slug) =>
+          getBlogPost(slug, locale)
+        )
+      )
+    : [];
+  const reactionReadingCards = isReactionHub
+    ? [
+        reactionPosts[0]?.title
+          ? {
+              href: '/blog/what-is-a-good-reaction-time',
+              eyebrow: t('hubs.reaction-time.guides.dataEyebrow'),
+              title: reactionPosts[0].title,
+              description: reactionPosts[0].excerpt,
+              cta: t('hubs.reaction-time.guides.readMore'),
+            }
+          : null,
+        reactionPosts[1]?.title
+          ? {
+              href: '/blog/how-to-improve-reaction-time',
+              eyebrow: t('hubs.reaction-time.guides.guideEyebrow'),
+              title: reactionPosts[1].title,
+              description: reactionPosts[1].excerpt,
+              cta: t('hubs.reaction-time.guides.readMore'),
+            }
+          : null,
+        {
+          href: '/benchmarks',
+          eyebrow: t('hubs.reaction-time.guides.benchmarksEyebrow'),
+          title: t('hubs.reaction-time.benchmarksLink'),
+          description: t('hubs.reaction-time.guides.benchmarksDescription'),
+          cta: t('hubs.reaction-time.guides.viewBenchmarks'),
+        },
+      ].filter((card): card is NonNullable<typeof card> => card !== null && isPathAvailable(locale, card.href))
+    : [];
   const readingLinks = (category.id === 'working-memory'
     ? [
         ...workingMemoryReads.filter((link) => link.label),
@@ -260,13 +323,13 @@ export default async function CategoryPage({ params }: Props) {
         ]}
       />
 
-      <header className="mx-auto mt-10 mb-12 max-w-3xl text-center">
+      <header className={`mx-auto mt-10 ${isReactionHub ? 'mb-8' : 'mb-12'} max-w-3xl text-center`}>
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
           {categoryGamesHeading}
         </h1>
         <p className="mt-4 leading-7 text-foreground/80">{categoryDescription}</p>
 
-        {primaryGame && (
+        {!isReactionHub && primaryGame && (
           <div className="mt-7 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href={`/games/${primaryGame.slug}`}
@@ -280,6 +343,7 @@ export default async function CategoryPage({ params }: Props) {
                     src={primaryGame.coverImage}
                     alt=""
                     fill
+                    priority
                     sizes="128px"
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
@@ -304,18 +368,123 @@ export default async function CategoryPage({ params }: Props) {
         )}
       </header>
 
+      {isReactionHub && (
+        <section aria-label={allT('games.reactionTime.title')} className="mx-auto mb-12 max-w-4xl">
+          <ReactionTimeGame variant="embedded" />
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
+            <Link
+              href="/games/reaction-time"
+              data-link-location="category_primary_cta"
+              className="inline-flex items-center gap-1.5 font-medium text-foreground underline underline-offset-4 hover:text-primary"
+            >
+              {t('hubs.reaction-time.fullTestLink')}
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            {isPathAvailable(locale, 'get-started') && (
+              <Link
+                href="/get-started"
+                data-link-location="category_game_picker"
+                className="inline-flex items-center gap-1.5 font-medium text-primary underline-offset-4 hover:underline"
+              >
+                {t('notSure')}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            )}
+          </div>
+        </section>
+      )}
+
       <section aria-labelledby="category-games-title" data-link-location="category_grid">
         <h2 id="category-games-title" className="mb-5 text-sm font-medium uppercase tracking-[0.14em] text-muted-foreground">
           {t('gridTitle', { count: games.length, categoryName })}
         </h2>
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5 lg:grid-cols-3">
-          {games.map((game) => (
-            <GameCard key={game.id} game={game} />
-          ))}
-        </div>
+        {isReactionHub ? (
+          <div className="space-y-10">
+            {hubGroups('types').map((group, groupIndex) => (
+              <CategoryGameRail
+                key={group.id}
+                title={t(`hubs.reaction-time.types.${group.id}.title`)}
+                description={t(`hubs.reaction-time.types.${group.id}.body`)}
+                gameIds={group.games}
+                priorityCount={groupIndex === 0 ? 3 : 0}
+                prevLabel={allT('home.featuredPrev')}
+                nextLabel={allT('home.featuredNext')}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:gap-5 lg:grid-cols-3">
+            {games.map((game, index) => (
+              <GameCard key={game.id} game={game} priority={index < 3} />
+            ))}
+          </div>
+        )}
       </section>
 
-      {hub && (
+      {hub && isReactionHub && (
+        <>
+          <div aria-hidden="true" className="mx-auto my-14 h-px w-16 bg-border" />
+          <div data-link-location="category_hub" className="mt-0 space-y-16">
+          <section aria-labelledby="hub-audiences-title" className="mx-auto max-w-5xl">
+            <h2 id="hub-audiences-title" className="text-2xl font-bold tracking-tight">
+              {t(`hubs.${category.id}.audiencesTitle`)}
+            </h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              {hubGroups('audiences').map((group) => (
+                <div
+                  key={group.id}
+                  className="flex flex-col justify-between rounded-2xl bg-muted/40 p-5 sm:p-6"
+                >
+                  <div>
+                    <h3 className="text-base font-semibold">
+                      {t(`hubs.${category.id}.audiences.${group.id}.title`)}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                      {t(`hubs.${category.id}.audiences.${group.id}.body`)}
+                    </p>
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {group.games.map((id) => {
+                      const game = getGame(id);
+                      return game ? (
+                        <Link
+                          key={id}
+                          href={`/games/${game.slug}`}
+                          className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-3 py-1 text-xs font-medium text-foreground transition-colors hover:border-primary/40 hover:text-primary"
+                        >
+                          {gameTitle(id)}
+                          <ArrowRight className="h-3 w-3" aria-hidden="true" />
+                        </Link>
+                      ) : null;
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section aria-labelledby="hub-faq-title" className="mx-auto max-w-3xl">
+            <h2 id="hub-faq-title" className="text-2xl font-bold tracking-tight">
+              {t(`hubs.${category.id}.faqTitle`)}
+            </h2>
+            <Accordion type="single" collapsible defaultValue="faq-0" className="mt-5">
+              {hub.faq.map((id, index) => (
+                <AccordionItem key={id} value={`faq-${index}`} className="border-border/60">
+                  <AccordionTrigger className="py-5 text-base font-semibold hover:no-underline">
+                    {t(`hubs.${category.id}.faq.${id}.q`)}
+                  </AccordionTrigger>
+                  <AccordionContent forceMount className="text-sm leading-7 text-muted-foreground">
+                    {t(`hubs.${category.id}.faq.${id}.a`)}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </section>
+          </div>
+        </>
+      )}
+
+      {hub && !isReactionHub && (
         <div data-link-location="category_hub" className="mx-auto mt-16 max-w-3xl space-y-14">
           {(['types', 'audiences'] as const).map((part) => (
             <section key={part} aria-labelledby={`hub-${part}-title`}>
@@ -366,35 +535,91 @@ export default async function CategoryPage({ params }: Props) {
         </div>
       )}
 
-      <section
-        aria-labelledby="category-about-title"
-        data-link-location="category_about"
-        className="mx-auto mt-16 max-w-2xl space-y-3 text-sm leading-7 text-muted-foreground"
-      >
-        <h2 id="category-about-title" className="text-base font-semibold text-foreground">
-          {t('aboutTitle', { categoryName })}
-        </h2>
-        <p>{categoryIntro}</p>
-        {readingLinks.length > 0 && (
-          <ul className="space-y-1">
-            {readingLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="inline-flex items-center gap-1.5 font-medium text-foreground underline underline-offset-4 hover:text-primary">
-                  {link.label}
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      {isReactionHub ? (
+        <section
+          aria-labelledby="category-about-title"
+          data-link-location="category_about"
+          className="mx-auto mt-16 max-w-5xl rounded-3xl bg-muted/40 p-6 sm:p-8 lg:p-10"
+        >
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 id="category-about-title" className="text-2xl font-bold tracking-tight text-foreground">
+                {t('aboutTitle', { categoryName })}
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground sm:text-base">
+                {categoryIntro}
+              </p>
+            </div>
+            {isPathAvailable(locale, 'categories') && (
+              <Link
+                href="/categories"
+                className="inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-primary underline-offset-4 hover:underline"
+              >
+                {t('backToAll')}
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            )}
+          </div>
+
+          {reactionReadingCards.length > 0 && (
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {reactionReadingCards.map((card) => (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  className="group flex flex-col justify-between rounded-2xl bg-background p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+                >
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-primary">
+                      {card.eyebrow}
+                    </div>
+                    <h3 className="mt-2 text-base font-semibold leading-snug text-foreground transition-colors group-hover:text-primary">
+                      {card.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">
+                      {card.description}
+                    </p>
+                  </div>
+                  <div className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+                    {card.cta}
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+                  </div>
                 </Link>
-              </li>
-            ))}
-          </ul>
-        )}
-        {isPathAvailable(locale, 'categories') && (
-          <p>
-            <Link href="/categories" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
-              {t('backToAll')}
-            </Link>
-          </p>
-        )}
-      </section>
+              ))}
+            </div>
+          )}
+        </section>
+      ) : (
+        <section
+          aria-labelledby="category-about-title"
+          data-link-location="category_about"
+          className="mx-auto mt-16 max-w-2xl space-y-3 text-sm leading-7 text-muted-foreground"
+        >
+          <h2 id="category-about-title" className="text-base font-semibold text-foreground">
+            {t('aboutTitle', { categoryName })}
+          </h2>
+          <p>{categoryIntro}</p>
+          {readingLinks.length > 0 && (
+            <ul className="space-y-1">
+              {readingLinks.map((link) => (
+                <li key={link.href}>
+                  <Link href={link.href} className="inline-flex items-center gap-1.5 font-medium text-foreground underline underline-offset-4 hover:text-primary">
+                    {link.label}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+          {isPathAvailable(locale, 'categories') && (
+            <p>
+              <Link href="/categories" className="font-medium text-foreground underline underline-offset-4 hover:text-primary">
+                {t('backToAll')}
+              </Link>
+            </p>
+          )}
+        </section>
+      )}
     </LinkClickTracker>
   );
 } 

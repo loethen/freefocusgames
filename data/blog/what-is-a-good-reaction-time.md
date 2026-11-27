@@ -64,7 +64,7 @@ That is why it makes more sense to compare your score with other people on the s
 - Take the test a few times and look at your typical average, not just your best run.
 - Test at the same time of day when you want to compare results over weeks.
 
-If you want to get faster, read [how to improve reaction time for gaming](/blog/how-to-improve-reaction-time). Sleep, device latency, and practice all make a difference.
+If you want to get faster, read [how to improve reaction time for gaming](/blog/how-to-improve-reaction-time), or try more [reaction time games](/categories/reaction-time) for reflexes, F1 starts, and choice speed. Sleep, device latency, and practice all make a difference.
 
 ## How we calculated these numbers
 
