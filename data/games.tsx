@@ -109,7 +109,7 @@ export const games: Game[] = [
         fit="cover"
       />
     ),
-    categories: ["relaxation", "sustained-attention"],
+    categories: ["relaxation", "sustained-attention", "for-fun"],
   },
   {
     id: "bamboo-cicada",
