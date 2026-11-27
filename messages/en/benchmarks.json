@@ -1,10 +1,10 @@
 {
   "benchmarks": {
     "metaTitle": "Average Test Scores: Reaction Time, CPS, Schulte and Memory",
-    "metaDescription": "Real player averages: median reaction time 369 ms, 7 CPS, Schulte table 26.4 s, digit span 7. See full distributions, top 10% scores, and where your result lands.",
+    "metaDescription": "Real player averages: median reaction time 368 ms, 7 CPS, Schulte table 26.8 s, digit span 7. See full distributions, top 10% scores, and where your result lands.",
     "title": "Average Scores on Our Reflex, Focus and Memory Tests",
-    "intro": "Medians, top scores and full distributions from more than 44,000 player results on FreeFocusGames. Each player counts once, with their best result. Take a test, then come back to see where you land.",
-    "updated": "Data up to October 25, 2026",
+    "intro": "Medians, top scores and full distributions from more than 55,000 player results on FreeFocusGames. Each player counts once, with their best result. Take a test, then come back to see where you land.",
+    "updated": "Data up to November 27, 2026",
     "methodLink": "How we collect and filter this data",
     "summaryTitle": "At a glance",
     "table": {
@@ -33,10 +33,10 @@
       "reactionTime": {
         "name": "Reaction time",
         "heading": "Average reaction time",
-        "text": "The median player averages 369 ms over five rounds. Under 284 ms puts you in the top 10%, and under 233 ms in the top 1%. Your device adds some delay, so online results run slower than lab figures.",
+        "text": "The median player averages 368 ms over five rounds. Under 280 ms puts you in the top 10%, and under 231 ms in the top 1%. Your device adds some delay, so online results run slower than lab figures.",
         "axis": "Best five-round average (ms)",
-        "aria": "Histogram of best reaction time averages. Most players fall between 280 and 440 ms; the median is 369 ms.",
-        "note": "Bars are 20 ms wide. 218 players between 800 and 1,000 ms are not shown."
+        "aria": "Histogram of best reaction time averages. Most players fall between 280 and 440 ms; the median is 368 ms.",
+        "note": "Bars are 20 ms wide. 281 players between 800 and 1,000 ms are not shown."
       },
       "tenSeconds": {
         "name": "10 Second Challenge",
@@ -49,15 +49,15 @@
       "schulte": {
         "name": "Schulte table 5×5",
         "heading": "Average Schulte table time (5×5)",
-        "text": "The median best time is 26.4 seconds, including a 2-second penalty for each wrong tap. Under 17.1 seconds puts you in the top 10%, and under 11.6 seconds in the top 1%.",
+        "text": "The median best time is 26.8 seconds, including a 2-second penalty for each wrong tap. Under 17.2 seconds puts you in the top 10%, and under 11.7 seconds in the top 1%.",
         "axis": "Best time (seconds)",
-        "aria": "Histogram of best Schulte table times. Most players finish between 16 and 34 seconds; the median is 26.4 seconds.",
-        "note": "Bars are 2 seconds wide. 267 players above 70 seconds are not shown."
+        "aria": "Histogram of best Schulte table times. Most players finish between 16 and 34 seconds; the median is 26.8 seconds.",
+        "note": "Bars are 2 seconds wide. 315 players above 70 seconds are not shown."
       },
       "cps": {
         "name": "CPS test (5 s)",
         "heading": "Average CPS (clicks per second)",
-        "text": "In the 5-second test, the median player reaches 7.0 clicks per second. 11 CPS puts you in the top 10%, and 14.4 in the top 1%. Results above 16 CPS are excluded as likely auto-clickers.",
+        "text": "In the 5-second test, the median player reaches 7.0 clicks per second. 11 CPS puts you in the top 10%, and 14.3 in the top 1%. Results above 16 CPS are excluded as likely auto-clickers.",
         "axis": "Best clicks per second",
         "aria": "Histogram of best CPS scores. Most players reach 5 to 9 CPS; the median is 7.0.",
         "note": "Bars are 1 CPS wide."
@@ -65,7 +65,7 @@
       "digitSpan": {
         "name": "Digit span (forward)",
         "heading": "Average digit span",
-        "text": "Half of players recall at least 7 digits in order, matching the classic \"seven, plus or minus two\". The top 10% reach 10 digits or more. This is early data from 214 players.",
+        "text": "Half of players recall at least 7 digits in order, matching the classic \"seven, plus or minus two\". The top 10% reach 10 digits or more, across 601 players.",
         "axis": "Longest sequence recalled (digits)",
         "aria": "Bar chart of best forward digit spans. The most common span is 6 digits; the median is 7.",
         "note": "Each bar is one span length."
@@ -73,15 +73,15 @@
       "trailMaking": {
         "name": "Trail Making Test",
         "heading": "Average Trail Making Test times",
-        "text": "The median player finishes Part A in 34.6 seconds and Part B in 58.8 seconds. The top 10% are under 24.2 and 39.0 seconds. Medians and top 10% show Part A / Part B; the chart shows both parts combined. Early data from 201 players.",
+        "text": "The median player finishes Part A in 35.5 seconds and Part B in 59.6 seconds. The top 10% are under 23.7 and 38.2 seconds. Medians and top 10% show Part A / Part B; the chart shows both parts combined across 584 players.",
         "axis": "Part A + Part B (seconds)",
         "aria": "Histogram of combined Trail Making Test times. Most players finish both parts in 70 to 110 seconds.",
-        "note": "Bars are 10 seconds wide. 12 players above 200 seconds are not shown."
+        "note": "Bars are 10 seconds wide. 35 players above 200 seconds are not shown."
       }
     },
     "nback": {
       "heading": "Dual n-back: how far do players get?",
-      "text": "576 players have cleared dual n-back at 2-back or higher. Our leaderboard keeps each player's fastest clear rather than their highest level, so these shares are lower bounds.",
+      "text": "638 players have cleared dual n-back at 2-back or higher. Our leaderboard keeps each player's fastest clear rather than their highest level, so these shares are lower bounds.",
       "level": "Cleared at least",
       "share": "Share of players",
       "atLeast": "At least {share}%",
@@ -92,7 +92,7 @@
       "items": [
         {
           "q": "What is a good reaction time?",
-          "a": "On our test, under 300 ms is faster than about 84% of players, and the median is 369 ms."
+          "a": "On our test, under 300 ms is faster than about 83% of players, and the median is 368 ms."
         },
         {
           "q": "What is the average CPS?",

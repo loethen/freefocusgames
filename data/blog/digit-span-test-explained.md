@@ -2,7 +2,8 @@
 title: "Digit Span Test Explained: Forward vs Backward and What Your Span Means"
 seoTitle: "Digit Span Test Explained: Forward vs Backward and Typical Spans"
 date: "2026-10-25"
-excerpt: "What a digit span test measures, why backward recall is harder than forward, why 7 digits is a famous number, and typical spans from our first 214 players."
+updatedAt: "2026-11-27"
+excerpt: "What a digit span test measures, why backward recall is harder than forward, why 7 digits is a famous number, and typical spans from 601 players."
 metaDescription: "Digit span test explained: what forward and backward span measure, why 7 digits is famous, and typical results (median forward span of 7 on our online test)."
 coverImage: "/games/digit-span-test-cover-v2.png"
 keywords: "digit span test, digit span forward and backward, what is a good digit span, average digit span, backward digit span, digit span working memory, digit span test online"
@@ -55,18 +56,18 @@ Later research refined it. When people cannot group items into familiar chunks, 
 
 ## Typical spans on our online test
 
-From the first 214 players of our forward version (October 2026), each with their best result:
+From 601 players of our forward version (October to November 2026), each with their best result:
 
 | Forward span reached | Share of players |
 | --- | --- |
-| 7 or more | 55% |
-| 8 or more | 39% |
-| 9 or more | 23% |
-| 10 or more | 12% |
+| 7 or more | 51% |
+| 8 or more | 32% |
+| 9 or more | 19% |
+| 10 or more | 10% |
 
 The median forward span was **7 digits**, matching Miller's classic figure. Most players landed between 5 and 9. We don't publish backward results yet because too few players have finished that version.
 
-These are early numbers from a small, self-selected group. Our version also shows digits on screen and lets you type at your own pace, while clinical versions read digits aloud, so the results are not directly comparable.
+These are early numbers from a self-selected group. Our version also shows digits on screen and lets you type at your own pace, while clinical versions read digits aloud, so the results are not directly comparable.
 
 For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
 

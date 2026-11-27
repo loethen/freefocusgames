@@ -2,7 +2,7 @@
 title: "Dual N-Back: How to Play and What the Research Says"
 seoTitle: "Dual N-Back Explained: How to Play and What the Research Says"
 date: "2025-09-18"
-updatedAt: "2026-10-25"
+updatedAt: "2026-11-27"
 excerpt: "How dual n-back works, a step-by-step 1-back walkthrough, when to move up a level, and an honest look at what studies say about working memory and intelligence."
 metaDescription: "Learn how to play dual n-back with a 1-back walkthrough and level tips, plus what research really shows: better at the task, but little proof it raises intelligence."
 coverImage: "/blog/dual-n-back-interactive-tutorial-cover.jpg"
@@ -79,17 +79,17 @@ Dropping back a level after a bad round is normal. Steady sessions at the right 
 
 ## How far do players get?
 
-On FreeFocusGames, 576 players have cleared dual n-back at 2-back or higher, meaning a round of at least 20 steps with 80% accuracy or better. Among them:
+On FreeFocusGames, 638 players have cleared dual n-back at 2-back or higher, meaning a round of at least 20 steps with 80% accuracy or better. Among them:
 
 | Cleared at least | Share of these players |
 | --- | --- |
-| 3-back | At least 24% |
-| 4-back | At least 11.5% |
-| 5-back | At least 4% |
+| 3-back | At least 23.7% |
+| 4-back | At least 10.8% |
+| 5-back | At least 3.8% |
 
 The median accuracy in these clearing rounds was 89%.
 
-**Why "at least":** our leaderboard keeps only each player's fastest clear, not their highest level. Short 2-back rounds are usually the fastest, so many players who later cleared a higher level are still counted at 2-back here. The real shares are higher than these numbers. Data from April 24 to October 24, 2026; four 10-back records that are very unlikely to be genuine were left out.
+**Why "at least":** our leaderboard keeps only each player's fastest clear, not their highest level. Short 2-back rounds are usually the fastest, so many players who later cleared a higher level are still counted at 2-back here. The real shares are higher than these numbers. Data from April 24 to November 27, 2026; records outside 2-back to 6-back were left out.
 
 For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
 

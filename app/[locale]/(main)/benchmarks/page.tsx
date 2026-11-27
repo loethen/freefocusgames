@@ -48,7 +48,7 @@ export default async function BenchmarksPage({ params }: { params: Promise<{ loc
     url: pageUrl,
     isAccessibleForFree: true,
     license: 'https://creativecommons.org/licenses/by/4.0/',
-    temporalCoverage: '2026-03-08/2026-10-25',
+    temporalCoverage: '2026-03-08/2026-11-27',
     creator: {
       '@type': 'Organization',
       name: 'FreeFocusGames',

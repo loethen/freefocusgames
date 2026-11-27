@@ -1110,7 +1110,7 @@
       "faq": {
         "good": {
           "question": "What is a good reaction time?",
-          "answer": "On this test the median player averages 369 ms over five rounds. Under 284 ms puts you in the top 10% of 8,791 players, and under 233 ms in the top 1%. <link>See the full distribution of scores</link>."
+          "answer": "On this test the median player averages 368 ms over five rounds. Under 280 ms puts you in the top 10% of 12,157 players, and under 231 ms in the top 1%. <link>See the full distribution of scores</link>."
         },
         "what": {
           "question": "What is reaction time?",
@@ -1181,7 +1181,7 @@
         "yourRounds": "Your rounds (best in green)",
         "slower": "Slower",
         "faster": "Faster",
-        "compareLink": "See how 8,791 players compare",
+        "compareLink": "See how 12,157 players compare",
         "startTitle": "Click to start",
         "keyboardHint": "You can also press",
         "spaceKey": "Space",
@@ -2624,7 +2624,7 @@
         },
         "goodTime": {
           "question": "What is a good F1 reaction time?",
-          "answer": "F1 teams quote 0.2 to 0.3 seconds for a race start. Online, device delay adds to every result. For comparison, on our Reaction Time Test the median player's best five-round average is 0.369 seconds, and only about 10% of players average under 0.284 seconds. A time under 0.25 seconds here is very fast."
+          "answer": "F1 teams quote 0.2 to 0.3 seconds for a race start. Online, device delay adds to every result. For comparison, on our Reaction Time Test the median player's best five-round average is 0.368 seconds, and only about 10% of players average under 0.280 seconds. A time under 0.25 seconds here is very fast."
         },
         "jumpStart": {
           "question": "What counts as a jump start?",

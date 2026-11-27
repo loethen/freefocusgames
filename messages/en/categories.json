@@ -294,7 +294,7 @@
           },
           "goodTime": {
             "q": "What is a good reaction time on an online test?",
-            "a": "Across 8,791 players who completed our five-round reaction time test, the median average is 369 ms. Scoring under 300 ms beats about 84% of players, and under 250 ms puts you in the top 3%. Browser tests read higher than ~200 ms lab averages because monitors, mice, and touchscreens add display and input delay."
+            "a": "Across 12,157 players who completed our five-round reaction time test, the median average is 368 ms. Scoring under 300 ms beats about 83% of players, and under 250 ms puts you in the top 3%. Browser tests read higher than ~200 ms lab averages because monitors, mice, and touchscreens add display and input delay."
           },
           "whichGame": {
             "q": "Which reaction game should I start with?",

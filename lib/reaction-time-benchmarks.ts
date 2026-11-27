@@ -1,27 +1,27 @@
-// Reaction time benchmarks from real players: best five-round averages of 8,791 players on
-// FreeFocusGames (March 8 to October 23, 2026, excluding results under 120 ms or over 1,000 ms).
+// Reaction time benchmarks from real players: best five-round averages of 12,157 players on
+// FreeFocusGames (March 8 to November 27, 2026, excluding results under 120 ms or over 1,000 ms).
 // Each point pairs an average in milliseconds with the share of players who were slower.
 // The same data backs /blog/what-is-a-good-reaction-time; update both together.
 const FASTER_THAN_POINTS: [ms: number, fasterThanPercent: number][] = [
-  [200, 99.9],
-  [233, 99],
-  [250, 97.6],
-  [266, 95],
-  [284, 90],
-  [300, 84.2],
-  [320, 75],
-  [350, 60.7],
-  [369, 50],
-  [400, 36.4],
-  [440, 25],
-  [500, 16.5],
-  [582, 10],
-  [687, 5],
+  [200, 99.8],
+  [231, 99],
+  [250, 97.2],
+  [261, 95],
+  [280, 90],
+  [300, 82.8],
+  [318, 75],
+  [350, 59.8],
+  [368, 50],
+  [400, 36.6],
+  [441, 25],
+  [500, 16.4],
+  [577, 10],
+  [682, 5],
   [1000, 0],
 ];
 
 // The median best average: half of all players were faster.
-export const REACTION_MEDIAN_MS = 369;
+export const REACTION_MEDIAN_MS = 368;
 
 export type ReactionRating = "godlike" | "excellent" | "good" | "average" | "slow";
 
@@ -45,19 +45,19 @@ export function reactionFasterThanPercent(ms: number): number {
 // Rating bands follow the player percentiles: top 5%, top 25%, faster than the median,
 // the middle half, and the slowest quarter.
 export function reactionRating(ms: number): ReactionRating {
-  if (ms <= 266) return "godlike";
-  if (ms <= 320) return "excellent";
-  if (ms <= 369) return "good";
-  if (ms <= 440) return "average";
+  if (ms <= 261) return "godlike";
+  if (ms <= 318) return "excellent";
+  if (ms <= 368) return "good";
+  if (ms <= 441) return "average";
   return "slow";
 }
 
 // Distribution of the same best averages in 20 ms bins: [bin start in ms, players].
-// Results from 800 to 1,000 ms (218 players) sit outside the chart range.
-export const REACTION_DISTRIBUTION_TOTAL = 8791;
+// Results from 800 to 1,000 ms (281 players) sit outside the chart range.
+export const REACTION_DISTRIBUTION_TOTAL = 12157;
 export const REACTION_DISTRIBUTION_BINS: [binStartMs: number, players: number][] = [
-  [160, 3], [180, 8], [200, 38], [220, 85], [240, 211], [260, 383], [280, 654], [300, 764],
-  [320, 854], [340, 956], [360, 870], [380, 762], [400, 539], [420, 445], [440, 324], [460, 245],
-  [480, 201], [500, 159], [520, 133], [540, 139], [560, 120], [580, 120], [600, 96], [620, 85],
-  [640, 79], [660, 59], [680, 55], [700, 33], [720, 52], [740, 37], [760, 29], [780, 36],
+  [160, 3], [180, 16], [200, 47], [220, 141], [240, 360], [260, 617], [280, 905], [300, 1061],
+  [320, 1130], [340, 1253], [360, 1142], [380, 1033], [400, 746], [420, 616], [440, 454], [460, 352],
+  [480, 286], [500, 246], [520, 203], [540, 181], [560, 166], [580, 146], [600, 138], [620, 113],
+  [640, 109], [660, 73], [680, 77], [700, 43], [720, 69], [740, 57], [760, 49], [780, 44],
 ];

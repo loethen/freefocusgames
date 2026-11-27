@@ -1,10 +1,10 @@
 ---
-title: "10 Second Challenge: How Close Do People Really Get? Data From 19,788 Players"
+title: "10 Second Challenge: How Close Do People Really Get? Data From 23,851 Players"
 seoTitle: "10 Second Challenge: How Close Do People Get? Real Player Data"
 date: "2026-01-27"
-updatedAt: "2026-10-25"
-excerpt: "We looked at 19,788 players' best attempts at stopping the timer at exactly 10 seconds. The typical best miss is just 32 ms, but hide the timer and it grows to about a quarter of a second."
-metaDescription: "How close do people get in the 10 second challenge? Data from 19,788 players: the typical best miss is 32 ms, 1% hit 10.0000 exactly, and hiding the timer makes it 8 times harder."
+updatedAt: "2026-11-27"
+excerpt: "We looked at 23,851 players' best attempts at stopping the timer at exactly 10 seconds. The typical best miss is just 32 ms, but hide the timer and it grows to about a quarter of a second."
+metaDescription: "How close do people get in the 10 second challenge? Data from 23,851 players: the typical best miss is 32 ms, 1% hit 10.0000 exactly, and hiding the timer makes it nearly 8 times harder."
 coverImage: "/games/challenge-10-seconds.png"
 keywords: "10 second challenge, 10 seconds challenge, stop the timer at 10 seconds, 10 second challenge average, how to win the 10 second challenge, time stop game, stopwatch challenge"
 author:
@@ -16,7 +16,7 @@ topic: "reaction"
 tool: "/games/challenge-10-seconds"
 ---
 
-**With the timer visible, the typical player's best attempt misses 10 seconds by just 32 milliseconds, and about 1% stop at exactly 10.0000. Hide the timer and the typical best miss grows to 254 milliseconds, about eight times worse.**
+**With the timer visible, the typical player's best attempt misses 10 seconds by just 32 milliseconds, and about 1% stop at exactly 10.0000. Hide the timer and the typical best miss grows to 245 milliseconds, nearly eight times worse.**
 
 These numbers come from the [10 Second Challenge](/games/challenge-10-seconds) on FreeFocusGames, where each player keeps their closest attempt.
 
@@ -26,7 +26,7 @@ The idea spread through short videos of restaurant and arcade stopwatch machines
 
 ## How close do people get?
 
-With the timer visible (standard mode), 19,788 players:
+With the timer visible (standard mode), 23,851 players:
 
 | Closest attempt within | Share of players |
 | --- | --- |
@@ -43,27 +43,27 @@ With the timer visible (standard mode), 19,788 players:
 | Top 25% | 9 ms |
 | Median | 32 ms |
 | Bottom 25% | 92 ms |
-| Bottom 10% | 203 ms |
+| Bottom 10% | 207 ms |
 
 So if your best is within 0.05 seconds, you are already better than most players. Within 0.01 seconds puts you in roughly the top quarter.
 
 ## Hide the timer and it gets much harder
 
-In hidden mode the numbers disappear once the timer starts, so you have to count on your own. 2,286 players:
+In hidden mode the numbers disappear once the timer starts, so you have to count on your own. 3,589 players:
 
 | Closest attempt within | Standard mode | Hidden mode |
 | --- | --- | --- |
 | 0.01 s | 27% | 5% |
 | 0.05 s | 61% | 18% |
-| 0.10 s | 77% | 28% |
-| 0.25 s | 92% | 49% |
+| 0.10 s | 77% | 29% |
+| 0.25 s | 92% | 50% |
 | 1.00 s | 99% | 87% |
 
-The median best miss is 254 ms in hidden mode against 32 ms with the timer visible. Without the numbers to watch, you rely entirely on your internal sense of time, and small drifts add up over ten seconds.
+The median best miss is 245 ms in hidden mode against 32 ms with the timer visible. Without the numbers to watch, you rely entirely on your internal sense of time, and small drifts add up over ten seconds.
 
 ## Early or late?
 
-Almost exactly half. In standard mode 46% of players' best attempts stopped early and 54% late; in hidden mode it was 50/50. There is no "safe side" to aim for.
+Almost exactly half. In standard mode 46% of players' best attempts stopped early and 54% late; in hidden mode it was 51% early and 49% late. There is no "safe side" to aim for.
 
 ## Why it is so hard
 
@@ -80,8 +80,8 @@ Almost exactly half. In standard mode 46% of players' best attempts stopped earl
 
 ## How we calculated these numbers
 
-- **Data:** each player's closest attempt in standard mode (March 27 to October 25, 2026) and hidden mode (September 9 to October 25, 2026).
-- **Exclusions:** attempts more than 3 seconds away from 10 seconds, which usually mean the player got distracted. That left 19,788 players in standard mode and 2,286 in hidden mode.
+- **Data:** each player's closest attempt in standard mode (March 27 to November 27, 2026) and hidden mode (September 9 to November 27, 2026).
+- **Exclusions:** attempts more than 3 seconds away from 10 seconds, which usually mean the player got distracted. That left 23,851 players in standard mode and 3,589 in hidden mode.
 - **Limits:** each player counts with their best attempt out of any number of tries, so these numbers show what people can reach with practice, not a typical single try.
 
 For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).

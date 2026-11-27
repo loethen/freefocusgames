@@ -2,8 +2,9 @@
 title: "Trail Making Test Explained: Parts A and B, What They Measure, and Typical Times"
 seoTitle: "Trail Making Test A and B Explained: What It Measures and Typical Times"
 date: "2026-10-25"
-excerpt: "What the Trail Making Test measures, why Part B is harder than Part A, how to read the B minus A difference, and typical online times from our first 201 players."
-metaDescription: "Trail Making Test A and B explained: what each part measures, why B takes longer, how to read B minus A, and typical online times (A about 35 s, B about 59 s)."
+updatedAt: "2026-11-27"
+excerpt: "What the Trail Making Test measures, why Part B is harder than Part A, how to read the B minus A difference, and typical online times from 584 players."
+metaDescription: "Trail Making Test A and B explained: what each part measures, why B takes longer, how to read B minus A, and typical online times (A about 36 s, B about 60 s)."
 coverImage: "/games/trail-making-test-cover-v2.png"
 keywords: "trail making test, trail making test a and b, trail making test part b, trail making test explained, trail making test scores, trail making test normal time, trail making test b minus a"
 author:
@@ -53,18 +54,18 @@ Because Part B includes everything Part A does, the most useful numbers compare 
 
 ## Typical times on our online test
 
-From the first 201 players who finished both parts (October 2026), each with their best attempt:
+From 584 players who finished both parts (October to November 2026), each with their best attempt:
 
 | Measure | Median | Middle half of players |
 | --- | --- | --- |
-| Part A | 34.6 s | 28.8 to 43.0 s |
-| Part B | 58.8 s | 47.9 to 78.2 s |
-| B minus A | 22.0 s | 14.4 to 36.0 s |
+| Part A | 35.5 s | 28.8 to 44.3 s |
+| Part B | 59.6 s | 47.9 to 78.2 s |
+| B minus A | 23.1 s | 14.0 to 37.8 s |
 | B divided by A | 1.7 | 1.4 to 2.0 |
 
-Part B took about 1.7 times as long as Part A for the typical player, and 72% of players made at least one error in Part B, against a median of zero errors in Part A.
+Part B took about 1.7 times as long as Part A for the typical player, and 70% of players made at least one error in Part B, against a median of zero errors in Part A.
 
-These are early numbers from a small, self-selected group, so treat them as a rough guide. They also are not comparable with clinical norms: our version is played with a mouse or finger on a screen with randomly placed circles, while clinical norms come from the standard paper forms under controlled conditions.
+These are early numbers from a self-selected group, so treat them as a rough guide. They also are not comparable with clinical norms: our version is played with a mouse or finger on a screen with randomly placed circles, while clinical norms come from the standard paper forms under controlled conditions.
 
 For how we collect, filter, and cite all of our player data, see [our data methodology](/methodology).
 
@@ -84,7 +85,7 @@ For how we collect, filter, and cite all of our player data, see [our data metho
 ## FAQ
 
 **What is a normal time for the Trail Making Test?**
-On our online version, the typical player finished Part A in about 35 seconds and Part B in about 59 seconds. Clinical paper versions use their own age- and education-based norms.
+On our online version, the typical player finished Part A in about 36 seconds and Part B in about 60 seconds. Clinical paper versions use their own age- and education-based norms.
 
 **Why is Part B so much harder?**
 Because you have to switch between numbers and letters on every step, and keep track of where you are in both sequences.
